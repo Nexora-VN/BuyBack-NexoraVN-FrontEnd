@@ -19,4 +19,9 @@ export const exampleService = {
       `${API_ENDPOINTS.examples}/${id}`,
     );
   },
+
+  testService() {
+    return apiClient.get(API_ENDPOINTS.health
+    );
+  },
 };
