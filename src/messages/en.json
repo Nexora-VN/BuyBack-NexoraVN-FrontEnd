@@ -1,0 +1,34 @@
+{
+  "Metadata": {
+    "title": "NexoraVN Starter",
+    "description": "A modern Next.js foundation for launching new products faster."
+  },
+  "Navigation": {
+    "home": "Home",
+    "features": "Features",
+    "architecture": "Architecture"
+  },
+  "Home": {
+    "eyebrow": "Next.js 16 · React 19",
+    "title": "A clean foundation for your next product.",
+    "description": "The starter includes internationalization, a typed API client, server-state management, and a minimal UI system.",
+    "primaryAction": "Explore architecture",
+    "secondaryAction": "Check API",
+    "featuresLabel": "Included in the starter",
+    "featureI18nTitle": "Internationalization",
+    "featureI18nDescription": "Routing and starter content for Vietnamese and English.",
+    "featureApiTitle": "Shared API layer",
+    "featureApiDescription": "A typed fetch client with timeouts, query params, and normalized errors.",
+    "featureUiTitle": "Flexible UI",
+    "featureUiDescription": "Tailwind CSS v4 and a shadcn foundation ready to extend.",
+    "architectureTitle": "Keep the structure. Remove the old constraints.",
+    "architectureDescription": "App, component, module, service, and provider layers remain clearly separated so teams can add features without rebuilding the foundation."
+  },
+  "Footer": {
+    "description": "A reusable frontend starter for NexoraVN products.",
+    "copyright": "NexoraVN. Ready to build."
+  },
+  "Language": {
+    "label": "Language"
+  }
+}

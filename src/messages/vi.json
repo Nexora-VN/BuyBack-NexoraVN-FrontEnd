@@ -1,0 +1,34 @@
+{
+  "Metadata": {
+    "title": "NexoraVN Starter",
+    "description": "Bộ khung Next.js hiện đại để bắt đầu sản phẩm mới nhanh hơn."
+  },
+  "Navigation": {
+    "home": "Trang chủ",
+    "features": "Tính năng",
+    "architecture": "Kiến trúc"
+  },
+  "Home": {
+    "eyebrow": "Next.js 16 · React 19",
+    "title": "Một nền tảng sạch để bắt đầu sản phẩm tiếp theo.",
+    "description": "Starter đã cấu hình sẵn đa ngôn ngữ, API client, quản lý server state và hệ thống UI tối giản.",
+    "primaryAction": "Khám phá kiến trúc",
+    "secondaryAction": "Kiểm tra API",
+    "featuresLabel": "Có sẵn trong starter",
+    "featureI18nTitle": "Đa ngôn ngữ",
+    "featureI18nDescription": "Routing và nội dung mẫu cho tiếng Việt và tiếng Anh.",
+    "featureApiTitle": "API dùng chung",
+    "featureApiDescription": "Fetch client typed, timeout, query params và xử lý lỗi chuẩn hóa.",
+    "featureUiTitle": "UI linh hoạt",
+    "featureUiDescription": "Tailwind CSS v4 và shadcn foundation sẵn sàng mở rộng.",
+    "architectureTitle": "Giữ cấu trúc, bỏ ràng buộc cũ.",
+    "architectureDescription": "Các lớp app, component, module, service và provider được tách rõ để đội ngũ thêm tính năng mà không phải dựng lại nền móng."
+  },
+  "Footer": {
+    "description": "Starter frontend tái sử dụng cho các sản phẩm NexoraVN.",
+    "copyright": "NexoraVN. Sẵn sàng để phát triển."
+  },
+  "Language": {
+    "label": "Ngôn ngữ"
+  }
+}
