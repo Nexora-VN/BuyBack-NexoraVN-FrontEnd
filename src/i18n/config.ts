@@ -6,4 +6,4 @@ export {
   type Locale,
 } from "@/constants/languages";
 
-export const timeZone = "UTC";
+export const timeZone = "Asia/Ho_Chi_Minh";

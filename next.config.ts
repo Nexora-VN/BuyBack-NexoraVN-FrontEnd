@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
     ? { output: "standalone" as const }
     : {}),
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "cf.shopee.vn" },
+      { protocol: "https", hostname: "down-vn.img.susercontent.com" },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

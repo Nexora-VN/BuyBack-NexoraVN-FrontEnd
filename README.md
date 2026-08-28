@@ -1,91 +1,47 @@
-# NexoraVN Frontend Starter
+# BuyBack NexoraVN Frontend
 
-Reusable frontend starter built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, next-intl, TanStack Query, and a minimal shadcn/ui foundation.
+Next.js frontend cho nền tảng cashback affiliate Shopee. Giao diện sử dụng design system Soft-Fintech, hỗ trợ user app mobile-first và admin dashboard responsive.
 
-## Requirements
+## Chạy local
 
-- Node.js 20.9 or newer (Node.js 22 recommended)
-- npm 10 or newer
-
-## Local development
+Yêu cầu Node.js >= 20.9 và npm.
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The default locale is Vietnamese; the English version is available at `/en`.
+Frontend chạy tại `http://localhost:3000`. Backend mặc định được gọi tại `http://localhost:8080` qua Next BFF.
 
-## Scripts
+```env
+BACKEND_API_URL=http://localhost:8080
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_MOCK_FUTURE_MODULES=true
+```
+
+## Kiến trúc
+
+- `src/app`: routes, layouts và BFF route handlers.
+- `src/modules`: auth, users, products, affiliate và các mock domain tương lai.
+- `src/components/ui`: UI primitives dùng chung.
+- `src/lib`: API client, formatter và server helpers.
+
+JWT access/refresh được BFF giữ trong HttpOnly cookies. Browser chỉ gọi các endpoint nội bộ `/api/backend/*` và không lưu token trong localStorage.
+
+## API và mock
+
+Auth, users, products, affiliate links, generate-affiliate và health dùng backend thật. Orders, cashback, wallet, withdrawals, reconciliation, audit, provider sync, adjustments và system config dùng versioned localStorage mock cho tới khi backend tương ứng sẵn sàng.
+
+Màn mock luôn có badge `Dữ liệu mẫu`. Đặt `NEXT_PUBLIC_MOCK_FUTURE_MODULES=false` để không hiển thị dữ liệu tài chính giả.
+
+## Kiểm tra
 
 ```bash
-npm run dev
 npm run lint
 npm run typecheck
+npm test
 npm run build
-npm run start
 ```
 
-## Environment variables
-
-| Variable | Purpose |
-| --- | --- |
-| `NEXT_PUBLIC_API_URL` | Base URL used by the shared API client |
-| `NEXT_PUBLIC_SITE_URL` | Public frontend URL used for metadata |
-
-Real environment files are ignored. Only `.env.example` should be committed.
-
-## Project structure
-
-```text
-src/
-├── app/          # App Router routes and layouts
-├── components/   # Reusable UI and locale components
-├── constants/    # Environment, endpoint, and language constants
-├── hooks/        # Shared React hooks
-├── i18n/         # next-intl routing and request configuration
-├── layouts/      # Header, footer, and page containers
-├── lib/          # API client and shared utilities
-├── messages/     # Vietnamese and English messages
-├── modules/      # Feature modules
-├── providers/    # Application and Query providers
-├── services/     # Domain API services
-├── store/        # Client state stores when needed
-├── types/        # Shared TypeScript types
-└── utils/        # Framework-agnostic helpers
-```
-
-Empty architecture folders contain `.gitkeep` and are ready for new features.
-
-## Internationalization
-
-- Supported locales: `vi`, `en`
-- Default locale: `vi`
-- Vietnamese routes do not need a prefix: `/`
-- English routes use the `/en` prefix
-
-Add UI copy to both files in `src/messages`. Use the navigation helpers from `src/i18n/navigation.ts` for locale-aware links and redirects.
-
-## API client
-
-The shared client lives in `src/lib/api/client.ts` and returns the parsed response payload without assuming a backend envelope.
-
-```ts
-import { apiClient } from "@/lib/api/client";
-
-const result = await apiClient.get<MyResponse>("/items", {
-  params: { page: 1, limit: 20 },
-  timeout: 10_000,
-});
-```
-
-It supports JSON, `FormData`, query parameters, cancellation, timeouts, and normalized `ApiError` errors. `src/services/example.service.ts` is a replaceable service example.
-
-## Docker
-
-```bash
-docker compose up --build
-```
-
-The production image uses Next.js standalone output and listens on port `3000`.
+Mọi tiền tệ được xử lý dưới dạng integer VND và hiển thị theo locale `vi-VN`; thời gian dùng `Asia/Ho_Chi_Minh`.

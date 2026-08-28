@@ -5,6 +5,7 @@ export interface ApiClientOptions
   params?: Record<string, QueryParamValue>;
   timeout?: number;
   isFormData?: boolean;
+  skipAuthRefresh?: boolean;
 }
 
 export interface ApiResponse<T> {
@@ -15,10 +16,7 @@ export interface ApiResponse<T> {
 
 export interface PaginatedResponse<T> {
   data: T[];
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
+  meta: { page: number; limit: number; total: number; totalPages: number };
 }
 
 export interface HealthResponse {
