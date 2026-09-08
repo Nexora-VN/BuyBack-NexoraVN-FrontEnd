@@ -24,6 +24,9 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 
 const nav = [
+  { href: "/admin/settlements", label: "Kỳ thanh toán", icon: CircleDollarSign },
+  { href: "/admin/bank-accounts", label: "Duyệt ngân hàng", icon: ClipboardCheck },
+  { href: "/admin/reconciliation/issues", label: "Vấn đề đối soát", icon: FileClock },
   { href: "/admin", label: "Tổng quan", icon: Gauge },
   { href: "/admin/users", label: "Người dùng", icon: Users },
   { href: "/admin/products", label: "Sản phẩm", icon: PackageSearch },

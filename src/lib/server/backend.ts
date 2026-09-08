@@ -15,7 +15,10 @@ export async function readJsonSafe(response: Response): Promise<unknown> {
 }
 
 export function applyTokenCookies(response: NextResponse, payload: { accessToken: string; refreshToken: string; expiresIn: number }, persistent = true) {
-  const common = { httpOnly: true, sameSite: "lax" as const, secure: process.env.NODE_ENV === "production", path: "/" };
+  const isSecure = process.env.COOKIE_SECURE !== undefined
+    ? process.env.COOKIE_SECURE === "true"
+    : process.env.NODE_ENV === "production";
+  const common = { httpOnly: true, sameSite: "lax" as const, secure: isSecure, path: "/" };
   response.cookies.set(ACCESS_COOKIE, payload.accessToken, { ...common, maxAge: payload.expiresIn });
   response.cookies.set(REFRESH_COOKIE, payload.refreshToken, { ...common, ...(persistent ? { maxAge: 60 * 60 * 24 * 7 } : {}) });
 }

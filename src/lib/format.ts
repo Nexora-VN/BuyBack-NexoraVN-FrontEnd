@@ -1,5 +1,5 @@
 export function formatVnd(value: number | string | bigint): string {
-  const amount = typeof value === "bigint" ? value : BigInt(Math.trunc(Number(value) || 0));
+  const amount = typeof value === "bigint" ? value : typeof value === "string" && /^-?\d+$/.test(value) ? BigInt(value) : BigInt(Math.trunc(Number(value) || 0));
   return `${new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 0 }).format(amount)} ₫`;
 }
 

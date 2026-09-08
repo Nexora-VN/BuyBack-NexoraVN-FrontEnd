@@ -1,2 +1,2 @@
-import { LinkHistoryPage } from "@/modules/mock/components/user-pages";
+import { LinkHistoryPage } from "@/modules/finance/components/user-pages";
 export default function Page() { return <LinkHistoryPage />; }

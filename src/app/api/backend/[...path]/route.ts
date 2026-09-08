@@ -4,7 +4,14 @@ import { ACCESS_COOKIE, backendUrl, readJsonSafe } from "@/lib/server/backend";
 
 async function proxy(request: Request, context: { params: Promise<{ path: string[] }> }) {
   const { path } = await context.params;
+  if (path.some(part => part === '..' || part === '.' || part.includes('/') || part.includes('\\'))) {
+    return NextResponse.json({ message: 'Invalid API path' }, { status: 400 });
+  }
   const sourceUrl = new URL(request.url);
+  const origin = request.headers.get('origin');
+  if (!['GET','HEAD'].includes(request.method) && origin && origin !== sourceUrl.origin) {
+    return NextResponse.json({ message: 'Cross-origin mutation rejected' }, { status: 403 });
+  }
   const target = new URL(backendUrl(path.join("/")));
   target.search = sourceUrl.search;
   const access = (await cookies()).get(ACCESS_COOKIE)?.value;
@@ -16,7 +23,8 @@ async function proxy(request: Request, context: { params: Promise<{ path: string
   const upstream = await fetch(target, { method: request.method, headers, body, cache: "no-store" });
   if (upstream.status === 204) return new NextResponse(null, { status: 204 });
   const data = await readJsonSafe(upstream);
-  return typeof data === "string" ? new NextResponse(data, { status: upstream.status }) : NextResponse.json(data ?? {}, { status: upstream.status });
+  const responseHeaders = { 'Cache-Control': 'no-store' };
+  return typeof data === "string" ? new NextResponse(data, { status: upstream.status, headers: responseHeaders }) : NextResponse.json(data ?? {}, { status: upstream.status, headers: responseHeaders });
 }
 export const GET = proxy;
 export const POST = proxy;

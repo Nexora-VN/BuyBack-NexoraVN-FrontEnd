@@ -1,2 +1,2 @@
-import { AdminOrdersPage } from "@/modules/mock/components/admin-pages";
+import { AdminOrdersPage } from "@/modules/finance/components/admin-pages";
 export default function Page() { return <AdminOrdersPage />; }

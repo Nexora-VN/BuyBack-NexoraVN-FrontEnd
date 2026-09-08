@@ -1,2 +1,2 @@
-import { WalletPage } from "@/modules/mock/components/user-pages";
+import { WalletPage } from "@/modules/finance/components/user-pages";
 export default function Page() { return <WalletPage />; }

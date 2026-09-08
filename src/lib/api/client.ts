@@ -47,7 +47,7 @@ class ApiClient {
       const data = await this.parseResponse(response);
       if (!response.ok) {
         const raw = typeof data === "object" && data !== null && "message" in data ? data.message : undefined;
-        const message = Array.isArray(raw) ? raw.join(" · ") : typeof raw === "string" ? raw : `Request failed with status ${response.status}`;
+        const message = Array.isArray(raw) ? raw.map((v: unknown) => v && typeof v === 'object' && 'message' in v ? String(v.message) : String(v)).join(" · ") : typeof raw === "string" ? raw : `Request failed with status ${response.status}`;
         throw new ApiError(message, response.status, data);
       }
       return data as T;

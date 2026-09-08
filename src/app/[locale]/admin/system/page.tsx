@@ -1,2 +1,2 @@
-import { SystemConfigPage } from "@/modules/mock/components/admin-pages";
+import { SystemConfigPage } from "@/modules/finance/components/admin-pages";
 export default function Page() { return <SystemConfigPage />; }

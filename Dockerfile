@@ -3,7 +3,7 @@ FROM node:22-alpine AS dependencies
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
 FROM node:22-alpine AS builder
 
@@ -18,6 +18,7 @@ ARG NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NEXT_OUTPUT_MODE=standalone
+ENV NODE_OPTIONS="--max-old-space-size=1536"
 
 RUN npm run build
 

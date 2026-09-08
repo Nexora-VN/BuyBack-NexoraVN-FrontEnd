@@ -79,7 +79,7 @@ export function ProductsPage() {
     setEditing(product ?? null);
     setForm(
       product
-        ? { ...product }
+        ? { ...product, price: Number(product.price), commission: Number(product.commission), sellerComFinal: Number(product.sellerComFinal), shoppeComFinal: Number(product.shoppeComFinal) }
         : { ...blank, lastUpdate: new Date().toISOString() },
     );
     setOpen(true);

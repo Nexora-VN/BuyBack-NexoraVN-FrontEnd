@@ -1,2 +1,2 @@
-import { AuditLogPage } from "@/modules/mock/components/admin-pages";
+import { AuditLogPage } from "@/modules/finance/components/admin-pages";
 export default function Page() { return <AuditLogPage />; }

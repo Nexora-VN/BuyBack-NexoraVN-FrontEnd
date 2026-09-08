@@ -1,2 +1,2 @@
-import { CommissionAdminPage } from "@/modules/mock/components/admin-pages";
+import { CommissionAdminPage } from "@/modules/finance/components/admin-pages";
 export default function Page() { return <CommissionAdminPage />; }
