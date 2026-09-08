@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { ACCESS_COOKIE, backendUrl, readJsonSafe } from "@/lib/server/backend";
+import { isCrossOriginMutation } from "@/lib/server/same-origin";
 
 async function proxy(request: Request, context: { params: Promise<{ path: string[] }> }) {
   const { path } = await context.params;
@@ -8,8 +9,7 @@ async function proxy(request: Request, context: { params: Promise<{ path: string
     return NextResponse.json({ message: 'Invalid API path' }, { status: 400 });
   }
   const sourceUrl = new URL(request.url);
-  const origin = request.headers.get('origin');
-  if (!['GET','HEAD'].includes(request.method) && origin && origin !== sourceUrl.origin) {
+  if (isCrossOriginMutation(request)) {
     return NextResponse.json({ message: 'Cross-origin mutation rejected' }, { status: 403 });
   }
   const target = new URL(backendUrl(path.join("/")));
