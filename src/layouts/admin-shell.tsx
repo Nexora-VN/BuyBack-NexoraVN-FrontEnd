@@ -13,6 +13,7 @@ import {
   Menu,
   PackageSearch,
   Settings,
+  GraduationCap,
   SlidersHorizontal,
   Users,
   WalletCards,
@@ -45,6 +46,7 @@ const nav = [
     icon: CircleDollarSign,
   },
   { href: "/admin/system", label: "Hệ thống", icon: Settings },
+  { href: "/admin/notebooks", label: "Notebook LMS", icon: GraduationCap },
 ];
 
 function AdminNav({ close }: { close?: () => void }) {

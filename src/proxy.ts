@@ -8,6 +8,9 @@ const intlMiddleware = createMiddleware(routing);
 
 export default function proxy(request: NextRequest) {
   const normalizedPath = request.nextUrl.pathname.replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
+  if (normalizedPath === "/flash-player" || normalizedPath.startsWith("/flash-player/")) {
+    return NextResponse.next();
+  }
   const protectedRoute = normalizedPath === "/app" || normalizedPath.startsWith("/app/") || normalizedPath === "/admin" || normalizedPath.startsWith("/admin/");
   const hasSession = request.cookies.has("bb_access") || request.cookies.has("bb_refresh");
   if (protectedRoute && !hasSession) {
@@ -18,5 +21,5 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|flash-player|.*\\..*).*)"],
 };
