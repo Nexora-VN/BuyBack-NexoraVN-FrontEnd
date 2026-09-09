@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 
-import Footer from "@/layouts/footer";
-import Header from "@/layouts/header";
 import { isLocale, locales } from "@/i18n/config";
 import AppProvider from "@/providers/app-provider";
 
@@ -28,7 +26,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
-    title: t("title"),
+    title: { absolute: t("title") },
     description: t("description"),
   };
 }
@@ -48,11 +46,7 @@ export default async function LocaleLayout({
 
   return (
     <AppProvider locale={locale} messages={messages}>
-      <div className="flex min-h-screen flex-col bg-background text-foreground">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </div>
+      {children}
     </AppProvider>
   );
 }
