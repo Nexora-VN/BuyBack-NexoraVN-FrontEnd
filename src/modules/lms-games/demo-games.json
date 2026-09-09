@@ -1,0 +1,218 @@
+[
+  {
+    "id": "animal-pairs",
+    "version": 1,
+    "type": "matching",
+    "title": "Những người bạn trong vườn",
+    "instructions": "Quan sát, ghi nhớ và tìm những người bạn giống nhau. Bạn có thể thử bao nhiêu lần tùy thích.",
+    "config": {
+      "defaultMode": "memory",
+      "pairs": [
+        {
+          "id": "rabbit",
+          "left": {
+            "kind": "image",
+            "src": "/lms-games/rabbit.svg",
+            "alt": "Thỏ"
+          },
+          "right": {
+            "kind": "image",
+            "src": "/lms-games/rabbit.svg",
+            "alt": "Thỏ"
+          }
+        },
+        {
+          "id": "fox",
+          "left": {
+            "kind": "image",
+            "src": "/lms-games/fox.svg",
+            "alt": "Cáo"
+          },
+          "right": {
+            "kind": "image",
+            "src": "/lms-games/fox.svg",
+            "alt": "Cáo"
+          }
+        },
+        {
+          "id": "bird",
+          "left": {
+            "kind": "image",
+            "src": "/lms-games/bird.svg",
+            "alt": "Chim"
+          },
+          "right": {
+            "kind": "image",
+            "src": "/lms-games/bird.svg",
+            "alt": "Chim"
+          }
+        },
+        {
+          "id": "butterfly",
+          "left": {
+            "kind": "image",
+            "src": "/lms-games/butterfly.svg",
+            "alt": "Bướm"
+          },
+          "right": {
+            "kind": "image",
+            "src": "/lms-games/butterfly.svg",
+            "alt": "Bướm"
+          }
+        },
+        {
+          "id": "turtle",
+          "left": {
+            "kind": "image",
+            "src": "/lms-games/turtle.svg",
+            "alt": "Rùa"
+          },
+          "right": {
+            "kind": "image",
+            "src": "/lms-games/turtle.svg",
+            "alt": "Rùa"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "garden-stories",
+    "version": 1,
+    "type": "drag",
+    "title": "Khu vườn của bạn",
+    "instructions": "Di chuyển những người bạn và kể một câu chuyện. Mọi cách sắp xếp đều được chào đón.",
+    "config": {
+      "board": {
+        "width": 1000,
+        "height": 700
+      },
+      "items": [
+        {
+          "id": "rabbit",
+          "content": {
+            "kind": "image",
+            "src": "/lms-games/rabbit.svg",
+            "alt": "Thỏ"
+          },
+          "position": {
+            "x": 0.04,
+            "y": 0.08
+          },
+          "size": {
+            "width": 0.2,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "fox",
+          "content": {
+            "kind": "image",
+            "src": "/lms-games/fox.svg",
+            "alt": "Cáo"
+          },
+          "position": {
+            "x": 0.33999999999999997,
+            "y": 0.08
+          },
+          "size": {
+            "width": 0.2,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "bird",
+          "content": {
+            "kind": "image",
+            "src": "/lms-games/bird.svg",
+            "alt": "Chim"
+          },
+          "position": {
+            "x": 0.64,
+            "y": 0.08
+          },
+          "size": {
+            "width": 0.2,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "butterfly",
+          "content": {
+            "kind": "image",
+            "src": "/lms-games/butterfly.svg",
+            "alt": "Bướm"
+          },
+          "position": {
+            "x": 0.04,
+            "y": 0.48000000000000004
+          },
+          "size": {
+            "width": 0.2,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "turtle",
+          "content": {
+            "kind": "image",
+            "src": "/lms-games/turtle.svg",
+            "alt": "Rùa"
+          },
+          "position": {
+            "x": 0.33999999999999997,
+            "y": 0.48000000000000004
+          },
+          "size": {
+            "width": 0.2,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "story",
+          "content": {
+            "kind": "text",
+            "text": "Khu vườn của tớ"
+          },
+          "position": {
+            "x": 0.62,
+            "y": 0.58
+          },
+          "size": {
+            "width": 0.32,
+            "height": 0.24
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "paint-garden",
+    "version": 1,
+    "type": "drawing",
+    "title": "Thêm sắc màu cho khu vườn",
+    "instructions": "Vẽ mây, thêm hoa hoặc viết một lời nhắn. Bức tranh này là không gian sáng tạo của bạn.",
+    "config": {
+      "board": {
+        "width": 1000,
+        "height": 650
+      },
+      "background": {
+        "src": "/lms-games/garden.svg",
+        "alt": "Khu vườn với cây, ngôi nhà, thỏ và lối đi"
+      },
+      "colors": [
+        "#303047",
+        "#a8245e",
+        "#de653e",
+        "#d79b16",
+        "#278462",
+        "#3979bd",
+        "#8856b3"
+      ],
+      "brushSizes": [4, 8, 16, 28],
+      "defaultColor": "#a8245e",
+      "defaultBrushSize": 8
+    }
+  }
+]

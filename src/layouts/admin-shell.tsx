@@ -1,21 +1,11 @@
 "use client";
 
 import {
-  Activity,
-  Boxes,
-  CircleDollarSign,
   CircleUserRound,
-  ClipboardCheck,
-  FileClock,
-  Gauge,
-  Link2,
+  Gamepad2,
+  GraduationCap,
   LogOut,
   Menu,
-  PackageSearch,
-  Settings,
-  GraduationCap,
-  SlidersHorizontal,
-  Users,
   WalletCards,
   X,
 } from "lucide-react";
@@ -25,28 +15,8 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 
 const nav = [
-  { href: "/admin", label: "Tổng quan", icon: Gauge },
-  { href: "/admin/users", label: "Người dùng", icon: Users },
-  { href: "/admin/products", label: "Sản phẩm", icon: PackageSearch },
-  { href: "/admin/links", label: "Affiliate Links", icon: Link2 },
-  { href: "/admin/orders", label: "Đơn hàng", icon: Boxes },
-  { href: "/admin/commissions", label: "Commission", icon: CircleDollarSign },
-  { href: "/admin/wallet/ledger", label: "Ví & Ledger", icon: WalletCards },
-  { href: "/admin/withdrawals", label: "Rút tiền", icon: ClipboardCheck },
-  { href: "/admin/reconciliation", label: "Đối soát", icon: FileClock },
-  { href: "/admin/audit-logs", label: "Nhật ký", icon: Activity },
-  {
-    href: "/admin/provider-sync",
-    label: "Provider Sync",
-    icon: SlidersHorizontal,
-  },
-  {
-    href: "/admin/manual-adjustments",
-    label: "Điều chỉnh",
-    icon: CircleDollarSign,
-  },
-  { href: "/admin/system", label: "Hệ thống", icon: Settings },
   { href: "/admin/notebooks", label: "Notebook LMS", icon: GraduationCap },
+  { href: "/admin/games", label: "Game LMS", icon: Gamepad2 },
 ];
 
 function AdminNav({ close }: { close?: () => void }) {
@@ -86,7 +56,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background lg:pl-64">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-white lg:flex">
-        <Link
+        {/* <Link
           href="/admin"
           className="flex h-20 items-center gap-3 px-6 text-xl font-bold text-primary"
         >
@@ -100,7 +70,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               Admin · NexoraVN
             </small>
           </span>
-        </Link>
+        </Link> */}
         <div className="flex-1 overflow-y-auto py-3">
           <AdminNav />
         </div>
@@ -120,7 +90,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-white/90 px-4 backdrop-blur lg:hidden">
         <button
           onClick={() => setOpen(true)}
-          className="rounded-xl p-2 hover:bg-muted"
+          className="min-h-11 min-w-11 rounded-xl p-2 hover:bg-muted"
           aria-label="Mở menu quản trị"
         >
           <Menu />
@@ -142,12 +112,25 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <strong className="text-lg text-primary">BuyBack Admin</strong>
               <button
                 onClick={() => setOpen(false)}
-                className="rounded-lg p-2 hover:bg-muted"
+                aria-label="Đóng menu quản trị"
+                className="min-h-11 min-w-11 rounded-lg p-2 hover:bg-muted"
               >
                 <X />
               </button>
             </div>
             <AdminNav close={() => setOpen(false)} />
+            <div className="mt-4 border-t p-4">
+              <p className="truncate text-xs text-muted-foreground">
+                {user?.email}
+              </p>
+              <button
+                onClick={signOut}
+                className="mt-2 flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-danger hover:bg-danger-soft"
+              >
+                <LogOut className="size-4" />
+                Đăng xuất
+              </button>
+            </div>
           </aside>
         </div>
       )}

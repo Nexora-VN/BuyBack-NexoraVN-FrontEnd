@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { notebookService } from "../notebook.service";
 import type { NotebookCourse, NotebookPage, PageInteraction } from "../types";
 import { ActivityRenderer } from "./activity-renderer";
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 function pageLabel(course: NotebookCourse, page: NotebookPage) {
   if (page.sourcePageId === course.outline.rootPageId) return "Theme overview";
@@ -32,7 +32,7 @@ export function LearnerPlayer({ slug }: { slug: string }) {
   const [activeId, setActiveId] = useState("");
   const [viewed, setViewed] = useState<string[]>([]);
   const [outlineOpen, setOutlineOpen] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export function LearnerPlayer({ slug }: { slug: string }) {
   if (!course || !page)
     return (
       <main className="grid min-h-screen place-items-center bg-slate-50">
-        <p className="text-muted-foreground">{error || 'Đang tải course…'}</p>
+        <p className="text-muted-foreground">{error || "Đang tải course…"}</p>
       </main>
     );
   const index = course.pages.findIndex((item) => item.id === page.id);
@@ -75,7 +75,11 @@ export function LearnerPlayer({ slug }: { slug: string }) {
     setViewed((current) =>
       current.includes(sourcePageId) ? current : [...current, sourcePageId],
     );
-    void notebookService.markViewed(slug, sourcePageId).catch(()=>toast.error('Chưa lưu được tiến độ. Kiểm tra kết nối và thử lại.'));
+    void notebookService
+      .markViewed(slug, sourcePageId)
+      .catch(() =>
+        toast.error("Chưa lưu được tiến độ. Kiểm tra kết nối và thử lại."),
+      );
   };
   const completeActivity = (
     activityId: string,
@@ -87,8 +91,13 @@ export function LearnerPlayer({ slug }: { slug: string }) {
         ? current
         : [...current, page.sourcePageId],
     );
-    void notebookService.submitAttempt(activityId, result, score, true).then(()=>toast.success('Đã lưu kết quả')).catch(()=>toast.error('Chưa lưu được kết quả. Hãy thử lại.'));
-    void notebookService.markViewed(slug,page.sourcePageId).catch(()=>toast.error('Chưa lưu được tiến độ'));
+    void notebookService
+      .submitAttempt(activityId, result, score, true)
+      .then(() => toast.success("Đã lưu kết quả"))
+      .catch(() => toast.error("Chưa lưu được kết quả. Hãy thử lại."));
+    void notebookService
+      .markViewed(slug, page.sourcePageId)
+      .catch(() => toast.error("Chưa lưu được tiến độ"));
   };
   const invoke = (interaction: PageInteraction) => {
     if (interaction.type === "navigate" && interaction.targetPageId)
