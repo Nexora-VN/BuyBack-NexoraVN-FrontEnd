@@ -42,8 +42,84 @@ export function UserOrdersPage() {
 export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?: boolean }) {
   const query = useFinance<FinanceRow>((admin ? 'admin/' : 'me/') + 'orders/' + id);
   return <Page title="Chi tiết đơn hàng">{query.isLoading ? <Loading /> : query.isError ? <Failure message={query.error.message} retry={() => void query.refetch()} /> : query.data && <>
-    <Card><h2 className="font-semibold">{text(query.data, 'orderSn')}</h2><div className="mt-4 flex flex-wrap gap-3"><StatusBadge status={text(query.data, 'checkout.conversionState')} /><StatusBadge status={text(query.data, 'checkout.commission.state')} /></div><p className="mt-4">Cashback: {formatVnd(text(query.data, 'checkout.commission.cashback.userAmount') === '—' ? '0' : text(query.data, 'checkout.commission.cashback.userAmount'))}</p><p className="mt-2 text-sm text-muted-foreground">Ngày mua: {formatDateTime(text(query.data, 'checkout.purchasedAt'))}</p></Card>
-    <Card><h2 className="font-semibold">Sản phẩm trong đơn</h2><div className="mt-4 space-y-3">{(read(query.data, 'items') as FinanceRow[] ?? []).map(item => <div key={item.id} className="rounded-xl border p-4"><p>{text(item, 'itemName') === '—' ? text(item, 'payload.item_name') : text(item, 'itemName')}</p><p className="mt-2 text-sm">Giá trị mua: {formatVnd(BigInt(text(item, 'actualAmountRaw')) / 100000n)}</p><StatusBadge status={text(item, 'status')} /></div>)}</div></Card>
+    <Card>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="font-semibold text-lg">{text(query.data, 'orderSn')}</h2>
+        {admin && <span className="text-sm font-mono text-muted-foreground">{text(query.data, 'provider')}</span>}
+      </div>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <StatusBadge status={text(query.data, 'checkout.conversionState')} />
+        <StatusBadge status={text(query.data, 'checkout.commission.state')} />
+      </div>
+      <p className="mt-4">Cashback dự kiến: <strong>{formatVnd(text(query.data, 'checkout.commission.cashback.userAmount') === '—' ? '0' : text(query.data, 'checkout.commission.cashback.userAmount'))}</strong></p>
+      {admin && (
+        <p className="mt-1 text-sm text-muted-foreground">
+          Hoa hồng đối soát (VND): <strong>{formatVnd(text(query.data, 'checkout.commission.estimatedVnd') === '—' ? '0' : text(query.data, 'checkout.commission.estimatedVnd'))}</strong>
+        </p>
+      )}
+      <p className="mt-2 text-sm text-muted-foreground">Ngày mua: {formatDateTime(text(query.data, 'checkout.purchasedAt'))}</p>
+      {admin && text(query.data, 'checkout.utmContent') !== '—' && (
+        <div className="mt-3 rounded-lg bg-muted/60 p-3 text-xs">
+          <p className="font-semibold text-muted-foreground">Attribution UTM:</p>
+          <p className="font-mono break-all mt-1">{text(query.data, 'checkout.utmContent')}</p>
+        </div>
+      )}
+    </Card>
+
+    {admin && query.data.settlementEligibility && (
+      <Card>
+        <h2 className="font-semibold">Điều kiện thanh toán (Settlement)</h2>
+        <div className="mt-3">
+          {(query.data.settlementEligibility as { eligible: boolean; blockers: string[] }).eligible ? (
+            <div className="rounded-lg bg-success-soft p-3 text-sm text-success font-semibold">
+              ✓ Đơn hàng đủ điều kiện đưa vào kỳ thanh toán settlement.
+            </div>
+          ) : (
+            <div className="rounded-lg bg-danger-soft p-3 text-sm text-danger space-y-1">
+              <p className="font-semibold">Chưa đủ điều kiện thanh toán. Các lý do chặn:</p>
+              <ul className="list-disc list-inside space-y-0.5 text-xs">
+                {(query.data.settlementEligibility as { eligible: boolean; blockers: string[] }).blockers.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </Card>
+    )}
+
+    <Card>
+      <h2 className="font-semibold">Sản phẩm trong đơn</h2>
+      <div className="mt-4 space-y-3">
+        {(read(query.data, 'items') as FinanceRow[] ?? []).map(item => {
+          const itemScale = text(item, 'scale') === '100000' ? 100000n : 1n;
+          const rawAmount = text(item, 'actualAmountRaw');
+          const actualAmountVnd = rawAmount === '—' ? 0n : BigInt(rawAmount) / itemScale;
+          return (
+            <div key={item.id} className="rounded-xl border p-4 space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-semibold">{text(item, 'itemName') === '—' ? text(item, 'payload.item_name') : text(item, 'itemName')}</p>
+                <div className="flex gap-2">
+                  <StatusBadge status={text(item, 'status')} />
+                  {text(item, 'commissionStatus') !== '—' && (
+                    <span className="text-xs rounded px-2 py-0.5 bg-muted text-muted-foreground">{text(item, 'commissionStatus')}</span>
+                  )}
+                </div>
+              </div>
+              <div className="grid gap-2 text-sm sm:grid-cols-3">
+                <p>Giá trị mua: <strong>{formatVnd(actualAmountVnd)}</strong></p>
+                {admin && text(item, 'commissionVnd') !== '—' && (
+                  <p>Hoa hồng: <strong>{formatVnd(text(item, 'commissionVnd'))}</strong></p>
+                )}
+                {admin && text(item, 'mcnFeeVnd') !== '—' && BigInt(text(item, 'mcnFeeVnd') === '—' ? '0' : text(item, 'mcnFeeVnd')) !== 0n && (
+                  <p className="text-warning">Phí MCN: <strong>{formatVnd(text(item, 'mcnFeeVnd'))}</strong></p>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Card>
   </>}</Page>;
 }
 export function CashbackPage() {

@@ -74,6 +74,12 @@ export function MutationForm({ title, fields, path, method = 'post', schema, tra
     <div className="grid gap-4 sm:grid-cols-2">{fields.map(field => <label key={field.name} className={field.type === 'textarea' ? 'sm:col-span-2' : ''}>
       <span className="mb-1 block text-sm font-medium">{field.label}</span>
       {field.type === 'textarea' ? <Textarea required={field.required !== false} value={values[field.name] ?? ''} onChange={e => setValues(v => ({ ...v, [field.name]: e.target.value }))} /> :
+       field.type === 'select' ? (
+         <Select required={field.required !== false} value={values[field.name] ?? ''} onChange={e => setValues(v => ({ ...v, [field.name]: e.target.value }))}>
+           <option value="">-- Chọn {field.label} --</option>
+           {field.options?.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+         </Select>
+       ) :
         <Input type={field.type ?? 'text'} required={field.required !== false} autoComplete={field.type === 'password' ? 'off' : undefined} value={values[field.name] ?? ''} onChange={e => setValues(v => ({ ...v, [field.name]: e.target.value }))} />}
       {field.help && <span className="mt-1 block text-xs text-muted-foreground">{field.help}</span>}
     </label>)}</div>{error && <p role="alert" className="text-sm text-danger">{error}</p>}<Button disabled={pending} type="submit">{pending ? 'Đang xử lý…' : title}</Button>
