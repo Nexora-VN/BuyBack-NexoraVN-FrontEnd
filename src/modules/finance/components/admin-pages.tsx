@@ -11,7 +11,7 @@ import { formatVnd } from '@/lib/format';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { useFinance } from '../hooks/use-finance';
 import { financeService } from '../services/finance';
-import { settlementSchema, syncSchema, providerCredentialSchema, providerVerificationSchema, structuredReviewSchema } from '../schemas/finance';
+import { settlementSchema, syncSchema, providerCredentialSchema, providerVerificationSchema, structuredReviewSchema, shopeeCookieSchema } from '../schemas/finance';
 import type { FinanceRow } from '../types/finance';
 import { ActionDialog, Failure, FinanceTable, Loading, MutationForm, text } from './finance-ui';
 import { DashboardContent, orderSpecs, UserOrderDetailPage } from './user-pages';
@@ -20,10 +20,10 @@ const reasonFields = [{ name: 'reason', label: 'Lý do / ghi chú', type: 'texta
 const reasonSchema = z.object({ reason: z.string().trim().min(5, 'Nhập lý do ít nhất 5 ký tự') });
 function useSuperAdmin() { return useAuth().user?.role === 'SUPER_ADMIN'; }
 export function AdminDashboardPage() { return <Page title="Tổng quan vận hành"><DashboardContent admin /><ProviderHealth /></Page>; }
-export function AdminOrdersPage() { return <Page title="Đơn hàng"><FinanceTable path="admin/orders" searchLabel="Mã đơn Shopee" states={['1','2','3','4']} specs={orderSpecs} actions={row => <Link className="text-primary underline" href={'/admin/orders/' + row.id}>Chi tiết</Link>} /></Page>; }
+export function AdminOrdersPage() { return <Page title="Đơn hàng"><FinanceTable path="admin/orders" searchLabel="Mã đơn Shopee" states={['VALIDATED','REJECTED','PARTIALLY_VALIDATED','MANUAL_REVIEW']} specs={orderSpecs} actions={row => <Link className="text-primary underline" href={'/admin/orders/' + row.id}>Chi tiết</Link>} /></Page>; }
 export function AdminOrderDetailPage({ id }: { id: string }) { return <UserOrderDetailPage id={id} admin />; }
 export function CommissionAdminPage() {
-  return <Page title="Hoa hồng" description="Chỉ commission VALIDATED và có attribution hợp lệ mới được chọn vào kỳ thanh toán." actions={<Button asChild><Link href="/admin/settlements">Kỳ thanh toán</Link></Button>}>
+  return <Page title="Hoa hồng" description="Chỉ hoa hồng đã xác minh thanh toán và gắn đúng người dùng mới đủ điều kiện quyết toán. Đơn hoàn thành nhưng chờ trả hoa hồng vẫn là dự kiến." actions={<Button asChild><Link href="/admin/settlements">Kỳ thanh toán</Link></Button>}>
     <FinanceTable path="admin/commissions" searchLabel="Mã checkout" states={['ESTIMATED','VALIDATED','PAID','REJECTED','REVERSED','MANUAL_REVIEW']} specs={[['id','Mã commission'],['userId','Người dùng'],['checkout.checkoutId','Checkout'],['checkout.provider','Nguồn'],['estimatedVnd','Hoa hồng VND','money'],['settledVnd','Thực nhận','money'],['cashback.userAmount','Cashback','money'],['state','Trạng thái','status']]} />
   </Page>;
 }
@@ -51,6 +51,14 @@ export function WithdrawalsAdminPage() {
   </Page>;
 }
 const syncFields = [{ name:'startDate', label:'Từ ngày (giờ Việt Nam)', type:'date' as const },{ name:'endDate',label:'Đến ngày (giờ Việt Nam)',type:'date' as const }];
+const shopeeCookieFields = [
+  {
+    name: 'cookie',
+    label: 'Cookie Shopee Affiliate',
+    type: 'password' as const,
+    help: 'Chỉ được gửi đến backend để mã hóa. Sau khi lưu không hiển thị lại.',
+  },
+];
 const credentialFields = [
   { name: 'accountId', label: 'Mã tài khoản AddLiveTag (Account ID)', help: 'Ví dụ: 420' },
   { name: 'expectedAffiliate', label: 'Tên Affiliate kỳ vọng', help: 'Tên affiliate xuất hiện trong báo cáo API AddLiveTag' },
@@ -141,13 +149,7 @@ function Issues({ path = 'admin/reconciliation/issues' }: { path?: string }) {
           <p className="text-sm text-muted-foreground">APPROVE yêu cầu bằng chứng, link affiliate và số hoa hồng hợp lệ. EXCLUDE sẽ loại bỏ khỏi settlement.</p>
         </MutationForm>
       </ActionDialog>
-      {text(row, 'type') === 'CROSS_PROVIDER_DUPLICATE' && (
-        <ActionDialog label="Loại trừ Saffi cũ">
-          <MutationForm title="Loại trừ commission Saffi cũ" path={'admin/reconciliation/legacy-commissions/' + row.id + '/exclude'} fields={reasonFields} schema={reasonSchema}>
-            <p className="text-sm text-muted-foreground">Loại bỏ commission trùng lịch sử Saffi chưa settlement có ghi audit log.</p>
-          </MutationForm>
-        </ActionDialog>
-      )}
+
     </div>} />;
 }
 export function IssuesPage() { return <Page title="Vấn đề đối soát"><Issues /></Page>; }
@@ -157,8 +159,14 @@ function ProviderHealth() {
   if (query.isLoading) return <Loading />;
   if (query.isError) return <Failure message={query.error.message} retry={() => void query.refetch()} />;
   const cred = query.data?.credential as FinanceRow | undefined;
+  const shopeeCred = query.data?.shopeeCredential as FinanceRow | undefined;
   const isVerified = Boolean(cred?.verifiedAt);
-  return <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+  return <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+    <StatCard
+      label="Phiên Shopee"
+      value={<StatusBadge status={text(shopeeCred, 'status') || 'UNVERIFIED'} />}
+      helper={text(shopeeCred, 'lastValidatedAt') ? 'Đã cập nhật phiên' : 'Chưa thiết lập cookie'}
+    />
     <StatCard label="Nguồn đối soát" value={text(query.data,'provider') || 'ADDLIVETAG'} helper={`Account: ${text(cred,'accountId')} · Affiliate: ${text(cred,'expectedAffiliate')}`} />
     <StatCard label="Xác thực VND & Account" value={isVerified ? <span className="font-semibold text-success">Đã xác thực</span> : <span className="font-semibold text-warning">Chưa xác thực</span>} helper={isVerified ? 'Đã mở khóa settlement' : 'Khóa settlement tới khi SUPER_ADMIN xác nhận'} />
     <StatCard label="Batch & Vấn đề" value={`${text(query.data,'openIssues')} vấn đề mở`} helper={`Chờ/chạy: ${text(query.data,'queuedOrRunning')} · Lỗi: ${text(query.data,'failedBatches') || '0'}`} />
@@ -167,19 +175,25 @@ function ProviderHealth() {
 }
 export function ProviderSyncPage() {
   const superAdmin = useSuperAdmin();
-  return <Page title="Kết nối AddLiveTag">
+  return <Page title="Kết nối Đối tác & Shopee">
     <ProviderHealth />
     {superAdmin && <>
+      <MutationForm
+        title="Cập nhật phiên Shopee"
+        path="admin/provider-credential/shopee"
+        method="put"
+        fields={shopeeCookieFields}
+        schema={shopeeCookieSchema}
+      >
+        <p className="text-sm text-muted-foreground">
+          Cookie Shopee Affiliate được gửi đến backend để mã hóa an toàn (AES-256-GCM). Sau khi lưu không hiển thị lại trên giao diện web.
+        </p>
+      </MutationForm>
       <MutationForm title="Cập nhật kết nối AddLiveTag" path="admin/provider-credential" method="put" fields={credentialFields} schema={providerCredentialSchema}>
         <p className="text-sm text-muted-foreground">API key chỉ cấu hình qua biến môi trường ADDLIVETAG_API_KEY của backend. Đổi key cần khởi động lại backend; không nhập hoặc lưu key trên web/database. Form này chỉ cập nhật thông tin tài khoản.</p>
       </MutationForm>
       <MutationForm title="Xác thực tài khoản & đơn vị tiền VND" path="admin/provider-credential/verify" method="post" fields={verificationFields} schema={providerVerificationSchema}>
         <p className="text-sm text-muted-foreground">SUPER_ADMIN xác nhận account ID và đơn vị tiền integer VND bằng đối chiếu thực tế kèm bằng chứng để mở khóa settlement.</p>
-      </MutationForm>
-      <MutationForm title="Dọn dẹp toàn bộ dữ liệu Saffi cũ (Reset)" path="admin/reconciliation/purge-saffi" method="post" fields={[]}>
-        <p className="text-sm text-danger font-medium">
-          CẢNH BÁO (SUPER_ADMIN): Xóa vĩnh viễn toàn bộ dữ liệu đối soát Saffi cũ (batches, checkouts, orders, commissions, allocations, issues, test ledger) để AddLiveTag trở thành nguồn chân lý duy nhất.
-        </p>
       </MutationForm>
     </>}
     <MutationForm title="Đồng bộ thủ công" path="admin/reconciliation/sync" fields={syncFields} schema={syncSchema}>

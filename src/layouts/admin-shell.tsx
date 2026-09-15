@@ -1,158 +1,33 @@
 "use client";
-
-import {
-  Activity,
-  Boxes,
-  CircleDollarSign,
-  CircleUserRound,
-  ClipboardCheck,
-  FileClock,
-  Gauge,
-  Link2,
-  LogOut,
-  Menu,
-  PackageSearch,
-  Settings,
-  SlidersHorizontal,
-  Users,
-  WalletCards,
-  X,
-} from "lucide-react";
 import { useState } from "react";
+import { Activity, Boxes, ClipboardCheck, CircleDollarSign, FileClock, Gauge, Link2, LogOut, Menu, PackageSearch, Settings, SlidersHorizontal, Users, WalletCards } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
-
-const nav = [
-  { href: "/admin/settlements", label: "Kỳ thanh toán", icon: CircleDollarSign },
-  { href: "/admin/bank-accounts", label: "Duyệt ngân hàng", icon: ClipboardCheck },
-  { href: "/admin/reconciliation/issues", label: "Vấn đề đối soát", icon: FileClock },
-  { href: "/admin", label: "Tổng quan", icon: Gauge },
-  { href: "/admin/users", label: "Người dùng", icon: Users },
-  { href: "/admin/products", label: "Sản phẩm", icon: PackageSearch },
-  { href: "/admin/links", label: "Affiliate Links", icon: Link2 },
-  { href: "/admin/orders", label: "Đơn hàng", icon: Boxes },
-  { href: "/admin/commissions", label: "Commission", icon: CircleDollarSign },
-  { href: "/admin/wallet/ledger", label: "Ví & Ledger", icon: WalletCards },
-  { href: "/admin/withdrawals", label: "Rút tiền", icon: ClipboardCheck },
-  { href: "/admin/reconciliation", label: "Đối soát", icon: FileClock },
-  { href: "/admin/audit-logs", label: "Nhật ký", icon: Activity },
-  {
-    href: "/admin/provider-sync",
-    label: "Provider Sync",
-    icon: SlidersHorizontal,
-  },
-  {
-    href: "/admin/manual-adjustments",
-    label: "Điều chỉnh",
-    icon: CircleDollarSign,
-  },
-  { href: "/admin/system", label: "Hệ thống", icon: Settings },
-];
-
-function AdminNav({ close }: { close?: () => void }) {
-  const pathname = usePathname();
-  return (
-    <nav className="space-y-1 px-3">
-      {nav.map(({ href, label, icon: Icon }) => {
-        const active =
-          pathname === href || (href !== "/admin" && pathname.startsWith(href));
-        return (
-          <Link
-            onClick={close}
-            key={href}
-            href={href}
-            className={cn(
-              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition hover:bg-muted",
-              active ? "bg-secondary text-primary" : "text-muted-foreground",
-            )}
-          >
-            <Icon className="size-5 shrink-0" />
-            {label}
-          </Link>
-        );
-      })}
-    </nav>
-  );
+import { useCopy } from "@/i18n/use-copy";
+import { SurfaceDialog } from "@/components/patterns/surface-dialog";
+import { ConfirmProvider } from "@/components/patterns/confirm-provider";
+import LanguageSwitcher from "@/components/locale/language-switcher";
+import { cn } from "@/lib/utils";
+const groups=[
+ {label:'Quản lý',items:[['/admin','Tổng quan',Gauge],['/admin/users','Người dùng',Users],['/admin/products','Sản phẩm',PackageSearch],['/admin/links','Liên kết affiliate',Link2],['/admin/orders','Đơn hàng',Boxes]]},
+ {label:'Tài chính',items:[['/admin/commissions','Hoa hồng',CircleDollarSign],['/admin/withdrawals','Rút tiền',WalletCards],['/admin/bank-accounts','Duyệt ngân hàng',ClipboardCheck],['/admin/settlements','Kỳ thanh toán',CircleDollarSign],['/admin/wallet/ledger','Sổ giao dịch',FileClock],['/admin/manual-adjustments','Điều chỉnh ví',SlidersHorizontal]]},
+ {label:'Vận hành',items:[['/admin/reconciliation','Đối soát',FileClock],['/admin/reconciliation/issues','Vấn đề đối soát',Activity],['/admin/audit-logs','Nhật ký',Activity]]},
+ {label:'Hệ thống',items:[['/admin/provider-sync','Kết nối đối tác',SlidersHorizontal],['/admin/system','Chính sách hệ thống',Settings]]},
+] as const;
+function active(path:string,href:string){const candidates=groups.flatMap(g=>g.items).map(i=>i[0]).filter(r=>path===r || (r!=='/admin'&&path.startsWith(r+'/')));return candidates.sort((a,b)=>b.length-a.length)[0]===href;}
+function AdminNav({close}:{close?:()=>void}) {
+ const t=useCopy();const path=usePathname();const {user}=useAuth();
+ return <nav className="space-y-6">{groups.map(group=><section key={group.label}><h2 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t(group.label)}</h2><div className="space-y-1">{group.items.filter(([href])=>href!=='/admin/manual-adjustments'||user?.role==='SUPER_ADMIN').map(([href,label,Icon])=><Link onClick={close} key={href} href={href} aria-current={active(path,href)?'page':undefined} className={cn('flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium',active(path,href)?'bg-secondary text-primary':'text-muted-foreground hover:bg-muted')}><Icon className="size-5 shrink-0"/>{t(label)}</Link>)}</div></section>)}</nav>;
 }
-
-export function AdminShell({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
-  const { user, logout } = useAuth();
-  const router = useRouter();
-  const signOut = async () => {
-    await logout();
-    router.replace("/login");
-  };
-  return (
-    <div className="min-h-screen bg-background lg:pl-64">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-white lg:flex">
-        <Link
-          href="/admin"
-          className="flex h-20 items-center gap-3 px-6 text-xl font-bold text-primary"
-        >
-          <span className="grid size-10 place-items-center rounded-2xl bg-primary text-white">
-            <WalletCards />
-          </span>
-          <span>
-            BuyBack
-            <br />
-            <small className="text-xs font-medium text-muted-foreground">
-              Admin · NexoraVN
-            </small>
-          </span>
-        </Link>
-        <div className="flex-1 overflow-y-auto py-3">
-          <AdminNav />
-        </div>
-        <div className="border-t p-4">
-          <p className="truncate text-xs text-muted-foreground">
-            {user?.email}
-          </p>
-          <button
-            onClick={signOut}
-            className="mt-2 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-danger hover:bg-danger-soft"
-          >
-            <LogOut className="size-4" />
-            Đăng xuất
-          </button>
-        </div>
-      </aside>
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-white/90 px-4 backdrop-blur lg:hidden">
-        <button
-          onClick={() => setOpen(true)}
-          className="rounded-xl p-2 hover:bg-muted"
-          aria-label="Mở menu quản trị"
-        >
-          <Menu />
-        </button>
-        <strong className="text-primary">BuyBack Admin</strong>
-        <span className="grid size-9 place-items-center rounded-full bg-secondary text-sm font-bold text-primary">
-          <CircleUserRound className="size-5" />
-        </span>
-      </header>
-      {open && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button
-            className="absolute inset-0 bg-foreground/30"
-            aria-label="Đóng menu"
-            onClick={() => setOpen(false)}
-          />
-          <aside className="relative h-full w-[min(84vw,300px)] overflow-y-auto bg-white py-4 shadow-xl">
-            <div className="mb-4 flex items-center justify-between px-5">
-              <strong className="text-lg text-primary">BuyBack Admin</strong>
-              <button
-                onClick={() => setOpen(false)}
-                className="rounded-lg p-2 hover:bg-muted"
-              >
-                <X />
-              </button>
-            </div>
-            <AdminNav close={() => setOpen(false)} />
-          </aside>
-        </div>
-      )}
-      <main>{children}</main>
-    </div>
-  );
+export function AdminShell({children}:{children:React.ReactNode}) {
+ const t=useCopy();const [open,setOpen]=useState(false);const path=usePathname();const {user,logout}=useAuth();const router=useRouter();
+ const tabs=[['/admin','Tổng quan',Gauge],['/admin/orders','Đơn hàng',Boxes],['/admin/reconciliation','Đối soát',FileClock],['/admin/withdrawals','Rút tiền',WalletCards]] as const;
+ async function signOut(){await logout();router.replace('/login');}
+ return <ConfirmProvider><div className="admin-workspace min-h-dvh bg-background lg:pl-64">
+  <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card lg:flex"><Link href="/admin" className="flex h-20 shrink-0 items-center gap-3 px-6 font-bold text-primary"><WalletCards/><span>BuyBack <small className="block text-xs font-medium text-muted-foreground">Admin · NexoraVN</small></span></Link><div className="flex-1 overflow-y-auto px-3 pb-6"><AdminNav/></div><div className="space-y-3 border-t p-4"><p className="truncate text-xs text-muted-foreground">{user?.email}</p><LanguageSwitcher/><button onClick={signOut} className="flex min-h-11 items-center gap-2 text-sm text-danger"><LogOut className="size-4"/>{t('Đăng xuất')}</button></div></aside>
+  <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-card px-4 lg:hidden"><Link href="/admin" className="flex items-center gap-2 font-bold text-primary"><WalletCards className="size-5"/>BuyBack Admin</Link><button onClick={()=>setOpen(true)} aria-label={t('Mở menu quản trị')} className="grid size-11 place-items-center rounded-xl hover:bg-muted"><Menu/></button></header>
+  <main id="main-content">{children}</main>
+  <nav className="app-bottom-nav grid grid-cols-5" aria-label={t('Điều hướng quản trị')}>{tabs.map(([href,label,Icon])=><Link key={href} href={href} aria-current={active(path,href)?'page':undefined} className={cn('flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[11px] font-medium',active(path,href)?'bg-secondary text-primary':'text-muted-foreground')}><Icon className="size-5"/>{t(label)}</Link>)}<button onClick={()=>setOpen(true)} aria-expanded={open} className="flex min-h-12 flex-col items-center justify-center gap-1 text-[11px] text-muted-foreground"><Menu className="size-5"/>{t('Menu')}</button></nav>
+  <SurfaceDialog open={open} onOpenChange={setOpen} title="Menu quản trị"><AdminNav close={()=>setOpen(false)}/><div className="mt-6 space-y-3 border-t pt-5"><LanguageSwitcher/><p className="break-all text-sm">{user?.email}</p><button onClick={signOut} className="flex min-h-11 items-center gap-2 text-danger"><LogOut className="size-4"/>{t('Đăng xuất')}</button></div></SurfaceDialog>
+ </div></ConfirmProvider>;
 }

@@ -2,6 +2,7 @@ export interface FinanceRow { id: string; [key: string]: unknown }
 export interface FinanceList { data: FinanceRow[]; meta: { page: number; limit: number; total: number; totalPages: number } }
 export interface Dashboard {
   orders: number;
+  cashbackSummary?: { state: string; userAmount: string; count: number }[];
   wallet: { available: string; reserved: string };
   commissions: { state: string; _count: number; _sum: { estimatedVnd: string | null; settledVnd: string | null } }[];
 }
