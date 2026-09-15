@@ -21,6 +21,10 @@ export const settlementSchema = z.object({ reference: z.string().trim().min(5), 
     try { return BigInt(v.grossVnd) - BigInt(v.deductionVnd) === BigInt(v.netVnd); } catch { return false; }
   }, 'Thực nhận phải bằng tổng trước phí trừ khấu trừ');
 
+export const shopeeCookieSchema = z.object({
+  cookie: z.string().min(10, 'Cookie tối thiểu 10 ký tự'),
+});
+
 export const providerCredentialSchema = z.object({
   accountId: z.string().regex(/^\d{1,30}$/, 'Account ID phải là các chữ số'),
   expectedAffiliate: z.string().trim().min(1, 'Nhập tên affiliate kỳ vọng'),

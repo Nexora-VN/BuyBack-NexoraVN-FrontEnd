@@ -1,8 +1,12 @@
+"use client";
 import { CircleCheck, CircleX, Clock3, LoaderCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-const map: Record<string, { label: string; variant: "success" | "warning" | "danger" | "info" | "muted"; icon: typeof CircleCheck }> = {
-  ACTIVE: { label: "Hoạt động", variant: "success", icon: CircleCheck }, WORKING: { label: "Hoạt động", variant: "success", icon: CircleCheck }, COMPLETED: { label: "Hoàn thành", variant: "success", icon: CircleCheck }, AVAILABLE: { label: "Khả dụng", variant: "success", icon: CircleCheck }, VALIDATED: { label: "Đã xác thực", variant: "info", icon: CircleCheck }, PENDING: { label: "Chờ xử lý", variant: "warning", icon: Clock3 }, PROCESSING: { label: "Đang xử lý", variant: "info", icon: LoaderCircle }, REJECTED: { label: "Từ chối", variant: "danger", icon: CircleX }, FAILED: { label: "Thất bại", variant: "danger", icon: CircleX }, DISABLED: { label: "Đã khóa", variant: "danger", icon: CircleX }, DELETED: { label: "Đã xóa", variant: "muted", icon: CircleX },
-};
-
-export function StatusBadge({ status }: { status: string }) { const item = map[status] ?? { label: status, variant: "muted" as const, icon: Clock3 }; const Icon = item.icon; return <Badge variant={item.variant}><Icon className={`size-3.5 ${status === "PROCESSING" ? "animate-spin" : ""}`} />{item.label}</Badge>; }
+import { useCopy } from "@/i18n/use-copy";
+export type StatusDomain='general'|'order'|'commission'|'cashback'|'withdrawal'|'bank';
+const labels:Record<string,string>={ACTIVE:'Hoạt động',WORKING:'Hoạt động',COMPLETED:'Hoàn thành',AVAILABLE:'Khả dụng',VALIDATED:'Đã xác thực',PENDING:'Chờ xử lý',PROCESSING:'Đang xử lý',REJECTED:'Từ chối',FAILED:'Thất bại',DISABLED:'Đã khóa',DELETED:'Đã xóa',ESTIMATED:'Hoa hồng dự kiến',MANUAL_REVIEW:'Cần đối chiếu',PARTIALLY_VALIDATED:'Hoàn thành một phần',PAID:'Đã quyết toán',REVERSED:'Đã thu hồi',completed:'Hoàn thành',cancelled:'Đã hủy / Không hợp lệ',APPROVED:'Đã duyệt',QUEUED:'Chờ đồng bộ',RUNNING:'Đang đồng bộ',OPEN:'Chưa xử lý',RESOLVED:'Đã xử lý',DRAFT:'Bản nháp',CONFIRMED:'Đã xác nhận',CANCELLED:'Đã hủy',EXPIRED:'Hết hạn',UNVERIFIED:'Chưa xác thực'};
+const contextual:Partial<Record<StatusDomain,Record<string,string>>>={order:{VALIDATED:'Hoàn thành',REJECTED:'Đã hủy / Không hợp lệ'},commission:{VALIDATED:'Đủ điều kiện quyết toán',PAID:'Đã quyết toán'},cashback:{PENDING:'Chờ xác nhận',VALIDATED:'Chờ quyết toán',AVAILABLE:'Có thể rút'},withdrawal:{PENDING:'Chờ xử lý',COMPLETED:'Đã chuyển tiền',FAILED:'Chuyển thất bại'},bank:{PENDING:'Chờ duyệt',APPROVED:'Đã duyệt'}};
+export function statusLabel(status:string,domain:StatusDomain='general'){return contextual[domain]?.[status]??labels[status]??status;}
+export function StatusBadge({status,domain='general'}:{status:string;domain?:StatusDomain}){
+ const t=useCopy();const failed=['REJECTED','FAILED','REVERSED','CANCELLED','cancelled','DISABLED','EXPIRED'].includes(status);const success=['ACTIVE','WORKING','AVAILABLE','PAID','COMPLETED','completed','CONFIRMED','APPROVED','RESOLVED'].includes(status);const running=['RUNNING','PROCESSING'].includes(status);const Icon=failed?CircleX:success?CircleCheck:running?LoaderCircle:Clock3;
+ return <Badge variant={failed?'danger':success?'success':running?'info':'warning'}><Icon aria-hidden className={`size-3.5 shrink-0 ${running?'animate-spin':''}`}/><span className="whitespace-normal">{t(statusLabel(status,domain))}</span></Badge>;
+}
