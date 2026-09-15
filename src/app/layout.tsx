@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro } from "next/font/google";
 import { getLocale } from "next-intl/server";
+import { Be_Vietnam_Pro } from "next/font/google";
 
 import "./globals.css";
 

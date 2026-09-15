@@ -1,6 +1,6 @@
+import { applyTokenCookies,backendUrl,clearTokenCookies,readJsonSafe,REFRESH_COOKIE } from "@/lib/server/backend";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { applyTokenCookies, backendUrl, clearTokenCookies, readJsonSafe, REFRESH_COOKIE } from "@/lib/server/backend";
 
 export async function POST() {
   const refreshToken = (await cookies()).get(REFRESH_COOKIE)?.value;

@@ -1,11 +1,11 @@
 "use client";
-import { Home, ClipboardList, WalletCards, UserRound, Link2, LogOut } from "lucide-react";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { useAuth } from "@/modules/auth/components/auth-provider";
+import LanguageSwitcher from "@/components/locale/language-switcher";
+import { ConfirmProvider } from "@/components/patterns/confirm-provider";
+import { Link,usePathname,useRouter } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
-import { ConfirmProvider } from "@/components/patterns/confirm-provider";
-import LanguageSwitcher from "@/components/locale/language-switcher";
+import { useAuth } from "@/modules/auth/components/auth-provider";
+import { ClipboardList,Home,Link2,LogOut,UserRound,WalletCards } from "lucide-react";
 const nav = [
  { href:'/app', label:'Trang chủ', icon:Home },
  { href:'/app/orders', label:'Đơn hàng', icon:ClipboardList },

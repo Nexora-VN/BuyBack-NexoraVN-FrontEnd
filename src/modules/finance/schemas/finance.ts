@@ -7,18 +7,18 @@ export const withdrawalSchema = z.object({
   }, 'Tối thiểu 50.000 VND'),
 });
 export const bankSchema = z.object({
-  bankCode: z.string().trim().min(2), bankName: z.string().trim().min(2),
-  accountHolder: z.string().trim().min(2), accountNumber: z.string().regex(/^[0-9]{6,30}$/, 'Số tài khoản gồm 6–30 chữ số'),
+  bankCode: z.string().trim().min(2, 'Nhập ít nhất 2 ký tự'), bankName: z.string().trim().min(2, 'Nhập ít nhất 2 ký tự'),
+  accountHolder: z.string().trim().min(2, 'Nhập ít nhất 2 ký tự'), accountNumber: z.string().regex(/^[0-9]{6,30}$/, 'Số tài khoản gồm 6–30 chữ số'),
 });
-export const syncSchema = z.object({ startDate: z.iso.date(), endDate: z.iso.date() })
+export const syncSchema = z.object({ startDate: z.iso.date('Ngày không hợp lệ'), endDate: z.iso.date('Ngày không hợp lệ') })
   .refine(v => {
     const s = Date.parse(v.startDate);
     const e = Date.parse(v.endDate);
     return !Number.isNaN(s) && !Number.isNaN(e) && e >= s;
   }, 'Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu');
-export const settlementSchema = z.object({ reference: z.string().trim().min(5), grossVnd: amount, deductionVnd: amount, netVnd: amount })
+export const settlementSchema = z.object({ reference: z.string().trim().min(5, 'Nhập ít nhất 5 ký tự'), grossVnd: amount, deductionVnd: amount, netVnd: amount })
   .refine(v => {
-    try { return BigInt(v.grossVnd) - BigInt(v.deductionVnd) === BigInt(v.netVnd); } catch { return false; }
+    try { return BigInt(v.grossVnd)>0n && BigInt(v.grossVnd) - BigInt(v.deductionVnd) === BigInt(v.netVnd); } catch { return false; }
   }, 'Thực nhận phải bằng tổng trước phí trừ khấu trừ');
 
 export const shopeeCookieSchema = z.object({
@@ -36,9 +36,14 @@ export const providerVerificationSchema = z.object({
 });
 
 export const structuredReviewSchema = z.object({
-  action: z.enum(['APPROVE', 'EXCLUDE']),
+  action: z.enum(['APPROVE', 'EXCLUDE'], 'Chọn hành động xử lý'),
   affiliateLinkId: z.string().uuid('Mã liên kết affiliate không hợp lệ').optional().or(z.literal('')),
   acceptedAmountVnd: amount.optional().or(z.literal('')),
   revision: z.coerce.number().int().positive('Revision phải là số nguyên dương').optional().or(z.literal('')),
   evidence: z.string().trim().min(10, 'Bằng chứng đối chiếu tối thiểu 10 ký tự'),
+}).superRefine((value, context) => {
+ if(value.action==='APPROVE') {
+  if(!value.affiliateLinkId)context.addIssue({code:'custom',path:['affiliateLinkId'],message:'Chọn liên kết affiliate để duyệt'});
+  if(!value.acceptedAmountVnd)context.addIssue({code:'custom',path:['acceptedAmountVnd'],message:'Nhập số hoa hồng chấp nhận'});
+ }
 });

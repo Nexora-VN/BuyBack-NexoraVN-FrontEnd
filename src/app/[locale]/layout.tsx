@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { getMessages,getTranslations,setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 
-import { isLocale, locales } from "@/i18n/config";
+import { isLocale,locales } from "@/i18n/config";
 import AppProvider from "@/providers/app-provider";
 
 type LocaleLayoutProps = Readonly<{

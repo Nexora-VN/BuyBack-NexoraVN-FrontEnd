@@ -1,9 +1,9 @@
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { createContext, useContext } from "react";
 import { authService } from "@/modules/auth/services/auth.service";
-import type { AuthUser, LoginInput } from "@/modules/auth/types/auth";
+import type { AuthUser,LoginInput } from "@/modules/auth/types/auth";
+import { useQuery,useQueryClient } from "@tanstack/react-query";
+import { createContext,useContext } from "react";
 
 type AuthContextValue = { user: AuthUser | null; loading: boolean; login: (input: LoginInput) => Promise<AuthUser>; logout: () => Promise<void>; refetch: () => Promise<unknown> };
 const AuthContext = createContext<AuthContextValue | null>(null);

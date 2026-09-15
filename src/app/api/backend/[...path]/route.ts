@@ -1,7 +1,7 @@
+import { ACCESS_COOKIE,backendUrl,readJsonSafe } from "@/lib/server/backend";
+import { isCrossOriginMutation } from "@/lib/server/same-origin";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ACCESS_COOKIE, backendUrl, readJsonSafe } from "@/lib/server/backend";
-import { isCrossOriginMutation } from "@/lib/server/same-origin";
 
 async function proxy(request: Request, context: { params: Promise<{ path: string[] }> }) {
   const { path } = await context.params;

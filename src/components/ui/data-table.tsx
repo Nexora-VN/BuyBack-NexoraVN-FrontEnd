@@ -4,7 +4,7 @@ import { EmptyState } from "./page";
 export interface Column<T> { key: string; label: string; className?: string; render: (row: T) => React.ReactNode; mobilePrimary?: boolean }
 export function DataTable<T>({columns,rows,rowKey,mobileRender}:{columns:Column<T>[];rows:T[];rowKey:(row:T)=>string;mobileRender?:(row:T)=>React.ReactNode}) {
  const t=useCopy();
- if (!rows.length) return <EmptyState title="Chưa có dữ liệu" description="Dữ liệu sẽ xuất hiện sau khi được ghi nhận."/>;
+ if (!rows.length) return <EmptyState title={t("Chưa có dữ liệu")} description="Dữ liệu sẽ xuất hiện sau khi được ghi nhận."/>;
  const primary=columns.find(c=>c.mobilePrimary)||columns.find(c=>['product','user','orderSn','reference','item','name','title'].includes(c.key))||columns.find(c=>c.key!=='select');
  const selection=columns.find(c=>c.key==='select');
  const actions=columns.filter(c=>['actions','action'].includes(c.key));

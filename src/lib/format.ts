@@ -1,9 +1,11 @@
 export function formatVnd(value: number | string | bigint): string {
+  if (typeof value === "string" && !/^-?\d+(\.\d+)?$/.test(value)) return "—";
   const amount = typeof value === "bigint" ? value : typeof value === "string" && /^-?\d+$/.test(value) ? BigInt(value) : BigInt(Math.trunc(Number(value) || 0));
   return `${new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 0 }).format(amount)} ₫`;
 }
 
 export function formatDateTime(value: string | Date): string {
+  if (!value || Number.isNaN(new Date(value).getTime())) return "—";
   return new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" }).format(new Date(value));
 }
 

@@ -1,0 +1,499 @@
+4 số cuối|Last 4 digits
+API key chỉ cấu hình qua biến môi trường ADDLIVETAG_API_KEY của backend. Đổi key cần khởi động lại backend; không nhập hoặc lưu key trên web/database. Form này chỉ cập nhật thông tin tài khoản.|The API key is configured through the backend environment variable ADDLIVETAG_API_KEY. Restart the backend after changing it. This form only updates account details.
+APPROVE yêu cầu bằng chứng, link affiliate và số hoa hồng hợp lệ. EXCLUDE sẽ loại bỏ khỏi settlement.|Approval requires evidence, an affiliate link and a valid commission amount. Exclusion removes this item from settlement.
+APPROVE — Duyệt hoa hồng có bằng chứng|Approve commission with evidence
+Account ID phải là các chữ số|Account ID must contain digits only
+Attribution UTM:|Attribution UTM:
+Batch & Vấn đề|Batches & issues
+Bản nháp|Draft
+Bằng chứng đối chiếu / Lý do xử lý|Evidence / reason
+Bằng chứng đối chiếu thực tế|Reconciliation evidence
+Bằng chứng đối chiếu tối thiểu 10 ký tự|Evidence must contain at least 10 characters
+Bằng việc đăng nhập, bạn đồng ý với điều khoản bảo mật và sử dụng của BuyBack NexoraVN.|By signing in, you agree to the privacy and usage terms of BuyBack NexoraVN.
+Bỏ chọn tất cả|Clear selection
+Bộ lọc|Filters
+Cashback chờ xác nhận|Cashback awaiting confirmation
+Cashback dự kiến:|Estimated cashback:
+Cashback khách hàng|Customer cashback
+Cashback minh bạch|Transparent cashback
+Chi tiết|Details
+Chi tiết commission|Commission details
+Chi tiết kỳ thanh toán AddLiveTag|AddLiveTag settlement details
+Chi tiết người dùng|User details
+Chi tiết sản phẩm|Product details
+Chi tiết đơn hàng|Order details
+Chi tiết đối soát|Reconciliation details
+Chuyển thất bại|Transfer failed
+Chào mừng trở lại|Welcome back
+Chính sách hệ thống|System policy
+Chưa có chuyển đổi được ghi nhận.|No conversions recorded yet.
+Chưa có dữ liệu|No data yet
+Chưa có link đầu ra|No generated link yet
+Chưa có sản phẩm hoàn thành|No completed items
+Chưa có thông tin giá|Price unavailable
+Chưa có thông tin hoa hồng|Commission unavailable
+Chưa có thông tin điều kiện|Eligibility unavailable
+Chưa có đơn hàng. Bắt đầu bằng cách tạo link mua sắm.|No orders yet. Start by creating a shopping link.
+Chưa có ảnh sản phẩm|Product image unavailable
+Chưa cập nhật|Not updated
+Chưa thiết lập cookie|Cookie not configured
+Chưa tính vào số dư có thể rút|Not included in your withdrawable balance
+Chưa xác thực|Unverified
+Chưa xác định trạng thái trả hoa hồng|Commission payment status unknown
+Chưa xử lý|Open
+Chưa đặt tên|Unnamed
+Chưa đồng bộ|Not synced yet
+Chưa đủ điều kiện thanh toán. Các lý do chặn:|Not eligible for settlement. Reasons:
+Chạy lại batch|Retry batch
+Chỉ SUPER_ADMIN có quyền điều chỉnh số dư.|Only SUPER_ADMIN can adjust balances.
+Chỉ cần khi APPROVE: ID liên kết affiliate của người dùng để gán đơn và cộng ví. Bỏ trống nếu chọn EXCLUDE.|Required for approval: the user's affiliate link ID for attribution. Leave empty when excluding.
+Chỉ cần khi APPROVE: Số tiền VND được chấp nhận sau kiểm tra. Bỏ trống nếu chọn EXCLUDE.|Required for approval: the accepted VND amount after review. Leave empty when excluding.
+Chỉ hiển thị đơn đã được gắn đúng tài khoản của bạn.|Only orders attributed to your account are shown.
+Chỉ hoa hồng đã xác minh thanh toán và gắn đúng người dùng mới đủ điều kiện quyết toán. Đơn hoàn thành nhưng chờ trả hoa hồng vẫn là dự kiến.|Settlement requires verified commission payment and user attribution. Completed orders with unpaid commissions remain estimates.
+Chỉ hỗ trợ link Shopee hợp lệ|Enter a valid Shopee link
+Chỉ hỗ trợ đơn AddLiveTag|Only AddLiveTag orders are supported
+Chỉ được gửi đến backend để mã hóa. Sau khi lưu không hiển thị lại.|Encrypted by the backend. Not displayed again after saving.
+Chỉnh sửa|Edit
+Chọn|Select
+Chọn commission |Select commission 
+Chọn commission đã xác thực, nhập khấu trừ và số tiền thực nhận theo chứng từ.|Select verified commissions and enter deductions and the received amount from the payment documents.
+Chọn tài khoản|Select an account
+Chọn tài khoản ngân hàng|Select a bank account
+Chờ duyệt|Awaiting approval
+Chờ quyết toán|Awaiting settlement
+Chờ xác nhận|Awaiting confirmation
+Chờ xử lý|Pending
+Chờ đồng bộ|Queued
+Chờ/chạy: {value0} · Lỗi: {value1}|Queued/running: {value0} · Failed: {value1}
+Chủ tài khoản|Account holder
+Cookie Shopee Affiliate được gửi đến backend để mã hóa an toàn (AES-256-GCM). Sau khi lưu không hiển thị lại trên giao diện web.|The Shopee Affiliate cookie is encrypted by the backend and is not displayed again after saving.
+Cookie tối thiểu 10 ký tự|Cookie must contain at least 10 characters
+Copy link chia sẻ cho bạn bè|Copy link to share with friends
+Các bước này giúp hỗ trợ ghi nhận hoa hồng. Kết quả ghi nhận còn phụ thuộc vào điều kiện của Shopee và trạng thái đơn hàng.|These steps help track commissions. Tracking also depends on Shopee's conditions and the order status.
+Cân bằng|Balanced
+Còn vấn đề đối soát chưa xử lý|Unresolved reconciliation issues
+Có Shopee commission|Has Shopee commission
+Có seller commission|Has seller commission
+Có thể rút|Available to withdraw
+Cũ nhất|Oldest first
+Cần kiểm tra|Needs review
+Cần kiểm tra điều kiện đối soát|Review reconciliation eligibility
+Cần xác thực tài khoản và đơn vị VND|Verify the account and VND currency unit
+Cần đối chiếu|Needs reconciliation
+Cập nhật|Updated
+Cập nhật kết nối AddLiveTag|Update AddLiveTag connection
+Cập nhật người dùng|Update user
+Cập nhật phiên Shopee|Update Shopee session
+Cập nhật sản phẩm|Update product
+Cập nhật yêu cầu|Update request
+Danh sách liên kết mua sắm đã tạo.|Shopping links created on the platform.
+Duy trì đăng nhập trên thiết bị này|Keep me signed in on this device
+Duyệt|Approve
+Duyệt ngân hàng|Bank approvals
+Duyệt tài khoản ngân hàng|Approve bank accounts
+Dán link Shopee, xem hoa hồng dự kiến và bắt đầu mua sắm.|Paste a Shopee link, view the estimated commission and start shopping.
+Dán link sản phẩm Shopee để xem hoa hồng dự kiến và bắt đầu mua sắm.|Paste a Shopee product link to view the estimated commission and start shopping.
+Dữ liệu sản phẩm Shopee và commission đã lưu trong hệ thống.|Shopee products and commissions saved on the platform.
+Dữ liệu sẽ xuất hiện sau khi hệ thống ghi nhận hoặc đồng bộ giao dịch.|Data will appear after transactions are recorded or synced.
+Dữ liệu sẽ xuất hiện sau khi được ghi nhận.|Data will appear once recorded.
+EXCLUDE — Loại bỏ khỏi thanh toán|Exclude from settlement
+Email không hợp lệ|Enter a valid email address
+Ghi nhận|Recorded
+Ghi rõ nguồn chứng từ đối chiếu thực tế (tối thiểu 10 ký tự) để mở khóa settlement|Provide the source of your evidence (at least 10 characters) to enable settlement
+Ghi điều chỉnh ví|Record wallet adjustment
+Giá|Price
+Giá trị mua:|Purchase value:
+Giới hạn cap|Cap limit
+Gỡ|Remove
+Gỡ tài khoản khỏi danh sách sử dụng? Yêu cầu rút đã tạo vẫn giữ nguyên thông tin.|Remove this account? Existing withdrawal requests will keep their bank details.
+Hiện mật khẩu|Show password
+Hoa hồng|Commission
+Hoa hồng VND|Commission (VND)
+Hoa hồng bị đối tác từ chối|Commission rejected by the provider
+Hoa hồng chưa được xác thực|Commission not verified
+Hoa hồng chấp nhận (VND)|Accepted commission (VND)
+Hoa hồng chờ trả chỉ là dự kiến. Cashback chỉ khả dụng sau khi xác nhận nhận tiền và hoàn tất kỳ thanh toán.|Unpaid commissions are estimates. Cashback becomes available after payment is verified and settlement is completed.
+Hoa hồng dự kiến|Estimated commission
+Hoa hồng đối soát (VND):|Reconciled commission (VND):
+Hoa hồng ước tính (Summary):|Estimated commission (summary):
+Hoa hồng:|Commission:
+Hoàn thành|Completed
+Hoàn thành một phần|Partially completed
+Hoạt động|Active
+Hành động|Action
+Hết hạn|Expired
+Hệ thống|System
+Họ và tên|Full name
+Hủy|Cancel
+Hủy bản nháp|Cancel draft
+Hủy bản nháp thanh toán|Cancel settlement draft
+Khoảng ngày dài hơn 90 ngày sẽ được hệ thống tự động chia thành các batch độc lập không chồng lấn.|Date ranges longer than 90 days are split into separate, non-overlapping batches.
+Khóa settlement tới khi SUPER_ADMIN xác nhận|Settlement is locked until SUPER_ADMIN verification
+Không thể kết nối máy chủ.|Unable to connect to the server.
+Không thể làm mới phiên|Unable to refresh the session
+Không thể lưu|Unable to save
+Không thể sao chép|Unable to copy
+Không thể sao chép link. Vui lòng thử lại.|Unable to copy the link. Please try again.
+Không thể tạo yêu cầu|Unable to create the request
+Không thể tải danh sách sản phẩm.|Unable to load products.
+Không thể tải dữ liệu|Unable to load data
+Không thể tải dữ liệu tài khoản.|Unable to load account details.
+Không thể tải người dùng.|Unable to load users.
+Không thể tải sản phẩm.|Unable to load the product.
+Không thể xem|Unable to show details
+Không thể xóa|Unable to delete
+Không thể xóa link|Unable to delete the link
+Không thể đăng nhập|Unable to sign in
+Không tìm thấy kết quả|No results found
+Không tìm thấy người dùng|User not found
+Không tìm thấy sản phẩm|Product not found
+Không tạo được link. Vui lòng thử lại.|Unable to generate the link. Please try again.
+Khả dụng|Available
+Khả dụng +/-|Available balance change
+Khả dụng sau|Available balance after
+Khả dụng sau giao dịch|Available after transaction
+Khấu trừ|Deductions
+Khấu trừ (VND)|Deductions (VND)
+Kiểm tra thông tin|Review details
+Kiểm tra thông tin và xác nhận thao tác.|Review the details and confirm your action.
+Kiểm tra yêu cầu rút|Review withdrawal
+Kết nối Đối tác & Shopee|Partner & Shopee connections
+Kết nối đối tác|Partner connections
+Kết quả duyệt|Review result
+Kết quả tạo link|Generated link
+Kết quả xử lý|Resolution
+Kỳ thanh toán|Settlements
+Kỳ thanh toán AddLiveTag|AddLiveTag settlements
+Ledger & Đồng bộ|Ledger & sync
+Link của tôi|My links
+Link không hợp lệ|Invalid link
+Link sản phẩm Shopee|Shopee product link
+Liên kết affiliate|Affiliate links
+Loại|Type
+Loại giao dịch|Transaction type
+Loại vấn đề|Issue type
+Lý do / ghi chú|Reason / notes
+Lưu|Save
+Lưu kết quả duyệt|Save review
+Lưu sản phẩm|Save product
+Lưu ý trước khi mua|Before you shop
+Lượt bán|Sales
+Lịch sử cashback|Cashback history
+Lịch sử rút tiền|Withdrawal history
+Lọc|Filter
+Lỗi|Errors
+Menu quản trị|Admin menu
+Mua ngay|Shop now
+Mua sắm cùng BuyBack|Shop with BuyBack
+Mua sắm như thường lệ.|Shop as usual.
+Mã|ID
+Mã AffiliateLink ID (UUID)|Affiliate link ID (UUID)
+Mã checkout|Checkout ID
+Mã checkout Shopee|Shopee checkout ID
+Mã chuyển khoản|Transfer reference
+Mã chứng từ|Payment reference
+Mã chứng từ / kỳ thanh toán|Payment / settlement reference
+Mã commission|Commission ID
+Mã giao dịch ngân hàng|Bank transaction reference
+Mã hoa hồng|Commission ID
+Mã liên kết affiliate không hợp lệ|Invalid affiliate link ID
+Mã lỗi|Error code
+Mã ngân hàng|Bank code
+Mã tham chiếu|Reference
+Mã tra cứu|Reference codes
+Mã tài khoản AddLiveTag (Account ID)|AddLiveTag account ID
+Mã yêu cầu|Request ID
+Mã đơn|Order ID
+Mã đơn Shopee|Shopee order ID
+Mật khẩu|Password
+Mật khẩu mới (không bắt buộc)|New password (optional)
+Mật khẩu phải có ít nhất 8 ký tự|Password must contain at least 8 characters
+Mới nhất|Newest first
+Mở menu quản trị|Open admin menu
+Mở sản phẩm|Open product
+Mở trên Shopee|Open on Shopee
+Nguồn|Source
+Nguồn đối soát|Reconciliation source
+Nguồn:|Source:
+Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu|End date must be on or after the start date
+Ngày mua|Purchase date
+Ngày mua:|Purchased:
+Ngày tạo|Created
+Ngân hàng|Bank
+Ngân hàng chờ duyệt|Bank accounts awaiting approval
+Ngân hàng nhận|Receiving bank
+Ngôn ngữ|Language
+Người dùng|Users
+Người thực hiện|Performed by
+Nhấn “Mua ngay” trên trang này.|Select “Shop now” on this page.
+Nhận lại giá trị xứng đáng.|Earn cashback along the way.
+Nhận xử lý|Start processing
+Nhập lý do ít nhất 5 ký tự|Enter a reason with at least 5 characters
+Nhập số nguyên VND|Enter a whole VND amount
+Nhập số phiên bản credential hiện tại|Enter the current credential version
+Nhập tên affiliate kỳ vọng|Enter the expected affiliate name
+Nhật ký|Activity log
+Nhật ký thay đổi số dư. Giao dịch đã ghi chỉ được bù trừ bằng giao dịch mới.|Balance changes are recorded here. Existing transactions can only be offset by new transactions.
+Nhật ký vận hành|Operations log
+Nền tảng hoàn tiền affiliate minh bạch từ NexoraVN.|A transparent affiliate cashback platform by NexoraVN.
+Phiên Shopee|Shopee session
+Phiên bản|Version
+Phiên bản Credential (Version)|Credential version
+Phiên bản credential phải là số nguyên dương|Credential version must be a positive integer
+Phiên đăng nhập đã hết hạn|Your session has expired
+Phân bổ commission|Commission allocation
+Phân trang|Pagination
+Phí MCN:|MCN fee:
+Quay lại|Back
+Quản lý|Management
+Quản lý Affiliate Links|Manage affiliate links
+Quản lý người dùng|Manage users
+Quản lý sản phẩm|Manage products
+Quản lý tài khoản và quyền truy cập trên nền tảng.|Manage accounts and access permissions on the platform.
+Review vấn đề|Review issue
+Revision của checkout|Checkout revision
+Revision của đơn hàng (nhập số 1 nếu là đơn mới đối soát, để trống mặc định là 1).|Order revision. Enter 1 for a newly reconciled order; defaults to 1 when empty.
+Revision phải là số nguyên dương|Revision must be a positive integer
+Rút tiền|Withdraw
+Rút tối thiểu|Minimum withdrawal
+SUPER_ADMIN xác nhận account ID và đơn vị tiền integer VND bằng đối chiếu thực tế kèm bằng chứng để mở khóa settlement.|SUPER_ADMIN must verify the account ID and whole VND currency unit against evidence to enable settlement.
+Sao chép link|Copy link
+Sau|Next
+Sync cách {value0}s|Synced {value0}s ago
+Sản phẩm|Products
+Sản phẩm Shopee|Shopee product
+Sản phẩm trong đơn|Order items
+Sắp xếp|Sort
+Sẵn sàng mua sắm|Ready to shop
+Số dư khả dụng không đủ|Insufficient available balance
+Số tiền|Amount
+Số tiền (+ cộng / - trừ), VND|Amount (+ credit / - debit), VND
+Số tiền (VND)|Amount (VND)
+Số tiền tham khảo, được xác nhận sau khi đơn hàng đối soát.|An estimate, confirmed after order reconciliation.
+Số tiền được giữ để xử lý yêu cầu. Theo dõi tiến độ trong lịch sử rút tiền.|The amount is reserved for this request. Track its progress in withdrawal history.
+Số tài khoản|Account number
+Số tài khoản gồm 6–30 chữ số|Account number must contain 6–30 digits
+Số điện thoại|Phone number
+Sổ giao dịch|Transaction ledger
+Sửa|Edit
+Tham chiếu|Reference
+Thao tác|Actions
+Thay thông tin|Change details
+Thay đổi chính sách cần phát hành phiên bản mới để bảo toàn lịch sử phân bổ tiền. Cấu hình bật settlement/rút tiền do backend quản lý.|Policy changes require a new version to preserve allocation history. Settlement and withdrawal availability are managed by the backend.
+Thay đổi khả dụng|Available balance change
+Thay đổi đang giữ|Reserved balance change
+Thiếu dữ liệu sản phẩm từ đối tác|Provider item data is missing
+Thêm lại sản phẩm và tiến hành đặt hàng.|Add the product again and place your order.
+Thêm sản phẩm|Add product
+Thêm tài khoản ngân hàng|Add bank account
+Thêm tài khoản ngân hàng để tiếp tục|Add a bank account to continue
+Thông tin thêm|More details
+Thông tin tài khoản|Account details
+Thông tin tài khoản thanh toán được mã hóa. Tài khoản mới hoặc chỉnh sửa cần admin duyệt trước khi rút.|Bank details are encrypted. New or edited accounts require admin approval before withdrawals.
+Thông tin từ Users API; các nghiệp vụ KYC và 2FA chưa được hiển thị.|Account information and access permissions.
+Thất bại|Failed
+Thời gian|Time
+Thử lại|Retry
+Thử thay đổi từ khóa hoặc bộ lọc.|Try a different search or filter.
+Thực nhận|Net received
+Thực nhận (VND)|Net received (VND)
+Thực nhận phải bằng tổng trước phí trừ khấu trừ|Net amount must equal gross amount minus deductions
+Tiếng Việt|Tiếng Việt
+Tiếp tục|Continue
+Trang|Page
+Trang chủ|Home
+Trên tiền thực nhận sau khấu trừ|Of net receipts after deductions
+Trùng đơn giữa các nguồn|Duplicate order across providers
+Trước|Previous
+Trước phí|Gross amount
+Trạng thái|Status
+Trạng thái hoa hồng|Commission status
+Trạng thái đơn|Order status
+Tài chính|Finance
+Tài khoản|Account
+Tài khoản của tôi|My account
+Tài khoản ngân hàng|Bank accounts
+Tài khoản đã duyệt|Approved account
+Tên Affiliate kỳ vọng|Expected affiliate name
+Tên affiliate xuất hiện trong báo cáo API AddLiveTag|Affiliate name shown in AddLiveTag reports
+Tên chủ tài khoản|Account holder name
+Tên hiển thị|Display name
+Tên ngân hàng|Bank name
+Tên shop|Shop name
+Tên sản phẩm|Product name
+Tên thao tác|Action name
+Tìm Link ID, User ID, Product ID hoặc URL|Search link, user, product ID or URL
+Tìm URL gốc|Search original URL
+Tìm kiếm|Search
+Tìm theo email hoặc tên hiển thị|Search email or display name
+Tìm tên sản phẩm, shop hoặc URL|Search product, shop or URL
+Tạo kỳ thanh toán|Create settlement
+Tạo link|Create link
+Tạo link cashback|Create cashback link
+Tạo link cashback thành công|Cashback link created
+Tạo link mới|Create new link
+Tạo link thất bại|Unable to create link
+Tạo liên kết Shopee, theo dõi đối soát và quản lý dòng tiền hoàn lại trong một trải nghiệm đơn giản, rõ ràng.|Create Shopee links, track reconciliation and manage cashback in one clear, simple experience.
+Tạo lúc|Created
+Tạo người dùng|Create user
+Tạo phiên bản tài khoản mới|Create a new account version
+Tất cả trạng thái|All statuses
+Tối thiểu 10 ký tự (ví dụ: "Đã đối chiếu mã đơn Shopee khớp với user" hoặc "Đơn demo không rõ user, loại bỏ")|At least 10 characters. Explain how you verified attribution or why the order must be excluded.
+Tối thiểu 50.000 VND|Minimum 50,000 VND
+Tối thiểu 50.000 VND. Số tiền được giữ ngay khi gửi yêu cầu.|Minimum 50,000 VND. The amount is reserved when you submit the request.
+Tổng %|Total %
+Tổng phải khớp hoa hồng đã chọn|Total must match selected commissions
+Tổng quan|Overview
+Tổng quan vận hành|Operations overview
+Tổng trước khấu trừ (VND)|Gross amount (VND)
+Tổng tỷ lệ|Total rate
+Từ chối|Reject
+Từ ngày|From date
+Từ ngày (giờ Việt Nam)|From date (Vietnam time)
+Tỷ lệ|Rate
+Vai trò|Role
+Vui lòng nhập trường này|This field is required
+Ví|Wallet
+Ví & Ledger|Wallet & ledger
+Ví của tôi|My wallet
+Ví dụ: 420|Example: 420
+Ví đang có khoản hoàn trả sau điều chỉnh đơn hàng. Bạn có thể rút tiếp khi số dư khả dụng đủ mức tối thiểu.|Your wallet has a recovery balance after an order adjustment. Withdrawals resume once your available balance meets the minimum.
+Vấn đề|Issue
+Vấn đề đối soát|Reconciliation issues
+Vận hành|Operations
+Xem kết quả|Show results
+Xem lịch sử rút tiền|View withdrawal history
+Xem thông tin chuyển khoản được ghi vào nhật ký truy cập.|Viewing bank transfer details is recorded in the access log.
+Xem tài khoản chuyển tiền|View transfer account
+Xem tất cả|View all
+Xác nhận|Confirm
+Xác nhận gỡ|Confirm removal
+Xác nhận rút tiền|Confirm withdrawal
+Xác nhận sẽ chia 85% cashback vào ví khách hàng và 15% nền tảng. Kỳ đã xác nhận không thể sửa.|Confirmation allocates 85% cashback to customer wallets and 15% to the platform. Confirmed settlements cannot be edited.
+Xác nhận thao tác|Confirm action
+Xác nhận đối tác đã thanh toán|Confirm partner payment
+Xác thực VND & Account|VND & account verification
+Xác thực tài khoản & đơn vị tiền VND|Verify account & VND currency unit
+Xóa|Delete
+Xóa affiliate link này?|Delete this affiliate link?
+Xóa bộ lọc|Clear filters
+Xóa người dùng này? Hành động cần được xác nhận.|Delete this user? Please confirm this action.
+Xóa sản phẩm này?|Delete this product?
+Xóa sản phẩm định mua khỏi giỏ hàng Shopee nếu đã thêm trước đó.|Remove the product from your Shopee cart if you previously added it.
+Xử lý vấn đề đối soát|Resolve reconciliation issue
+Yêu cầu|Request
+Yêu cầu rút|Request withdrawal
+Yêu cầu rút chờ xử lý|Pending withdrawals
+Yêu cầu rút tiền|Withdrawal request
+Yêu cầu đã hết thời gian chờ.|The request timed out.
+bản ghi|records
+chuyển đổi|conversions
+commission · Tổng trước phí:|commissions · Gross amount:
+dòng · Lỗi:|rows · Errors:
+https://vn.shp.ee/... hoặc https://shopee.vn/product/...|https://vn.shp.ee/... or https://shopee.vn/product/...
+{value0} vấn đề mở|{value0} open issues
+· Cập nhật|· Updated
+Đang giữ +/-|Reserved balance change
+Đang giữ cho yêu cầu rút|Reserved for withdrawals
+Đang gửi…|Submitting…
+Đang kiểm tra phiên đăng nhập|Checking your session
+Đang tạo…|Creating…
+Đang tải|Loading
+Đang xử lý|Processing
+Đang xử lý…|Processing…
+Đang đăng nhập|Signing in
+Đang đồng bộ|Syncing
+Điều chỉnh tạo một giao dịch ledger mới và bắt buộc ghi lý do.|Adjustments create a new ledger entry and require a reason.
+Điều chỉnh ví|Wallet adjustments
+Điều hướng chính|Main navigation
+Điều hướng quản trị|Admin navigation
+Điều kiện quyết toán|Settlement eligibility
+Điều kiện thanh toán (Settlement)|Settlement eligibility
+Điện thoại|Phone
+Đánh dấu đang xử lý trước khi chuyển khoản. Chỉ xác nhận hoàn thành sau khi đã chuyển thành công.|Mark the request as processing before transferring funds. Confirm completion only after a successful transfer.
+Đánh giá|Rating
+Đã bán|Sold
+Đã cap|Capped
+Đã chuyển tiền|Transferred
+Đã chọn|Selected
+Đã cập nhật người dùng|User updated
+Đã cập nhật phiên|Session updated
+Đã duyệt|Approved
+Đã gỡ|Removed
+Đã gửi yêu cầu rút tiền|Withdrawal request submitted
+Đã hủy|Cancelled
+Đã hủy / Không hợp lệ|Cancelled / invalid
+Đã khóa|Disabled
+Đã lưu|Saved
+Đã lưu sản phẩm|Product saved
+Đã lưu thay đổi|Changes saved
+Đã lưu:|Saved:
+Đã mở khóa settlement|Settlement enabled
+Đã quyết toán|Settled
+Đã quyết toán:|Settled:
+Đã sao chép|Copied
+Đã sao chép link chia sẻ|Share link copied
+Đã thu hồi|Reversed
+Đã thuộc một kỳ thanh toán|Already included in a settlement
+Đã tạo người dùng|User created
+Đã xác nhận|Confirmed
+Đã xác thực|Verified
+Đã xóa|Deleted
+Đã xóa link|Link deleted
+Đã xóa người dùng|User deleted
+Đã xóa sản phẩm|Product deleted
+Đã xử lý|Resolved
+Đóng|Close
+Đăng nhập|Sign in
+Đăng nhập thành công|Signed in successfully
+Đăng nhập thất bại|Sign-in failed
+Đăng nhập để tiếp tục quản lý cashback của bạn.|Sign in to manage your cashback.
+Đăng xuất|Sign out
+Đơn chưa gắn người dùng|Order has no attributed user
+Đơn hàng|Orders
+Đơn hàng của tôi|My orders
+Đơn hàng gần đây|Recent orders
+Đơn đã ghi nhận|Recorded orders
+Đến ngày|To date
+Đến ngày (giờ Việt Nam)|To date (Vietnam time)
+Đối soát|Reconciliation
+Đối soát chuyển đổi AddLiveTag|AddLiveTag conversion reconciliation
+Đối soát:|Reconciled:
+Đối tác chưa xác nhận trả hoa hồng|Provider has not confirmed commission payment
+Đồng bộ AddLiveTag|Sync AddLiveTag
+Đồng bộ báo cáo AddLiveTag, kiểm tra attribution và các trường hợp cần xử lý.|Sync AddLiveTag reports and review attribution and unresolved cases.
+Đồng bộ thủ công|Manual sync
+Đủ điều kiện quyết toán|Eligible for settlement
+Ẩn mật khẩu|Hide password
+✓ Đơn hàng đủ điều kiện đưa vào kỳ thanh toán settlement.|This order is eligible for settlement.
+Rút tiền đang tạm dừng|Withdrawals are temporarily paused
+Quyết toán đang tạm dừng|Settlements are temporarily paused
+Tài khoản ngân hàng chưa được duyệt|Bank account has not been approved
+Hoa hồng chưa đủ điều kiện quyết toán|Commission is not eligible for settlement
+Dữ liệu đã thay đổi. Vui lòng tải lại và kiểm tra.|Data has changed. Reload and review it before continuing.
+Email hoặc mật khẩu không đúng|Incorrect email or password
+Bạn không có quyền thực hiện thao tác này|You do not have permission to perform this action
+Không thể hoàn tất yêu cầu. Vui lòng thử lại.|Unable to complete the request. Please try again.
+Nhập ít nhất 2 ký tự|Enter at least 2 characters
+Nhập ít nhất 5 ký tự|Enter at least 5 characters
+Ngày không hợp lệ|Enter a valid date
+Chọn hành động xử lý|Select a review action
+Chọn liên kết affiliate để duyệt|Select an affiliate link for approval
+Nhập số hoa hồng chấp nhận|Enter the accepted commission
+Mã người dùng không hợp lệ|Invalid user ID
+Số tiền phải khác 0|Amount must not be zero
+Thông tin không hợp lệ|Enter a valid value
+sản phẩm|items
+Hoa hồng đã xác thực|Verified commission
+CASHBACK_CREDIT|Cashback credit
+CASHBACK_REVERSAL|Cashback reversal
+WITHDRAWAL_RESERVE|Withdrawal reserved
+WITHDRAWAL_RELEASE|Withdrawal released
+WITHDRAWAL_COMPLETE|Withdrawal completed
+MANUAL_ADJUSTMENT|Manual adjustment
+USER|User
+ADMIN|Administrator
+SUPER_ADMIN|Super administrator
+Chờ trả hoa hồng|Awaiting commission payment
+Chưa chốt|Not finalized
+Không hợp lệ|Invalid
