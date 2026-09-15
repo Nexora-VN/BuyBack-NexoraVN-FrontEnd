@@ -1,5 +1,5 @@
 import { ApiError } from "@/lib/api/errors";
-import type { ApiClientOptions, QueryParamValue } from "@/types/api";
+import type { ApiClientOptions,QueryParamValue } from "@/types/api";
 
 let refreshPromise: Promise<boolean> | null = null;
 

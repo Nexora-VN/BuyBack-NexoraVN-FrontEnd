@@ -1,6 +1,6 @@
+import { renderUI as render } from '@/test/render';
 import {
   fireEvent,
-  render,
   screen,
   waitFor,
   cleanup,
@@ -16,6 +16,7 @@ vi.mock("@/modules/finance/hooks/use-finance", () => ({
   useRefreshFinance: () => vi.fn(),
 }));
 vi.mock("sonner", () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
+vi.mock('@/i18n/navigation',()=>({usePathname:()=>'/app/links/new',useRouter:()=>({back:vi.fn(),replace:vi.fn()})}));
 const response = {
   link: "https://s.shopee.vn/example",
   code: null,
@@ -114,10 +115,12 @@ describe("GenerateLinkPage", () => {
     );
     fireEvent.click(screen.getByRole("button", { name: "Tạo link" }));
     await waitFor(() =>
-      expect(toast.error).toHaveBeenCalledWith("Lỗi tạo link"),
+      expect(toast.error).toHaveBeenCalledWith("Không thể hoàn tất yêu cầu. Vui lòng thử lại."),
     );
     expect(
       screen.queryByRole("link", { name: "Mua ngay" }),
     ).not.toBeInTheDocument();
   });
 });
+
+it('renders the shopping flow in English',async()=>{render(<GenerateLinkPage/>,'en');fireEvent.change(screen.getByLabelText('Shopee product link'),{target:{value:'https://shopee.vn/product/1/2'}});fireEvent.click(screen.getByRole('button',{name:'Create link'}));expect(await screen.findByText('Estimated commission')).toBeInTheDocument();expect(screen.getByRole('link',{name:'Shop now'})).toHaveAttribute('href',response.link);});

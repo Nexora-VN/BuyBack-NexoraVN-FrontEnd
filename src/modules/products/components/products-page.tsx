@@ -1,30 +1,33 @@
 "use client";
+import { ResourceToolbar } from '@/components/patterns/resource-toolbar';
+import { ProductThumbnail } from '@/components/patterns/product-thumbnail';
 
-import * as Dialog from "@radix-ui/react-dialog";
-import Image from "next/image";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  Pencil,
-  Plus,
-  Search,
-  Trash2,
-  X,
-} from "lucide-react";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useCopy } from "@/i18n/use-copy";
+
+import { useConfirm } from '@/components/patterns/confirm-provider';
+import { ListPagination } from '@/components/patterns/list-controls';
+import { SurfaceDialog } from '@/components/patterns/surface-dialog';
+import { useListState } from '@/lib/use-list-state';
+
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Page } from "@/components/ui/page";
-import { formatVnd } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
+import { formatVnd } from "@/lib/format";
 import {
-  useProductMutations,
-  useProducts,
+useProductMutations,
+useProducts,
 } from "@/modules/products/hooks/use-products";
-import type { Product, ProductInput } from "@/modules/products/types/product";
+import type { Product,ProductInput } from "@/modules/products/types/product";
+import {
+ExternalLink,
+Pencil,
+Plus,
+Trash2
+} from "lucide-react";
+import { useRef,useState } from "react";
+import { toast } from "sonner";
 
 const blank: ProductInput = {
   itemId: "",
@@ -56,22 +59,21 @@ const blank: ProductInput = {
   lastUpdate: new Date().toISOString(),
 };
 export function ProductsPage() {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
+ const t=useCopy();
+
+  const confirm = useConfirm();
+  const list = useListState('products');
+  const page = list.page, query = list.query;
+  const saveLock = useRef(false);
+  const [saveError, setSaveError] = useState('');
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
   const [form, setForm] = useState<ProductInput>(blank);
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setQuery(search);
-      setPage(1);
-    }, 300);
-    return () => clearTimeout(id);
-  }, [search]);
+
   const products = useProducts({
     page,
     limit: 20,
+    sort: list.sort,
     ...(query ? { search: query } : {}),
   });
   const mutations = useProductMutations();
@@ -82,6 +84,7 @@ export function ProductsPage() {
         ? { ...product, price: Number(product.price), commission: Number(product.commission), sellerComFinal: Number(product.sellerComFinal), shoppeComFinal: Number(product.shoppeComFinal) }
         : { ...blank, lastUpdate: new Date().toISOString() },
     );
+    setSaveError('');
     setOpen(true);
   };
   const save = async () => {
@@ -89,49 +92,38 @@ export function ProductsPage() {
       if (editing)
         await mutations.update.mutateAsync({ id: editing.id, input: form });
       else await mutations.create.mutateAsync(form);
-      toast.success("Đã lưu sản phẩm");
+      toast.success(t("Đã lưu sản phẩm"));
       setOpen(false);
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Không thể lưu sản phẩm",
-      );
-    }
+      setSaveError(error instanceof Error ? error.message : t("Không thể lưu"));
+    } finally { saveLock.current=false; }
   };
   const remove = async (id: string) => {
-    if (!confirm("Xóa sản phẩm này?")) return;
+    if (mutations.remove.isPending) return;
+    if (!await confirm(t("Xóa sản phẩm này?"))) return;
     try {
       await mutations.remove.mutateAsync(id);
-      toast.success("Đã xóa sản phẩm");
+      toast.success(t("Đã xóa sản phẩm"));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Không thể xóa");
+      toast.error(t.error(error instanceof Error ? error.message : t("Không thể xóa")));
     }
   };
   return (
     <Page
-      title="Quản lý sản phẩm"
+      title={t("Quản lý sản phẩm")}
       description="Dữ liệu sản phẩm Shopee và commission đã lưu trong hệ thống."
       actions={
         <Button onClick={() => show()}>
           <Plus />
-          Thêm sản phẩm
-        </Button>
+          {t("Thêm sản phẩm")}</Button>
       }
     >
-      <div className="relative max-w-xl">
-        <Search className="absolute left-3 top-3.5 size-4 text-muted-foreground" />
-        <Input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Tìm tên sản phẩm, shop hoặc URL"
-          className="pl-10"
-        />
-      </div>
+      <ResourceToolbar scope="products" label="Tìm tên sản phẩm, shop hoặc URL" />
       {products.isLoading ? (
         <div className="h-64 rounded-2xl skeleton" />
       ) : products.isError ? (
         <div className="rounded-2xl bg-danger-soft p-5 text-danger">
-          Không thể tải danh sách sản phẩm.
-        </div>
+          {t("Không thể tải danh sách sản phẩm.")}</div>
       ) : (
         <>
           <DataTable
@@ -140,22 +132,12 @@ export function ProductsPage() {
             columns={[
               {
                 key: "product",
-                label: "Sản phẩm",
+                label: t("Sản phẩm"),
                 render: (row) => (
-                  <div className="flex min-w-72 items-center gap-3">
-                    <div className="relative size-12 overflow-hidden rounded-xl bg-muted">
-                      {row.imageUrl && (
-                        <Image
-                          src={row.imageUrl}
-                          alt=""
-                          fill
-                          sizes="48px"
-                          className="object-cover"
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <Link
+                  <div className="flex min-w-0 items-center gap-3 lg:min-w-64">
+                    <ProductThumbnail src={row.imageUrl} name={row.productName}/>
+                    <div className="min-w-0">
+<Link
                         href={`/admin/products/${row.id}`}
                         className="line-clamp-1 font-medium hover:text-primary"
                       >
@@ -173,14 +155,14 @@ export function ProductsPage() {
                 label: "Shopee IDs",
                 render: (row) => (
                   <div className="text-xs">
-                    <p>Item: {row.itemId}</p>
-                    <p>Shop: {row.shopId}</p>
+                    <p>{t("Item:")}{row.itemId}</p>
+                    <p>{t("Shop:")}{row.shopId}</p>
                   </div>
                 ),
               },
               {
                 key: "price",
-                label: "Giá",
+                label: t("Giá"),
                 className: "text-right",
                 render: (row) => (
                   <span className="font-semibold tabular">
@@ -190,7 +172,7 @@ export function ProductsPage() {
               },
               {
                 key: "rate",
-                label: "Tỷ lệ",
+                label: t("Tỷ lệ"),
                 className: "text-right",
                 render: (row) => `${row.totalRatePercent}%`,
               },
@@ -207,14 +189,11 @@ export function ProductsPage() {
                 render: (row) => (
                   <div className="flex justify-end">
                     <a href={row.productLink} target="_blank" rel="noreferrer">
-                      <Button variant="ghost" size="icon">
+                      <Button variant="ghost" size="icon" aria-label={t("Mở sản phẩm")}>
                         <ExternalLink />
                       </Button>
                     </a>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => show(row)}
+                    <Button variant="ghost" size="icon" aria-label={t("Sửa")} onClick={() => show(row)}
                     >
                       <Pencil />
                     </Button>
@@ -231,59 +210,24 @@ export function ProductsPage() {
               },
             ]}
           />
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>{products.data?.meta.total ?? 0} sản phẩm</span>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={page <= 1}
-                onClick={() => setPage(page - 1)}
-              >
-                <ChevronLeft />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={page >= (products.data?.meta.totalPages ?? 1)}
-                onClick={() => setPage(page + 1)}
-              >
-                <ChevronRight />
-              </Button>
-            </div>
-          </div>
+          <ListPagination page={page} total={products.data?.meta.total??0} totalPages={products.data?.meta.totalPages??1} pending={products.isFetching} onPage={page=>list.update({page})}/>
         </>
       )}
-      <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-foreground/30" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[92vh] w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border bg-white p-6 shadow-2xl">
-            <div className="flex justify-between">
-              <div>
-                <Dialog.Title className="text-xl font-bold">
-                  {editing ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
-                </Dialog.Title>
-                <Dialog.Description className="text-sm text-muted-foreground">
-                  Nhập dữ liệu đúng theo Product API.
-                </Dialog.Description>
-              </div>
-              <Dialog.Close className="rounded-lg p-2 hover:bg-muted">
-                <X />
-              </Dialog.Close>
-            </div>
+      <SurfaceDialog busy={mutations.create.isPending||mutations.update.isPending} open={open} onOpenChange={setOpen} title={editing?t("Cập nhật sản phẩm"):t("Thêm sản phẩm")}>
+        <form onSubmit={event=>{event.preventDefault();void save();}}>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {(
                 [
                   ["itemId", "Item ID", "text"],
                   ["shopId", "Shop ID", "text"],
-                  ["productName", "Tên sản phẩm", "text"],
-                  ["shopName", "Tên shop", "text"],
+                  ["productName", t("Tên sản phẩm"), "text"],
+                  ["shopName", t("Tên shop"), "text"],
                   ["originLink", "Origin link", "url"],
                   ["productLink", "Product link", "url"],
                   ["imageUrl", "Image URL", "url"],
                   ["rating", "Rating", "text"],
-                  ["price", "Giá", "number"],
-                  ["sales", "Lượt bán", "number"],
+                  ["price", t("Giá"), "number"],
+                  ["sales", t("Lượt bán"), "number"],
                   ["commission", "Commission", "number"],
                   ["sellerComFinal", "Seller commission", "number"],
                   ["shoppeComFinal", "Shopee commission", "number"],
@@ -291,7 +235,7 @@ export function ProductsPage() {
                   ["shopeeRate", "Shopee rate", "number"],
                   ["sellerRatePercent", "Seller %", "number"],
                   ["shopeeRatePercent", "Shopee %", "number"],
-                  ["totalRatePercent", "Tổng %", "number"],
+                  ["totalRatePercent", t("Tổng %"), "number"],
                   ["cap", "Cap", "text"],
                   ["capRow", "Cap raw", "text"],
                   ["capAfterRate", "Cap sau rate", "text"],
@@ -311,7 +255,7 @@ export function ProductsPage() {
                   }
                 >
                   <span className="mb-1 block text-xs font-semibold">
-                    {label}
+                    {t(label)}
                   </span>
                   <Input
                     type={type}
@@ -332,11 +276,11 @@ export function ProductsPage() {
               <div className="sm:col-span-2 grid gap-3 sm:grid-cols-3">
                 {(
                   [
-                    ["hasSellerCommission", "Có seller commission"],
-                    ["hasShopeeCommission", "Có Shopee commission"],
+                    ["hasSellerCommission", t("Có seller commission")],
+                    ["hasShopeeCommission", t("Có Shopee commission")],
                     ["isExtra", "Xtra"],
-                    ["isCapped", "Đã cap"],
-                    ["isLimitCap", "Giới hạn cap"],
+                    ["isCapped", t("Đã cap")],
+                    ["isLimitCap", t("Giới hạn cap")],
                   ] as const
                 ).map(([key, label]) => (
                   <label key={key} className="flex items-center gap-2 text-sm">
@@ -347,20 +291,18 @@ export function ProductsPage() {
                         setForm({ ...form, [key]: e.target.checked })
                       }
                     />
-                    {label}
+                    {t(label)}
                   </label>
                 ))}
               </div>
             </div>
-            <div className="mt-6 flex justify-end gap-2">
-              <Dialog.Close asChild>
-                <Button variant="outline">Hủy</Button>
-              </Dialog.Close>
-              <Button onClick={save}>Lưu sản phẩm</Button>
+            {saveError && <p role="alert" className="mt-4 text-danger">{t.error(saveError)}</p>}
+            <div className="form-actions">
+              <Button type="button" variant="outline" disabled={mutations.create.isPending||mutations.update.isPending} onClick={()=>setOpen(false)}>{t("Hủy")}</Button>
+              <Button type="submit" disabled={mutations.create.isPending||mutations.update.isPending}>{t("Lưu sản phẩm")}</Button>
             </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+        </form>
+      </SurfaceDialog>
     </Page>
   );
 }

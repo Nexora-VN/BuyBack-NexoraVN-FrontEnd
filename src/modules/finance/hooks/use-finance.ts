@@ -1,5 +1,5 @@
 'use client';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery,useQueryClient } from '@tanstack/react-query';
 import { financeService } from '../services/finance';
 export function useFinance<T>(path: string) {
   return useQuery({ queryKey: ['finance', path], queryFn: () => financeService.get<T>(path), refetchInterval: 30000 });

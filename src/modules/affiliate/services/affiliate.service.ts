@@ -1,9 +1,9 @@
 import { apiClient } from "@/lib/api/client";
 import type {
-  AffiliateLink,
-  AffiliateLinkStatus,
-  AffiliateList,
-  GenerateAffiliateResponse,
+AffiliateLink,
+AffiliateLinkStatus,
+AffiliateList,
+GenerateAffiliateResponse,
 } from "@/modules/affiliate/types/affiliate";
 export const affiliateService = {
   generate: (url: string) =>
@@ -14,7 +14,7 @@ export const affiliateService = {
   list: (params: {
     page: number;
     limit: number;
-    search?: string;
+    sort?: 'asc' | 'desc'; search?: string;
     affiliateLinkStatus?: AffiliateLinkStatus;
   }) => apiClient.get<AffiliateList>("/api/backend/affiliate", { params }),
   detail: (id: string) =>

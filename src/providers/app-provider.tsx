@@ -1,12 +1,12 @@
 "use client";
 
 import { NextIntlClientProvider } from "next-intl";
-import { useEffect, type ComponentProps } from "react";
+import { useEffect,type ComponentProps } from "react";
 
-import { timeZone, type Locale } from "@/i18n/config";
+import { timeZone,type Locale } from "@/i18n/config";
+import { AuthProvider } from "@/modules/auth/components/auth-provider";
 import QueryProvider from "@/providers/query-provider";
 import { Toaster } from "sonner";
-import { AuthProvider } from "@/modules/auth/components/auth-provider";
 
 type IntlMessages = NonNullable<
   ComponentProps<typeof NextIntlClientProvider>["messages"]

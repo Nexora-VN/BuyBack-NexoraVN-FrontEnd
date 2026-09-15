@@ -112,3 +112,10 @@ input[type="checkbox"] { accent-color:var(--primary); min-width:20px; min-height
  .app-sheet { max-width:480px; }
  .app-bottom-nav { display:none; }
 }
+/* Forms reserve mobile navigation space and keep actions reachable. */
+.app-page:has(.form-actions) ~ .app-bottom-nav,
+body:has(.app-page[data-task-form="true"]) .app-bottom-nav { display:none; }
+.app-page[data-task-form="true"] { padding-bottom:24px; }
+.app-page[data-task-form="true"] input, .app-page[data-task-form="true"] select { scroll-margin-bottom:120px; }
+.selection-actions { position:sticky; bottom:calc(84px + env(safe-area-inset-bottom)); z-index:20; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; border:1px solid var(--border); border-radius:12px; padding:12px; background:var(--card); }
+@media(min-width:1024px){ .selection-actions { bottom:16px; } }

@@ -1,5 +1,5 @@
+import { applyTokenCookies,backendUrl,readJsonSafe } from "@/lib/server/backend";
 import { NextResponse } from "next/server";
-import { applyTokenCookies, backendUrl, readJsonSafe } from "@/lib/server/backend";
 
 export async function POST(request: Request) {
   const input = await request.json() as { email?: string; password?: string; remember?: boolean };

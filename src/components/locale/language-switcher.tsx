@@ -1,11 +1,11 @@
 "use client";
 
 import { Globe2 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale,useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
-import { languages, type Locale } from "@/i18n/config";
-import { Link, usePathname } from "@/i18n/navigation";
+import { languages,type Locale } from "@/i18n/config";
+import { Link,usePathname } from "@/i18n/navigation";
 
 export default function LanguageSwitcher() {
   const activeLocale = useLocale() as Locale;
