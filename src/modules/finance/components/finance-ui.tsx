@@ -233,7 +233,7 @@ export function FinanceTable({
           description={
             list.query || list.status
               ? t("Thử thay đổi từ khóa hoặc bộ lọc.")
-              : t("Dữ liệu sẽ xuất hiện sau khi hệ thống ghi nhận hoặc đồng bộ giao dịch.")
+              : t("Dữ liệu của bạn sẽ xuất hiện sau khi dữ liệu của bạn được đồng bộ")
           }
         />
       ) : (

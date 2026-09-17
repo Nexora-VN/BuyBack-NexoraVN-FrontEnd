@@ -9,13 +9,13 @@ Bản nháp|Draft
 Bằng chứng đối chiếu / Lý do xử lý|Evidence / reason
 Bằng chứng đối chiếu thực tế|Reconciliation evidence
 Bằng chứng đối chiếu tối thiểu 10 ký tự|Evidence must contain at least 10 characters
-Bằng việc đăng nhập, bạn đồng ý với điều khoản bảo mật và sử dụng của BuyBack NexoraVN.|By signing in, you agree to the privacy and usage terms of BuyBack NexoraVN.
+Bằng việc đăng nhập, bạn đồng ý với điều khoản bảo mật và sử dụng của Piggy Buy Back.|By signing in, you agree to the privacy and usage terms of Piggy Buy Back.
 Bỏ chọn tất cả|Clear selection
 Bộ lọc|Filters
 Cashback chờ xác nhận|Cashback awaiting confirmation
 Cashback dự kiến:|Estimated cashback:
 Cashback khách hàng|Customer cashback
-Cashback minh bạch|Transparent cashback
+Mua sắm và hoàn tiền|Transparent cashback
 Chi tiết|Details
 Chi tiết commission|Commission details
 Chi tiết kỳ thanh toán AddLiveTag|AddLiveTag settlement details
@@ -33,7 +33,7 @@ Chưa có sản phẩm hoàn thành|No completed items
 Chưa có thông tin giá|Price unavailable
 Chưa có thông tin hoa hồng|Commission unavailable
 Chưa có thông tin điều kiện|Eligibility unavailable
-Chưa có đơn hàng. Bắt đầu bằng cách tạo link mua sắm.|No orders yet. Start by creating a shopping link.
+Bạn chưa có đơn hàng nào cả. Tạo link mua sắm ngay nào.|No orders yet. Start by creating a shopping link.
 Chưa có ảnh sản phẩm|Product image unavailable
 Chưa cập nhật|Not updated
 Chưa thiết lập cookie|Cookie not configured
@@ -48,7 +48,7 @@ Chạy lại batch|Retry batch
 Chỉ SUPER_ADMIN có quyền điều chỉnh số dư.|Only SUPER_ADMIN can adjust balances.
 Chỉ cần khi APPROVE: ID liên kết affiliate của người dùng để gán đơn và cộng ví. Bỏ trống nếu chọn EXCLUDE.|Required for approval: the user's affiliate link ID for attribution. Leave empty when excluding.
 Chỉ cần khi APPROVE: Số tiền VND được chấp nhận sau kiểm tra. Bỏ trống nếu chọn EXCLUDE.|Required for approval: the accepted VND amount after review. Leave empty when excluding.
-Chỉ hiển thị đơn đã được gắn đúng tài khoản của bạn.|Only orders attributed to your account are shown.
+Các đơn hàng của bạn mua qua Piggy sẽ được hiển thị dưới đây nè.|Only orders attributed to your account are shown.
 Chỉ hoa hồng đã xác minh thanh toán và gắn đúng người dùng mới đủ điều kiện quyết toán. Đơn hoàn thành nhưng chờ trả hoa hồng vẫn là dự kiến.|Settlement requires verified commission payment and user attribution. Completed orders with unpaid commissions remain estimates.
 Chỉ hỗ trợ link Shopee hợp lệ|Enter a valid Shopee link
 Chỉ hỗ trợ đơn AddLiveTag|Only AddLiveTag orders are supported
@@ -91,10 +91,10 @@ Duy trì đăng nhập trên thiết bị này|Keep me signed in on this device
 Duyệt|Approve
 Duyệt ngân hàng|Bank approvals
 Duyệt tài khoản ngân hàng|Approve bank accounts
-Dán link Shopee, xem hoa hồng dự kiến và bắt đầu mua sắm.|Paste a Shopee link, view the estimated commission and start shopping.
+Dán link Shopee, Tiktok để và bạn có thể biết được hoa hồng dự tính để mua sắm nhaa.|Paste a Shopee link, view the estimated commission and start shopping.
 Dán link sản phẩm Shopee để xem hoa hồng dự kiến và bắt đầu mua sắm.|Paste a Shopee product link to view the estimated commission and start shopping.
 Dữ liệu sản phẩm Shopee và commission đã lưu trong hệ thống.|Shopee products and commissions saved on the platform.
-Dữ liệu sẽ xuất hiện sau khi hệ thống ghi nhận hoặc đồng bộ giao dịch.|Data will appear after transactions are recorded or synced.
+Dữ liệu của bạn sẽ xuất hiện sau khi dữ liệu của bạn được đồng bộ|Data will appear after transactions are recorded or synced.
 Dữ liệu sẽ xuất hiện sau khi được ghi nhận.|Data will appear once recorded.
 EXCLUDE — Loại bỏ khỏi thanh toán|Exclude from settlement
 Email không hợp lệ|Enter a valid email address
@@ -178,13 +178,13 @@ Lưu kết quả duyệt|Save review
 Lưu sản phẩm|Save product
 Lưu ý trước khi mua|Before you shop
 Lượt bán|Sales
-Lịch sử cashback|Cashback history
+Lịch sử hoàn tiền|Cashback history
 Lịch sử rút tiền|Withdrawal history
 Lọc|Filter
 Lỗi|Errors
 Menu quản trị|Admin menu
 Mua ngay|Shop now
-Mua sắm cùng BuyBack|Shop with BuyBack
+Mua sắm cùng hoàn tiền cùng Piggy nào!|Shop with BuyBack
 Mua sắm như thường lệ.|Shop as usual.
 Mã|ID
 Mã AffiliateLink ID (UUID)|Affiliate link ID (UUID)
@@ -204,7 +204,7 @@ Mã tra cứu|Reference codes
 Mã tài khoản AddLiveTag (Account ID)|AddLiveTag account ID
 Mã yêu cầu|Request ID
 Mã đơn|Order ID
-Mã đơn Shopee|Shopee order ID
+Mã đơn Shopee, TikTok|Shopee order ID
 Mật khẩu|Password
 Mật khẩu mới (không bắt buộc)|New password (optional)
 Mật khẩu phải có ít nhất 8 ký tự|Password must contain at least 8 characters
@@ -289,7 +289,7 @@ Thêm tài khoản ngân hàng|Add bank account
 Thêm tài khoản ngân hàng để tiếp tục|Add a bank account to continue
 Thông tin thêm|More details
 Thông tin tài khoản|Account details
-Thông tin tài khoản thanh toán được mã hóa. Tài khoản mới hoặc chỉnh sửa cần admin duyệt trước khi rút.|Bank details are encrypted. New or edited accounts require admin approval before withdrawals.
+Thông tin ngân hàng của bạn sẽ được bảo mật.  Thêm/ Sửa tài khoản ngân hàng của bạn để admin hỗ trợ duyệt/rút tiền cho bạn nha/|Bank details are encrypted. New or edited accounts require admin approval before withdrawals.
 Thông tin từ Users API; các nghiệp vụ KYC và 2FA chưa được hiển thị.|Account information and access permissions.
 Thất bại|Failed
 Thời gian|Time
@@ -311,7 +311,7 @@ Trạng thái hoa hồng|Commission status
 Trạng thái đơn|Order status
 Tài chính|Finance
 Tài khoản|Account
-Tài khoản của tôi|My account
+Tài khoản của bạn|My account
 Tài khoản ngân hàng|Bank accounts
 Tài khoản đã duyệt|Approved account
 Tên Affiliate kỳ vọng|Expected affiliate name
@@ -338,7 +338,7 @@ Tạo lúc|Created
 Tạo người dùng|Create user
 Tạo phiên bản tài khoản mới|Create a new account version
 Tất cả trạng thái|All statuses
-Tối thiểu 10 ký tự (ví dụ: "Đã đối chiếu mã đơn Shopee khớp với user" hoặc "Đơn demo không rõ user, loại bỏ")|At least 10 characters. Explain how you verified attribution or why the order must be excluded.
+Tối thiểu 10 ký tự (ví dụ: "Đã đối chiếu Mã đơn Shopee, TikTok khớp với user" hoặc "Đơn demo không rõ user, loại bỏ")|At least 10 characters. Explain how you verified attribution or why the order must be excluded.
 Tối thiểu 50.000 VND|Minimum 50,000 VND
 Tối thiểu 50.000 VND. Số tiền được giữ ngay khi gửi yêu cầu.|Minimum 50,000 VND. The amount is reserved when you submit the request.
 Tổng %|Total %
@@ -355,7 +355,7 @@ Vai trò|Role
 Vui lòng nhập trường này|This field is required
 Ví|Wallet
 Ví & Ledger|Wallet & ledger
-Ví của tôi|My wallet
+Ví của bạn|My wallet
 Ví dụ: 420|Example: 420
 Ví đang có khoản hoàn trả sau điều chỉnh đơn hàng. Bạn có thể rút tiếp khi số dư khả dụng đủ mức tối thiểu.|Your wallet has a recovery balance after an order adjustment. Withdrawals resume once your available balance meets the minimum.
 Vấn đề|Issue
@@ -451,7 +451,7 @@ https://vn.shp.ee/... hoặc https://shopee.vn/product/...|https://vn.shp.ee/...
 Đăng xuất|Sign out
 Đơn chưa gắn người dùng|Order has no attributed user
 Đơn hàng|Orders
-Đơn hàng của tôi|My orders
+Đơn hàng của bạn|My orders
 Đơn hàng gần đây|Recent orders
 Đơn đã ghi nhận|Recorded orders
 Đến ngày|To date

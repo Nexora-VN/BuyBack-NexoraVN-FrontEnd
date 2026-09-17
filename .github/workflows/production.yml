@@ -57,7 +57,7 @@ jobs:
         run: |
           set -euo pipefail
           image="ghcr.io/${REPOSITORY,,}"
-          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://4.213.53.132:3002 -t "$image:$REVISION" .
+          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://4.213.53.132:3002 --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk -t "$image:$REVISION" .
           docker push "$image:$REVISION"
           digest=$(docker image inspect "$image:$REVISION" --format '{{index .RepoDigests 0}}')
           [[ "$digest" == "$image@sha256:"* ]]

@@ -14,7 +14,7 @@ export function AdminOrdersPage() {
     <Page title={t("Đơn hàng")}>
       <FinanceTable
         path="admin/orders"
-        searchLabel="Mã đơn Shopee"
+        searchLabel="Mã đơn Shopee, TikTok"
         states={["VALIDATED", "REJECTED", "PARTIALLY_VALIDATED", "MANUAL_REVIEW"]}
         specs={orderSpecs}
         actions={(row) => (

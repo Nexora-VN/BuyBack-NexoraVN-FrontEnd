@@ -53,12 +53,12 @@ export function AccountPage() {
     }
   }
   return (
-    <Page title={t("Tài khoản của tôi")}>
+    <Page title={t("Tài khoản của bạn")}>
       <Card>
         <h2 className="font-semibold">{user?.email}</h2>
         <p className="text-muted-foreground mt-2 text-sm">
           {t(
-            "Thông tin tài khoản thanh toán được mã hóa. Tài khoản mới hoặc chỉnh sửa cần admin duyệt trước khi rút.",
+            "Thông tin ngân hàng của bạn sẽ được bảo mật.  Thêm/ Sửa tài khoản ngân hàng của bạn để admin hỗ trợ duyệt/rút tiền cho bạn nha/",
           )}
         </p>
       </Card>

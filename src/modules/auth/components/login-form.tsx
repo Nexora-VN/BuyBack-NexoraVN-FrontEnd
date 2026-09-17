@@ -125,19 +125,17 @@ export function LoginBenefits() {
     <section className="bg-background hidden flex-col justify-center border-r p-12 lg:flex xl:p-20">
       <div className="text-primary flex items-center gap-3 text-xl font-bold">
         <ShieldCheck className="size-8" />
-        BuyBack NexoraVN
+        Piggy Buy Back
       </div>
       <div className="mt-14 max-w-md">
-        <p className="text-primary text-sm font-semibold">{t("Cashback minh bạch")}</p>
+        <p className="text-primary text-sm font-semibold">{t("Mua sắm và hoàn tiền")}</p>
         <h2 className="mt-4 text-3xl leading-snug font-bold">
           {t("Mua sắm như thường lệ.")}
           <br />
           {t("Nhận lại giá trị xứng đáng.")}
         </h2>
         <p className="text-muted-foreground mt-6 text-base leading-7">
-          {t(
-            "Tạo liên kết Shopee, theo dõi đối soát và quản lý dòng tiền hoàn lại trong một trải nghiệm đơn giản, rõ ràng.",
-          )}
+          {t("Tạo liên kết, mua sắm, theo dõi liên kết, đối xoát và dòng tiền của bạn")}
         </p>
       </div>
     </section>

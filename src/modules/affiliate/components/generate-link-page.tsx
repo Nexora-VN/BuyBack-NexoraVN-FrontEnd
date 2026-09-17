@@ -101,7 +101,7 @@ export function GenerateLinkPanel() {
         </div>
         <form onSubmit={generate}>
           <label htmlFor="shopee-url" className="text-sm font-semibold">
-            {t("Link sản phẩm Shopee")}
+            {t("Link sản phẩm Shopee, TikTok")}
           </label>
           <div className="mt-2 flex flex-col gap-3 sm:flex-row">
             <Input
@@ -114,11 +114,12 @@ export function GenerateLinkPanel() {
                 setUrl(event.target.value);
                 setResult(null);
               }}
-              placeholder={t("https://vn.shp.ee/... hoặc https://shopee.vn/product/...")}
+              // placeholder={t("https://vn.shp.ee/... hoặc https://shopee.vn/product/...")}
+              placeholder={t("Dán link sản phẩm vào đây nhé .... ")}
             />
             <Button type="submit" size="lg" disabled={loading || !url.trim()}>
               {loading ? <LoaderCircle className="animate-spin" /> : <Link2 />}
-              {loading ? t("Đang tạo…") : t("Tạo link")}
+              {loading ? t("Đang tạo…") : t("Mua sắm ngay")}
             </Button>
           </div>
           {formError && (
@@ -135,7 +136,7 @@ export function GenerateLinkPanel() {
             >
               <div className="text-success mb-4 flex items-center gap-2 text-sm font-semibold">
                 <Check className="size-5" />
-                {t("Sẵn sàng mua sắm")}
+                {t("Piggy mang tới tin tốt cho bạn")}
               </div>
               <div className="flex items-start gap-4">
                 <div className="grid size-24 shrink-0 place-items-center overflow-hidden rounded-xl bg-white sm:size-28">
@@ -170,13 +171,15 @@ export function GenerateLinkPanel() {
                 </div>
               </div>
               <div className="my-5 rounded-xl bg-white p-4">
-                <p className="text-sm font-medium">{t("Hoa hồng dự kiến")}</p>
+                <p className="text-sm font-medium">{t("Số tiền được hoàn lại lên tới")}</p>
                 {/* Use the provider commission directly; this is not a calculated user cashback share. */}
-                <p className="text-primary mt-1 text-2xl font-bold break-words">
+                <p className="text-primary mt-1 text-4xl font-bold break-words">
                   {formatAmount(product?.commission) ?? t("Chưa có thông tin hoa hồng")}
                 </p>
                 <p className="text-muted-foreground mt-2 text-xs leading-5">
-                  {t("Số tiền tham khảo, được xác nhận sau khi đơn hàng đối soát.")}
+                  {t(
+                    "Lưu ý nhỏ nhỏ: Đây là tham khảo, con số chính xác sẽ có sau khi Shopee, TikTok xác nhận nhé..",
+                  )}
                 </p>
               </div>
               <div className="flex flex-col gap-3 xl:flex-row">
@@ -205,13 +208,14 @@ export function GenerateLinkPanel() {
           <span className="bg-secondary text-primary grid size-10 shrink-0 place-items-center rounded-xl">
             <ShoppingCart />
           </span>
-          <h2 className="font-semibold">{t("Lưu ý trước khi mua")}</h2>
+          <h2 className="font-semibold">{t("Vài lưu ý Piggy gửi tới bạn")}</h2>
         </div>
         <ol className="text-muted-foreground mt-5 space-y-4 text-sm leading-6">
           {[
-            t("Xóa sản phẩm định mua khỏi giỏ hàng Shopee nếu đã thêm trước đó."),
+            t("Nếu sản phẩm có trong giỏ hàng, bạn nhớ xóa ra khỏi giỏ nhe"),
             t("Nhấn “Mua ngay” trên trang này."),
             t("Thêm lại sản phẩm và tiến hành đặt hàng."),
+            t("3 Điều trên giúp bạn hoàn tiền chính xác hơn đó!"),
           ].map((item, index) => (
             <li key={t(item)} className="flex gap-3">
               <span className="bg-secondary text-primary grid size-6 shrink-0 place-items-center rounded-full text-xs font-bold">
@@ -223,7 +227,7 @@ export function GenerateLinkPanel() {
         </ol>
         <p className="bg-muted text-muted-foreground mt-6 rounded-xl p-3 text-xs leading-5">
           {t(
-            "Các bước này giúp hỗ trợ ghi nhận hoa hồng. Kết quả ghi nhận còn phụ thuộc vào điều kiện của Shopee và trạng thái đơn hàng.",
+            "Đây là các bước giúp bạn thuận lợi hơn trong việc được hoàn tiền nè. Tuy nhiên vẫn sẽ dựa vào trạng thái đơn hàng Shopee, TikTok nếu có dấu hiệu gian lận đó nhen.",
           )}
         </p>
       </Card>

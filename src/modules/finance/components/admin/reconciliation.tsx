@@ -49,7 +49,7 @@ export const reviewFields = [
     name: "evidence",
     label: "Bằng chứng đối chiếu / Lý do xử lý",
     type: "textarea" as const,
-    help: 'Tối thiểu 10 ký tự (ví dụ: "Đã đối chiếu mã đơn Shopee khớp với user" hoặc "Đơn demo không rõ user, loại bỏ")',
+    help: 'Tối thiểu 10 ký tự (ví dụ: "Đã đối chiếu Mã đơn Shopee, TikTok khớp với user" hoặc "Đơn demo không rõ user, loại bỏ")',
   },
 ];
 

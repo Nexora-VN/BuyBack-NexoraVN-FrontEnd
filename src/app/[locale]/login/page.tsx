@@ -121,7 +121,7 @@ function LoginContent() {
       <header className="mb-7">
         <h1 className="text-2xl font-bold lg:text-3xl">{t("Chào mừng trở lại")}</h1>
         <p className="text-muted-foreground mt-2.5 text-sm leading-6">
-          {t("Đăng nhập để tiếp tục quản lý cashback của bạn.")}
+          {t("Đăng nhập để mua sắm hoàn tiền cùng Piggy nhé")}
         </p>
       </header>
 
@@ -129,7 +129,7 @@ function LoginContent() {
       {isSyncing ? (
         <div className="border-primary/20 bg-primary/5 text-primary mb-6 flex items-center justify-center gap-3 rounded-2xl border p-4 text-sm font-medium">
           <LoaderCircle className="size-5 animate-spin" />
-          <span>Đang đồng bộ tài khoản với hệ thống...</span>
+          <span>Sắp tới rồi, bạn chờ Piggy tí nhé .....</span>
         </div>
       ) : (
         <>
@@ -151,7 +151,7 @@ function LoginContent() {
               <span>Đăng nhập với Google</span>
             </Button>
 
-            <Button
+            {/* <Button
               type="button"
               variant="outline"
               size="lg"
@@ -165,7 +165,7 @@ function LoginContent() {
                 <FacebookIcon className="text-[#1877F2]" />
               )}
               <span className="text-foreground">Đăng nhập với Facebook</span>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Divider */}
@@ -175,7 +175,7 @@ function LoginContent() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-card text-muted-foreground px-3 font-medium">
-                {t("hoặc tiếp tục với email")}
+                {t("hoặc tiếp tục với tài khoản hệ thống")}
               </span>
             </div>
           </div>
@@ -183,11 +183,11 @@ function LoginContent() {
           {/* Project Email & Password Form */}
           <LoginForm />
 
-          <p className="text-muted-foreground mt-8 text-xs leading-5">
+          {/* <p className="text-muted-foreground mt-8 text-xs leading-5">
             {t(
-              "Bằng việc đăng nhập, bạn đồng ý với điều khoản bảo mật và sử dụng của BuyBack NexoraVN.",
+              "Bằng việc đăng nhập, bạn đồng ý với điều khoản bảo mật và sử dụng của Piggy Buy Back.",
             )}
-          </p>
+          </p> */}
         </>
       )}
     </div>
@@ -200,7 +200,7 @@ export default function LoginPage() {
       <LoginBenefits />
       <section className="flex flex-col px-5 py-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between gap-4">
-          <p className="text-primary font-semibold lg:invisible">BuyBack NexoraVN</p>
+          <p className="text-primary font-semibold lg:invisible">Piggy Buy Back</p>
           <LanguageSwitcher />
         </div>
         <Suspense

@@ -60,8 +60,8 @@ export function UserDashboardPage() {
 
   return (
     <Page
-      title={t("Mua sắm cùng BuyBack")}
-      description="Dán link Shopee, xem hoa hồng dự kiến và bắt đầu mua sắm."
+      title={t("Mua sắm cùng hoàn tiền cùng Piggy nào!")}
+      description="Dán link Shopee, Tiktok để và bạn có thể biết được hoa hồng dự tính để mua sắm nhaa."
     >
       <GenerateLinkPanel />
       <CashbackOverview />
@@ -107,7 +107,7 @@ export function RecentOrders() {
         ))
       ) : (
         <p className="text-muted-foreground p-5 text-sm">
-          {t("Chưa có đơn hàng. Bắt đầu bằng cách tạo link mua sắm.")}
+          {t("Bạn chưa có đơn hàng nào cả. Tạo link mua sắm ngay nào.")}
         </p>
       )}
     </div>
@@ -128,19 +128,19 @@ export function CashbackOverview() {
   return (
     <div className="grid gap-3 sm:grid-cols-3">
       <Card className="border-primary/20 bg-secondary/50">
-        <p className="text-muted-foreground text-sm">{t("Có thể rút")}</p>
+        <p className="text-muted-foreground text-sm">{t("Bạn có thể rút")}</p>
         <p className="text-primary mt-2 text-3xl font-bold break-words tabular-nums">
           {formatVnd(query.data.wallet.available)}
         </p>
         <Link
-          className="text-primary mt-3 inline-flex min-h-11 items-center font-medium"
+          className="text-primary border-primary mt-3 inline-flex min-h-11 items-center rounded-2xl border px-4 py-2 font-medium"
           href="/app/withdrawals/new"
         >
           {t("Rút tiền")}
         </Link>
       </Card>
       <StatCard
-        label="Cashback chờ xác nhận"
+        label="Số tiền chờ xác nhận"
         value={pending === undefined ? "—" : formatVnd(pending)}
         helper="Chưa tính vào số dư có thể rút"
       />

@@ -1,4 +1,4 @@
-# Chuẩn hóa UI/UX BuyBack NexoraVN trên desktop và mobile
+# Chuẩn hóa UI/UX Piggy Buy Back trên desktop và mobile
 
 ## 1. Định hướng và phạm vi đã chốt
 
@@ -22,14 +22,14 @@ Tuân theo [AWESOME_DESIGN.md](/Users/agn-imac003/Documents/theanh/nexora/BuyBac
 
 ### Hai cách trình bày theo thiết bị
 
-| Khu vực | Desktop ≥1024px | Mobile <768px |
-|---|---|---|
-| User | Header ngang, nội dung tối đa 1280px, bố cục nhiều cột khi hữu ích | App bar gọn; bottom navigation: **Trang chủ, Đơn hàng, Ví, Tài khoản** |
-| Admin | Sidebar chia nhóm; nội dung tối đa 1440px; bảng có mật độ phù hợp | App bar; bottom navigation: **Tổng quan, Đơn hàng, Đối soát, Rút tiền, Menu** |
-| Danh sách | Bảng với cột, bộ lọc và thao tác rõ ràng | Danh sách theo nghiệp vụ: tên/đơn, số tiền, trạng thái, ngày; mở chi tiết để xem thêm |
-| Bộ lọc | Toolbar trực tiếp | Nút lọc mở bottom sheet; hiển thị số bộ lọc đang áp dụng |
-| Form | Trang hoặc dialog có chiều rộng phù hợp | Form dài toàn màn hình; bottom sheet cho lựa chọn ngắn |
-| Thao tác chính | Trong header hoặc khu vực nội dung liên quan | Thanh hành động dưới màn hình ở bước cần xác nhận |
+| Khu vực        | Desktop ≥1024px                                                    | Mobile <768px                                                                         |
+| -------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| User           | Header ngang, nội dung tối đa 1280px, bố cục nhiều cột khi hữu ích | App bar gọn; bottom navigation: **Trang chủ, Đơn hàng, Ví, Tài khoản**                |
+| Admin          | Sidebar chia nhóm; nội dung tối đa 1440px; bảng có mật độ phù hợp  | App bar; bottom navigation: **Tổng quan, Đơn hàng, Đối soát, Rút tiền, Menu**         |
+| Danh sách      | Bảng với cột, bộ lọc và thao tác rõ ràng                           | Danh sách theo nghiệp vụ: tên/đơn, số tiền, trạng thái, ngày; mở chi tiết để xem thêm |
+| Bộ lọc         | Toolbar trực tiếp                                                  | Nút lọc mở bottom sheet; hiển thị số bộ lọc đang áp dụng                              |
+| Form           | Trang hoặc dialog có chiều rộng phù hợp                            | Form dài toàn màn hình; bottom sheet cho lựa chọn ngắn                                |
+| Thao tác chính | Trong header hoặc khu vực nội dung liên quan                       | Thanh hành động dưới màn hình ở bước cần xác nhận                                     |
 
 Tablet 768–1023px giữ điều hướng kiểu app; dùng hai cột khi đủ chỗ. Danh sách vẫn dùng bố cục mobile để tránh bảng bị ép ngang.
 
