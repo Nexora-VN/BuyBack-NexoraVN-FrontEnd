@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   description: "Nền tảng hoàn tiền affiliate minh bạch từ NexoraVN.",
 };
 
+const publishableKey =
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || process.env.CLERK_PUBLISHABLE_KEY;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +35,11 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={beVietnamPro.variable}>
-        <ClerkProvider>{children}</ClerkProvider>
+        {publishableKey ? (
+          <ClerkProvider publishableKey={publishableKey}>{children}</ClerkProvider>
+        ) : (
+          children
+        )}
       </body>
     </html>
   );
