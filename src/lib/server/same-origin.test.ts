@@ -3,11 +3,7 @@ import { isCrossOriginMutation } from "@/lib/server/same-origin";
 
 const originalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-function request(
-  method: string,
-  origin?: string,
-  host = "4.213.53.132:3002",
-): Request {
+function request(method: string, origin?: string, host = "4.213.53.132:3002"): Request {
   const headers = new Headers({ host });
   if (origin) headers.set("origin", origin);
 
@@ -29,11 +25,7 @@ describe("isCrossOriginMutation", () => {
   it.each(["POST", "PUT", "PATCH", "DELETE"])(
     "accepts a same-origin %s when Next.js uses an internal request URL",
     (method) => {
-      expect(
-        isCrossOriginMutation(
-          request(method, "http://4.213.53.132:3002"),
-        ),
-      ).toBe(false);
+      expect(isCrossOriginMutation(request(method, "http://4.213.53.132:3002"))).toBe(false);
     },
   );
 
@@ -41,16 +33,12 @@ describe("isCrossOriginMutation", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://buyback.example.com";
 
     expect(
-      isCrossOriginMutation(
-        request("POST", "https://buyback.example.com", "frontend:3000"),
-      ),
+      isCrossOriginMutation(request("POST", "https://buyback.example.com", "frontend:3000")),
     ).toBe(false);
   });
 
   it("rejects an unrelated origin", () => {
-    expect(isCrossOriginMutation(request("POST", "https://evil.example"))).toBe(
-      true,
-    );
+    expect(isCrossOriginMutation(request("POST", "https://evil.example"))).toBe(true);
   });
 
   it("rejects a malformed origin", () => {
@@ -58,9 +46,7 @@ describe("isCrossOriginMutation", () => {
   });
 
   it("allows safe methods and non-browser mutations without an Origin header", () => {
-    expect(isCrossOriginMutation(request("GET", "https://evil.example"))).toBe(
-      false,
-    );
+    expect(isCrossOriginMutation(request("GET", "https://evil.example"))).toBe(false);
     expect(isCrossOriginMutation(request("POST"))).toBe(false);
   });
 });

@@ -1,10 +1,5 @@
-import { renderUI as render } from '@/test/render';
-import {
-  fireEvent,
-  screen,
-  waitFor,
-  cleanup,
-} from "@testing-library/react";
+import { renderUI as render } from "@/test/render";
+import { fireEvent, screen, waitFor, cleanup } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GenerateLinkPage } from "./generate-link-page";
 import { affiliateService } from "../services/affiliate.service";
@@ -16,7 +11,10 @@ vi.mock("@/modules/finance/hooks/use-finance", () => ({
   useRefreshFinance: () => vi.fn(),
 }));
 vi.mock("sonner", () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
-vi.mock('@/i18n/navigation',()=>({usePathname:()=>'/app/links/new',useRouter:()=>({back:vi.fn(),replace:vi.fn()})}));
+vi.mock("@/i18n/navigation", () => ({
+  usePathname: () => "/app/links/new",
+  useRouter: () => ({ back: vi.fn(), replace: vi.fn() }),
+}));
 const response = {
   link: "https://s.shopee.vn/example",
   code: null,
@@ -50,23 +48,16 @@ describe("GenerateLinkPage", () => {
     submit();
     expect(await screen.findByText("Sản phẩm thử")).toBeInTheDocument();
     expect(screen.getByText(/^0\s₫$/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Mua ngay" })).toHaveAttribute(
-      "href",
-      response.link,
-    );
+    expect(screen.getByRole("link", { name: "Mua ngay" })).toHaveAttribute("href", response.link);
     expect(screen.queryByText(response.link)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /Copy link/ }));
-    await waitFor(() =>
-      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(response.link),
-    );
+    await waitFor(() => expect(navigator.clipboard.writeText).toHaveBeenCalledWith(response.link));
     fireEvent.error(screen.getByRole("img"));
     expect(screen.getByLabelText("Chưa có ảnh sản phẩm")).toBeInTheDocument();
     fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee"), {
       target: { value: "new" },
     });
-    expect(
-      screen.queryByRole("link", { name: "Mua ngay" }),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Mua ngay" })).not.toBeInTheDocument();
   });
   it("handles clipboard failure", async () => {
     vi.mocked(navigator.clipboard.writeText).mockRejectedValue(new Error());
@@ -75,9 +66,7 @@ describe("GenerateLinkPage", () => {
     await screen.findByText("Sản phẩm thử");
     fireEvent.click(screen.getByRole("button", { name: /Copy link/ }));
     await waitFor(() =>
-      expect(toast.error).toHaveBeenCalledWith(
-        "Không thể sao chép link. Vui lòng thử lại.",
-      ),
+      expect(toast.error).toHaveBeenCalledWith("Không thể sao chép link. Vui lòng thử lại."),
     );
   });
   it("ignores an in-flight result after editing the URL", async () => {
@@ -94,9 +83,7 @@ describe("GenerateLinkPage", () => {
       target: { value: "another" },
     });
     resolve(response);
-    await waitFor(() =>
-      expect(screen.getByRole("button", { name: "Tạo link" })).toBeEnabled(),
-    );
+    await waitFor(() => expect(screen.getByRole("button", { name: "Tạo link" })).toBeEnabled());
     expect(screen.queryByText("Sản phẩm thử")).not.toBeInTheDocument();
   });
   it("handles missing product and generation errors", async () => {
@@ -107,20 +94,22 @@ describe("GenerateLinkPage", () => {
     });
     render(<GenerateLinkPage />);
     submit();
-    expect(
-      await screen.findByText("Chưa có thông tin hoa hồng"),
-    ).toBeInTheDocument();
-    vi.mocked(affiliateService.generate).mockRejectedValueOnce(
-      new Error("Lỗi tạo link"),
-    );
+    expect(await screen.findByText("Chưa có thông tin hoa hồng")).toBeInTheDocument();
+    vi.mocked(affiliateService.generate).mockRejectedValueOnce(new Error("Lỗi tạo link"));
     fireEvent.click(screen.getByRole("button", { name: "Tạo link" }));
     await waitFor(() =>
       expect(toast.error).toHaveBeenCalledWith("Không thể hoàn tất yêu cầu. Vui lòng thử lại."),
     );
-    expect(
-      screen.queryByRole("link", { name: "Mua ngay" }),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Mua ngay" })).not.toBeInTheDocument();
   });
 });
 
-it('renders the shopping flow in English',async()=>{render(<GenerateLinkPage/>,'en');fireEvent.change(screen.getByLabelText('Shopee product link'),{target:{value:'https://shopee.vn/product/1/2'}});fireEvent.click(screen.getByRole('button',{name:'Create link'}));expect(await screen.findByText('Estimated commission')).toBeInTheDocument();expect(screen.getByRole('link',{name:'Shop now'})).toHaveAttribute('href',response.link);});
+it("renders the shopping flow in English", async () => {
+  render(<GenerateLinkPage />, "en");
+  fireEvent.change(screen.getByLabelText("Shopee product link"), {
+    target: { value: "https://shopee.vn/product/1/2" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Create link" }));
+  expect(await screen.findByText("Estimated commission")).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: "Shop now" })).toHaveAttribute("href", response.link);
+});

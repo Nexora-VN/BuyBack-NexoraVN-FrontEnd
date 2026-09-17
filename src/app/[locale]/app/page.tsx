@@ -1,2 +1,4 @@
 import { UserDashboardPage } from "@/modules/finance/components/user-pages";
-export default function Page() { return <UserDashboardPage />; }
+export default function Page() {
+  return <UserDashboardPage />;
+}

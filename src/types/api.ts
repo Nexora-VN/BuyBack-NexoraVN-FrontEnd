@@ -1,7 +1,6 @@
 export type QueryParamValue = string | number | boolean | null | undefined;
 
-export interface ApiClientOptions
-  extends Omit<RequestInit, "body" | "method"> {
+export interface ApiClientOptions extends Omit<RequestInit, "body" | "method"> {
   params?: Record<string, QueryParamValue>;
   timeout?: number;
   isFormData?: boolean;
