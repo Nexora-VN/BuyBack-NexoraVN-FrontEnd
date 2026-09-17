@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useClerk, useUser } from "@clerk/nextjs";
-import { LoaderCircle, ShieldCheck } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
@@ -58,17 +58,20 @@ function LoginContent() {
   const syncRedirectUrl = `${localePrefix}/login?sync=clerk`;
 
   const [loadingStrategy, setLoadingStrategy] = useState<string | null>(null);
-  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncFailed, setSyncFailed] = useState(false);
+  const syncStartedRef = useRef(false);
+
+  const isExplicitSync = searchParams?.get("sync") === "clerk";
+  const isSyncing = isUserLoaded && isSignedIn && isExplicitSync && !syncFailed;
 
   // Automatically detect Clerk session and sync with backend
   useEffect(() => {
     if (!isUserLoaded) return;
 
-    const isExplicitSync = searchParams?.get("sync") === "clerk";
     const needsSync = isSignedIn && isExplicitSync;
 
-    if (needsSync && !isSyncing) {
-      setIsSyncing(true);
+    if (needsSync && !syncStartedRef.current) {
+      syncStartedRef.current = true;
       fetch("/api/auth/clerk-sync", { method: "POST" })
         .then(async (res) => {
           if (!res.ok) {
@@ -83,11 +86,11 @@ function LoginContent() {
           router.replace(data.user?.role === "USER" ? "/app" : "/admin");
         })
         .catch((err) => {
-          setIsSyncing(false);
+          setSyncFailed(true);
           toast.error(err.message || "Không thể đồng bộ phiên đăng nhập");
         });
     }
-  }, [isSignedIn, isUserLoaded, appUser, searchParams, isSyncing, refetch, router, t]);
+  }, [isSignedIn, isUserLoaded, isExplicitSync, refetch, router, t]);
 
   // Auto redirect if already logged into the app
   useEffect(() => {

@@ -1,5 +1,4 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { shadcn } from "@clerk/ui/themes";
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Be_Vietnam_Pro } from "next/font/google";
@@ -33,7 +32,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={beVietnamPro.variable}>
-        <ClerkProvider appearance={{ theme: shadcn }}>{children}</ClerkProvider>
+        <ClerkProvider>{children}</ClerkProvider>
       </body>
     </html>
   );

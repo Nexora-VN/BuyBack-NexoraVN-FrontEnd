@@ -17,7 +17,7 @@ async function middleware(request: NextRequest, auth: () => Promise<{ userId: st
     return NextResponse.next();
   }
 
-  const { userId } = await auth();
+  await auth();
   const normalizedPath = request.nextUrl.pathname.replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
   const protectedRoute =
     normalizedPath === "/app" ||
