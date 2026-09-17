@@ -16,14 +16,16 @@ const beVietnamPro = Be_Vietnam_Pro({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "BuyBack NexoraVN",
-    template: "%s | BuyBack NexoraVN",
+    default: "Piggy Buy Back",
+    template: "%s | Piggy Buy Back",
   },
   description: "Nền tảng hoàn tiền affiliate minh bạch từ NexoraVN.",
 };
 
 const publishableKey =
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || process.env.CLERK_PUBLISHABLE_KEY;
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+  process.env.CLERK_PUBLISHABLE_KEY ||
+  "pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk";
 
 export default async function RootLayout({
   children,
@@ -35,11 +37,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={beVietnamPro.variable}>
-        {publishableKey ? (
-          <ClerkProvider publishableKey={publishableKey}>{children}</ClerkProvider>
-        ) : (
-          children
-        )}
+        <ClerkProvider publishableKey={publishableKey}>{children}</ClerkProvider>
       </body>
     </html>
   );

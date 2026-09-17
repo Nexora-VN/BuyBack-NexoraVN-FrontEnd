@@ -38,7 +38,7 @@ export function WalletPage() {
   const wallet = useFinance<Dashboard>("me/dashboard");
   return (
     <Page
-      title={t("Ví của tôi")}
+      title={t("Ví của bạn")}
       actions={
         <Button asChild>
           <Link href="/app/withdrawals/new">{t("Yêu cầu rút")}</Link>
@@ -48,7 +48,7 @@ export function WalletPage() {
       <CashbackOverview />
       <div className="flex flex-wrap gap-3">
         <Button asChild variant="outline">
-          <Link href="/app/cashback">{t("Lịch sử cashback")}</Link>
+          <Link href="/app/cashback">{t("Lịch sử hoàn tiền")}</Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/app/withdrawals">{t("Lịch sử rút tiền")}</Link>

@@ -35,7 +35,7 @@ export function UserShell({ children }: { children: React.ReactNode }) {
                 <WalletCards className="size-5" />
               </span>
               <span className="text-primary">
-                BuyBack <span className="text-foreground hidden sm:inline">NexoraVN</span>
+                Piggy <span className="text-foreground hidden sm:inline">Buy Back</span>
               </span>
             </Link>
             <nav aria-label={t("Điều hướng chính")} className="hidden items-center gap-1 lg:flex">

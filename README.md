@@ -1,4 +1,4 @@
-# BuyBack NexoraVN Frontend
+# Piggy Buy Back Frontend
 
 Next.js frontend cho nền tảng cashback affiliate Shopee. Giao diện sử dụng design system Soft-Fintech, hỗ trợ user app mobile-first và admin dashboard responsive.
 

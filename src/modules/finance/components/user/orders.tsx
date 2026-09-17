@@ -25,12 +25,12 @@ export function UserOrdersPage() {
 
   return (
     <Page
-      title={t("Đơn hàng của tôi")}
-      description="Chỉ hiển thị đơn đã được gắn đúng tài khoản của bạn."
+      title={t("Đơn hàng của bạn")}
+      description="Các đơn hàng của bạn mua qua Piggy sẽ được hiển thị dưới đây nè."
     >
       <FinanceTable
         path="me/orders"
-        searchLabel="Mã đơn Shopee"
+        searchLabel="Mã đơn Shopee, TikTok"
         states={["VALIDATED", "REJECTED", "PARTIALLY_VALIDATED", "MANUAL_REVIEW"]}
         specs={orderSpecs}
         actions={(row) => (
