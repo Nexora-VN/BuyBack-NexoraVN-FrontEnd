@@ -2,6 +2,17 @@ import { currentUser } from "@clerk/nextjs/server";
 import { applyTokenCookies, backendUrl, readJsonSafe } from "@/lib/server/backend";
 import { NextResponse } from "next/server";
 
+const DEFAULT_CLERK_PUBLISHABLE_KEY = "pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk";
+const DEFAULT_CLERK_SECRET_KEY = "sk_test_lzmtprJMpfVF4eBDA2hUlICiNgAnEylsOsXvNLZbtJ";
+
+if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY =
+    process.env.CLERK_PUBLISHABLE_KEY || DEFAULT_CLERK_PUBLISHABLE_KEY;
+}
+if (!process.env.CLERK_SECRET_KEY) {
+  process.env.CLERK_SECRET_KEY = DEFAULT_CLERK_SECRET_KEY;
+}
+
 export async function POST() {
   try {
     const clerkUser = await currentUser();
