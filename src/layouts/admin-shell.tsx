@@ -132,9 +132,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           >
             <WalletCards />
             <span>
-              BuyBack{" "}
+              Piggy Back{" "}
               <small className="text-muted-foreground block text-xs font-medium">
-                {t("Admin · NexoraVN")}
+                {t("Admin · Piggy Buy Back")}
               </small>
             </span>
           </Link>
@@ -156,7 +156,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <header className="bg-card sticky top-0 z-30 flex h-16 items-center justify-between border-b px-4 lg:hidden">
           <Link href="/admin" className="text-primary flex items-center gap-2 font-bold">
             <WalletCards className="size-5" />
-            {t("BuyBack Admin")}
+            {t("Piggy Back Admin")}
           </Link>
           <button
             onClick={() => setOpen(true)}

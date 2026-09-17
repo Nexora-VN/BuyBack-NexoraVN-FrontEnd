@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Piggy Buy Back",
     template: "%s | Piggy Buy Back",
   },
-  description: "Nền tảng hoàn tiền affiliate minh bạch từ NexoraVN.",
+  description: "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Buy Back.",
 };
 
 const publishableKey =

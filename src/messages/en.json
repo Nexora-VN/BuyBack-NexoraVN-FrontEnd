@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "Piggy Buy Back",
-    "description": "A transparent Shopee affiliate cashback platform by NexoraVN."
+    "description": "A transparent Shopee affiliate cashback platform by Piggy Buy Back."
   },
   "Navigation": {
     "home": "Home",
@@ -25,8 +25,8 @@
     "architectureDescription": "App, component, module, service, and provider layers remain clearly separated so teams can add features without rebuilding the foundation."
   },
   "Footer": {
-    "description": "A reusable frontend starter for NexoraVN products.",
-    "copyright": "NexoraVN. Ready to build."
+    "description": "Smart shopping cashback platform with Piggy Back.",
+    "copyright": "Piggy Buy Back. All rights reserved."
   },
   "Language": {
     "label": "Language"
@@ -218,7 +218,7 @@
     "copy_e68991b78542": "Errors",
     "copy_68961f04eb50": "Admin menu",
     "copy_fc3551bb5ac4": "Shop now",
-    "copy_cf87ac8610c6": "Shop with BuyBack",
+    "copy_cf87ac8610c6": "Shop with Piggy Back",
     "copy_f06343866f2c": "Shop as usual.",
     "copy_c4e8f73865eb": "ID",
     "copy_e5f751539e0e": "Affiliate link ID (UUID)",
@@ -269,7 +269,7 @@
     "copy_1e6c3c1079ec": "Activity log",
     "copy_8aefcf53bbee": "Balance changes are recorded here. Existing transactions can only be offset by new transactions.",
     "copy_8780c68a65a6": "Operations log",
-    "copy_7aeead9544f2": "A transparent affiliate cashback platform by NexoraVN.",
+    "copy_7aeead9544f2": "A transparent affiliate cashback platform by Piggy Buy Back.",
     "copy_a5bb74d24615": "Shopee session",
     "copy_e055ec3544ac": "Version",
     "copy_266a3cb62191": "Credential version",

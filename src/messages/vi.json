@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "Piggy Buy Back",
-    "description": "Nền tảng hoàn tiền affiliate Shopee minh bạch từ NexoraVN."
+    "description": "Nền tảng hoàn tiền affiliate Shopee minh bạch từ Piggy Buy Back."
   },
   "Navigation": {
     "home": "Trang chủ",
@@ -25,8 +25,8 @@
     "architectureDescription": "Các lớp app, component, module, service và provider được tách rõ để đội ngũ thêm tính năng mà không phải dựng lại nền móng."
   },
   "Footer": {
-    "description": "Starter frontend tái sử dụng cho các sản phẩm NexoraVN.",
-    "copyright": "NexoraVN. Sẵn sàng để phát triển."
+    "description": "Nền tảng hoàn tiền mua sắm thông minh cùng Piggy Back.",
+    "copyright": "Piggy Buy Back. Đã đăng ký bản quyền."
   },
   "Language": {
     "label": "Ngôn ngữ"
@@ -269,7 +269,7 @@
     "copy_1e6c3c1079ec": "Nhật ký",
     "copy_8aefcf53bbee": "Nhật ký thay đổi số dư. Giao dịch đã ghi chỉ được bù trừ bằng giao dịch mới.",
     "copy_8780c68a65a6": "Nhật ký vận hành",
-    "copy_7aeead9544f2": "Nền tảng hoàn tiền affiliate minh bạch từ NexoraVN.",
+    "copy_7aeead9544f2": "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Buy Back.",
     "copy_a5bb74d24615": "Phiên Shopee",
     "copy_e055ec3544ac": "Phiên bản",
     "copy_266a3cb62191": "Phiên bản Credential (Version)",
