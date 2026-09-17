@@ -15,13 +15,10 @@ export const exampleService = {
   },
 
   getById(id: number) {
-    return apiClient.get<ApiResponse<ExampleItem>>(
-      `${API_ENDPOINTS.examples}/${id}`,
-    );
+    return apiClient.get<ApiResponse<ExampleItem>>(`${API_ENDPOINTS.examples}/${id}`);
   },
 
   testService() {
-    return apiClient.get(API_ENDPOINTS.health
-    );
+    return apiClient.get(API_ENDPOINTS.health);
   },
 };

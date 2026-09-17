@@ -1,27 +1,22 @@
 "use client";
-import { ResourceToolbar } from '@/components/patterns/resource-toolbar';
+import { ResourceToolbar } from "@/components/patterns/resource-toolbar";
 import { useCopy } from "@/i18n/use-copy";
 
-import { useConfirm } from '@/components/patterns/confirm-provider';
-import { ListPagination } from '@/components/patterns/list-controls';
-import { SurfaceDialog } from '@/components/patterns/surface-dialog';
-import { useListState } from '@/lib/use-list-state';
+import { useConfirm } from "@/components/patterns/confirm-provider";
+import { ListPagination } from "@/components/patterns/list-controls";
+import { SurfaceDialog } from "@/components/patterns/surface-dialog";
+import { useListState } from "@/lib/use-list-state";
 
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { Input,Select } from "@/components/ui/input";
+import { Input, Select } from "@/components/ui/input";
 import { Page } from "@/components/ui/page";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { formatDateTime,initials } from "@/lib/format";
-import { useUserMutations,useUsers } from "@/modules/users/hooks/use-users";
-import type { User,UserInput } from "@/modules/users/types/user";
-import {
-LoaderCircle,
-Plus,
-Trash2,
-UserRoundPen
-} from "lucide-react";
-import { useRef,useState } from "react";
+import { formatDateTime, initials } from "@/lib/format";
+import { useUserMutations, useUsers } from "@/modules/users/hooks/use-users";
+import type { User, UserInput } from "@/modules/users/types/user";
+import { LoaderCircle, Plus, Trash2, UserRoundPen } from "lucide-react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const empty: UserInput & { password: string } = {
@@ -34,13 +29,14 @@ const empty: UserInput & { password: string } = {
   status: "ACTIVE",
 };
 export function UsersPage() {
- const t=useCopy();
+  const t = useCopy();
 
   const confirm = useConfirm();
-  const list = useListState('users');
-  const page = list.page, query = list.query;
+  const list = useListState("users");
+  const page = list.page,
+    query = list.query;
   const saveLock = useRef(false);
-  const [saveError, setSaveError] = useState('');
+  const [saveError, setSaveError] = useState("");
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<User | null>(null);
   const [form, setForm] = useState(empty);
@@ -49,7 +45,9 @@ export function UsersPage() {
     page,
     limit: 20,
     sort: list.sort,
-    ...(['ACTIVE','DISABLED'].includes(list.status)?{status:list.status as 'ACTIVE'|'DISABLED'}:{}),
+    ...(["ACTIVE", "DISABLED"].includes(list.status)
+      ? { status: list.status as "ACTIVE" | "DISABLED" }
+      : {}),
     ...(query ? { search: query } : {}),
   });
   const mutations = useUserMutations();
@@ -68,7 +66,7 @@ export function UsersPage() {
           }
         : empty,
     );
-    setSaveError('');
+    setSaveError("");
     setOpen(true);
   };
   const save = async () => {
@@ -86,11 +84,13 @@ export function UsersPage() {
       setOpen(false);
     } catch (error) {
       setSaveError(error instanceof Error ? error.message : t("Không thể lưu"));
-    } finally { saveLock.current=false; }
+    } finally {
+      saveLock.current = false;
+    }
   };
   const remove = async (id: string) => {
     if (mutations.remove.isPending) return;
-    if (!await confirm(t("Xóa người dùng này? Hành động cần được xác nhận."))) return;
+    if (!(await confirm(t("Xóa người dùng này? Hành động cần được xác nhận.")))) return;
     try {
       await mutations.remove.mutateAsync(id);
       toast.success(t("Đã xóa người dùng"));
@@ -105,17 +105,23 @@ export function UsersPage() {
       actions={
         <Button onClick={() => showForm()}>
           <Plus />
-          {t("Tạo người dùng")}</Button>
+          {t("Tạo người dùng")}
+        </Button>
       }
     >
-      <ResourceToolbar scope="users" label="Tìm theo email hoặc tên hiển thị" states={['ACTIVE','DISABLED']}/>
+      <ResourceToolbar
+        scope="users"
+        label="Tìm theo email hoặc tên hiển thị"
+        states={["ACTIVE", "DISABLED"]}
+      />
       {users.isLoading ? (
-        <div className="h-56 rounded-2xl skeleton" />
+        <div className="skeleton h-56 rounded-2xl" />
       ) : users.isError ? (
-        <div className="rounded-2xl border bg-danger-soft p-5 text-danger">
+        <div className="bg-danger-soft text-danger rounded-2xl border p-5">
           {t("Không thể tải người dùng.")}{" "}
           <button onClick={() => users.refetch()} className="underline">
-            {t("Thử lại")}</button>
+            {t("Thử lại")}
+          </button>
         </div>
       ) : (
         <>
@@ -128,16 +134,14 @@ export function UsersPage() {
                 label: t("Người dùng"),
                 render: (row) => (
                   <div className="flex min-w-0 items-center gap-3">
-                    <span className="grid size-9 place-items-center rounded-full bg-secondary font-semibold text-primary">
+                    <span className="bg-secondary text-primary grid size-9 place-items-center rounded-full font-semibold">
                       {initials(row.displayName ?? row.email)}
                     </span>
                     <div>
                       <p className="font-medium">
                         {row.displayName || row.fullName || t("Chưa đặt tên")}
                       </p>
-                      <p className="text-xs text-muted-foreground">
-                        {row.email}
-                      </p>
+                      <p className="text-muted-foreground text-xs">{row.email}</p>
                     </div>
                   </div>
                 ),
@@ -186,89 +190,106 @@ export function UsersPage() {
               },
             ]}
           />
-          <ListPagination page={page} total={users.data?.meta.total??0} totalPages={users.data?.meta.totalPages??1} pending={users.isFetching} onPage={page=>list.update({page})}/>
+          <ListPagination
+            page={page}
+            total={users.data?.meta.total ?? 0}
+            totalPages={users.data?.meta.totalPages ?? 1}
+            pending={users.isFetching}
+            onPage={(page) => list.update({ page })}
+          />
         </>
       )}
-      <SurfaceDialog busy={mutations.create.isPending||mutations.update.isPending} open={open} onOpenChange={setOpen} title={editing?t("Cập nhật người dùng"):t("Tạo người dùng")}>
-        <form onSubmit={event=>{event.preventDefault();void save();}}>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {[
-                ["email", "Email", "email"],
-                ["phoneNumber", t("Số điện thoại"), "tel"],
-                ["displayName", t("Tên hiển thị"), "text"],
-                ["fullName", t("Họ và tên"), "text"],
-                [
-                  "password",
-                  editing ? t("Mật khẩu mới (không bắt buộc)") : t("Mật khẩu"),
-                  "password",
-                ],
-              ].map(([key, label, type]) => (
-                <label
-                  key={key}
-                  className={key === "password" ? "sm:col-span-2" : ""}
-                >
-                  <span className="mb-1.5 block text-sm font-medium">
-                    {t(label)}
-                  </span>
-                  <Input
-                    required={!editing || key !== "password"}
-                    type={type}
-                    value={String(form[key as keyof typeof form] ?? "")}
-                    onChange={(e) =>
-                      setForm({ ...form, [key]: e.target.value })
-                    }
-                  />
-                </label>
-              ))}
-              <label>
-                <span className="mb-1.5 block text-sm font-medium">
-                  {t("Vai trò")}</span>
-                <Select
-                  value={form.role}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      role: e.target.value as UserInput["role"],
-                    })
-                  }
-                >
-                  <option>USER</option>
-                  <option>ADMIN</option>
-                  <option>SUPER_ADMIN</option>
-                </Select>
+      <SurfaceDialog
+        busy={mutations.create.isPending || mutations.update.isPending}
+        open={open}
+        onOpenChange={setOpen}
+        title={editing ? t("Cập nhật người dùng") : t("Tạo người dùng")}
+      >
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            void save();
+          }}
+        >
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {[
+              ["email", "Email", "email"],
+              ["phoneNumber", t("Số điện thoại"), "tel"],
+              ["displayName", t("Tên hiển thị"), "text"],
+              ["fullName", t("Họ và tên"), "text"],
+              [
+                "password",
+                editing ? t("Mật khẩu mới (không bắt buộc)") : t("Mật khẩu"),
+                "password",
+              ],
+            ].map(([key, label, type]) => (
+              <label key={key} className={key === "password" ? "sm:col-span-2" : ""}>
+                <span className="mb-1.5 block text-sm font-medium">{t(label)}</span>
+                <Input
+                  required={!editing || key !== "password"}
+                  type={type}
+                  value={String(form[key as keyof typeof form] ?? "")}
+                  onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                />
               </label>
-              <label>
-                <span className="mb-1.5 block text-sm font-medium">
-                  {t("Trạng thái")}</span>
-                <Select
-                  value={form.status}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      status: e.target.value as UserInput["status"],
-                    })
-                  }
-                >
-                  <option>ACTIVE</option>
-                  <option>DISABLED</option>
-                  <option>DELETED</option>
-                </Select>
-              </label>
-            </div>
-            {saveError && <p role="alert" className="mt-4 text-danger">{t.error(saveError)}</p>}
-            <div className="form-actions">
-              <Button type="button" variant="outline" disabled={mutations.create.isPending||mutations.update.isPending} onClick={()=>setOpen(false)}>{t("Hủy")}</Button>
-              <Button
-                type="submit"
-                disabled={
-                  mutations.create.isPending || mutations.update.isPending
+            ))}
+            <label>
+              <span className="mb-1.5 block text-sm font-medium">{t("Vai trò")}</span>
+              <Select
+                value={form.role}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    role: e.target.value as UserInput["role"],
+                  })
                 }
               >
-                {(mutations.create.isPending || mutations.update.isPending) && (
-                  <LoaderCircle className="animate-spin" />
-                )}
-                {t("Lưu")}</Button>
-            </div>
+                <option>USER</option>
+                <option>ADMIN</option>
+                <option>SUPER_ADMIN</option>
+              </Select>
+            </label>
+            <label>
+              <span className="mb-1.5 block text-sm font-medium">{t("Trạng thái")}</span>
+              <Select
+                value={form.status}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    status: e.target.value as UserInput["status"],
+                  })
+                }
+              >
+                <option>ACTIVE</option>
+                <option>DISABLED</option>
+                <option>DELETED</option>
+              </Select>
+            </label>
+          </div>
+          {saveError && (
+            <p role="alert" className="text-danger mt-4">
+              {t.error(saveError)}
+            </p>
+          )}
+          <div className="form-actions">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={mutations.create.isPending || mutations.update.isPending}
+              onClick={() => setOpen(false)}
+            >
+              {t("Hủy")}
+            </Button>
+            <Button
+              type="submit"
+              disabled={mutations.create.isPending || mutations.update.isPending}
+            >
+              {(mutations.create.isPending || mutations.update.isPending) && (
+                <LoaderCircle className="animate-spin" />
+              )}
+              {t("Lưu")}
+            </Button>
+          </div>
         </form>
       </SurfaceDialog>
     </Page>

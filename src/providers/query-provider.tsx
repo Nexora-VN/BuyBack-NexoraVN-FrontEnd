@@ -5,12 +5,8 @@ import { useState } from "react";
 
 import { createQueryClient } from "@/lib/api/query-client";
 
-export default function QueryProvider({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function QueryProvider({ children }: Readonly<{ children: React.ReactNode }>) {
   const [queryClient] = useState(createQueryClient);
 
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

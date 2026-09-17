@@ -1,2 +1,4 @@
 import { IssuesPage } from "@/modules/finance/components/admin-pages";
-export default function Page() { return <IssuesPage />; }
+export default function Page() {
+  return <IssuesPage />;
+}

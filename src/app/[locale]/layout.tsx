@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { getMessages,getTranslations,setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-import { isLocale,locales } from "@/i18n/config";
+import { isLocale, locales } from "@/i18n/config";
 import AppProvider from "@/providers/app-provider";
 
 type LocaleLayoutProps = Readonly<{
@@ -31,10 +31,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LocaleLayoutProps) {
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 
   if (!isLocale(locale)) {

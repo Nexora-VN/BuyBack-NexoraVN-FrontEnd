@@ -1,26 +1,22 @@
 import { apiClient } from "@/lib/api/client";
 import type {
-AffiliateLink,
-AffiliateLinkStatus,
-AffiliateList,
-GenerateAffiliateResponse,
+  AffiliateLink,
+  AffiliateLinkStatus,
+  AffiliateList,
+  GenerateAffiliateResponse,
 } from "@/modules/affiliate/types/affiliate";
 export const affiliateService = {
   generate: (url: string) =>
-    apiClient.post<GenerateAffiliateResponse>(
-      "/api/backend/generate-affiliate",
-      { url },
-    ),
+    apiClient.post<GenerateAffiliateResponse>("/api/backend/generate-affiliate", { url }),
   list: (params: {
     page: number;
     limit: number;
-    sort?: 'asc' | 'desc'; search?: string;
+    sort?: "asc" | "desc";
+    search?: string;
     affiliateLinkStatus?: AffiliateLinkStatus;
   }) => apiClient.get<AffiliateList>("/api/backend/affiliate", { params }),
-  detail: (id: string) =>
-    apiClient.get<AffiliateLink>(`/api/backend/affiliate/${id}`),
+  detail: (id: string) => apiClient.get<AffiliateLink>(`/api/backend/affiliate/${id}`),
   update: (id: string, input: Partial<AffiliateLink>) =>
     apiClient.patch<AffiliateLink>(`/api/backend/affiliate/${id}`, input),
-  remove: (id: string) =>
-    apiClient.delete<void>(`/api/backend/affiliate/${id}`),
+  remove: (id: string) => apiClient.delete<void>(`/api/backend/affiliate/${id}`),
 };
