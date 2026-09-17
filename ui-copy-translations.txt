@@ -167,7 +167,7 @@ Kỳ thanh toán AddLiveTag|AddLiveTag settlements
 Ledger & Đồng bộ|Ledger & sync
 Link của tôi|My links
 Link không hợp lệ|Invalid link
-Link sản phẩm Shopee|Shopee product link
+Link sản phẩm Shopee, TikTok|Shopee product link
 Liên kết affiliate|Affiliate links
 Loại|Type
 Loại giao dịch|Transaction type
@@ -185,6 +185,7 @@ Lỗi|Errors
 Menu quản trị|Admin menu
 Mua ngay|Shop now
 Mua sắm cùng hoàn tiền cùng Piggy nào!|Shop with BuyBack
+Mua sắm ngay|Create link
 Mua sắm như thường lệ.|Shop as usual.
 Mã|ID
 Mã AffiliateLink ID (UUID)|Affiliate link ID (UUID)
@@ -270,6 +271,7 @@ Số tiền|Amount
 Số tiền (+ cộng / - trừ), VND|Amount (+ credit / - debit), VND
 Số tiền (VND)|Amount (VND)
 Số tiền tham khảo, được xác nhận sau khi đơn hàng đối soát.|An estimate, confirmed after order reconciliation.
+Số tiền được hoàn lại lên tới|Estimated commission
 Số tiền được giữ để xử lý yêu cầu. Theo dõi tiến độ trong lịch sử rút tiền.|The amount is reserved for this request. Track its progress in withdrawal history.
 Số tài khoản|Account number
 Số tài khoản gồm 6–30 chữ số|Account number must contain 6–30 digits

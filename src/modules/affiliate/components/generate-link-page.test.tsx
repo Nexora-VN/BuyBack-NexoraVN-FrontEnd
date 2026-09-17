@@ -28,10 +28,10 @@ const response = {
   },
 };
 function submit() {
-  fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee"), {
+  fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee, TikTok"), {
     target: { value: "https://shopee.vn/product/1/2" },
   });
-  fireEvent.click(screen.getByRole("button", { name: "Tạo link" }));
+  fireEvent.click(screen.getByRole("button", { name: "Mua sắm ngay" }));
 }
 beforeEach(() => {
   vi.clearAllMocks();
@@ -54,7 +54,7 @@ describe("GenerateLinkPage", () => {
     await waitFor(() => expect(navigator.clipboard.writeText).toHaveBeenCalledWith(response.link));
     fireEvent.error(screen.getByRole("img"));
     expect(screen.getByLabelText("Chưa có ảnh sản phẩm")).toBeInTheDocument();
-    fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee"), {
+    fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee, TikTok"), {
       target: { value: "new" },
     });
     expect(screen.queryByRole("link", { name: "Mua ngay" })).not.toBeInTheDocument();
@@ -79,11 +79,11 @@ describe("GenerateLinkPage", () => {
     render(<GenerateLinkPage />);
     submit();
     expect(screen.getByRole("button", { name: "Đang tạo…" })).toBeDisabled();
-    fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee"), {
+    fireEvent.change(screen.getByLabelText("Link sản phẩm Shopee, TikTok"), {
       target: { value: "another" },
     });
     resolve(response);
-    await waitFor(() => expect(screen.getByRole("button", { name: "Tạo link" })).toBeEnabled());
+    await waitFor(() => expect(screen.getByRole("button", { name: "Mua sắm ngay" })).toBeEnabled());
     expect(screen.queryByText("Sản phẩm thử")).not.toBeInTheDocument();
   });
   it("handles missing product and generation errors", async () => {
@@ -96,7 +96,7 @@ describe("GenerateLinkPage", () => {
     submit();
     expect(await screen.findByText("Chưa có thông tin hoa hồng")).toBeInTheDocument();
     vi.mocked(affiliateService.generate).mockRejectedValueOnce(new Error("Lỗi tạo link"));
-    fireEvent.click(screen.getByRole("button", { name: "Tạo link" }));
+    fireEvent.click(screen.getByRole("button", { name: "Mua sắm ngay" }));
     await waitFor(() =>
       expect(toast.error).toHaveBeenCalledWith("Không thể hoàn tất yêu cầu. Vui lòng thử lại."),
     );
