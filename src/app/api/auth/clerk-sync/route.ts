@@ -9,8 +9,9 @@ export async function POST() {
   }
 
   const primaryEmail =
-    clerkUser.emailAddresses.find((e) => e.id === clerkUser.primaryEmailAddressId)?.emailAddress ||
-    clerkUser.emailAddresses[0]?.emailAddress;
+    clerkUser.emailAddresses.find(
+      (e: { id: string; emailAddress: string }) => e.id === clerkUser.primaryEmailAddressId,
+    )?.emailAddress || clerkUser.emailAddresses[0]?.emailAddress;
 
   if (!primaryEmail) {
     return NextResponse.json(

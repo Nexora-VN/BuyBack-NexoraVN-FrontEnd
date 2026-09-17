@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@clerk/ui/themes/shadcn.css";
 
 @theme inline {
   --font-sans: var(--font-be-vietnam-pro);
