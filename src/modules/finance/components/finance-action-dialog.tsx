@@ -2,7 +2,7 @@
 import { SurfaceDialog } from "@/components/patterns/surface-dialog";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/i18n/use-copy";
-import { useState,type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { ActionContext } from "./finance-action-context";
 export function ActionDialog({ label, children }: { label: string; children: ReactNode }) {
   const t = useCopy();

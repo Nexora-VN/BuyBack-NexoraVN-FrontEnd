@@ -2,18 +2,18 @@
 import { ListSearch } from "@/components/patterns/list-controls";
 import { SurfaceDialog } from "@/components/patterns/surface-dialog";
 import { Button } from "@/components/ui/button";
-import { DataTable,type Column } from "@/components/ui/data-table";
+import { DataTable, type Column } from "@/components/ui/data-table";
 import { Select } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/page";
-import { statusLabel,type StatusDomain } from "@/components/ui/status-badge";
+import { statusLabel, type StatusDomain } from "@/components/ui/status-badge";
 import { useCopy } from "@/i18n/use-copy";
 import { useListState } from "@/lib/use-list-state";
 import { SlidersHorizontal } from "lucide-react";
-import { useState,type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useFinanceList } from "../hooks/use-finance";
 import type { FinanceRow } from "../types/finance";
-import { columns,type Specs } from "./finance-columns";
-import { Failure,Loading } from "./finance-states";
+import { columns, type Specs } from "./finance-columns";
+import { Failure, Loading } from "./finance-states";
 export function FinanceTable({
   path,
   specs,
@@ -132,7 +132,11 @@ export function FinanceTable({
       {query.isLoading ? (
         <Loading />
       ) : query.isError ? (
-        <Failure error={query.error} message={query.error.message} retry={() => void query.refetch()} />
+        <Failure
+          error={query.error}
+          message={query.error.message}
+          retry={() => void query.refetch()}
+        />
       ) : !query.data?.data.length ? (
         <EmptyState
           title={list.query || list.status ? t("Không tìm thấy kết quả") : t("Chưa có dữ liệu")}

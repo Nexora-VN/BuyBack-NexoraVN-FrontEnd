@@ -1,6 +1,6 @@
 import { ApiError } from "@/lib/api/errors";
-import { requestId,validRequestId } from "@/lib/observability/request-id";
-import type { ApiClientOptions,QueryParamValue } from "@/types/api";
+import { requestId, validRequestId } from "@/lib/observability/request-id";
+import type { ApiClientOptions, QueryParamValue } from "@/types/api";
 
 let refreshPromise: Promise<boolean> | null = null;
 
@@ -55,7 +55,10 @@ class ApiClient {
     if (callerSignal?.aborted) abort();
     else callerSignal?.addEventListener("abort", abort, { once: true });
     let timedOut = false;
-    const timeoutId = setTimeout(() => { timedOut = true; controller.abort(); }, timeout);
+    const timeoutId = setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, timeout);
     const headers = new Headers(customHeaders);
     const id = requestId(headers.get("X-Request-Id"));
     headers.set("X-Request-Id", id);
@@ -90,12 +93,25 @@ class ApiClient {
           : typeof raw === "string"
             ? raw
             : `Request failed with status ${response.status}`;
-        throw new ApiError(message, response.status, data, validRequestId(response.headers.get("X-Request-Id")) ? response.headers.get("X-Request-Id")! : id);
+        throw new ApiError(
+          message,
+          response.status,
+          data,
+          validRequestId(response.headers.get("X-Request-Id"))
+            ? response.headers.get("X-Request-Id")!
+            : id,
+        );
       }
       return data as T;
     } catch (error) {
       if (error instanceof ApiError) throw error;
-      if (controller.signal.aborted) throw new ApiError(timedOut ? "Yêu cầu đã hết thời gian chờ." : "Yêu cầu đã được hủy.", timedOut ? 408 : 499, { code: timedOut ? "REQUEST_TIMEOUT" : "REQUEST_CANCELLED" }, id);
+      if (controller.signal.aborted)
+        throw new ApiError(
+          timedOut ? "Yêu cầu đã hết thời gian chờ." : "Yêu cầu đã được hủy.",
+          timedOut ? 408 : 499,
+          { code: timedOut ? "REQUEST_TIMEOUT" : "REQUEST_CANCELLED" },
+          id,
+        );
       throw new ApiError("Không thể kết nối máy chủ.", 0, { code: "NETWORK_ERROR" }, id);
     } finally {
       clearTimeout(timeoutId);
