@@ -1,4 +1,5 @@
-import { ACCESS_COOKIE, backendUrl, readJsonSafe } from "@/lib/server/backend";
+import { ACCESS_COOKIE,backendUrl,readJsonSafe } from "@/lib/server/backend";
+import { backendFetch,withApiRoute } from "@/lib/server/observability";
 import { isCrossOriginMutation } from "@/lib/server/same-origin";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -22,7 +23,7 @@ async function proxy(request: Request, context: { params: Promise<{ path: string
   const contentType = request.headers.get("content-type");
   if (contentType) headers.set("Content-Type", contentType);
   const body = ["GET", "HEAD"].includes(request.method) ? undefined : await request.arrayBuffer();
-  const upstream = await fetch(target, {
+  const upstream = await backendFetch(target, {
     method: request.method,
     headers,
     body,
@@ -35,8 +36,9 @@ async function proxy(request: Request, context: { params: Promise<{ path: string
     ? new NextResponse(data, { status: upstream.status, headers: responseHeaders })
     : NextResponse.json(data ?? {}, { status: upstream.status, headers: responseHeaders });
 }
-export const GET = proxy;
-export const POST = proxy;
-export const PATCH = proxy;
-export const PUT = proxy;
-export const DELETE = proxy;
+const route = withApiRoute(proxy);
+export const GET = route;
+export const POST = route;
+export const PATCH = route;
+export const PUT = route;
+export const DELETE = route;

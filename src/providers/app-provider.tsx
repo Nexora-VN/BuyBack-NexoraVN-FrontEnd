@@ -1,9 +1,10 @@
 "use client";
 
 import { NextIntlClientProvider } from "next-intl";
-import { useEffect, type ComponentProps } from "react";
+import { useEffect,type ComponentProps } from "react";
 
-import { timeZone, type Locale } from "@/i18n/config";
+import { AppErrorBoundary,RuntimeErrors } from "@/components/errors/runtime-errors";
+import { timeZone,type Locale } from "@/i18n/config";
 import { AuthProvider } from "@/modules/auth/components/auth-provider";
 import QueryProvider from "@/providers/query-provider";
 import { Toaster } from "sonner";
@@ -24,7 +25,7 @@ export default function AppProvider({ children, locale, messages }: AppProviderP
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
       <QueryProvider>
-        <AuthProvider>{children}</AuthProvider>
+        <AppErrorBoundary><RuntimeErrors /><AuthProvider>{children}</AuthProvider></AppErrorBoundary>
         <Toaster richColors position="top-right" />
       </QueryProvider>
     </NextIntlClientProvider>

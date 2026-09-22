@@ -1,18 +1,19 @@
 import {
-  applyTokenCookies,
-  backendUrl,
-  clearTokenCookies,
-  readJsonSafe,
-  REFRESH_COOKIE,
+applyTokenCookies,
+backendUrl,
+clearTokenCookies,
+readJsonSafe,
+REFRESH_COOKIE,
 } from "@/lib/server/backend";
+import { backendFetch,withApiRoute } from "@/lib/server/observability";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST() {
+async function handle() {
   const refreshToken = (await cookies()).get(REFRESH_COOKIE)?.value;
   if (!refreshToken)
     return NextResponse.json({ message: "Phiên đăng nhập đã hết hạn" }, { status: 401 });
-  const upstream = await fetch(backendUrl("auth/refresh"), {
+  const upstream = await backendFetch(backendUrl("auth/refresh"), {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ refreshToken }),
@@ -21,9 +22,9 @@ export async function POST() {
   const data = await readJsonSafe(upstream);
   if (!upstream.ok) {
     const response = NextResponse.json(data ?? { message: "Không thể làm mới phiên" }, {
-      status: 401,
+      status: upstream.status,
     });
-    clearTokenCookies(response);
+    if (upstream.status === 401 || upstream.status === 403) clearTokenCookies(response);
     return response;
   }
   const tokens = data as {
@@ -36,3 +37,5 @@ export async function POST() {
   applyTokenCookies(response, tokens);
   return response;
 }
+
+export const POST = withApiRoute(handle);

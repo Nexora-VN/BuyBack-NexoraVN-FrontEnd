@@ -1,113 +1,23 @@
 "use client";
-import { ResourceToolbar } from "@/components/patterns/resource-toolbar";
 import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
+import { ResourceToolbar } from "@/components/patterns/resource-toolbar";
 
-import { useCopy } from "@/i18n/use-copy";
 
-import { useConfirm } from "@/components/patterns/confirm-provider";
 import { ListPagination } from "@/components/patterns/list-controls";
-import { SurfaceDialog } from "@/components/patterns/surface-dialog";
-import { useListState } from "@/lib/use-list-state";
 
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { Input } from "@/components/ui/input";
 import { Page } from "@/components/ui/page";
 import { Link } from "@/i18n/navigation";
 import { formatVnd } from "@/lib/format";
-import { useProductMutations, useProducts } from "@/modules/products/hooks/use-products";
-import type { Product, ProductInput } from "@/modules/products/types/product";
-import { ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
-import { useRef, useState } from "react";
-import { toast } from "sonner";
+import { ExternalLink,Pencil,Plus,Trash2 } from "lucide-react";
 
-const blank: ProductInput = {
-  itemId: "",
-  shopId: "",
-  productName: "",
-  shopName: "",
-  originLink: "",
-  price: 0,
-  sales: 0,
-  imageUrl: "",
-  productLink: "",
-  rating: "0",
-  hasSellerCommission: false,
-  hasShopeeCommission: false,
-  commission: 0,
-  sellerComFinal: 0,
-  shoppeComFinal: 0,
-  sellerRate: 0,
-  shopeeRate: 0,
-  sellerRatePercent: 0,
-  shopeeRatePercent: 0,
-  totalRatePercent: 0,
-  isExtra: false,
-  isCapped: false,
-  isLimitCap: false,
-  cap: "0",
-  capRow: "0",
-  capAfterRate: "0",
-  lastUpdate: new Date().toISOString(),
-};
+import dynamic from 'next/dynamic';
+import { useProductsPage } from '../hooks/use-products-page';
+const ProductFormDialog = dynamic(() => import('./product-form-dialog').then((module) => module.ProductFormDialog));
 export function ProductsPage() {
-  const t = useCopy();
-
-  const confirm = useConfirm();
-  const list = useListState("products");
-  const page = list.page,
-    query = list.query;
-  const saveLock = useRef(false);
-  const [saveError, setSaveError] = useState("");
-  const [open, setOpen] = useState(false);
-  const [editing, setEditing] = useState<Product | null>(null);
-  const [form, setForm] = useState<ProductInput>(blank);
-
-  const products = useProducts({
-    page,
-    limit: 20,
-    sort: list.sort,
-    ...(query ? { search: query } : {}),
-  });
-  const mutations = useProductMutations();
-  const show = (product?: Product) => {
-    setEditing(product ?? null);
-    setForm(
-      product
-        ? {
-            ...product,
-            price: Number(product.price),
-            commission: Number(product.commission),
-            sellerComFinal: Number(product.sellerComFinal),
-            shoppeComFinal: Number(product.shoppeComFinal),
-          }
-        : { ...blank, lastUpdate: new Date().toISOString() },
-    );
-    setSaveError("");
-    setOpen(true);
-  };
-  const save = async () => {
-    try {
-      if (editing) await mutations.update.mutateAsync({ id: editing.id, input: form });
-      else await mutations.create.mutateAsync(form);
-      toast.success(t("Đã lưu sản phẩm"));
-      setOpen(false);
-    } catch (error) {
-      setSaveError(error instanceof Error ? error.message : t("Không thể lưu"));
-    } finally {
-      saveLock.current = false;
-    }
-  };
-  const remove = async (id: string) => {
-    if (mutations.remove.isPending) return;
-    if (!(await confirm(t("Xóa sản phẩm này?")))) return;
-    try {
-      await mutations.remove.mutateAsync(id);
-      toast.success(t("Đã xóa sản phẩm"));
-    } catch (error) {
-      toast.error(t.error(error instanceof Error ? error.message : t("Không thể xóa")));
-    }
-  };
+  const state = useProductsPage();
+  const { t, list, page, open, form, products, show, remove } = state;
   return (
     <Page
       title={t("Quản lý sản phẩm")}
@@ -227,110 +137,7 @@ export function ProductsPage() {
           />
         </>
       )}
-      <SurfaceDialog
-        busy={mutations.create.isPending || mutations.update.isPending}
-        open={open}
-        onOpenChange={setOpen}
-        title={editing ? t("Cập nhật sản phẩm") : t("Thêm sản phẩm")}
-      >
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            void save();
-          }}
-        >
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {(
-              [
-                ["itemId", "Item ID", "text"],
-                ["shopId", "Shop ID", "text"],
-                ["productName", t("Tên sản phẩm"), "text"],
-                ["shopName", t("Tên shop"), "text"],
-                ["originLink", "Origin link", "url"],
-                ["productLink", "Product link", "url"],
-                ["imageUrl", "Image URL", "url"],
-                ["rating", "Rating", "text"],
-                ["price", t("Giá"), "number"],
-                ["sales", t("Lượt bán"), "number"],
-                ["commission", "Commission", "number"],
-                ["sellerComFinal", "Seller commission", "number"],
-                ["shoppeComFinal", "Shopee commission", "number"],
-                ["sellerRate", "Seller rate", "number"],
-                ["shopeeRate", "Shopee rate", "number"],
-                ["sellerRatePercent", "Seller %", "number"],
-                ["shopeeRatePercent", "Shopee %", "number"],
-                ["totalRatePercent", t("Tổng %"), "number"],
-                ["cap", "Cap", "text"],
-                ["capRow", "Cap raw", "text"],
-                ["capAfterRate", "Cap sau rate", "text"],
-              ] as const
-            ).map(([key, label, type]) => (
-              <label
-                key={key}
-                className={
-                  ["productName", "originLink", "productLink", "imageUrl"].includes(key)
-                    ? "sm:col-span-2"
-                    : ""
-                }
-              >
-                <span className="mb-1 block text-xs font-semibold">{t(label)}</span>
-                <Input
-                  type={type}
-                  step="any"
-                  value={String(form[key])}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      [key]: type === "number" ? Number(e.target.value) : e.target.value,
-                    })
-                  }
-                />
-              </label>
-            ))}
-            <div className="grid gap-3 sm:col-span-2 sm:grid-cols-3">
-              {(
-                [
-                  ["hasSellerCommission", t("Có seller commission")],
-                  ["hasShopeeCommission", t("Có Shopee commission")],
-                  ["isExtra", "Xtra"],
-                  ["isCapped", t("Đã cap")],
-                  ["isLimitCap", t("Giới hạn cap")],
-                ] as const
-              ).map(([key, label]) => (
-                <label key={key} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={form[key]}
-                    onChange={(e) => setForm({ ...form, [key]: e.target.checked })}
-                  />
-                  {t(label)}
-                </label>
-              ))}
-            </div>
-          </div>
-          {saveError && (
-            <p role="alert" className="text-danger mt-4">
-              {t.error(saveError)}
-            </p>
-          )}
-          <div className="form-actions">
-            <Button
-              type="button"
-              variant="outline"
-              disabled={mutations.create.isPending || mutations.update.isPending}
-              onClick={() => setOpen(false)}
-            >
-              {t("Hủy")}
-            </Button>
-            <Button
-              type="submit"
-              disabled={mutations.create.isPending || mutations.update.isPending}
-            >
-              {t("Lưu sản phẩm")}
-            </Button>
-          </div>
-        </form>
-      </SurfaceDialog>
+      {state.open && <ProductFormDialog state={state} />}
     </Page>
   );
 }

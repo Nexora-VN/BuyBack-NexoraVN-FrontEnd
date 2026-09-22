@@ -1,9 +1,10 @@
-import { applyTokenCookies, backendUrl, readJsonSafe } from "@/lib/server/backend";
+import { applyTokenCookies,backendUrl,readJsonSafe } from "@/lib/server/backend";
+import { backendFetch,withApiRoute } from "@/lib/server/observability";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+async function handle(request: Request) {
   const input = (await request.json()) as { email?: string; password?: string; remember?: boolean };
-  const upstream = await fetch(backendUrl("auth/login"), {
+  const upstream = await backendFetch(backendUrl("auth/login"), {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ email: input.email, password: input.password }),
@@ -24,3 +25,5 @@ export async function POST(request: Request) {
   applyTokenCookies(response, tokens, input.remember !== false);
   return response;
 }
+
+export const POST = withApiRoute(handle);
