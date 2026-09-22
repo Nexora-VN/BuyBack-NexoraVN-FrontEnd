@@ -1,7 +1,7 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 import createMiddleware from "next-intl/middleware";
-import type { NextFetchEvent,NextRequest } from "next/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { routing } from "@/i18n/routing";
@@ -33,10 +33,6 @@ async function middleware(request: NextRequest, auth?: () => Promise<{ userId: s
   }
   return intlMiddleware(request);
 }
-
-
-
-
 
 const hasClerk = Boolean(
   (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || process.env.CLERK_PUBLISHABLE_KEY) &&

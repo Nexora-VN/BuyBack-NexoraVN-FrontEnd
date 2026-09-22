@@ -2,7 +2,6 @@
 import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
 import { ResourceToolbar } from "@/components/patterns/resource-toolbar";
 
-
 import { ListPagination } from "@/components/patterns/list-controls";
 
 import { Button } from "@/components/ui/button";
@@ -10,11 +9,13 @@ import { DataTable } from "@/components/ui/data-table";
 import { Page } from "@/components/ui/page";
 import { Link } from "@/i18n/navigation";
 import { formatVnd } from "@/lib/format";
-import { ExternalLink,Pencil,Plus,Trash2 } from "lucide-react";
+import { ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
 
-import dynamic from 'next/dynamic';
-import { useProductsPage } from '../hooks/use-products-page';
-const ProductFormDialog = dynamic(() => import('./product-form-dialog').then((module) => module.ProductFormDialog));
+import dynamic from "next/dynamic";
+import { useProductsPage } from "../hooks/use-products-page";
+const ProductFormDialog = dynamic(() =>
+  import("./product-form-dialog").then((module) => module.ProductFormDialog),
+);
 export function ProductsPage() {
   const state = useProductsPage();
   const { t, list, page, open, form, products, show, remove } = state;

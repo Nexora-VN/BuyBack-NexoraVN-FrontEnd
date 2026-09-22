@@ -5,9 +5,9 @@ import { useCopy } from "@/i18n/use-copy";
 import { useConfirm } from "@/components/patterns/confirm-provider";
 import { useListState } from "@/lib/use-list-state";
 
-import { useProductMutations,useProducts } from "@/modules/products/hooks/use-products";
-import type { Product,ProductInput } from "@/modules/products/types/product";
-import { useRef,useState } from "react";
+import { useProductMutations, useProducts } from "@/modules/products/hooks/use-products";
+import type { Product, ProductInput } from "@/modules/products/types/product";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const blank: ProductInput = {
@@ -97,6 +97,26 @@ export function useProductsPage() {
       toast.error(t.error(error instanceof Error ? error.message : t("Không thể xóa")));
     }
   };
-  return { t, confirm, list, page, query, saveLock, saveError, setSaveError, open, setOpen, editing, setEditing, form, setForm, products, mutations, show, save, remove };
+  return {
+    t,
+    confirm,
+    list,
+    page,
+    query,
+    saveLock,
+    saveError,
+    setSaveError,
+    open,
+    setOpen,
+    editing,
+    setEditing,
+    form,
+    setForm,
+    products,
+    mutations,
+    show,
+    save,
+    remove,
+  };
 }
 export type ProductsPageState = ReturnType<typeof useProductsPage>;

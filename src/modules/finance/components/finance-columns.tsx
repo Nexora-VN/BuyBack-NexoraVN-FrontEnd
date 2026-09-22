@@ -1,9 +1,9 @@
 "use client";
 import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
 import { type Column } from "@/components/ui/data-table";
-import { StatusBadge,type StatusDomain } from "@/components/ui/status-badge";
+import { StatusBadge, type StatusDomain } from "@/components/ui/status-badge";
 import { useCopy } from "@/i18n/use-copy";
-import { formatDateTime,formatVnd } from "@/lib/format";
+import { formatDateTime, formatVnd } from "@/lib/format";
 import type { FinanceRow } from "../types/finance";
 export function read(row: unknown, path: string): unknown {
   return path

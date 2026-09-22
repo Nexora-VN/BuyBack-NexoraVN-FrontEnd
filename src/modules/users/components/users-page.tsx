@@ -7,13 +7,17 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { Page } from "@/components/ui/page";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { formatDateTime,initials } from "@/lib/format";
-import { Plus,Trash2,UserRoundPen } from "lucide-react";
+import { formatDateTime, initials } from "@/lib/format";
+import { Plus, Trash2, UserRoundPen } from "lucide-react";
 
-import dynamic from 'next/dynamic';
-import { useUsersPage } from '../hooks/use-users-page';
-const UserFormDialog = dynamic(() => import('./user-form-dialog').then((module) => module.UserFormDialog));
-export function UsersPage() { const state = useUsersPage(); const { t, list, page, users, showForm, remove, open, form } = state;
+import dynamic from "next/dynamic";
+import { useUsersPage } from "../hooks/use-users-page";
+const UserFormDialog = dynamic(() =>
+  import("./user-form-dialog").then((module) => module.UserFormDialog),
+);
+export function UsersPage() {
+  const state = useUsersPage();
+  const { t, list, page, users, showForm, remove, open, form } = state;
   return (
     <Page
       title={t("Quản lý người dùng")}

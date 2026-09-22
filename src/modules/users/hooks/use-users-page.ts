@@ -4,9 +4,9 @@ import { useCopy } from "@/i18n/use-copy";
 import { useConfirm } from "@/components/patterns/confirm-provider";
 import { useListState } from "@/lib/use-list-state";
 
-import { useUserMutations,useUsers } from "@/modules/users/hooks/use-users";
-import type { User,UserInput } from "@/modules/users/types/user";
-import { useRef,useState } from "react";
+import { useUserMutations, useUsers } from "@/modules/users/hooks/use-users";
+import type { User, UserInput } from "@/modules/users/types/user";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const empty: UserInput & { password: string } = {
@@ -88,6 +88,21 @@ export function useUsersPage() {
       toast.error(t.error(error instanceof Error ? error.message : t("Không thể xóa")));
     }
   };
-  return { t, list, page, users, mutations, showForm, save, remove, saveError, open, setOpen, editing, form, setForm };
+  return {
+    t,
+    list,
+    page,
+    users,
+    mutations,
+    showForm,
+    save,
+    remove,
+    saveError,
+    open,
+    setOpen,
+    editing,
+    form,
+    setForm,
+  };
 }
 export type UsersPageState = ReturnType<typeof useUsersPage>;

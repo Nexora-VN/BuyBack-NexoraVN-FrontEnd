@@ -13,7 +13,15 @@ export function Loading() {
     </div>
   );
 }
-export function Failure({ message, retry, error }: { message: string; retry: () => void; error?: unknown }) {
+export function Failure({
+  message,
+  retry,
+  error,
+}: {
+  message: string;
+  retry: () => void;
+  error?: unknown;
+}) {
   const t = useCopy();
   return (
     <Card role="alert">

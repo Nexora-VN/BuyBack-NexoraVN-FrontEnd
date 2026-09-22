@@ -37,7 +37,6 @@ function GoogleIcon({ className }: { className?: string }) {
   );
 }
 
-
 function LoginContent() {
   const t = useCopy();
   const router = useRouter();
