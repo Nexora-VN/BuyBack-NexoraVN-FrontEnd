@@ -1,20 +1,10 @@
+import { applyTokenCookies,backendUrl,readJsonSafe } from "@/lib/server/backend";
+import { backendFetch,withApiRoute,UpstreamError } from "@/lib/server/observability";
 import { currentUser } from "@clerk/nextjs/server";
-import { applyTokenCookies, backendUrl, readJsonSafe } from "@/lib/server/backend";
 import { NextResponse } from "next/server";
 
-const DEFAULT_CLERK_PUBLISHABLE_KEY = "pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk";
-const DEFAULT_CLERK_SECRET_KEY = "sk_test_lzmtprJMpfVF4eBDA2hUlICiNgAnEylsOsXvNLZbtJ";
-
-if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY =
-    process.env.CLERK_PUBLISHABLE_KEY || DEFAULT_CLERK_PUBLISHABLE_KEY;
-}
-if (!process.env.CLERK_SECRET_KEY) {
-  process.env.CLERK_SECRET_KEY = DEFAULT_CLERK_SECRET_KEY;
-}
-
-export async function POST() {
-  try {
+async function handle() {
+    if (!process.env.CLERK_SYNC_SECRET || !process.env.CLERK_SECRET_KEY) throw new UpstreamError('CLERK_SYNC_NOT_CONFIGURED', 503);
     const clerkUser = await currentUser();
     if (!clerkUser) {
       return NextResponse.json({ message: "Chưa xác thực Clerk" }, { status: 401 });
@@ -37,9 +27,9 @@ export async function POST() {
       clerkUser.username ||
       undefined;
 
-    const upstream = await fetch(backendUrl("auth/clerk"), {
+    const upstream = await backendFetch(backendUrl("auth/clerk"), {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: { "Content-Type": "application/json", Accept: "application/json", "X-Clerk-Sync-Secret": process.env.CLERK_SYNC_SECRET },
       body: JSON.stringify({
         email: primaryEmail,
         fullName: fullName ? fullName.slice(0, 50) : undefined,
@@ -68,12 +58,6 @@ export async function POST() {
     const response = NextResponse.json({ user: tokens.user, expiresIn: tokens.expiresIn });
     applyTokenCookies(response, tokens, true);
     return response;
-  } catch (error: unknown) {
-    const err = error instanceof Error ? error : new Error(String(error));
-    console.error("[clerk-sync error]:", err);
-    return NextResponse.json(
-      { message: err.message || "Lỗi xử lý đồng bộ Clerk" },
-      { status: 500 },
-    );
-  }
 }
+
+export const POST = withApiRoute(handle);

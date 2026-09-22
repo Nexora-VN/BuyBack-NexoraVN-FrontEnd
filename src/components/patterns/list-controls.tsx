@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCopy } from "@/i18n/use-copy";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect,useRef,useState } from "react";
 export function ListSearch({
   value,
   onSearch,
@@ -26,6 +26,13 @@ function SearchForm({
 }) {
   const t = useCopy();
   const [draft, setDraft] = useState(value);
+  const searchRef = useRef(onSearch);
+  useEffect(() => { searchRef.current = onSearch; }, [onSearch]);
+  useEffect(() => {
+    if (draft.trim() === value) return;
+    const timer = setTimeout(() => searchRef.current(draft.trim()), 300);
+    return () => clearTimeout(timer);
+  }, [draft, value]);
   return (
     <form
       className="flex min-w-0 flex-1 gap-2"

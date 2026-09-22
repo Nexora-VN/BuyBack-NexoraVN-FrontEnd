@@ -31,7 +31,7 @@ it("validates inline, reviews details and prevents duplicate submissions", async
       schema={bankSchema}
     />,
   );
-  fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Tiếp tục" }));
   expect(screen.getAllByRole("alert")).toHaveLength(4);
   expect(financeService.mutate).not.toHaveBeenCalled();
   for (const [label, value] of [
