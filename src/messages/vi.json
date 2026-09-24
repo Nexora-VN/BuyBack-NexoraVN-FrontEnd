@@ -509,6 +509,11 @@
     "copy_9a4945bee8bd": "Dữ liệu đã thay đổi. Vui lòng tải lại và kiểm tra.",
     "copy_237d5bc23485": "Email hoặc mật khẩu không đúng",
     "copy_501022a85be8": "Bạn không có quyền thực hiện thao tác này",
-    "copy_f5a3b78ae6bd": "Không thể hoàn tất yêu cầu. Vui lòng thử lại."
+    "copy_f5a3b78ae6bd": "Không thể hoàn tất yêu cầu. Vui lòng thử lại.",
+    "copy_paste_clipboard": "Dán",
+    "copy_clear_link": "Xóa link",
+    "copy_pasted_clipboard": "Đã dán từ clipboard",
+    "copy_clipboard_empty": "Bộ nhớ tạm đang trống",
+    "copy_clipboard_error": "Không thể truy cập bộ nhớ tạm"
   }
 }

@@ -509,6 +509,11 @@
     "copy_9a4945bee8bd": "Data has changed. Reload and review it before continuing.",
     "copy_237d5bc23485": "Incorrect email or password",
     "copy_501022a85be8": "You do not have permission to perform this action",
-    "copy_f5a3b78ae6bd": "Unable to complete the request. Please try again."
+    "copy_f5a3b78ae6bd": "Unable to complete the request. Please try again.",
+    "copy_paste_clipboard": "Paste",
+    "copy_clear_link": "Clear link",
+    "copy_pasted_clipboard": "Pasted from clipboard",
+    "copy_clipboard_empty": "Clipboard is empty",
+    "copy_clipboard_error": "Unable to access clipboard"
   }
 }

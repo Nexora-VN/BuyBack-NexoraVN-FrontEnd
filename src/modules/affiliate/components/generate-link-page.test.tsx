@@ -38,7 +38,10 @@ beforeEach(() => {
   vi.mocked(affiliateService.generate).mockResolvedValue(response);
   Object.defineProperty(navigator, "clipboard", {
     configurable: true,
-    value: { writeText: vi.fn().mockResolvedValue(undefined) },
+    value: {
+      writeText: vi.fn().mockResolvedValue(undefined),
+      readText: vi.fn().mockResolvedValue("https://shopee.vn/product/1/2"),
+    },
   });
 });
 afterEach(cleanup);
@@ -101,6 +104,29 @@ describe("GenerateLinkPage", () => {
       expect(toast.error).toHaveBeenCalledWith("Không thể hoàn tất yêu cầu. Vui lòng thử lại."),
     );
     expect(screen.queryByRole("link", { name: "Mua ngay" })).not.toBeInTheDocument();
+  });
+
+  it("pastes from clipboard and clears input via inside-input buttons", async () => {
+    render(<GenerateLinkPage />);
+    const input = screen.getByLabelText("Link sản phẩm Shopee, TikTok");
+    expect(input).toHaveValue("");
+
+    expect(screen.queryByRole("button", { name: "Xóa link" })).not.toBeInTheDocument();
+
+    const pasteBtn = screen.getByRole("button", { name: "Dán" });
+    fireEvent.click(pasteBtn);
+
+    await waitFor(() => {
+      expect(input).toHaveValue("https://shopee.vn/product/1/2");
+    });
+    expect(toast.success).toHaveBeenCalledWith("Đã dán từ clipboard");
+
+    const clearBtn = screen.getByRole("button", { name: "Xóa link" });
+    expect(clearBtn).toBeInTheDocument();
+
+    fireEvent.click(clearBtn);
+    expect(input).toHaveValue("");
+    expect(screen.queryByRole("button", { name: "Xóa link" })).not.toBeInTheDocument();
   });
 });
 
