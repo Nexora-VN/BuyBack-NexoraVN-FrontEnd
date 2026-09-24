@@ -78,6 +78,9 @@ export function UserDashboardPage() {
   );
 }
 
+import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
+import { read } from "../finance-columns";
+
 export function RecentOrders() {
   const t = useCopy();
 
@@ -88,23 +91,56 @@ export function RecentOrders() {
   return (
     <div className="bg-card divide-y rounded-2xl border">
       {query.data?.data.length ? (
-        query.data.data.map((row) => (
-          <Link
-            key={row.id}
-            href={"/app/orders/" + row.id}
-            className="hover:bg-muted/40 flex min-h-20 items-center justify-between gap-4 p-4"
-          >
-            <div className="min-w-0">
-              <p className="truncate font-medium">
-                {text(row, "productSummary.name") === "—"
-                  ? text(row, "orderSn")
-                  : text(row, "productSummary.name")}
-              </p>
-              <p className="text-muted-foreground mt-1 text-xs">{text(row, "orderSn")}</p>
-            </div>
-            <StatusBadge domain="order" status={text(row, "status")} />
-          </Link>
-        ))
+        query.data.data.map((row) => {
+          const platform = (read(row, "productSummary.platform") || read(row, "platform")) as
+            | string
+            | undefined;
+          const imageUrl = read(row, "productSummary.imageUrl") as string | null;
+          const productName =
+            text(row, "productSummary.name") === "—"
+              ? text(row, "orderSn")
+              : text(row, "productSummary.name");
+          const cashbackAmount = text(row, "checkout.commission.cashback.userAmount");
+          const itemCount = Number(read(row, "productSummary.itemCount") ?? 1);
+
+          return (
+            <Link
+              key={row.id}
+              href={"/app/orders/" + row.id}
+              className="hover:bg-muted/40 flex items-center justify-between gap-4 p-4 transition-colors"
+            >
+              <div className="flex min-w-0 items-center gap-3">
+                <ProductThumbnail src={imageUrl} name={productName} className="size-14" />
+                <div className="min-w-0 space-y-1">
+                  <div className="flex items-center gap-2">
+                    {platform && (
+                      <span className="inline-flex items-center rounded-md border border-orange-200/60 bg-orange-50 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-orange-600 uppercase">
+                        {platform}
+                      </span>
+                    )}
+                    <span className="text-muted-foreground font-mono text-xs">
+                      {text(row, "orderSn")}
+                    </span>
+                  </div>
+                  <p className="truncate text-sm font-semibold">{productName}</p>
+                  <div className="text-muted-foreground flex items-center gap-2 text-xs">
+                    <span>
+                      {itemCount} {t("sản phẩm")}
+                    </span>
+                    {cashbackAmount !== "—" && (
+                      <span className="text-success font-semibold">
+                        +{formatVnd(cashbackAmount)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex shrink-0 flex-col items-end gap-1.5">
+                <StatusBadge domain="order" status={text(row, "status")} />
+              </div>
+            </Link>
+          );
+        })
       ) : (
         <p className="text-muted-foreground p-5 text-sm">
           {t("Bạn chưa có đơn hàng nào cả. Tạo link mua sắm ngay nào.")}

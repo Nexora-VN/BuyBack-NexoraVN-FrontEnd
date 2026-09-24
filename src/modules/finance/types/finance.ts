@@ -34,10 +34,14 @@ export interface ProductSummary {
   name: string | null;
   imageUrl: string | null;
   itemCount: number;
+  totalAmountVnd?: string | null;
+  platform?: string | null;
 }
 export interface OrderRow extends FinanceRow {
   orderSn: string;
   status: string;
+  platform?: string;
+  totalAmountVnd?: string;
   productSummary: ProductSummary;
   checkout: {
     purchasedAt: string | null;
