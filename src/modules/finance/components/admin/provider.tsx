@@ -1,7 +1,8 @@
 "use client";
+import { z } from "zod";
 import { useCopy } from "@/i18n/use-copy";
 
-import { Card, StatCard } from "@/components/ui/card";
+import { StatCard } from "@/components/ui/card";
 import { Page } from "@/components/ui/page";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatVnd } from "@/lib/format";
@@ -177,19 +178,45 @@ export function ProviderSyncPage() {
   );
 }
 
+export const policyFields = [
+  {
+    name: "userRatePercent",
+    label: "Tỷ lệ hoàn tiền khách hàng (%)",
+    placeholder: "85",
+    help: "Tỷ lệ hoàn tiền khách hàng nhận được từ hoa hồng sàn (ví dụ: 85 là 85%, có thể tăng lên 90% hoặc 95% khi chạy chiến dịch / sự kiện).",
+  },
+  {
+    name: "minWithdrawal",
+    label: "Số tiền rút tối thiểu (VND)",
+    placeholder: "50000",
+    help: "Ngưỡng số dư khả dụng tối thiểu để người dùng được phép tạo lệnh rút tiền về ngân hàng.",
+  },
+];
+
+export const policySchema = z.object({
+  userRatePercent: z.string().refine((v) => {
+    const n = Number(v);
+    return !isNaN(n) && n >= 1 && n <= 100;
+  }, "Tỷ lệ hoa hồng phải từ 1% đến 100%"),
+  minWithdrawal: z.string().regex(/^\d+$/, "Số tiền rút tối thiểu phải là số nguyên dương"),
+});
+
 export function SystemConfigPage() {
   const t = useCopy();
 
   const policy = useFinance<FinanceRow>("admin/policy");
   return (
-    <Page title={t("Chính sách hệ thống")}>
+    <Page
+      title={t("Chính sách & Cấu hình tỷ lệ hoa hồng")}
+      description="Quản lý tỷ lệ hoàn tiền cho người dùng và thiết lập sự kiện khuyến mãi."
+    >
       <ProviderHealth />
       {policy.data && (
         <div className="grid gap-4 sm:grid-cols-2">
           <StatCard
             label="Cashback khách hàng"
             value={Number(text(policy.data, "userBps")) / 100 + "%"}
-            helper="Trên tiền thực nhận sau khấu trừ"
+            helper="Trên tiền hoa hồng thực nhận từ sàn"
           />
           <StatCard label="Rút tối thiểu" value={formatVnd(text(policy.data, "minWithdrawal"))} />
         </div>
@@ -199,11 +226,38 @@ export function SystemConfigPage() {
       ) : policy.isError ? (
         <Failure message={policy.error.message} retry={() => void policy.refetch()} />
       ) : null}
-      <Card>
-        {t(
-          "Thay đổi chính sách cần phát hành phiên bản mới để bảo toàn lịch sử phân bổ tiền. Cấu hình bật settlement/rút tiền do backend quản lý.",
-        )}
-      </Card>
+
+      {policy.data && (
+        <MutationForm
+          key={text(policy.data, "userBps") + text(policy.data, "minWithdrawal")}
+          title={t("Cập nhật tỷ lệ hoàn tiền & Sự kiện khuyến mãi")}
+          path="admin/policy"
+          method="put"
+          fields={policyFields}
+          schema={policySchema}
+          initialValues={{
+            userRatePercent: String(Number(text(policy.data, "userBps")) / 100),
+            minWithdrawal: text(policy.data, "minWithdrawal"),
+          }}
+          transform={(values) => ({
+            userBps: Math.round(Number(values.userRatePercent) * 100),
+            minWithdrawal: values.minWithdrawal,
+          })}
+        >
+          <div className="text-muted-foreground space-y-2 text-xs leading-relaxed">
+            <p>
+              🎉 <strong>Linh hoạt sự kiện:</strong> Admin có thể nâng tỷ lệ hoa hồng (ví dụ: lên
+              90% - 95% vào các ngày Mega Sale 9.9, 11.11, Black Friday hoặc Tết) để kích cầu người
+              dùng mua sắm.
+            </p>
+            <p>
+              🔒 <strong>Bảo toàn lịch sử:</strong> Thay đổi tỷ lệ sẽ áp dụng ngay cho các đơn hàng
+              phát sinh từ thời điểm cập nhật. Lịch sử hoa hồng của các đơn hàng cũ trước đó vẫn
+              được giữ nguyên vẹn để đối soát minh bạch với sàn.
+            </p>
+          </div>
+        </MutationForm>
+      )}
     </Page>
   );
 }
