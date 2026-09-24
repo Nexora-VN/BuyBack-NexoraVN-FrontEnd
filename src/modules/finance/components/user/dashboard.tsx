@@ -93,8 +93,7 @@ export function RecentOrders() {
       {query.data?.data.length ? (
         query.data.data.map((row) => {
           const platform = (read(row, "productSummary.platform") || read(row, "platform")) as
-            | string
-            | undefined;
+            string | undefined;
           const imageUrl = read(row, "productSummary.imageUrl") as string | null;
           const productName =
             text(row, "productSummary.name") === "—"

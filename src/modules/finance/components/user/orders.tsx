@@ -80,16 +80,12 @@ function CashbackProgressStepper({
     ["REJECTED", "REVERSED"].includes(cashbackState ?? "");
 
   const isWithdrawn =
-    ["PAID", "WITHDRAWN"].includes(cashbackState ?? "") ||
-    commissionState === "PAID";
+    ["PAID", "WITHDRAWN"].includes(cashbackState ?? "") || commissionState === "PAID";
 
-  const isAvailable =
-    isWithdrawn ||
-    cashbackState === "AVAILABLE";
+  const isAvailable = isWithdrawn || cashbackState === "AVAILABLE";
 
   const isOrderCompleted =
-    isAvailable ||
-    ["VALIDATED", "COMPLETED", "completed", "APPROVED"].includes(orderStatus);
+    isAvailable || ["VALIDATED", "COMPLETED", "completed", "APPROVED"].includes(orderStatus);
 
   const steps = [
     {
@@ -258,6 +254,9 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
           }, 0n)
           .toString();
 
+  const userBps = read(data, "checkout.commission.cashback.userBps");
+  const ratePercent = userBps ? `${Number(userBps) / 100}%` : "85%";
+
   return (
     <Page
       title={t("Chi tiết đơn hàng")}
@@ -273,7 +272,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
           <button
             type="button"
             onClick={copyOrderSn}
-            className="text-muted-foreground hover:text-foreground inline-flex size-7 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+            className="text-muted-foreground hover:text-foreground hover:bg-muted inline-flex size-7 items-center justify-center rounded-lg border transition-colors"
             title={t("Sao chép mã đơn")}
           >
             {copied ? <Check className="text-success size-3.5" /> : <Copy className="size-3.5" />}
@@ -326,7 +325,10 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
             </h2>
           </div>
           <span className="text-muted-foreground text-xs">
-            {t("Tổng cộng:")} <strong>{items.length} {t("sản phẩm")}</strong>
+            {t("Tổng cộng:")}{" "}
+            <strong>
+              {items.length} {t("sản phẩm")}
+            </strong>
           </span>
         </div>
 
@@ -361,7 +363,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
 
                 <div className="min-w-0 flex-1 space-y-2">
                   <div className="flex flex-wrap items-start justify-between gap-2">
-                    <p className="line-clamp-2 text-sm font-semibold break-words leading-snug">
+                    <p className="line-clamp-2 text-sm leading-snug font-semibold break-words">
                       {itemName}
                     </p>
                   </div>
@@ -398,7 +400,9 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
                 </div>
 
                 <div className="flex shrink-0 flex-row items-center justify-between border-t pt-2 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
-                  <span className="text-muted-foreground text-xs sm:hidden">{t("Thành tiền:")}</span>
+                  <span className="text-muted-foreground text-xs sm:hidden">
+                    {t("Thành tiền:")}
+                  </span>
                   <div className="text-right">
                     <span className="text-sm font-bold tabular-nums">
                       {actualAmountVnd === 0n ? t("0 đ (Quà tặng)") : formatVnd(actualAmountVnd)}
@@ -421,9 +425,9 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
           </div>
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">{t("Tỷ lệ tích lũy Piggy Back:")}</span>
-            <span className="font-semibold tabular-nums text-primary">8.5%</span>
+            <span className="text-primary font-semibold tabular-nums">{ratePercent}</span>
           </div>
-          <div className="border-t pt-2.5 flex items-center justify-between">
+          <div className="flex items-center justify-between border-t pt-2.5">
             <span className="font-semibold">{t("Tiền hoàn thực nhận:")}</span>
             <span className="text-success text-lg font-bold tabular-nums">
               +{formatVnd(cashbackAmount === "—" ? "0" : cashbackAmount)}
@@ -450,8 +454,8 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
         )}
 
         {/* Policy Explainer Callout */}
-        <div className="bg-muted/50 rounded-xl p-3.5 text-xs leading-relaxed text-muted-foreground flex gap-2.5">
-          <ShieldCheck className="size-4 shrink-0 text-primary mt-0.5" />
+        <div className="bg-muted/50 text-muted-foreground flex gap-2.5 rounded-xl p-3.5 text-xs leading-relaxed">
+          <ShieldCheck className="text-primary mt-0.5 size-4 shrink-0" />
           <p>
             <strong>{t("Chính sách đối soát:")}</strong>{" "}
             {t(
@@ -464,7 +468,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
       {/* 5. Admin Technical Section */}
       {admin && (
         <Card className="border-warning/40 bg-warning-soft/20 space-y-3">
-          <h3 className="font-semibold text-warning-foreground">
+          <h3 className="text-warning-foreground font-semibold">
             {t("Quản trị hệ thống (Admin & Đối soát nội bộ)")}
           </h3>
           <div className="grid gap-2 text-xs sm:grid-cols-2">
@@ -483,14 +487,14 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
             </p>
           </div>
           {text(query.data, "checkout.utmContent") !== "—" && (
-            <div className="bg-background/80 rounded-lg p-2.5 font-mono text-[11px] break-all border">
-              <span className="font-semibold text-muted-foreground">{t("Attribution UTM: ")}</span>
+            <div className="bg-background/80 rounded-lg border p-2.5 font-mono text-[11px] break-all">
+              <span className="text-muted-foreground font-semibold">{t("Attribution UTM: ")}</span>
               {text(query.data, "checkout.utmContent")}
             </div>
           )}
           {Boolean(query.data.settlementEligibility) && (
             <div className="pt-2">
-              <h4 className="mb-2 font-semibold text-xs">{t("Điều kiện quyết toán")}</h4>
+              <h4 className="mb-2 text-xs font-semibold">{t("Điều kiện quyết toán")}</h4>
               <SettlementEligibility value={query.data.settlementEligibility} />
             </div>
           )}

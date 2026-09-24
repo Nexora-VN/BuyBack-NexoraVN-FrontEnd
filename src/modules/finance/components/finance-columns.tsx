@@ -37,8 +37,7 @@ export function columns(specs: Specs, domain: StatusDomain = "general"): Column<
 
       if (key === "productSummary.name") {
         const platform = (read(row, "productSummary.platform") || read(row, "platform")) as
-          | string
-          | undefined;
+          string | undefined;
         const itemCount = Number(read(row, "productSummary.itemCount") ?? 1);
         const imageUrl = read(row, "productSummary.imageUrl") as string | null;
 
@@ -55,7 +54,7 @@ export function columns(specs: Specs, domain: StatusDomain = "general"): Column<
                   {platform}
                 </span>
               )}
-              <span className="line-clamp-2 text-sm font-semibold break-words leading-snug">
+              <span className="line-clamp-2 text-sm leading-snug font-semibold break-words">
                 {value === "—" ? text(row, "orderSn") : value}
               </span>
               <div className="text-muted-foreground flex items-center gap-2 text-xs">
@@ -75,8 +74,7 @@ export function columns(specs: Specs, domain: StatusDomain = "general"): Column<
 
       if (key === "orderSn") {
         const platform = (read(row, "platform") || read(row, "productSummary.platform")) as
-          | string
-          | undefined;
+          string | undefined;
         return (
           <div className="space-y-1 py-1">
             <div className="flex items-center gap-1.5 font-mono text-xs font-medium">
@@ -84,9 +82,7 @@ export function columns(specs: Specs, domain: StatusDomain = "general"): Column<
               <CopySnButton value={value} />
             </div>
             {platform && (
-              <span className="text-muted-foreground block text-[11px]">
-                {platform}
-              </span>
+              <span className="text-muted-foreground block text-[11px]">{platform}</span>
             )}
           </div>
         );
@@ -96,9 +92,7 @@ export function columns(specs: Specs, domain: StatusDomain = "general"): Column<
 
       if (key.includes("cashback") || key === "checkout.commission.cashback.userAmount") {
         return (
-          <span className="text-success text-sm font-bold tabular-nums">
-            +{formatVnd(value)}
-          </span>
+          <span className="text-success text-sm font-bold tabular-nums">+{formatVnd(value)}</span>
         );
       }
 
@@ -141,7 +135,7 @@ function CopySnButton({ value }: { value: string }) {
     <button
       type="button"
       title={t("Sao chép mã đơn")}
-      className="text-muted-foreground hover:text-foreground inline-flex size-5 shrink-0 items-center justify-center rounded transition-colors hover:bg-muted"
+      className="text-muted-foreground hover:text-foreground hover:bg-muted inline-flex size-5 shrink-0 items-center justify-center rounded transition-colors"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

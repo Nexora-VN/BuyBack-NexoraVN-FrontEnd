@@ -26,7 +26,7 @@ function Thumbnail({
   const [failed, setFailed] = useState(false);
   return (
     <span
-      className={`bg-muted border border-border/50 grid shrink-0 place-items-center overflow-hidden rounded-xl ${className}`}
+      className={`bg-muted border-border/50 grid shrink-0 place-items-center overflow-hidden rounded-xl border ${className}`}
     >
       {src && !failed ? (
         // Provider image hosts vary; native loading allows an explicit fallback.
@@ -39,7 +39,10 @@ function Thumbnail({
           onError={() => setFailed(true)}
         />
       ) : (
-        <ImageOff aria-label={t("Chưa có ảnh sản phẩm")} className="text-muted-foreground/60 size-5" />
+        <ImageOff
+          aria-label={t("Chưa có ảnh sản phẩm")}
+          className="text-muted-foreground/60 size-5"
+        />
       )}
     </span>
   );
