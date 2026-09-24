@@ -476,5 +476,10 @@
   "Dữ liệu đã thay đổi. Vui lòng tải lại và kiểm tra.": "copy_9a4945bee8bd",
   "Email hoặc mật khẩu không đúng": "copy_237d5bc23485",
   "Bạn không có quyền thực hiện thao tác này": "copy_501022a85be8",
-  "Không thể hoàn tất yêu cầu. Vui lòng thử lại.": "copy_f5a3b78ae6bd"
+  "Không thể hoàn tất yêu cầu. Vui lòng thử lại.": "copy_f5a3b78ae6bd",
+  "Dán": "copy_paste_clipboard",
+  "Xóa link": "copy_clear_link",
+  "Đã dán từ clipboard": "copy_pasted_clipboard",
+  "Bộ nhớ tạm đang trống": "copy_clipboard_empty",
+  "Không thể truy cập bộ nhớ tạm": "copy_clipboard_error"
 }

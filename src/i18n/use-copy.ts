@@ -16,6 +16,9 @@ const errors: Record<string, string> = {
   COMMISSION_REVISION_CHANGED: "Dữ liệu đã thay đổi. Vui lòng tải lại và kiểm tra.",
   COMMISSION_CHANGED_RESYNC_REQUIRED: "Dữ liệu đã thay đổi. Vui lòng tải lại và kiểm tra.",
   "Invalid credentials": "Email hoặc mật khẩu không đúng",
+  "Invalid credentials.": "Email hoặc mật khẩu không đúng",
+  "Invalid email or password": "Email hoặc mật khẩu không đúng",
+  "Invalid email or password.": "Email hoặc mật khẩu không đúng",
   Unauthorized: "Phiên đăng nhập đã hết hạn",
   Forbidden: "Bạn không có quyền thực hiện thao tác này",
 };

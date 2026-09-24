@@ -38,7 +38,17 @@ export function LoginForm() {
       toast.success(t("Đăng nhập thành công"));
       router.replace(user.role === "USER" ? "/app" : "/admin");
     } catch (error) {
-      setSubmitError(error instanceof ApiError ? error.message : "Không thể đăng nhập");
+      if (
+        error instanceof ApiError &&
+        (error.status === 401 ||
+          error.code === "UNAUTHORIZED" ||
+          error.message === "Invalid email or password" ||
+          error.message === "Invalid credentials")
+      ) {
+        setSubmitError("Email hoặc mật khẩu không đúng");
+      } else {
+        setSubmitError(error instanceof ApiError ? error.message : "Không thể đăng nhập");
+      }
     }
   });
   return (
