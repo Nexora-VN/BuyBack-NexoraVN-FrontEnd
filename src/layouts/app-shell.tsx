@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import LanguageSwitcher from "@/components/locale/language-switcher";
 import { ConfirmProvider } from "@/components/patterns/confirm-provider";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
@@ -30,11 +31,15 @@ export function UserShell({ children }: { children: React.ReactNode }) {
       <div className="bg-background min-h-dvh">
         <header className="bg-card sticky top-0 z-30 border-b">
           <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 lg:px-8">
-            <Link href="/app" className="flex shrink-0 items-center gap-2 font-bold">
-              <span className="bg-primary grid size-9 place-items-center rounded-xl text-white">
-                <WalletCards className="size-5" />
-              </span>
-              <span className="text-primary">
+            <Link href="/app" className="flex shrink-0 items-center gap-2.5 font-bold">
+              <Image
+                src="/logo.png"
+                alt="Piggy Back"
+                width={36}
+                height={36}
+                className="size-9 object-contain"
+              />
+              <span className="text-primary text-lg">
                 Piggy <span className="text-foreground hidden sm:inline">Back</span>
               </span>
             </Link>

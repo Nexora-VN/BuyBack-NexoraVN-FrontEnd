@@ -16,10 +16,15 @@ const beVietnamPro = Be_Vietnam_Pro({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Piggy Buy Back",
-    template: "%s | Piggy Buy Back",
+    default: "Piggy Back",
+    template: "%s | Piggy Back",
   },
-  description: "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Buy Back.",
+  description: "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Back.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 const publishableKey =

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import LanguageSwitcher from "@/components/locale/language-switcher";
 import { ConfirmProvider } from "@/components/patterns/confirm-provider";
 import { SurfaceDialog } from "@/components/patterns/surface-dialog";
@@ -130,11 +131,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             href="/admin"
             className="text-primary flex h-20 shrink-0 items-center gap-3 px-6 font-bold"
           >
-            <WalletCards />
+            <Image
+              src="/logo.png"
+              alt="Piggy Back"
+              width={36}
+              height={36}
+              className="size-9 object-contain"
+            />
             <span>
               Piggy Back{" "}
               <small className="text-muted-foreground block text-xs font-medium">
-                {t("Admin · Piggy Buy Back")}
+                {t("Admin · Piggy Back")}
               </small>
             </span>
           </Link>
@@ -155,7 +162,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </aside>
         <header className="bg-card sticky top-0 z-30 flex h-16 items-center justify-between border-b px-4 lg:hidden">
           <Link href="/admin" className="text-primary flex items-center gap-2 font-bold">
-            <WalletCards className="size-5" />
+            <Image
+              src="/logo.png"
+              alt="Piggy Back"
+              width={28}
+              height={28}
+              className="size-7 object-contain"
+            />
             {t("Piggy Back Admin")}
           </Link>
           <button
