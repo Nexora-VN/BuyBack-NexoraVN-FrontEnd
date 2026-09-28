@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useCopy } from "@/i18n/use-copy";
 
 import { Button } from "@/components/ui/button";
@@ -134,8 +135,16 @@ export function LoginBenefits() {
   return (
     <section className="bg-background hidden flex-col justify-center border-r p-12 lg:flex xl:p-20">
       <div className="text-primary flex items-center gap-3 text-xl font-bold">
-        <ShieldCheck className="size-8" />
-        Piggy Buy Back
+        <Image
+          src="/logo.png"
+          alt="Piggy Back"
+          width={40}
+          height={40}
+          className="size-10 object-contain"
+        />
+        <span>
+          Piggy<span className="text-foreground">Back</span>
+        </span>
       </div>
       <div className="mt-14 max-w-md">
         <p className="text-primary text-sm font-semibold">{t("Mua sắm và hoàn tiền")}</p>

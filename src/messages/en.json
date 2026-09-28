@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Piggy Buy Back",
-    "description": "A transparent Shopee affiliate cashback platform by Piggy Buy Back."
+    "title": "Piggy Back",
+    "description": "A transparent Shopee affiliate cashback platform by Piggy Back."
   },
   "Navigation": {
     "home": "Home",
@@ -26,7 +26,7 @@
   },
   "Footer": {
     "description": "Smart shopping cashback platform with Piggy Back.",
-    "copyright": "Piggy Buy Back. All rights reserved."
+    "copyright": "Piggy Back. All rights reserved."
   },
   "Language": {
     "label": "Language"
@@ -43,7 +43,7 @@
     "copy_b8696aab8bb8": "Evidence / reason",
     "copy_542459309e8f": "Reconciliation evidence",
     "copy_fb5af70efdf1": "Evidence must contain at least 10 characters",
-    "copy_0123efbf1da5": "By signing in, you agree to the privacy and usage terms of Piggy Buy Back.",
+    "copy_0123efbf1da5": "By signing in, you agree to the privacy and usage terms of Piggy Back.",
     "copy_fa61578e9a57": "Clear selection",
     "copy_96294a6c0fe0": "Filters",
     "copy_3eaba534a876": "Cashback awaiting confirmation",
@@ -269,7 +269,7 @@
     "copy_1e6c3c1079ec": "Activity log",
     "copy_8aefcf53bbee": "Balance changes are recorded here. Existing transactions can only be offset by new transactions.",
     "copy_8780c68a65a6": "Operations log",
-    "copy_7aeead9544f2": "A transparent affiliate cashback platform by Piggy Buy Back.",
+    "copy_7aeead9544f2": "A transparent affiliate cashback platform by Piggy Back.",
     "copy_a5bb74d24615": "Shopee session",
     "copy_e055ec3544ac": "Version",
     "copy_266a3cb62191": "Credential version",

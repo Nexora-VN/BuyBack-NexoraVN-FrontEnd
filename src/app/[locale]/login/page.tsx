@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { LoaderCircle } from "lucide-react";
@@ -192,7 +193,16 @@ export default function LoginPage() {
       <LoginBenefits />
       <section className="flex flex-col px-5 py-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between gap-4">
-          <p className="text-primary font-semibold lg:invisible">Piggy Buy Back</p>
+          <div className="flex items-center gap-2 lg:invisible">
+            <Image
+              src="/logo.png"
+              alt="Piggy Back"
+              width={28}
+              height={28}
+              className="size-7 object-contain"
+            />
+            <p className="text-primary font-bold">Piggy Back</p>
+          </div>
           <LanguageSwitcher />
         </div>
         <Suspense
