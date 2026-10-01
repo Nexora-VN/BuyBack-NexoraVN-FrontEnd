@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 25
     env:
       NEXT_TELEMETRY_DISABLED: '1'
-      NEXT_PUBLIC_SITE_URL: http://4.213.53.132:3002
+      NEXT_PUBLIC_SITE_URL: http://14.225.224.82:3002
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -57,7 +57,7 @@ jobs:
         run: |
           set -euo pipefail
           image="ghcr.io/${REPOSITORY,,}"
-          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://4.213.53.132:3002 --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk --build-arg CLERK_SECRET_KEY=sk_test_lzmtprJMpfVF4eBDA2hUlICiNgAnEylsOsXvNLZbtJ -t "$image:$REVISION" .
+          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://14.225.224.82:3002 --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk --build-arg CLERK_SECRET_KEY=sk_test_lzmtprJMpfVF4eBDA2hUlICiNgAnEylsOsXvNLZbtJ -t "$image:$REVISION" .
           docker push "$image:$REVISION"
           digest=$(docker image inspect "$image:$REVISION" --format '{{index .RepoDigests 0}}')
           [[ "$digest" == "$image@sha256:"* ]]
@@ -91,5 +91,5 @@ jobs:
           ssh -p 22 -i "$ssh_dir/key" -o IdentitiesOnly=yes -o BatchMode=yes \
             -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$ssh_dir/known_hosts" \
             -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=10 \
-            deploy@4.213.53.132 \
+            theanh@14.225.224.82 \
             "bash -s -- frontend '$IMAGE' '$REVISION' '$RUN_NUMBER'" < scripts/deploy-production.sh

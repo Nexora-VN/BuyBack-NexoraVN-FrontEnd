@@ -3,7 +3,7 @@ import { isCrossOriginMutation } from "@/lib/server/same-origin";
 
 const originalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-function request(method: string, origin?: string, host = "4.213.53.132:3002"): Request {
+function request(method: string, origin?: string, host = "14.225.224.82:3002"): Request {
   const headers = new Headers({ host });
   if (origin) headers.set("origin", origin);
 
@@ -25,7 +25,7 @@ describe("isCrossOriginMutation", () => {
   it.each(["POST", "PUT", "PATCH", "DELETE"])(
     "accepts a same-origin %s when Next.js uses an internal request URL",
     (method) => {
-      expect(isCrossOriginMutation(request(method, "http://4.213.53.132:3002"))).toBe(false);
+      expect(isCrossOriginMutation(request(method, "http://14.225.224.82:3002"))).toBe(false);
     },
   );
 
