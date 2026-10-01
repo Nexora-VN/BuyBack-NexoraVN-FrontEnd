@@ -6,6 +6,7 @@ import { Page } from "@/components/ui/page";
 import { Link } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { formatVnd } from "@/lib/format";
+import { generateUUID } from "@/lib/observability/request-id";
 import { CheckCircle2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { useFinance, useRefreshFinance } from "../../hooks/use-finance";
@@ -45,7 +46,7 @@ export function NewWithdrawalPage() {
     lock.current = true;
     setPending(true);
     setError("");
-    key.current ??= crypto.randomUUID();
+    key.current ??= generateUUID();
     try {
       await financeService.mutate("me/withdrawals", {
         amount,

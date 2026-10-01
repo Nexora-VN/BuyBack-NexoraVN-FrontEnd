@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Page } from "@/components/ui/page";
 import { useRef } from "react";
 import { z } from "zod";
+import { generateUUID } from "@/lib/observability/request-id";
 import { MutationForm } from ".././finance-ui";
 import { reasonFields, reasonSchema, useSuperAdmin } from "./shared";
 export function ManualAdjustmentsPage() {
@@ -33,7 +34,7 @@ export function ManualAdjustmentsPage() {
           transform={(v) => {
             const payload = JSON.stringify(v);
             if (key.current?.payload !== payload)
-              key.current = { payload, id: crypto.randomUUID() };
+              key.current = { payload, id: generateUUID() };
             return { ...v, idempotencyKey: key.current.id };
           }}
           onSuccess={() => {
