@@ -1,4 +1,4 @@
-import { ApiError } from "@/lib/api/errors";
+import { ApiError, isApiError } from "@/lib/api/errors";
 import { requestId, validRequestId } from "@/lib/observability/request-id";
 import type { ApiClientOptions, QueryParamValue } from "@/types/api";
 
@@ -104,7 +104,7 @@ class ApiClient {
       }
       return data as T;
     } catch (error) {
-      if (error instanceof ApiError) throw error;
+      if (isApiError(error)) throw error;
       if (controller.signal.aborted)
         throw new ApiError(
           timedOut ? "Yêu cầu đã hết thời gian chờ." : "Yêu cầu đã được hủy.",
