@@ -50,11 +50,7 @@ const clerkHandler = hasClerk
   : null;
 
 export default function proxy(request: NextRequest, event: NextFetchEvent) {
-  if (
-    request.nextUrl.pathname.startsWith("/api") ||
-    request.nextUrl.pathname.startsWith("/__clerk") ||
-    request.nextUrl.pathname.startsWith("/trpc")
-  ) {
+  if (request.nextUrl.pathname.startsWith("/api/health")) {
     return NextResponse.next();
   }
 
