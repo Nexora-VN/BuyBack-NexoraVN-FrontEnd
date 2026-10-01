@@ -10,9 +10,20 @@ export class ApiError extends Error {
   ) {
     super(message);
     this.name = "ApiError";
+    Object.setPrototypeOf(this, ApiError.prototype);
     const body = data && typeof data === "object" ? (data as Record<string, unknown>) : {};
     this.code = typeof body.code === "string" ? body.code : "REQUEST_FAILED";
     this.requestId = typeof body.requestId === "string" ? body.requestId : id;
     this.details = Array.isArray(body.details) ? body.details : undefined;
   }
+}
+
+export function isApiError(error: unknown): error is ApiError {
+  return (
+    error instanceof ApiError ||
+    (typeof error === "object" &&
+      error !== null &&
+      ((error as { name?: string }).name === "ApiError" ||
+        typeof (error as { status?: number }).status === "number"))
+  );
 }

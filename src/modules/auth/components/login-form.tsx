@@ -5,7 +5,7 @@ import { useCopy } from "@/i18n/use-copy";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
-import { ApiError } from "@/lib/api/errors";
+import { isApiError } from "@/lib/api/errors";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, LoaderCircle, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
@@ -39,16 +39,20 @@ export function LoginForm() {
       toast.success(t("Đăng nhập thành công"));
       router.replace(user.role === "USER" ? "/app" : "/admin");
     } catch (error) {
+      const isApi = isApiError(error);
+      const status = isApi ? error.status : (error as { status?: number })?.status;
+      const code = isApi ? error.code : (error as { code?: string })?.code;
+      const message = isApi ? error.message : (error as { message?: string })?.message;
+
       if (
-        error instanceof ApiError &&
-        (error.status === 401 ||
-          error.code === "UNAUTHORIZED" ||
-          error.message === "Invalid email or password" ||
-          error.message === "Invalid credentials")
+        status === 401 ||
+        code === "UNAUTHORIZED" ||
+        message === "Invalid email or password" ||
+        message === "Invalid credentials"
       ) {
         setSubmitError("Email hoặc mật khẩu không đúng");
       } else {
-        setSubmitError(error instanceof ApiError ? error.message : "Không thể đăng nhập");
+        setSubmitError(message || "Không thể đăng nhập");
       }
     }
   });
@@ -68,7 +72,7 @@ export function LoginForm() {
             autoComplete="email"
             placeholder="you@example.com"
             className="pl-10"
-            {...form.register("email")}
+            {...form.register("email", { onChange: () => setSubmitError("") })}
           />
         </div>
         {form.formState.errors.email && (
@@ -90,7 +94,7 @@ export function LoginForm() {
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             className="px-10"
-            {...form.register("password")}
+            {...form.register("password", { onChange: () => setSubmitError("") })}
           />
           <button
             type="button"

@@ -18,7 +18,11 @@ async function middleware(request: NextRequest, auth?: () => Promise<{ userId: s
   }
 
   if (auth) {
-    await auth();
+    try {
+      await auth();
+    } catch {
+      // Ignore Clerk session errors for standard session routes
+    }
   }
   const normalizedPath = request.nextUrl.pathname.replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
   const protectedRoute =
