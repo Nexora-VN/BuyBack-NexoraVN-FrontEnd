@@ -10,6 +10,7 @@ import { Page } from "@/components/ui/page";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { toast } from "sonner";
+import { UserRound } from "lucide-react";
 import { useRefreshFinance } from "../../hooks/use-finance";
 import { bankSchema } from "../../schemas/finance";
 import { financeService } from "../../services/finance";
@@ -54,19 +55,28 @@ export function AccountPage() {
   }
   return (
     <Page title={t("Tài khoản của bạn")}>
-      <Card>
-        <h2 className="font-semibold">{user?.email}</h2>
-        <p className="text-muted-foreground mt-2 text-sm">
-          {t(
-            "Thông tin ngân hàng của bạn sẽ được bảo mật.  Thêm/ Sửa tài khoản ngân hàng của bạn để admin hỗ trợ duyệt/rút tiền cho bạn nha/",
-          )}
-        </p>
+      <Card className="flex items-start gap-4">
+        <div className="bg-secondary text-primary grid size-12 shrink-0 place-items-center rounded-xl">
+          <UserRound className="size-6" aria-hidden="true" />
+        </div>
+        <div className="min-w-0">
+          <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+            {t("Thông tin tài khoản")}
+          </p>
+          <h2 className="mt-1 break-all font-semibold">{user?.email}</h2>
+          <p className="text-muted-foreground mt-2 text-sm leading-6">
+            {t(
+              "Thông tin ngân hàng được bảo vệ. Tài khoản mới hoặc chỉnh sửa cần được duyệt trước khi rút tiền.",
+            )}
+          </p>
+        </div>
       </Card>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">{t("Tài khoản ngân hàng")}</h2>
         <ActionDialog label="Thêm tài khoản ngân hàng">
           <MutationForm
             title={t("Thêm tài khoản ngân hàng")}
+            successMessage="Đã thêm tài khoản ngân hàng"
             path="me/bank-accounts"
             fields={bankFields}
             schema={bankSchema}
@@ -89,6 +99,7 @@ export function AccountPage() {
             <ActionDialog label="Thay thông tin">
               <MutationForm
                 title={t("Tạo phiên bản tài khoản mới")}
+                successMessage="Đã cập nhật tài khoản ngân hàng"
                 path={"me/bank-accounts/" + row.id}
                 method="patch"
                 fields={bankFields}
@@ -121,8 +132,7 @@ export function AccountPage() {
         <Button
           variant="outline"
           onClick={async () => {
-            await logout();
-            router.replace("/login");
+            if (await logout()) router.replace("/login");
           }}
         >
           {t("Đăng xuất")}

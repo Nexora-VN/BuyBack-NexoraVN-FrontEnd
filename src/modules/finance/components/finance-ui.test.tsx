@@ -4,7 +4,9 @@ import { renderUI } from "@/test/render";
 import { MutationForm } from "./finance-ui";
 import { financeService } from "../services/finance";
 import { bankSchema } from "../schemas/finance";
+import { toast } from "sonner";
 vi.mock("../services/finance", () => ({ financeService: { mutate: vi.fn() } }));
+vi.mock("sonner", () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
 vi.mock("@/i18n/navigation", () => ({
   usePathname: () => "/app/account",
   useRouter: () => ({ back: vi.fn(), replace: vi.fn() }),
@@ -21,6 +23,7 @@ it("validates inline, reviews details and prevents duplicate submissions", async
   renderUI(
     <MutationForm
       title="Thêm tài khoản ngân hàng"
+      successMessage="Đã thêm tài khoản ngân hàng"
       path="me/bank-accounts"
       fields={[
         { name: "bankCode", label: "Mã ngân hàng" },
@@ -51,4 +54,5 @@ it("validates inline, reviews details and prevents duplicate submissions", async
   expect(confirm).toBeDisabled();
   resolve({});
   await waitFor(() => expect(screen.getByRole("button", { name: "Tiếp tục" })).toBeEnabled());
+  expect(toast.success).toHaveBeenCalledWith("Đã thêm tài khoản ngân hàng");
 });

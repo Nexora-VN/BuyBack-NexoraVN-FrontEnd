@@ -111,9 +111,16 @@ function LoginContent() {
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10">
-      <header className="mb-7">
-        <h1 className="text-2xl font-bold lg:text-3xl">{t("Chào mừng trở lại")}</h1>
-        <p className="text-muted-foreground mt-2.5 text-sm leading-6">
+      <header className="mb-7 text-center lg:text-left">
+        <Image
+          src="/logo.png"
+          alt="Piggy Back"
+          width={68}
+          height={68}
+          className="mx-auto mb-4 size-[68px] object-contain lg:hidden"
+        />
+        <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl">{t("Chào mừng trở lại")}</h1>
+        <p className="text-muted-foreground mt-2 text-sm leading-6">
           {t("Đăng nhập để mua sắm hoàn tiền cùng Piggy nhé")}
         </p>
       </header>
@@ -125,7 +132,7 @@ function LoginContent() {
           <span>Sắp tới rồi, bạn chờ Piggy tí nhé .....</span>
         </div>
       ) : (
-        <>
+        <div className="bg-card soft-shadow rounded-2xl border p-5 sm:p-7">
           {/* Social Logins via Clerk */}
           <div className="space-y-3">
             <Button
@@ -181,7 +188,7 @@ function LoginContent() {
               "Bằng việc đăng nhập, bạn đồng ý với điều khoản bảo mật và sử dụng của Piggy Buy Back.",
             )}
           </p> */}
-        </>
+        </div>
       )}
     </div>
   );
@@ -189,20 +196,10 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <main className="bg-card grid min-h-dvh lg:grid-cols-2">
+    <main className="bg-background grid min-h-dvh lg:grid-cols-2">
       <LoginBenefits />
       <section className="flex flex-col px-5 py-6 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 lg:invisible">
-            <Image
-              src="/logo.png"
-              alt="Piggy Back"
-              width={28}
-              height={28}
-              className="size-7 object-contain"
-            />
-            <p className="text-primary font-bold">Piggy Back</p>
-          </div>
+        <div className="flex justify-end">
           <LanguageSwitcher />
         </div>
         <Suspense

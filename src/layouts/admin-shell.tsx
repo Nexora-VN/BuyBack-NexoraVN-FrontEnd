@@ -120,8 +120,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     ["/admin/withdrawals", t("Rút tiền"), WalletCards],
   ] as const;
   async function signOut() {
-    await logout();
-    router.replace("/login");
+    if (await logout()) router.replace("/login");
   }
   return (
     <ConfirmProvider>
