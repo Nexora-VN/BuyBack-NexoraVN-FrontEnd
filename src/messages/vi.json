@@ -519,6 +519,22 @@
     "copy_clear_link": "Xóa link",
     "copy_pasted_clipboard": "Đã dán từ clipboard",
     "copy_clipboard_empty": "Bộ nhớ tạm đang trống",
-    "copy_clipboard_error": "Không thể truy cập bộ nhớ tạm"
+    "copy_clipboard_error": "Không thể truy cập bộ nhớ tạm",
+    "copy_wallet_available": "Bạn có thể rút",
+    "copy_wallet_pending": "Số tiền chờ xác nhận",
+    "copy_wallet_order_number": "Mã đơn hàng",
+    "copy_wallet_cashback_amount": "Tiền hoàn",
+    "copy_wallet_event": "Giao dịch",
+    "copy_wallet_unknown_event": "Giao dịch ví",
+    "copy_wallet_order_cashback": "Hoàn tiền đơn hàng",
+    "copy_wallet_cashback_credit": "Hoàn tiền đã cộng",
+    "copy_wallet_cashback_reversal": "Thu hồi hoàn tiền",
+    "copy_wallet_withdrawal_reserve": "Giữ tiền để rút",
+    "copy_wallet_withdrawal_complete": "Rút tiền hoàn tất",
+    "copy_wallet_withdrawal_release": "Hoàn lại tiền giữ",
+    "copy_wallet_adjustment": "Điều chỉnh số dư",
+    "copy_wallet_cashback_description": "Tiền hoàn từ đơn hàng sẽ có thể rút sau khi được xác nhận và quyết toán.",
+    "copy_wallet_description": "Theo dõi tiền hoàn, khoản đang giữ và các thay đổi số dư.",
+    "copy_wallet_awaiting_reconciliation": "Chờ đối soát"
   }
 }

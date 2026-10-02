@@ -519,6 +519,22 @@
     "copy_clear_link": "Clear link",
     "copy_pasted_clipboard": "Pasted from clipboard",
     "copy_clipboard_empty": "Clipboard is empty",
-    "copy_clipboard_error": "Unable to access clipboard"
+    "copy_clipboard_error": "Unable to access clipboard",
+    "copy_wallet_available": "Available to withdraw",
+    "copy_wallet_pending": "Pending cashback",
+    "copy_wallet_order_number": "Order number",
+    "copy_wallet_cashback_amount": "Cashback amount",
+    "copy_wallet_event": "Transaction",
+    "copy_wallet_unknown_event": "Wallet transaction",
+    "copy_wallet_order_cashback": "Order cashback",
+    "copy_wallet_cashback_credit": "Cashback credited",
+    "copy_wallet_cashback_reversal": "Cashback reversed",
+    "copy_wallet_withdrawal_reserve": "Reserved for withdrawal",
+    "copy_wallet_withdrawal_complete": "Withdrawal completed",
+    "copy_wallet_withdrawal_release": "Withdrawal funds released",
+    "copy_wallet_adjustment": "Balance adjustment",
+    "copy_wallet_cashback_description": "Cashback from orders becomes available to withdraw after confirmation and settlement.",
+    "copy_wallet_description": "Track cashback, reserved funds, and balance changes.",
+    "copy_wallet_awaiting_reconciliation": "Awaiting reconciliation"
   }
 }

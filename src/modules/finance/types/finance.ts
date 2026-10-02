@@ -2,6 +2,23 @@ export interface FinanceRow {
   id: string;
   [key: string]: unknown;
 }
+export interface TransactionSource {
+  order: { id: string; orderSn: string; platform: string; productName: string | null } | null;
+  orders?: { id: string; orderSn: string; platform: string; productName: string | null }[];
+  withdrawal: { id: string; bankName: string | null; lastFour: string | null } | null;
+}
+export interface CashbackRow extends FinanceRow {
+  source?: TransactionSource;
+  userAmount: string;
+  state: string;
+}
+export interface WalletTransactionRow extends FinanceRow {
+  source?: TransactionSource;
+  type: string;
+  availableDelta: string;
+  reservedDelta: string;
+  availableAfter: string;
+}
 export interface FinanceList<T extends FinanceRow = FinanceRow> {
   data: T[];
   meta: { page: number; limit: number; total: number; totalPages: number };
