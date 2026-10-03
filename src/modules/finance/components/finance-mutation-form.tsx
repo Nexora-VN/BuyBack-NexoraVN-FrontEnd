@@ -21,6 +21,7 @@ export function MutationForm({
   confirmation = true,
   children,
   onSuccess,
+  successMessage = "Đã lưu thay đổi",
   initialValues = {},
 }: {
   title: string;
@@ -32,6 +33,7 @@ export function MutationForm({
   confirmation?: boolean;
   children?: ReactNode;
   onSuccess?: () => void;
+  successMessage?: string;
   initialValues?: Record<string, string>;
 }) {
   const t = useCopy();
@@ -58,7 +60,7 @@ export function MutationForm({
       await refresh();
       onSuccess?.();
       close?.();
-      toast.success(t("Đã lưu thay đổi"));
+      toast.success(t(successMessage));
     } catch (e) {
       setError(e);
     } finally {

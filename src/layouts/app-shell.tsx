@@ -79,8 +79,7 @@ export function UserShell({ children }: { children: React.ReactNode }) {
                 className="hover:bg-muted hidden size-11 place-items-center rounded-xl lg:grid"
                 aria-label={t("Đăng xuất")}
                 onClick={async () => {
-                  await logout();
-                  router.replace("/login");
+                  if (await logout()) router.replace("/login");
                 }}
               >
                 <LogOut className="size-5" />

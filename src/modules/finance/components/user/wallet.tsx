@@ -3,27 +3,192 @@ import { useCopy } from "@/i18n/use-copy";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import type { Column } from "@/components/ui/data-table";
 import { Page } from "@/components/ui/page";
+import { formatVnd } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
+import {
+  ArrowDownLeft,
+  CircleCheck,
+  LockKeyhole,
+  RotateCcw,
+  ShoppingBag,
+  SlidersHorizontal,
+  Wallet,
+} from "lucide-react";
 import { useFinance } from "../../hooks/use-finance";
-import type { Dashboard } from "../../types/finance";
+import type {
+  CashbackRow,
+  Dashboard,
+  FinanceRow,
+  TransactionSource,
+  WalletTransactionRow,
+} from "../../types/finance";
 import { FinanceTable } from ".././finance-ui";
 import { CashbackOverview } from "../user/dashboard";
+
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function SourceContext({ source }: { source?: TransactionSource }) {
+  const t = useCopy();
+  const order = source?.order;
+  const orders = source?.orders;
+  const withdrawal = source?.withdrawal;
+  if (orders && orders.length > 1) {
+    return (
+      <div className="text-muted-foreground min-w-0 space-y-1 text-xs">
+        <p className="font-medium">
+          {t("Đơn hàng")} ({orders.length})
+        </p>
+        {orders.map((item) => {
+          const orderSn = item.orderSn && !uuidPattern.test(item.orderSn) ? item.orderSn : null;
+          return (
+            <p className="break-words" key={item.id}>
+              {[item.productName, item.platform].filter(Boolean).join(" · ")}
+              {orderSn && (
+                <>
+                  {item.productName || item.platform ? " · " : ""}
+                  {t("Mã đơn hàng")}: {orderSn}
+                </>
+              )}
+            </p>
+          );
+        })}
+      </div>
+    );
+  }
+  if (order) {
+    const orderSn = order.orderSn && !uuidPattern.test(order.orderSn) ? order.orderSn : null;
+    return (
+      <div className="text-muted-foreground min-w-0 space-y-0.5 text-xs">
+        {order.productName && <p className="line-clamp-2 break-words">{order.productName}</p>}
+        {(orderSn || order.platform) && (
+          <p className="break-words">
+            {order.platform && <span className="font-medium uppercase">{order.platform}</span>}
+            {order.platform && orderSn && <span aria-hidden="true"> · </span>}
+            {orderSn && (
+              <span>
+                {t("Mã đơn hàng")}: {orderSn}
+              </span>
+            )}
+          </p>
+        )}
+      </div>
+    );
+  }
+  if (withdrawal) {
+    const bank = [withdrawal.bankName, withdrawal.lastFour ? `•••• ${withdrawal.lastFour}` : null]
+      .filter(Boolean)
+      .join(" · ");
+    return bank ? <p className="text-muted-foreground text-xs break-words">{bank}</p> : null;
+  }
+  return null;
+}
+
+const walletEvents = {
+  CASHBACK_CREDIT: { label: "Hoàn tiền đã cộng", icon: ArrowDownLeft },
+  CASHBACK_REVERSAL: { label: "Thu hồi hoàn tiền", icon: RotateCcw },
+  WITHDRAWAL_RESERVE: { label: "Giữ tiền để rút", icon: LockKeyhole },
+  WITHDRAWAL_COMPLETE: { label: "Rút tiền hoàn tất", icon: CircleCheck },
+  WITHDRAWAL_RELEASE: { label: "Hoàn lại tiền giữ", icon: ArrowDownLeft },
+  MANUAL_ADJUSTMENT: { label: "Điều chỉnh số dư", icon: SlidersHorizontal },
+} as const;
+
+function WalletEvent({ row }: { row: WalletTransactionRow }) {
+  const t = useCopy();
+  const event = walletEvents[row.type as keyof typeof walletEvents];
+  const Icon = event?.icon ?? Wallet;
+  const label = t(event?.label ?? "Giao dịch ví");
+  return (
+    <div className="flex min-w-0 items-start gap-3">
+      <span
+        className="bg-secondary text-primary grid size-9 shrink-0 place-items-center rounded-xl"
+        aria-hidden="true"
+      >
+        <Icon className="size-4" />
+      </span>
+      <div className="min-w-0 space-y-1">
+        <p className="font-semibold break-words">{label}</p>
+        <SourceContext source={row.source} />
+      </div>
+    </div>
+  );
+}
+
+function BalanceDelta({ value }: { value: string }) {
+  const amount = BigInt(value || "0");
+  if (amount === 0n) return <span className="text-muted-foreground">—</span>;
+  return (
+    <span
+      className={`font-semibold tabular-nums ${amount > 0n ? "text-success" : "text-foreground"}`}
+    >
+      {amount > 0n ? "+" : "−"}
+      {formatVnd(amount > 0n ? amount : -amount)}
+    </span>
+  );
+}
+
+function CashbackEvent({ row }: { row: CashbackRow }) {
+  const t = useCopy();
+  return (
+    <div className="flex min-w-0 items-start gap-3">
+      <span
+        className="bg-secondary text-primary grid size-9 shrink-0 place-items-center rounded-xl"
+        aria-hidden="true"
+      >
+        <ShoppingBag className="size-4" />
+      </span>
+      <div className="min-w-0 space-y-1">
+        <p className="font-semibold">{t("Hoàn tiền đơn hàng")}</p>
+        <SourceContext source={row.source} />
+      </div>
+    </div>
+  );
+}
+
+const cashbackColumns: Column<FinanceRow>[] = [
+  {
+    key: "order",
+    label: "Đơn hàng",
+    mobilePrimary: true,
+    render: (row) => <CashbackEvent row={row as CashbackRow} />,
+  },
+];
+
+const walletColumns: Column<FinanceRow>[] = [
+  {
+    key: "event",
+    label: "Giao dịch",
+    mobilePrimary: true,
+    render: (row) => <WalletEvent row={row as WalletTransactionRow} />,
+  },
+  {
+    key: "availableDelta",
+    label: "Thay đổi khả dụng",
+    render: (row) => <BalanceDelta value={(row as WalletTransactionRow).availableDelta} />,
+  },
+  {
+    key: "reservedDelta",
+    label: "Thay đổi đang giữ",
+    render: (row) => <BalanceDelta value={(row as WalletTransactionRow).reservedDelta} />,
+  },
+];
+
 export function CashbackPage() {
   const t = useCopy();
 
   return (
     <Page
-      title="Cashback"
-      description="Hoa hồng chờ trả chỉ là dự kiến. Cashback chỉ khả dụng sau khi xác nhận nhận tiền và hoàn tất kỳ thanh toán."
+      title="Lịch sử hoàn tiền"
+      description="Tiền hoàn từ đơn hàng sẽ có thể rút sau khi được xác nhận và quyết toán."
     >
       <FinanceTable
         path="me/cashbacks"
-        searchLabel="Mã checkout Shopee"
+        searchLabel="Mã đơn hàng"
         states={["PENDING", "VALIDATED", "AVAILABLE", "REJECTED", "REVERSED"]}
+        extraColumns={cashbackColumns}
         specs={[
-          ["commission.id", t("Mã hoa hồng")],
-          ["userAmount", "Cashback", "money"],
+          ["userAmount", t("Tiền hoàn"), "money"],
           ["state", t("Trạng thái"), "status"],
           ["createdAt", t("Ghi nhận"), "date"],
         ]}
@@ -39,6 +204,7 @@ export function WalletPage() {
   return (
     <Page
       title={t("Ví của bạn")}
+      description="Theo dõi tiền hoàn, khoản đang giữ và các thay đổi số dư."
       actions={
         <Button asChild>
           <Link href="/app/withdrawals/new">{t("Yêu cầu rút")}</Link>
@@ -63,11 +229,9 @@ export function WalletPage() {
       )}
       <FinanceTable
         path="me/wallet/transactions"
-        searchLabel="Mã tham chiếu"
+        searchLabel="Mã đơn hàng"
+        extraColumns={walletColumns}
         specs={[
-          ["type", t("Loại giao dịch")],
-          ["availableDelta", t("Thay đổi khả dụng"), "money"],
-          ["reservedDelta", t("Thay đổi đang giữ"), "money"],
           ["availableAfter", t("Khả dụng sau giao dịch"), "money"],
           ["createdAt", t("Thời gian"), "date"],
         ]}

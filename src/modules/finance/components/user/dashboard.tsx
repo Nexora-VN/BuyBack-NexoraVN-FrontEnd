@@ -175,11 +175,14 @@ export function CashbackOverview() {
         </Link>
       </Card>
       <StatCard
-        label="Số tiền chờ xác nhận"
+        label={t("Số tiền chờ xác nhận")}
         value={pending === undefined ? "—" : formatVnd(pending)}
-        helper="Chưa tính vào số dư có thể rút"
+        helper={t("Chưa tính vào số dư có thể rút")}
       />
-      <StatCard label="Đang giữ cho yêu cầu rút" value={formatVnd(query.data.wallet.reserved)} />
+      <StatCard
+        label={t("Đang giữ cho yêu cầu rút")}
+        value={formatVnd(query.data.wallet.reserved)}
+      />
     </div>
   );
 }
