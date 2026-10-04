@@ -29,7 +29,7 @@ const labels: Record<string, string> = {
   ESTIMATED: "Hoa hồng dự kiến",
   MANUAL_REVIEW: "Cần đối chiếu",
   PARTIALLY_VALIDATED: "Hoàn thành một phần",
-  PAID: "Đã rút tiền",
+  PAID: "Đã quyết toán",
   REVERSED: "Đã thu hồi",
   completed: "Hoàn thành",
   cancelled: "Đã hủy",
@@ -68,7 +68,7 @@ const contextual: Partial<Record<StatusDomain, Record<string, string>>> = {
     PENDING: "Chờ xác nhận",
     VALIDATED: "Chờ đối soát",
     AVAILABLE: "Có thể rút",
-    PAID: "Đã rút tiền",
+    PAID: "Có thể rút",
     WITHDRAWN: "Đã rút tiền",
   },
   withdrawal: {
@@ -101,12 +101,9 @@ export function StatusBadge({
   const t = useCopy();
   const label = statusLabel(status, domain);
 
-  // 1. Blue (info): Withdrawn / Paid / Transferred
+  // A commission marked PAID was settled into the wallet; only withdrawals transfer to a bank.
   const isWithdrawn =
-    ["PAID", "WITHDRAWN", "paid", "withdrawn"].includes(status) ||
-    label === "Đã rút tiền" ||
-    label === "Đã chuyển tiền" ||
-    label === "Đã quyết toán" ||
+    ["WITHDRAWN", "withdrawn"].includes(status) ||
     (domain === "withdrawal" && ["COMPLETED", "completed"].includes(status));
 
   // 2. Red (danger): Failed / Rejected / Cancelled
@@ -135,6 +132,7 @@ export function StatusBadge({
       "ACTIVE",
       "WORKING",
       "AVAILABLE",
+      "PAID",
       "COMPLETED",
       "completed",
       "VALIDATED",

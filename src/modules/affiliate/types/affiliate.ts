@@ -33,4 +33,5 @@ export interface GenerateAffiliateResponse {
   link: string | null;
   code: string | number | null;
   product?: GeneratedProduct | null;
+  estimatedUserCashbackVnd?: string | null;
 }

@@ -299,6 +299,339 @@ body:has(.app-page[data-task-form="true"]) .app-bottom-nav {
   padding: 12px;
   background: var(--card);
 }
+
+/* End-user visual language, shared by home and the task pages. */
+.user-shell {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 76% 9%, #fff0f4 0, transparent 36%),
+    radial-gradient(circle at 10% 38%, #fff1f3 0, transparent 36%), #fff8f8;
+}
+.user-topbar {
+  border-bottom: 1px solid #f5e9ed;
+  background: rgb(255 255 255 / 94%);
+  backdrop-filter: blur(16px);
+}
+.user-shell .app-page {
+  max-width: 1200px;
+  gap: 22px;
+}
+.user-shell .page-heading h1 {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+.user-shell .page-heading p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.user-shell .app-page section.bg-card,
+.user-shell .app-page .bg-card.rounded-2xl.border,
+.user-help-card,
+.user-recent-list {
+  border: 1px solid #f5e7eb;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(79 27 49 / 5%);
+}
+.user-home-grid {
+  display: grid;
+  gap: 14px;
+}
+.user-wallet-card,
+.user-link-card {
+  padding: 20px !important;
+}
+.user-wallet-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.user-icon-box {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  place-items: center;
+  border-radius: 15px;
+  color: var(--primary);
+  background: #fff0f4;
+}
+.user-primary-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0 18px;
+  background: var(--primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgb(168 36 94 / 14%);
+}
+.user-primary-action:hover {
+  background: #8f174b;
+}
+.user-wallet-pending {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid #f6e9ee;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  min-height: 44px;
+}
+.user-wallet-pending strong {
+  color: var(--primary);
+}
+.user-wallet-pending-arrow {
+  display: grid;
+  width: 36px;
+  height: 44px;
+  flex: none;
+  place-items: center end;
+  padding-right: 1px;
+}
+.user-wallet-pending:hover strong,
+.user-wallet-pending:focus-visible strong {
+  text-decoration: underline;
+}
+.user-reconciling-long {
+  display: none;
+}
+@media (max-width: 859px) {
+  .user-wallet-page .page-heading,
+  .user-withdrawal-history .page-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px;
+  }
+  .user-wallet-page .page-heading > div:last-child {
+    align-self: start;
+  }
+}
+@media (max-width: 859px) {
+  .user-order-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .user-order-step {
+    min-height: 70px;
+    padding-bottom: 17px;
+  }
+  .user-order-step:not(:last-child)::after {
+    position: absolute;
+    top: 31px;
+    bottom: 0;
+    left: 13px;
+    width: 2px;
+    background: #f0dae3;
+    content: "";
+  }
+}
+@media (min-width: 860px) {
+  .user-reconciling-short {
+    display: none;
+  }
+  .user-reconciling-long {
+    display: inline;
+  }
+}
+.user-home .page-heading {
+  padding-top: 6px;
+}
+.user-home .page-heading h1 {
+  font-size: clamp(27px, 3vw, 38px);
+}
+.user-home .user-link-card {
+  height: 100%;
+}
+.user-home .user-link-card form label {
+  display: none;
+}
+.user-help-card {
+  width: 100%;
+}
+.user-recent-list {
+  overflow: hidden;
+}
+.user-recent-head {
+  display: none;
+}
+.user-recent-price,
+.user-recent-cashback {
+  display: none;
+}
+.user-recent-list > a:not(:last-child) {
+  border-bottom: 1px solid #f5e7eb;
+}
+.user-shell .app-page article.bg-card,
+.user-shell .app-page .bg-card.hidden.overflow-hidden.rounded-2xl.border,
+.user-shell .app-page .bg-card.rounded-2xl.border.px-5 {
+  border-color: #f5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgb(79 27 49 / 5%);
+}
+.user-shell .app-page table thead {
+  background: #fff8fa;
+}
+.user-shell .app-page table thead th {
+  color: #725f68;
+  font-weight: 600;
+}
+.user-shell .app-page table tbody tr {
+  transition: background 150ms ease;
+}
+.user-shell .app-page input,
+.user-shell .app-page select {
+  border-radius: 12px;
+}
+.user-shell .app-page .page-heading + section.min-w-0 > div:first-child {
+  padding: 14px;
+  border: 1px solid #f5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgb(79 27 49 / 4%);
+}
+@media (min-width: 860px) {
+  .user-home-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+  .user-home .page-heading {
+    position: relative;
+    min-height: 155px;
+    justify-content: center;
+    padding-right: 260px;
+    isolation: isolate;
+  }
+  .user-home .page-heading::before {
+    position: absolute;
+    right: 6%;
+    bottom: 2px;
+    z-index: -1;
+    width: 260px;
+    height: 140px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 48% 56%, #ffe2e9 0 25%, transparent 26%),
+      radial-gradient(circle at 16% 90%, #fff0f4 0 19%, transparent 20%),
+      radial-gradient(circle at 86% 80%, #ffe7eb 0 24%, transparent 25%);
+    content: "";
+  }
+  .user-home .page-heading::after {
+    position: absolute;
+    right: 7%;
+    bottom: -2px;
+    width: 200px;
+    height: 174px;
+    background: url("/piggy-hero.png") center bottom / contain no-repeat;
+    content: "";
+  }
+  .user-home .user-wallet-card,
+  .user-home .user-link-card {
+    padding: 26px !important;
+  }
+  .user-recent-head,
+  .user-recent-row {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.8fr) minmax(100px, 0.55fr) minmax(110px, 0.7fr) minmax(
+        130px,
+        0.6fr
+      );
+    align-items: center;
+    column-gap: 16px;
+  }
+  .user-recent-head {
+    margin: 12px 22px 0;
+    padding: 12px 15px;
+    border-radius: 10px;
+    background: #fff8fa;
+    color: var(--muted-foreground);
+    font-size: 12px;
+  }
+  .user-recent-row {
+    padding: 18px 36px !important;
+  }
+  .user-recent-row .text-primary.font-bold {
+    display: none;
+  }
+  .user-recent-price,
+  .user-recent-cashback {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .user-recent-cashback {
+    color: var(--primary);
+    font-weight: 800;
+  }
+  .user-recent-row > div:last-child {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 859px) {
+  .user-wallet-top {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+  }
+  .user-wallet-top .user-primary-action {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}
+@media (max-width: 420px) {
+  .user-home {
+    gap: 16px !important;
+  }
+  .user-home .page-heading {
+    min-height: auto;
+  }
+  .user-home .page-heading h1 {
+    font-size: 21px;
+  }
+  .user-home .page-heading p {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .user-home-grid {
+    gap: 12px;
+  }
+  .user-wallet-card,
+  .user-link-card {
+    padding: 15px !important;
+  }
+  .user-wallet-top {
+    gap: 10px;
+    grid-template-columns: 40px 1fr auto;
+  }
+  .user-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  .user-wallet-top p.tabular-nums {
+    font-size: 22px;
+  }
+  .user-wallet-top .user-primary-action {
+    min-height: 40px;
+    padding-inline: 11px;
+    font-size: 12px;
+  }
+  .user-wallet-pending {
+    margin-top: 14px;
+    padding-top: 12px;
+    font-size: 12px;
+  }
+  .user-recent-list > a {
+    padding: 12px;
+  }
+}
 @media (min-width: 1024px) {
   .selection-actions {
     bottom: 16px;

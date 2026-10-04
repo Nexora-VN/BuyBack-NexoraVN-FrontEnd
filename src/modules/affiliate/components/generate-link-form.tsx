@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CircleX, ClipboardPaste, Link2, LoaderCircle } from "lucide-react";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { ApiErrorNotice } from "@/components/errors/api-error-notice";
 import type { GenerateLinkState } from "../hooks/use-generate-link";
 
 export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
+  const endUser = useTranslations("EndUser");
   const { t, formError, url, loading, changeUrl, generate } = state;
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,10 +43,14 @@ export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
     <>
       <form onSubmit={generate}>
         <label htmlFor="shopee-url" className="text-sm font-semibold">
-          {t("Link sản phẩm Shopee, TikTok")}
+          {endUser("linkLabel")}
         </label>
-        <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-2 flex flex-col gap-3">
           <div className="relative flex-1">
+            <Link2
+              className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"
+              aria-hidden="true"
+            />
             <Input
               ref={inputRef}
               id="shopee-url"
@@ -52,15 +58,15 @@ export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
               aria-describedby="shopee-url-error"
               value={url}
               onChange={(event) => changeUrl(event.target.value)}
-              placeholder={t("Dán link sản phẩm vào đây nhé .... ")}
-              className={url ? "pr-24" : "pr-18"}
+              placeholder={endUser("linkPlaceholder")}
+              className={url ? "h-13 rounded-xl pr-28 pl-10" : "h-13 rounded-xl pr-20 pl-10"}
             />
             <div className="absolute inset-y-0 right-1.5 flex items-center gap-1">
               {url ? (
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="text-muted-foreground hover:text-foreground hover:bg-muted/80 flex size-7 cursor-pointer items-center justify-center rounded-lg transition-colors"
+                  className="text-muted-foreground hover:text-foreground hover:bg-muted/80 flex size-10 cursor-pointer items-center justify-center rounded-lg transition-colors"
                   title={t("Xóa link")}
                   aria-label={t("Xóa link")}
                 >
@@ -70,7 +76,7 @@ export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
               <button
                 type="button"
                 onClick={handlePaste}
-                className="bg-secondary text-primary hover:bg-secondary/80 inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold shadow-2xs transition active:scale-95"
+                className="bg-secondary text-primary hover:bg-secondary/80 inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold shadow-2xs transition active:scale-95"
                 title={t("Dán từ clipboard")}
                 aria-label={t("Dán")}
               >
@@ -79,9 +85,14 @@ export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
               </button>
             </div>
           </div>
-          <Button type="submit" size="lg" disabled={loading || !url.trim()}>
+          <Button
+            className="w-full rounded-xl"
+            type="submit"
+            size="lg"
+            disabled={loading || !url.trim()}
+          >
             {loading ? <LoaderCircle className="animate-spin" /> : <Link2 />}
-            {loading ? t("Đang tạo…") : t("Mua sắm ngay")}
+            {loading ? t("Đang tạo…") : endUser("createCashbackLink")}
           </Button>
         </div>
         {formError && (

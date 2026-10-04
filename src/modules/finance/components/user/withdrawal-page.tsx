@@ -7,7 +7,8 @@ import { Link } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { formatVnd } from "@/lib/format";
 import { generateUUID } from "@/lib/observability/request-id";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, WalletCards } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { useFinance, useRefreshFinance } from "../../hooks/use-finance";
 import { withdrawalSchema } from "../../schemas/finance";
@@ -16,6 +17,7 @@ import type { FinanceList } from "../../types/finance";
 import { Failure, Loading, text } from "../finance-ui";
 export function NewWithdrawalPage() {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
   const banks = useFinance<FinanceList>("me/bank-accounts?status=APPROVED&limit=100");
   const wallet = useFinance<{ available: string }>("me/wallet");
   const [amount, setAmount] = useState(""),
@@ -64,11 +66,7 @@ export function NewWithdrawalPage() {
     }
   }
   return (
-    <Page
-      taskForm
-      title={t("Yêu cầu rút tiền")}
-      description="Tối thiểu 50.000 VND. Số tiền được giữ ngay khi gửi yêu cầu."
-    >
+    <Page taskForm title={t("Yêu cầu rút tiền")} description={endUser("withdrawalDescription")}>
       {banks.isLoading || wallet.isLoading ? (
         <Loading />
       ) : banks.isError || wallet.isError ? (
@@ -101,11 +99,16 @@ export function NewWithdrawalPage() {
                 if (step === "edit") validate();
               }}
             >
-              <div className="bg-muted rounded-xl p-4">
-                <p className="text-muted-foreground text-sm">{t("Có thể rút")}</p>
-                <p className="text-primary mt-1 text-2xl font-bold">
-                  {formatVnd(wallet.data!.available)}
-                </p>
+              <div className="flex items-center gap-3 rounded-2xl border border-[#f5e7eb] bg-[#fff8fa] p-4">
+                <span className="user-icon-box">
+                  <WalletCards className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-muted-foreground text-sm">{t("Có thể rút")}</p>
+                  <p className="text-foreground mt-1 text-2xl font-bold">
+                    {formatVnd(wallet.data!.available)}
+                  </p>
+                </div>
               </div>
               {step === "edit" ? (
                 <>

@@ -25,6 +25,11 @@ async function middleware(request: NextRequest, auth?: () => Promise<{ userId: s
     }
   }
   const normalizedPath = request.nextUrl.pathname.replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
+  if (request.nextUrl.pathname === "/en/app" || request.nextUrl.pathname.startsWith("/en/app/")) {
+    const vietnameseUrl = request.nextUrl.clone();
+    vietnameseUrl.pathname = normalizedPath;
+    return NextResponse.redirect(vietnameseUrl);
+  }
   const protectedRoute =
     normalizedPath === "/app" ||
     normalizedPath.startsWith("/app/") ||

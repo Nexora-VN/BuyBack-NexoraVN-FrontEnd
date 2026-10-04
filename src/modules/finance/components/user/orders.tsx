@@ -9,45 +9,96 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { Link } from "@/i18n/navigation";
 import { formatDateTime, formatVnd } from "@/lib/format";
 import {
-  ArrowDownToLine,
   Check,
   CircleAlert,
   Clock3,
   Copy,
+  ChevronRight,
   ExternalLink,
   ShieldCheck,
   ShoppingBag,
   Wallet,
 } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useFinance } from "../../hooks/use-finance";
 import type { FinanceRow } from "../../types/finance";
 import { Failure, FinanceTable, Loading, read, text } from ".././finance-ui";
+import { UserOrderDetailSkeleton } from "./user-skeletons";
 
 export const orderSpecs: [string, string, ("money" | "status" | "date")?][] = [
   ["productSummary.name", "Sản phẩm"],
-  ["orderSn", "Mã đơn & Sàn"],
+  ["checkout.commission.cashback.userAmount", "Tiền hoàn", "money"],
+  ["status", "Trạng thái đơn", "status"],
   ["checkout.purchasedAt", "Ngày mua", "date"],
   ["totalAmountVnd", "Giá mua", "money"],
-  ["status", "Trạng thái đơn", "status"],
+  ["orderSn", "Mã đơn & Sàn"],
   ["checkout.commission.state", "Đối soát", "status"],
-  ["checkout.commission.cashback.userAmount", "Cashback", "money"],
 ];
 
 export function UserOrdersPage() {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
 
   return (
-    <Page
-      title={t("Đơn hàng của bạn")}
-      description="Các đơn hàng của bạn mua qua Piggy sẽ được hiển thị dưới đây nè."
-    >
+    <Page title={t("Đơn hàng của bạn")} description={endUser("ordersDescription")}>
       <FinanceTable
         path="me/orders"
-        searchLabel="Mã đơn Shopee, TikTok"
-        states={["VALIDATED", "REJECTED", "PARTIALLY_VALIDATED", "MANUAL_REVIEW"]}
+        searchLabel={endUser("orderSearch")}
+        states={["VALIDATED", "PENDING", "MANUAL_REVIEW", "REJECTED", "PARTIALLY_VALIDATED"]}
+        mobileStatusChips={[
+          { label: t("Tất cả"), value: "" },
+          { label: t("Hoàn thành"), value: "VALIDATED" },
+          { label: t("Đang xử lý"), value: "PENDING" },
+          { label: t("Cần đối chiếu"), value: "MANUAL_REVIEW" },
+          { label: t("Đã hủy"), value: "REJECTED" },
+        ]}
         specs={orderSpecs}
+        mobileRender={(row) => {
+          const productName =
+            text(row, "productSummary.name") === "—"
+              ? text(row, "orderSn")
+              : text(row, "productSummary.name");
+          const imageUrl = read(row, "productSummary.imageUrl") as string | null;
+          const platform = text(row, "platform") === "—" ? "Shopee" : text(row, "platform");
+          const cashback = text(row, "checkout.commission.cashback.userAmount");
+          const price = text(row, "totalAmountVnd");
+          return (
+            <Link href={"/app/orders/" + row.id} className="block min-h-11 space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="inline-flex rounded-md border border-orange-200/60 bg-orange-50 px-1.5 py-0.5 text-[10px] font-bold text-orange-600 uppercase">
+                  {platform}
+                </span>
+                <StatusBadge domain="order" status={text(row, "status")} />
+              </div>
+              <div className="flex items-start gap-3">
+                <ProductThumbnail
+                  src={imageUrl}
+                  name={productName}
+                  className="size-[60px] shrink-0 rounded-xl"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="line-clamp-2 text-sm font-bold break-words">{productName}</p>
+                  <p className="text-muted-foreground mt-2 text-xs">
+                    {t("Giá mua")}: {price === "—" ? price : formatVnd(price)}
+                  </p>
+                  {cashback !== "—" && (
+                    <p className="text-primary mt-0.5 text-sm font-extrabold">
+                      {t("Tiền hoàn")}: +{formatVnd(cashback)}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="text-muted-foreground flex items-center justify-between gap-2 border-t pt-2 text-xs">
+                <span className="min-w-0 truncate">
+                  {t("Mã đơn hàng")}: {text(row, "orderSn")}
+                </span>
+                <ChevronRight className="size-4 shrink-0" aria-hidden="true" />
+              </div>
+            </Link>
+          );
+        }}
         actions={(row) => (
           <Link
             className="text-primary inline-flex min-h-11 items-center font-medium underline"
@@ -66,23 +117,23 @@ function CashbackProgressStepper({
   commissionState,
   cashbackState,
   purchasedAt,
+  mobileTimeline = false,
 }: {
   orderStatus: string;
   commissionState: string;
   cashbackState?: string;
   purchasedAt?: string;
+  mobileTimeline?: boolean;
 }) {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
 
   const isCancelled =
     ["REJECTED", "FAILED", "CANCELLED", "cancelled"].includes(orderStatus) ||
     ["REJECTED", "REVERSED"].includes(commissionState) ||
     ["REJECTED", "REVERSED"].includes(cashbackState ?? "");
 
-  const isWithdrawn =
-    ["PAID", "WITHDRAWN"].includes(cashbackState ?? "") || commissionState === "PAID";
-
-  const isAvailable = isWithdrawn || cashbackState === "AVAILABLE";
+  const isAvailable = cashbackState === "AVAILABLE" || commissionState === "PAID";
 
   const isOrderCompleted =
     isAvailable || ["VALIDATED", "COMPLETED", "completed", "APPROVED"].includes(orderStatus);
@@ -107,14 +158,10 @@ function CashbackProgressStepper({
       current: isOrderCompleted && !isAvailable && !isCancelled,
     },
     {
-      title: isWithdrawn ? t("Đã rút tiền") : t("Tiền vào ví"),
-      desc: isWithdrawn
-        ? t("Đã chuyển về ngân hàng")
-        : isAvailable
-          ? t("Sẵn sàng rút tiền")
-          : t("Chờ hoàn tất đối soát"),
-      done: isWithdrawn || isAvailable,
-      current: isAvailable && !isWithdrawn && !isCancelled,
+      title: t("Tiền vào ví"),
+      desc: isAvailable ? endUser("walletReady") : endUser("awaitingWallet"),
+      done: isAvailable,
+      current: false,
     },
   ];
 
@@ -140,45 +187,46 @@ function CashbackProgressStepper({
         <h3 className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
           {t("Tiến trình tích lũy hoàn tiền")}
         </h3>
-        {isWithdrawn ? (
-          <span className="text-info inline-flex items-center gap-1 text-xs font-semibold">
-            <ArrowDownToLine className="size-3.5" />
-            {t("Đã rút tiền về ngân hàng")}
-          </span>
-        ) : isAvailable ? (
+        {isAvailable ? (
           <span className="text-success inline-flex items-center gap-1 text-xs font-semibold">
             <Check className="size-3.5" />
-            {t("Sẵn sàng rút tiền")}
+            {endUser("creditedToWallet")}
           </span>
         ) : (
           <span className="text-warning inline-flex items-center gap-1 text-xs font-semibold">
             <Clock3 className="size-3.5" />
-            {t("Đang trong chu kỳ đối soát")}
+            {mobileTimeline ? (
+              <>
+                <span className="user-reconciling-short">{endUser("reconcilingShort")}</span>
+                <span className="user-reconciling-long">{t("Đang trong chu kỳ đối soát")}</span>
+              </>
+            ) : (
+              t("Đang trong chu kỳ đối soát")
+            )}
           </span>
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div
+        className={`grid grid-cols-2 gap-4 sm:grid-cols-4 ${mobileTimeline ? "user-order-progress" : ""}`}
+      >
         {steps.map((s, idx) => (
-          <div key={idx} className="relative flex flex-col items-start gap-1.5">
+          <div
+            key={idx}
+            className={`relative flex flex-col items-start gap-1.5 ${mobileTimeline ? "user-order-step" : ""}`}
+          >
             <div className="flex items-center gap-2">
               <span
                 className={`inline-flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                   s.done
-                    ? isWithdrawn && idx === 3
-                      ? "bg-info text-white"
-                      : "bg-success text-white"
+                    ? "bg-success text-white"
                     : s.current
                       ? "border-warning bg-warning-soft text-warning border-2"
                       : "border-border bg-muted text-muted-foreground border"
                 }`}
               >
                 {s.done ? (
-                  isWithdrawn && idx === 3 ? (
-                    <ArrowDownToLine className="size-3.5" />
-                  ) : (
-                    <Check className="size-3.5" />
-                  )
+                  <Check className="size-3.5" />
                 ) : s.current ? (
                   <Clock3 className="size-3.5" />
                 ) : (
@@ -187,13 +235,7 @@ function CashbackProgressStepper({
               </span>
               <p
                 className={`text-sm font-semibold ${
-                  s.done
-                    ? isWithdrawn && idx === 3
-                      ? "text-info"
-                      : "text-success"
-                    : s.current
-                      ? "text-warning"
-                      : "text-muted-foreground"
+                  s.done ? "text-success" : s.current ? "text-warning" : "text-muted-foreground"
                 }`}
               >
                 {s.title}
@@ -209,10 +251,11 @@ function CashbackProgressStepper({
 
 export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?: boolean }) {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
   const [copied, setCopied] = useState(false);
 
   const query = useFinance<FinanceRow>((admin ? "admin/" : "me/") + "orders/" + id);
-  if (query.isLoading) return <Loading />;
+  if (query.isLoading) return admin ? <Loading /> : <UserOrderDetailSkeleton />;
   if (query.isError)
     return <Failure message={query.error.message} retry={() => void query.refetch()} />;
   if (!query.data) return null;
@@ -255,57 +298,105 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
           .toString();
 
   const userBps = read(data, "checkout.commission.cashback.userBps");
-  const ratePercent = userBps ? `${Number(userBps) / 100}%` : "85%";
+  const ratePercent = userBps ? `${Number(userBps) / 100}%` : "—";
 
   return (
     <Page
       title={t("Chi tiết đơn hàng")}
       description={
-        purchasedAt ? `${t("Thời gian đặt hàng:")} ${formatDateTime(purchasedAt)}` : undefined
+        admin && purchasedAt
+          ? `${t("Thời gian đặt hàng:")} ${formatDateTime(purchasedAt)}`
+          : undefined
       }
       badge={
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center rounded-md border border-orange-200/60 bg-orange-50 px-2 py-0.5 text-xs font-bold tracking-wider text-orange-600 uppercase">
-            {platform}
-          </span>
-          <span className="font-mono text-base font-semibold">#{orderSn}</span>
-          <button
-            type="button"
-            onClick={copyOrderSn}
-            className="text-muted-foreground hover:text-foreground hover:bg-muted inline-flex size-7 items-center justify-center rounded-lg border transition-colors"
-            title={t("Sao chép mã đơn")}
-          >
-            {copied ? <Check className="text-success size-3.5" /> : <Copy className="size-3.5" />}
-          </button>
-        </div>
+        admin ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center rounded-md border border-orange-200/60 bg-orange-50 px-2 py-0.5 text-xs font-bold tracking-wider text-orange-600 uppercase">
+              {platform}
+            </span>
+            <span className="font-mono text-base font-semibold">#{orderSn}</span>
+            <button
+              type="button"
+              onClick={copyOrderSn}
+              className="text-muted-foreground hover:text-foreground hover:bg-muted inline-flex size-7 items-center justify-center rounded-lg border transition-colors"
+              title={t("Sao chép mã đơn")}
+            >
+              {copied ? <Check className="text-success size-3.5" /> : <Copy className="size-3.5" />}
+            </button>
+          </div>
+        ) : undefined
       }
+      className={admin ? undefined : "user-order-detail"}
     >
       {/* 1. Header Overview Card */}
-      <Card className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-4">
-          <div>
-            <p className="text-muted-foreground mb-1 text-xs">{t("Trạng thái đơn hàng")}</p>
+      {admin ? (
+        <Card className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <div>
+              <p className="text-muted-foreground mb-1 text-xs">{t("Trạng thái đơn hàng")}</p>
+              <StatusBadge domain="order" status={orderStatus} />
+            </div>
+            <div>
+              <p className="text-muted-foreground mb-1 text-xs">{t("Trạng thái hoa hồng")}</p>
+              <StatusBadge domain="commission" status={commissionState} />
+            </div>
+            {cashbackState && (
+              <div>
+                <p className="text-muted-foreground mb-1 text-xs">{t("Trạng thái hoàn tiền")}</p>
+                <StatusBadge domain="cashback" status={cashbackState} />
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col items-start sm:items-end">
+            <span className="text-muted-foreground text-xs">
+              {cashbackState === "AVAILABLE"
+                ? endUser("cashbackConfirmed")
+                : endUser("cashbackExpected")}
+            </span>
+            <span className="text-primary text-2xl font-black tabular-nums">
+              {cashbackAmount === "—" ? "—" : `+${formatVnd(cashbackAmount)}`}
+            </span>
+          </div>
+        </Card>
+      ) : (
+        <Card className="space-y-4">
+          <div className="flex items-center justify-between gap-3">
+            <span className="inline-flex items-center rounded-md border border-orange-200/60 bg-orange-50 px-2 py-0.5 text-xs font-bold tracking-wider text-orange-600 uppercase">
+              {platform}
+            </span>
             <StatusBadge domain="order" status={orderStatus} />
           </div>
           <div>
-            <p className="text-muted-foreground mb-1 text-xs">{t("Trạng thái hoa hồng")}</p>
-            <StatusBadge domain="commission" status={commissionState} />
+            <p className="text-muted-foreground text-xs">
+              {cashbackState === "AVAILABLE"
+                ? endUser("cashbackConfirmed")
+                : endUser("cashbackExpected")}
+            </p>
+            <p className="text-primary mt-1 text-2xl font-extrabold tabular-nums">
+              {cashbackAmount === "—" ? "—" : `+${formatVnd(cashbackAmount)}`}
+            </p>
           </div>
-          {cashbackState && (
-            <div>
-              <p className="text-muted-foreground mb-1 text-xs">{t("Trạng thái hoàn tiền")}</p>
-              <StatusBadge domain="cashback" status={cashbackState} />
-            </div>
+          <div className="flex min-w-0 items-center justify-between gap-2 border-t pt-3 text-xs">
+            <span className="text-muted-foreground min-w-0 truncate font-mono">
+              {t("Mã đơn hàng")}: {orderSn}
+            </span>
+            <button
+              type="button"
+              onClick={copyOrderSn}
+              className="text-primary grid size-11 shrink-0 place-items-center rounded-lg"
+              aria-label={t("Sao chép mã đơn")}
+            >
+              {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+            </button>
+          </div>
+          {purchasedAt && (
+            <p className="text-muted-foreground text-xs">
+              {t("Thời gian đặt hàng:")} {formatDateTime(purchasedAt)}
+            </p>
           )}
-        </div>
-
-        <div className="flex flex-col items-start sm:items-end">
-          <span className="text-muted-foreground text-xs">{t("Tiền hoàn tích lũy")}</span>
-          <span className="text-success text-2xl font-black tabular-nums">
-            +{formatVnd(cashbackAmount === "—" ? "0" : cashbackAmount)}
-          </span>
-        </div>
-      </Card>
+        </Card>
+      )}
 
       {/* 2. Visual Progress Stepper */}
       <CashbackProgressStepper
@@ -313,9 +404,67 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
         commissionState={commissionState}
         cashbackState={cashbackState}
         purchasedAt={purchasedAt}
+        mobileTimeline={!admin}
       />
 
-      {/* 3. Products List in Order */}
+      {/* 3. Financial Summary / Receipt Box */}
+      <Card className="space-y-4">
+        <h3 className="font-semibold">{t("Chi tiết dòng tiền & Tích lũy")}</h3>
+        <div className="space-y-2.5 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-muted-foreground">{t("Tổng giá trị mua hàng:")}</span>
+            <span className="font-semibold tabular-nums">{formatVnd(computedTotal)}</span>
+          </div>
+          {!admin && (
+            <div className="flex items-center justify-between gap-3 border-t pt-2.5">
+              <span className="text-muted-foreground">{t("Trạng thái hoa hồng")}</span>
+              <StatusBadge domain="commission" status={commissionState} />
+            </div>
+          )}
+          <div className="flex items-center justify-between">
+            <span className="text-muted-foreground">{t("Tỷ lệ tích lũy Piggy Back:")}</span>
+            <span className="text-primary font-semibold tabular-nums">{ratePercent}</span>
+          </div>
+          <div className="flex items-center justify-between border-t pt-2.5">
+            <span className="font-semibold">
+              {cashbackState === "AVAILABLE"
+                ? endUser("cashbackConfirmed")
+                : endUser("cashbackExpected")}
+            </span>
+            <span className="text-success text-lg font-bold tabular-nums">
+              {cashbackAmount === "—" ? "—" : `+${formatVnd(cashbackAmount)}`}
+            </span>
+          </div>
+        </div>
+
+        {/* Withdrawal prompt */}
+        {cashbackState === "AVAILABLE" && (
+          <div className="bg-success-soft border-success/30 flex items-center justify-between rounded-xl border p-3">
+            <div className="flex items-center gap-2">
+              <Wallet className="text-success size-5" />
+              <span className="text-success text-xs font-semibold">
+                {endUser("walletBalanceHint")}
+              </span>
+            </div>
+            <Link
+              href="/app/wallet"
+              className="bg-success text-success-foreground hover:bg-success/90 inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold shadow-xs"
+            >
+              {endUser("viewWallet")}
+            </Link>
+          </div>
+        )}
+
+        {/* Policy Explainer Callout */}
+        <div className="bg-muted/50 text-muted-foreground flex gap-2.5 rounded-xl p-3.5 text-xs leading-relaxed">
+          <ShieldCheck className="text-primary mt-0.5 size-4 shrink-0" />
+          <p>
+            <strong>{t("Chính sách đối soát:")}</strong> {endUser("estimateNote")}
+          </p>
+        </div>
+      </Card>
+
+      {/* 4. Products List in Order */}
       <Card className="space-y-4">
         <div className="flex items-center justify-between border-b pb-3">
           <div className="flex items-center gap-2">
@@ -412,56 +561,6 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
               </div>
             );
           })}
-        </div>
-      </Card>
-
-      {/* 4. Financial Summary / Receipt Box */}
-      <Card className="space-y-4">
-        <h3 className="font-semibold">{t("Chi tiết dòng tiền & Tích lũy")}</h3>
-        <div className="space-y-2.5 text-sm">
-          <div className="flex items-center justify-between">
-            <span className="text-muted-foreground">{t("Tổng giá trị mua hàng:")}</span>
-            <span className="font-semibold tabular-nums">{formatVnd(computedTotal)}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-muted-foreground">{t("Tỷ lệ tích lũy Piggy Back:")}</span>
-            <span className="text-primary font-semibold tabular-nums">{ratePercent}</span>
-          </div>
-          <div className="flex items-center justify-between border-t pt-2.5">
-            <span className="font-semibold">{t("Tiền hoàn thực nhận:")}</span>
-            <span className="text-success text-lg font-bold tabular-nums">
-              +{formatVnd(cashbackAmount === "—" ? "0" : cashbackAmount)}
-            </span>
-          </div>
-        </div>
-
-        {/* Withdrawal prompt */}
-        {cashbackState === "AVAILABLE" && (
-          <div className="bg-success-soft border-success/30 flex items-center justify-between rounded-xl border p-3">
-            <div className="flex items-center gap-2">
-              <Wallet className="text-success size-5" />
-              <span className="text-success text-xs font-semibold">
-                {t("Số tiền này đã sẵn sàng rút về tài khoản ngân hàng của bạn!")}
-              </span>
-            </div>
-            <Link
-              href="/app/withdrawals/new"
-              className="bg-success text-success-foreground hover:bg-success/90 inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold shadow-xs"
-            >
-              {t("Rút tiền ngay")}
-            </Link>
-          </div>
-        )}
-
-        {/* Policy Explainer Callout */}
-        <div className="bg-muted/50 text-muted-foreground flex gap-2.5 rounded-xl p-3.5 text-xs leading-relaxed">
-          <ShieldCheck className="text-primary mt-0.5 size-4 shrink-0" />
-          <p>
-            <strong>{t("Chính sách đối soát:")}</strong>{" "}
-            {t(
-              "Hoa hồng đơn hàng từ Shopee & TikTok Shop cần thời gian đối soát từ 30 đến 45 ngày để xác nhận hoàn tất (không đổi trả hoặc phát sinh khiếu nại). Sau khi sàn hoàn tất quyết toán, tiền sẽ tự động chuyển sang trạng thái 'Có thể rút'.",
-            )}
-          </p>
         </div>
       </Card>
 

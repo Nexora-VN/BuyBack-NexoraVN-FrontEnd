@@ -1,15 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { LoaderCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
-import LanguageSwitcher from "@/components/locale/language-switcher";
 import { Button } from "@/components/ui/button";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { useAuth } from "@/modules/auth/components/auth-provider";
@@ -40,6 +38,7 @@ function GoogleIcon({ className }: { className?: string }) {
 
 function LoginContent() {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
   const router = useRouter();
   const searchParams = useSearchParams();
   const clerk = useClerk();
@@ -112,14 +111,12 @@ function LoginContent() {
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10">
       <header className="mb-7 text-center lg:text-left">
-        <Image
-          src="/logo.png"
-          alt="Piggy Back"
-          width={68}
-          height={68}
-          className="mx-auto mb-4 size-[68px] object-contain lg:hidden"
-        />
-        <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl">{t("Chào mừng trở lại")}</h1>
+        <div className="mb-5 text-xl font-extrabold tracking-tight lg:hidden">
+          Piggy <span className="text-primary">Back</span>
+        </div>
+        <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl">
+          {t("Chào mừng trở lại")}
+        </h1>
         <p className="text-muted-foreground mt-2 text-sm leading-6">
           {t("Đăng nhập để mua sắm hoàn tiền cùng Piggy nhé")}
         </p>
@@ -129,7 +126,7 @@ function LoginContent() {
       {isSyncing ? (
         <div className="border-primary/20 bg-primary/5 text-primary mb-6 flex items-center justify-center gap-3 rounded-2xl border p-4 text-sm font-medium">
           <LoaderCircle className="size-5 animate-spin" />
-          <span>Sắp tới rồi, bạn chờ Piggy tí nhé .....</span>
+          <span>{endUser("loginSyncing")}</span>
         </div>
       ) : (
         <div className="bg-card soft-shadow rounded-2xl border p-5 sm:p-7">
@@ -148,7 +145,7 @@ function LoginContent() {
               ) : (
                 <GoogleIcon />
               )}
-              <span>Đăng nhập với Google</span>
+              <span>{endUser("loginGoogle")}</span>
             </Button>
 
             {/* <Button
@@ -199,9 +196,6 @@ export default function LoginPage() {
     <main className="bg-background grid min-h-dvh lg:grid-cols-2">
       <LoginBenefits />
       <section className="flex flex-col px-5 py-6 sm:px-8 lg:px-12">
-        <div className="flex justify-end">
-          <LanguageSwitcher />
-        </div>
         <Suspense
           fallback={
             <div className="mx-auto flex w-full max-w-md flex-1 items-center justify-center py-10">

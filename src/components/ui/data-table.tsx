@@ -13,11 +13,13 @@ export function DataTable<T>({
   rows,
   rowKey,
   mobileRender,
+  mobileGroup = false,
 }: {
   columns: Column<T>[];
   rows: T[];
   rowKey: (row: T) => string;
   mobileRender?: (row: T) => React.ReactNode;
+  mobileGroup?: boolean;
 }) {
   const t = useCopy();
   if (!rows.length)
@@ -68,9 +70,18 @@ export function DataTable<T>({
           </table>
         </div>
       </div>
-      <div className="space-y-3 lg:hidden">
+      <div
+        className={
+          mobileGroup
+            ? "bg-card divide-y overflow-hidden rounded-2xl border lg:hidden"
+            : "space-y-3 lg:hidden"
+        }
+      >
         {rows.map((row) => (
-          <article key={rowKey(row)} className="bg-card min-w-0 rounded-2xl border p-4">
+          <article
+            key={rowKey(row)}
+            className={mobileGroup ? "min-w-0 p-4" : "bg-card min-w-0 rounded-2xl border p-4"}
+          >
             {mobileRender ? (
               mobileRender(row)
             ) : (

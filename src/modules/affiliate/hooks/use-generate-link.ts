@@ -1,5 +1,6 @@
 "use client";
 import { useCopy } from "@/i18n/use-copy";
+import { useTranslations } from "next-intl";
 
 import { affiliateService } from "@/modules/affiliate/services/affiliate.service";
 import type { GenerateAffiliateResponse } from "@/modules/affiliate/types/affiliate";
@@ -17,6 +18,7 @@ const shopeeHosts = [
 ];
 export function useGenerateLink() {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
 
   const [formError, setFormError] = useState("");
   const [url, setUrl] = useState("");
@@ -44,11 +46,11 @@ export function useGenerateLink() {
         (parsed.port && parsed.port !== "443") ||
         !["https:"].includes(parsed.protocol)
       ) {
-        toast.error(t.error("Chỉ hỗ trợ link Shopee hợp lệ"));
+        toast.error(endUser("shopeeOnly"));
         return;
       }
     } catch {
-      toast.error(t.error("Link không hợp lệ"));
+      toast.error(endUser("invalidLink"));
       return;
     }
     const requestRevision = revision.current;

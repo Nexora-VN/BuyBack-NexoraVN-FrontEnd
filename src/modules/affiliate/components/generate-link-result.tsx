@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Check, Copy, ExternalLink, ImageOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import type { GenerateLinkState } from "../hooks/use-generate-link";
 const money = new Intl.NumberFormat("vi-VN", {
@@ -13,6 +14,7 @@ function formatAmount(value: string | null | undefined) {
 }
 
 export function GenerateLinkResult({ state }: { state: GenerateLinkState }) {
+  const endUser = useTranslations("EndUser");
   const { t, result, loading, product, imageFailed, setImageFailed, copy } = state;
   return (
     <div aria-live="polite" aria-busy={loading}>
@@ -56,15 +58,18 @@ export function GenerateLinkResult({ state }: { state: GenerateLinkState }) {
             </div>
           </div>
           <div className="my-5 rounded-xl bg-white p-4">
-            <p className="text-sm font-medium">{t("Số tiền được hoàn lại lên tới")}</p>
-            {/* Use the provider commission directly; this is not a calculated user cashback share. */}
-            <p className="text-primary mt-1 text-4xl font-bold break-words">
-              {formatAmount(product?.commission) ?? t("Chưa có thông tin hoa hồng")}
-            </p>
+            <p className="text-sm font-medium">{endUser("estimatedCashback")}</p>
+            {formatAmount(result.estimatedUserCashbackVnd) ? (
+              <p className="text-primary mt-1 text-4xl font-bold break-words">
+                {formatAmount(result.estimatedUserCashbackVnd)}
+              </p>
+            ) : (
+              <p className="text-muted-foreground mt-1 font-semibold">
+                {endUser("estimateUnavailable")}
+              </p>
+            )}
             <p className="text-muted-foreground mt-2 text-xs leading-5">
-              {t(
-                "Lưu ý nhỏ nhỏ: Đây là tham khảo, con số chính xác sẽ có sau khi Shopee, TikTok xác nhận nhé..",
-              )}
+              {endUser("estimateNote")}
             </p>
           </div>
           <div className="flex flex-col gap-3 xl:flex-row">
