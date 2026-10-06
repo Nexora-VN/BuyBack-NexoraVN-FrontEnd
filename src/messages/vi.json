@@ -578,6 +578,10 @@
     "helpStepOne": "Nếu sản phẩm đã có trong giỏ, hãy xóa sản phẩm đó.",
     "helpStepTwo": "Tạo link tại Piggy Back và nhấn “Mua ngay”.",
     "helpStepThree": "Thêm sản phẩm vào giỏ và đặt hàng qua link vừa mở.",
-    "helpNote": "Tiền hoàn phụ thuộc vào trạng thái đơn hàng và kết quả đối soát của Shopee."
+    "helpNote": "Tiền hoàn phụ thuộc vào trạng thái đơn hàng và kết quả đối soát của Shopee.",
+    "guideButton": "Hướng dẫn lấy link",
+    "guideButtonShort": "Hướng dẫn",
+    "howToGetLink": "Cách lấy link?",
+    "guideDialogTitle": "Hướng dẫn lấy link & mua sắm hoàn tiền"
   }
 }

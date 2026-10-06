@@ -39,7 +39,7 @@ export function Page({
             </Button>
           )}
           <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
+            <div className={cn("flex flex-wrap items-center gap-2", detail && "min-h-11")}>
               <h1 className="text-xl font-bold tracking-tight lg:text-3xl">{t(title)}</h1>
               {badge}
             </div>

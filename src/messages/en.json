@@ -578,6 +578,10 @@
     "helpStepOne": "Remove the product if it is already in your cart.",
     "helpStepTwo": "Create a link in Piggy Back and select Buy now.",
     "helpStepThree": "Add the product to your cart and check out through the opened link.",
-    "helpNote": "Cashback depends on order status and Shopee's reconciliation."
+    "helpNote": "Cashback depends on order status and Shopee's reconciliation.",
+    "guideButton": "How to get link",
+    "guideButtonShort": "Guide",
+    "howToGetLink": "How to get link?",
+    "guideDialogTitle": "How to get link & earn cashback"
   }
 }

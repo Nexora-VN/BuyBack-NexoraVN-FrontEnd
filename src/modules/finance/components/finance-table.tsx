@@ -26,6 +26,7 @@ export function FinanceTable({
   initialStatus,
   scope,
   mobileRender,
+  mobileHref,
   mobileStatusChips,
   hideMobileControls = false,
   emptyMobileDescription,
@@ -44,6 +45,7 @@ export function FinanceTable({
   initialStatus?: string;
   scope?: string;
   mobileRender?: (row: FinanceRow) => ReactNode;
+  mobileHref?: (row: FinanceRow) => string | undefined;
   mobileStatusChips?: { label: string; value: string }[];
   hideMobileControls?: boolean;
   emptyMobileDescription?: string;
@@ -210,6 +212,7 @@ export function FinanceTable({
           rows={query.data.data}
           rowKey={(r) => r.id}
           mobileRender={mobileRender}
+          mobileHref={mobileHref}
           mobileGroup={mobileGroup}
         />
       )}

@@ -224,6 +224,9 @@ button:disabled {
   border-top: 1px solid var(--border);
   padding: 8px 8px max(8px, env(safe-area-inset-bottom));
 }
+body:has(.app-bottom-nav) .install-home-button {
+  bottom: calc(84px + env(safe-area-inset-bottom));
+}
 body:has([role="dialog"][data-state="open"]) .app-bottom-nav {
   visibility: hidden;
 }

@@ -20,4 +20,3 @@ export function generateUUID(): string {
 }
 
 export const requestId = (value?: unknown) => (validRequestId(value) ? value : generateUUID());
-

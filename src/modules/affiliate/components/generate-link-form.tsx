@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CircleX, ClipboardPaste, Link2, LoaderCircle } from "lucide-react";
+import { CircleHelp, CircleX, ClipboardPaste, Link2, LoaderCircle } from "lucide-react";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -10,7 +10,13 @@ import { toast } from "sonner";
 import { ApiErrorNotice } from "@/components/errors/api-error-notice";
 import type { GenerateLinkState } from "../hooks/use-generate-link";
 
-export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
+export function GenerateLinkForm({
+  state,
+  onOpenGuide,
+}: {
+  state: GenerateLinkState;
+  onOpenGuide?: () => void;
+}) {
   const endUser = useTranslations("EndUser");
   const { t, formError, url, loading, changeUrl, generate } = state;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,10 +48,23 @@ export function GenerateLinkForm({ state }: { state: GenerateLinkState }) {
   return (
     <>
       <form onSubmit={generate}>
-        <label htmlFor="shopee-url" className="text-sm font-semibold">
-          {endUser("linkLabel")}
-        </label>
-        <div className="mt-2 flex flex-col gap-3">
+        <div className="mb-2 flex items-center">
+          <label htmlFor="shopee-url" className="sr-only">
+            {endUser("linkLabel")}
+          </label>
+          {onOpenGuide && (
+            <button
+              type="button"
+              onClick={onOpenGuide}
+              className="text-primary inline-flex cursor-pointer items-center gap-1.5 text-xs font-semibold hover:underline"
+              title={endUser("guideButton")}
+            >
+              <CircleHelp className="size-4" />
+              <span>{endUser("howToGetLink")}</span>
+            </button>
+          )}
+        </div>
+        <div className="flex flex-col gap-3">
           <div className="relative flex-1">
             <Link2
               className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"

@@ -2,10 +2,11 @@
 import { useCopy } from "@/i18n/use-copy";
 
 import { Button } from "@/components/ui/button";
+import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
 import { Page } from "@/components/ui/page";
 import { Link } from "@/i18n/navigation";
 import { toast } from "sonner";
-import { FinanceTable, text } from ".././finance-ui";
+import { FinanceTable, read, text } from ".././finance-ui";
 
 export function LinkHistoryPage() {
   const t = useCopy();
@@ -22,8 +23,31 @@ export function LinkHistoryPage() {
       <FinanceTable
         path="me/affiliate-links"
         searchLabel="Tìm URL gốc"
+        extraColumns={[
+          {
+            key: "product",
+            label: t("Sản phẩm"),
+            mobilePrimary: true,
+            render: (row) => {
+              const name = text(row, "product.productName");
+              const productName = name === "—" ? t("Sản phẩm Shopee") : name;
+              const imageUrl = read(row, "product.imageUrl");
+              return (
+                <div className="flex min-w-0 items-start gap-3">
+                  <ProductThumbnail
+                    src={typeof imageUrl === "string" ? imageUrl : null}
+                    name={productName}
+                    className="size-16 shrink-0 lg:size-14"
+                  />
+                  <p className="min-w-0 flex-1 leading-snug font-semibold break-words">
+                    {productName}
+                  </p>
+                </div>
+              );
+            },
+          },
+        ]}
         specs={[
-          ["product.productName", t("Sản phẩm")],
           ["affiliateLinkStatus", t("Trạng thái"), "status"],
           ["createdAt", t("Ngày tạo"), "date"],
         ]}

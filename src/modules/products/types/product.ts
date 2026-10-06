@@ -34,3 +34,27 @@ export type ProductInput = Omit<
   "id" | "price" | "commission" | "sellerComFinal" | "shoppeComFinal"
 > & { price: number; commission: number; sellerComFinal: number; shoppeComFinal: number };
 export type ProductList = PaginatedResponse<Product>;
+
+export interface CatalogProduct {
+  itemId: string;
+  shopId: string;
+  productName: string;
+  shopName: string;
+  price: string;
+  imageUrl: string;
+  productUrl: string;
+  rating: string;
+  sales: number;
+  isExtra: boolean;
+  lastUpdate: string;
+  dataStatus: "current" | "saved";
+  estimatedUserCashbackVnd: string | null;
+  priceStats: {
+    minPrice: string;
+    maxPrice: string;
+    avgPrice: string;
+    priceChange7d: string;
+    priceChange30d: string;
+    lastPriceUpdate: string;
+  } | null;
+}

@@ -3,6 +3,7 @@ import { SettlementEligibility } from "../settlement-eligibility";
 import { useCopy } from "@/i18n/use-copy";
 
 import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
+import { productItemId } from "@/modules/products/utils/product-item-id";
 import { Card } from "@/components/ui/card";
 import { Page } from "@/components/ui/page";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -448,7 +449,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
             </div>
             <Link
               href="/app/wallet"
-              className="bg-success text-success-foreground hover:bg-success/90 inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold shadow-xs"
+              className="bg-success hover:bg-success/90 inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold text-white shadow-xs"
             >
               {endUser("viewWallet")}
             </Link>
@@ -499,6 +500,10 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
               read(item, "item_url") ||
               read(item, "payload.item_url")) as string | null;
             const qty = Number(read(item, "qty") ?? 1);
+            const catalogItemId = productItemId(
+              read(item, "itemId") ?? read(item, "payload.item_id"),
+              itemUrl,
+            );
             const itemStatus = text(item, "status");
             const commissionStatus = text(item, "commissionStatus");
 
@@ -527,16 +532,26 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
                         {itemPriceVnd === 0n ? t("0 đ (Quà tặng)") : formatVnd(itemPriceVnd)}
                       </strong>
                     </span>
-                    {itemUrl && (
-                      <a
-                        href={itemUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-primary/80 inline-flex items-center gap-1 font-medium underline"
+                    {!admin && catalogItemId ? (
+                      <Link
+                        href={`/app/products/${catalogItemId}?order=${encodeURIComponent(id)}`}
+                        className="text-primary hover:text-primary/80 inline-flex min-h-8 items-center gap-1 font-medium underline"
                       >
-                        {t("Xem trên sàn")}
-                        <ExternalLink className="size-3" />
-                      </a>
+                        {t("Xem sản phẩm")}
+                        <ChevronRight className="size-3" />
+                      </Link>
+                    ) : (
+                      itemUrl && (
+                        <a
+                          href={itemUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:text-primary/80 inline-flex items-center gap-1 font-medium underline"
+                        >
+                          {t("Xem trên sàn")}
+                          <ExternalLink className="size-3" />
+                        </a>
+                      )
                     )}
                   </div>
 

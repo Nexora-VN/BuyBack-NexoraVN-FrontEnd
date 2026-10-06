@@ -142,6 +142,79 @@ describe("GenerateLinkPage", () => {
     expect(input).toHaveValue("");
     expect(screen.queryByRole("button", { name: "Xóa link" })).not.toBeInTheDocument();
   });
+
+  it("displays Shopee and Shopee Extra rates and opens the price explainer dialog on click", async () => {
+    vi.mocked(affiliateService.generate).mockResolvedValueOnce({
+      ...response,
+      estimatedUserCashbackVnd: "3881",
+      product: {
+        ...response.product,
+        price: "64699",
+        shopeeRatePercent: 2.5,
+        sellerRatePercent: 5,
+        totalRatePercent: 7.5,
+        isExtra: true,
+      },
+    });
+    render(<GenerateLinkPage />);
+    submit();
+    expect(await screen.findByText("2.5%")).toBeInTheDocument();
+    expect(screen.getByText("5%")).toBeInTheDocument();
+    expect(screen.getByText("Extra")).toBeInTheDocument();
+
+    const explainerTrigger = screen.getByRole("button", {
+      name: /Shopee hoàn.*Shopee Extra hoàn/i,
+    });
+    fireEvent.click(explainerTrigger);
+
+    expect(await screen.findByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByText("Giải thích các loại giá & hoàn tiền")).toBeInTheDocument();
+    expect(screen.getByText("1. Giá sản phẩm (Giá niêm yết)")).toBeInTheDocument();
+    expect(screen.getByText("2. Shopee hoàn (%)")).toBeInTheDocument();
+    expect(screen.getByText("3. Shopee Extra hoàn (%)")).toBeInTheDocument();
+    expect(screen.getByText("4. Tiền hoàn ước tính (Cashback nhận về)")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Đã hiểu" }));
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  it("opens the guide slider dialog and allows navigating through step slides", async () => {
+    render(<GenerateLinkPage />);
+    const guideBtn = screen.getByRole("button", { name: /Cách lấy link\?/i });
+    fireEvent.click(guideBtn);
+
+    expect(await screen.findByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByText("Hướng dẫn lấy link & mua sắm hoàn tiền")).toBeInTheDocument();
+    expect(screen.getByText("Xóa giỏ hàng & Sao chép link Shopee")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Hướng dẫn xóa giỏ hàng/i })).toHaveAttribute(
+      "src",
+      "/guide/1.png",
+    );
+
+    // Click Next to slide 2
+    fireEvent.click(screen.getByRole("button", { name: "Tiếp theo" }));
+    expect(screen.getByText("Dán link vào Piggy & Bấm “Mua ngay”")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Hướng dẫn dán link/i })).toHaveAttribute(
+      "src",
+      "/guide/2.png",
+    );
+
+    // Jump to step 4
+    fireEvent.click(screen.getByRole("button", { name: "Chuyển đến Tổng kết" }));
+    expect(screen.getByText("Quy trình trọn gói & Lưu ý quan trọng")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Tổng hợp 4 bước/i })).toHaveAttribute(
+      "src",
+      "/guide/4.png",
+    );
+
+    // Finish
+    fireEvent.click(screen.getByRole("button", { name: "Đã hiểu, tạo link" }));
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
 });
 
 it("renders the shopping flow in English", async () => {

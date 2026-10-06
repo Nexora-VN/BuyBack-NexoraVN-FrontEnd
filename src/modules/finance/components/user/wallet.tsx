@@ -37,9 +37,21 @@ import { UserWalletSkeleton } from "./user-skeletons";
 
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function SourceContext({ source }: { source?: TransactionSource }) {
+function orderHref(source?: TransactionSource) {
+  if (source?.orders && source.orders.length > 1) return undefined;
+  const id = source?.order?.id || source?.orders?.[0]?.id;
+  return id ? `/app/orders/${encodeURIComponent(id)}` : undefined;
+}
+
+function SourceContext({
+  source,
+  linkOrder = false,
+}: {
+  source?: TransactionSource;
+  linkOrder?: boolean;
+}) {
   const t = useCopy();
-  const order = source?.order;
+  const order = source?.order ?? source?.orders?.[0];
   const orders = source?.orders;
   const withdrawal = source?.withdrawal;
   if (orders && orders.length > 1) {
@@ -51,7 +63,11 @@ function SourceContext({ source }: { source?: TransactionSource }) {
         {orders.map((item) => {
           const orderSn = item.orderSn && !uuidPattern.test(item.orderSn) ? item.orderSn : null;
           return (
-            <p className="break-words" key={item.id}>
+            <Link
+              href={`/app/orders/${encodeURIComponent(item.id)}`}
+              className="hover:text-primary block rounded-md py-1 break-words underline decoration-dotted underline-offset-4"
+              key={item.id}
+            >
               {[item.productName, item.platform].filter(Boolean).join(" · ")}
               {orderSn && (
                 <>
@@ -59,7 +75,7 @@ function SourceContext({ source }: { source?: TransactionSource }) {
                   {t("Mã đơn hàng")}: {orderSn}
                 </>
               )}
-            </p>
+            </Link>
           );
         })}
       </div>
@@ -67,7 +83,7 @@ function SourceContext({ source }: { source?: TransactionSource }) {
   }
   if (order) {
     const orderSn = order.orderSn && !uuidPattern.test(order.orderSn) ? order.orderSn : null;
-    return (
+    const content = (
       <div className="text-muted-foreground min-w-0 space-y-0.5 text-xs">
         {order.productName && <p className="line-clamp-2 break-words">{order.productName}</p>}
         {(orderSn || order.platform) && (
@@ -82,6 +98,17 @@ function SourceContext({ source }: { source?: TransactionSource }) {
           </p>
         )}
       </div>
+    );
+    const href = orderHref(source);
+    return linkOrder && href ? (
+      <Link
+        href={href}
+        className="hover:text-primary block rounded-md underline decoration-dotted underline-offset-4"
+      >
+        {content}
+      </Link>
+    ) : (
+      content
     );
   }
   if (withdrawal) {
@@ -117,7 +144,7 @@ function WalletEvent({ row }: { row: WalletTransactionRow }) {
       </span>
       <div className="min-w-0 space-y-1">
         <p className="font-semibold break-words">{label}</p>
-        <SourceContext source={row.source} />
+        <SourceContext source={row.source} linkOrder />
       </div>
     </div>
   );
@@ -190,7 +217,7 @@ function CashbackEvent({ row }: { row: CashbackRow }) {
       </span>
       <div className="min-w-0 space-y-1">
         <p className="font-semibold">{t("Hoàn tiền đơn hàng")}</p>
-        <SourceContext source={row.source} />
+        <SourceContext source={row.source} linkOrder />
       </div>
     </div>
   );
@@ -234,6 +261,7 @@ export function CashbackPage() {
     >
       <FinanceTable
         path="me/cashbacks"
+        mobileHref={(row) => orderHref((row as CashbackRow).source)}
         searchLabel="Mã đơn hàng"
         states={["PENDING", "VALIDATED", "AVAILABLE", "REJECTED", "REVERSED"]}
         hideMobileControls
@@ -369,6 +397,7 @@ export function WalletPage() {
       </h2>
       <FinanceTable
         path="me/wallet/transactions"
+        mobileHref={(row) => orderHref((row as WalletTransactionRow).source)}
         hideMobileControls
         mobileGroup
         mobileRender={(row) => <WalletTransactionMobile row={row as WalletTransactionRow} />}

@@ -1,4 +1,3 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Be_Vietnam_Pro } from "next/font/google";
@@ -20,17 +19,13 @@ export const metadata: Metadata = {
     template: "%s | Piggy Back",
   },
   description: "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Back.",
+  appleWebApp: { capable: true, title: "Piggy Back", statusBarStyle: "default" },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
     apple: "/apple-icon.png",
   },
 };
-
-const publishableKey =
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-  process.env.CLERK_PUBLISHABLE_KEY ||
-  "pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk";
 
 export default async function RootLayout({
   children,
@@ -41,9 +36,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={beVietnamPro.variable}>
-        <ClerkProvider publishableKey={publishableKey}>{children}</ClerkProvider>
-      </body>
+      <body className={beVietnamPro.variable}>{children}</body>
     </html>
   );
 }

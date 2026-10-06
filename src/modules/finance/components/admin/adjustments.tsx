@@ -33,8 +33,7 @@ export function ManualAdjustmentsPage() {
           })}
           transform={(v) => {
             const payload = JSON.stringify(v);
-            if (key.current?.payload !== payload)
-              key.current = { payload, id: generateUUID() };
+            if (key.current?.payload !== payload) key.current = { payload, id: generateUUID() };
             return { ...v, idempotencyKey: key.current.id };
           }}
           onSuccess={() => {

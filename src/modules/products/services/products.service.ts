@@ -1,6 +1,13 @@
 import { apiClient } from "@/lib/api/client";
-import type { Product, ProductInput, ProductList } from "@/modules/products/types/product";
+import type {
+  CatalogProduct,
+  Product,
+  ProductInput,
+  ProductList,
+} from "@/modules/products/types/product";
 export const productsService = {
+  catalogDetail: (itemId: string) =>
+    apiClient.get<CatalogProduct>(`/api/backend/catalog/products/${encodeURIComponent(itemId)}`),
   list: (params: {
     page: number;
     limit: number;

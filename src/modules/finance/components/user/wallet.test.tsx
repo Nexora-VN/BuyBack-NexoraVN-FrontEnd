@@ -50,6 +50,11 @@ it("shows cashback as an order with product context in English without a commiss
   expect(view.container.textContent).toContain("Cashback history");
   expect(view.container.textContent).not.toContain("f182b7e4-5310-469c-934d-60190acc1234");
   expect(view.container.textContent).not.toContain("Hoa hồng");
+  const cardLink = view.container.querySelector("article > a");
+  expect(cardLink).toHaveAttribute("href", "/app/orders/order-id");
+  expect(cardLink).toHaveTextContent("Blue jacket");
+  expect(cardLink).toHaveTextContent("12.500 ₫");
+  expect(view.container.querySelector("a a")).toBeNull();
 });
 
 it("shows every order when one cashback belongs to a multi-order checkout", async () => {
@@ -93,6 +98,12 @@ it("shows every order when one cashback belongs to a multi-order checkout", asyn
   expect(view.container.textContent).toContain("Blue jacket");
   expect(view.container.textContent).toContain("Red shoes");
   expect(view.container.textContent).toContain("TikTok Shop");
+  expect(view.container.querySelector("article > a")).toBeNull();
+  for (const link of screen.getAllByRole("link", { name: /Blue jacket/ }))
+    expect(link).toHaveAttribute("href", "/app/orders/first");
+  for (const link of screen.getAllByRole("link", { name: /Red shoes/ }))
+    expect(link).toHaveAttribute("href", "/app/orders/second");
+  expect(view.container.querySelector("a a")).toBeNull();
 });
 
 it("shows localized wallet events and signed balance movements without raw enums", async () => {
@@ -132,6 +143,11 @@ it("shows localized wallet events and signed balance movements without raw enums
   expect(view.container.textContent).not.toContain("CASHBACK_REVERSAL");
   expect(view.container.textContent).not.toContain("Số tiền chờ xác nhận");
   expect(view.container.textContent).not.toContain("Đang giữ cho yêu cầu rút");
+  const cardLink = view.container.querySelector("article > a");
+  expect(cardLink).toHaveAttribute("href", "/app/orders/order-id");
+  expect(cardLink).toHaveTextContent("Cashback reversed");
+  expect(cardLink).toHaveTextContent("−2.500 ₫");
+  expect(view.container.querySelector("a a")).toBeNull();
 });
 
 it("uses a generic localized label for unknown wallet event types", async () => {
@@ -158,6 +174,7 @@ it("uses a generic localized label for unknown wallet event types", async () => 
   const view = renderUI(<WalletPage />, "vi");
   await screen.findAllByText("Giao dịch ví");
   expect(view.container.textContent).not.toContain("FUTURE_EVENT");
+  expect(view.container.querySelector("article a")).toBeNull();
 });
 
 it("names withdrawal movements and shows bank details without a raw order UUID", async () => {
