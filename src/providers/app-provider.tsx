@@ -1,6 +1,7 @@
 "use client";
 
 import { NextIntlClientProvider } from "next-intl";
+import { usePathname } from "next/navigation";
 import { useEffect, type ComponentProps } from "react";
 
 import { AppErrorBoundary, RuntimeErrors } from "@/components/errors/runtime-errors";
@@ -19,22 +20,28 @@ type AppProviderProps = Readonly<{
 }>;
 
 export default function AppProvider({ children, locale, messages }: AppProviderProps) {
+  const pathname = usePathname();
+  const isPublicLanding = pathname === "/" || pathname === "/vi" || pathname === "/en";
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
-      <QueryProvider>
-        <AppErrorBoundary>
-          <RuntimeErrors />
-          <AuthProvider>
-            {children}
-            <InstallHomeButton />
-          </AuthProvider>
-        </AppErrorBoundary>
-        <Toaster richColors position="top-right" />
-      </QueryProvider>
+      {isPublicLanding ? (
+        children
+      ) : (
+        <QueryProvider>
+          <AppErrorBoundary>
+            <RuntimeErrors />
+            <AuthProvider>
+              {children}
+              <InstallHomeButton />
+            </AuthProvider>
+          </AppErrorBoundary>
+          <Toaster richColors position="top-right" />
+        </QueryProvider>
+      )}
     </NextIntlClientProvider>
   );
 }

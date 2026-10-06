@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   },
   description: "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Back.",
   appleWebApp: { capable: true, title: "Piggy Back", statusBarStyle: "default" },
+  robots: { index: false, follow: false },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
