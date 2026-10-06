@@ -131,7 +131,7 @@ export function NewWithdrawalPage() {
                     )}
                   </label>
                   <label className="block space-y-2">
-                    <span>{t("Tài khoản đã duyệt")}</span>
+                    <span>Nơi nhận tiền đã duyệt</span>
                     <Select
                       value={bankId}
                       aria-invalid={!!errors.bankId}
@@ -155,7 +155,7 @@ export function NewWithdrawalPage() {
                   </label>
                   {!banks.data?.data.length && (
                     <Link href="/app/account" className="text-primary block text-sm underline">
-                      {t("Thêm tài khoản ngân hàng để tiếp tục")}
+                      Thêm ngân hàng hoặc MoMo để tiếp tục
                     </Link>
                   )}
                 </>
@@ -168,7 +168,7 @@ export function NewWithdrawalPage() {
                       <dd className="text-2xl font-bold">{formatVnd(amount)}</dd>
                     </div>
                     <div>
-                      <dt className="text-muted-foreground text-sm">{t("Ngân hàng nhận")}</dt>
+                      <dt className="text-muted-foreground text-sm">Nơi nhận tiền</dt>
                       <dd>
                         {text(bank, "bankName")} · ****{text(bank, "lastFour")}
                       </dd>

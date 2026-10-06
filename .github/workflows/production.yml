@@ -3,6 +3,11 @@ name: Frontend Production
 on:
   push:
     branches: [main]
+  workflow_call:
+    inputs:
+      revision:
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -21,6 +26,8 @@ jobs:
       NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -45,6 +52,8 @@ jobs:
       image: ${{ steps.publish.outputs.image }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
       - name: Log in to GHCR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,7 +63,7 @@ jobs:
         id: publish
         env:
           REPOSITORY: ${{ github.repository }}
-          REVISION: ${{ github.sha }}
+          REVISION: ${{ inputs.revision || github.sha }}
           GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
         run: |
           set -euo pipefail
@@ -73,12 +82,14 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
       - name: Deploy frontend on production VPS
         env:
           DEPLOY_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           KNOWN_HOSTS: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
           IMAGE: ${{ needs.publish.outputs.image }}
-          REVISION: ${{ github.sha }}
+          REVISION: ${{ inputs.revision || github.sha }}
           RUN_NUMBER: ${{ github.run_number }}
         run: |
           set -euo pipefail

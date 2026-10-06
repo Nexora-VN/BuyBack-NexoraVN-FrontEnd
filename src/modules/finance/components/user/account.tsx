@@ -12,19 +12,12 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { toast } from "sonner";
-import { ChevronRight, Landmark, Link2, LogOut } from "lucide-react";
+import { ChevronRight, Landmark, Link2, LogOut, Wallet } from "lucide-react";
 import { useRefreshFinance } from "../../hooks/use-finance";
-import { bankSchema } from "../../schemas/finance";
 import { financeService } from "../../services/finance";
 import type { FinanceRow } from "../../types/finance";
-import { ActionDialog, FinanceTable, MutationForm, text } from ".././finance-ui";
-
-export const bankFields = [
-  { name: "bankCode", label: "Mã ngân hàng" },
-  { name: "bankName", label: "Tên ngân hàng" },
-  { name: "accountHolder", label: "Tên chủ tài khoản" },
-  { name: "accountNumber", label: "Số tài khoản" },
-];
+import { ActionDialog, FinanceTable, text } from ".././finance-ui";
+import { BankAccountForm } from "./bank-account-form";
 
 export function AccountPage() {
   const t = useCopy();
@@ -59,19 +52,11 @@ export function AccountPage() {
   }
   const bankActions = (row: FinanceRow) => (
     <div className="flex flex-wrap gap-2">
-      <ActionDialog label="Sửa">
-        <MutationForm
-          title={t("Tạo phiên bản tài khoản mới")}
-          successMessage="Đã cập nhật tài khoản ngân hàng"
-          path={"me/bank-accounts/" + row.id}
-          method="patch"
-          fields={bankFields}
-          schema={bankSchema}
-          initialValues={{
-            bankCode: text(row, "bankCode"),
-            bankName: text(row, "bankName"),
-            accountHolder: text(row, "accountHolder"),
-          }}
+      <ActionDialog label="Sửa" title="Sửa nơi nhận tiền">
+        <BankAccountForm
+          id={row.id}
+          initialBankCode={text(row, "bankCode")}
+          initialBankName={text(row, "bankName")}
         />
       </ActionDialog>
       <Button variant="outline" disabled={removing !== null} onClick={() => void remove(row.id)}>
@@ -92,22 +77,16 @@ export function AccountPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-muted-foreground lg:text-foreground text-xs font-bold tracking-wide uppercase lg:text-lg lg:normal-case">
-            {t("Tài khoản ngân hàng")}
+            Nơi nhận tiền
           </h2>
           <p className="text-muted-foreground mt-1 hidden max-w-2xl text-sm leading-6 lg:block">
             {t(
-              "Thông tin ngân hàng được bảo vệ. Tài khoản mới hoặc chỉnh sửa cần được duyệt trước khi rút tiền.",
+              "Thông tin nhận tiền được bảo vệ. Tài khoản mới hoặc chỉnh sửa cần được duyệt trước khi rút tiền.",
             )}
           </p>
         </div>
-        <ActionDialog label="Thêm mới">
-          <MutationForm
-            title={t("Thêm tài khoản ngân hàng")}
-            successMessage="Đã thêm tài khoản ngân hàng"
-            path="me/bank-accounts"
-            fields={bankFields}
-            schema={bankSchema}
-          />
+        <ActionDialog label="Thêm mới" title="Thêm nơi nhận tiền">
+          <BankAccountForm />
         </ActionDialog>
       </div>
       <FinanceTable
@@ -118,7 +97,7 @@ export function AccountPage() {
         emptyMobileDescription={endUser("bankAccountsEmpty")}
         states={["PENDING", "APPROVED", "REJECTED"]}
         specs={[
-          ["bankName", t("Ngân hàng")],
+          ["bankName", "Ngân hàng / Ví"],
           ["accountHolder", t("Chủ tài khoản")],
           ["lastFour", t("4 số cuối")],
           ["status", t("Trạng thái"), "status"],
@@ -129,7 +108,11 @@ export function AccountPage() {
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="user-icon-box !size-11">
-                <Landmark className="size-5" aria-hidden="true" />
+                {text(row, "bankCode") === "MOMO" ? (
+                  <Wallet className="size-5" aria-hidden="true" />
+                ) : (
+                  <Landmark className="size-5" aria-hidden="true" />
+                )}
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center justify-between gap-2">
