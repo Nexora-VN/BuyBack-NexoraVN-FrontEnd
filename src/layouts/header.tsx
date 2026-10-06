@@ -1,21 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 
 import LanguageSwitcher from "@/components/locale/language-switcher";
 import { Link } from "@/i18n/navigation";
 import PageContainer from "@/layouts/page-container";
+import { useAuth } from "@/modules/auth/components/auth-provider";
 
 export default function Header() {
   const t = useTranslations("Navigation");
+  const { user, logout } = useAuth();
 
   return (
     <header className="border-border/80 bg-background/90 sticky top-0 z-50 border-b backdrop-blur-xl">
       <PageContainer className="flex h-16 items-center justify-between gap-6">
         <Link className="flex items-center gap-2 text-lg font-bold tracking-tight" href="/">
-          <Image src="/logo.png" alt="Piggy Back" width={32} height={32} className="size-8 object-contain" />
+          <Image
+            src="/logo.png"
+            alt="Piggy Back"
+            width={32}
+            height={32}
+            className="size-8 object-contain"
+          />
           <span>
             Piggy<span className="text-primary">Back</span>
           </span>
@@ -35,21 +42,22 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <Show when="signed-out">
-            <SignInButton mode="modal">
-              <button className="border-border hover:bg-muted rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors">
-                Sign In
-              </button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="bg-primary rounded-lg px-3 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
-                Sign Up
-              </button>
-            </SignUpButton>
-          </Show>
-          <Show when="signed-in">
-            <UserButton />
-          </Show>
+          {user ? (
+            <button
+              type="button"
+              onClick={() => void logout()}
+              className="border-border hover:bg-muted rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors"
+            >
+              Đăng xuất
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="bg-primary rounded-lg px-3 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              Đăng nhập
+            </Link>
+          )}
         </div>
       </PageContainer>
     </header>

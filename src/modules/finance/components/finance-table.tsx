@@ -14,6 +14,7 @@ import { useFinanceList } from "../hooks/use-finance";
 import type { FinanceRow } from "../types/finance";
 import { columns, type Specs } from "./finance-columns";
 import { Failure, Loading } from "./finance-states";
+import { UserListSkeleton } from "./user/user-skeletons";
 export function FinanceTable({
   path,
   specs,
@@ -24,6 +25,15 @@ export function FinanceTable({
   onFilterChange,
   initialStatus,
   scope,
+  mobileRender,
+  mobileHref,
+  mobileStatusChips,
+  hideMobileControls = false,
+  emptyMobileDescription,
+  mobileLoadingRows = 3,
+  mobileGroup = false,
+  emptyTitle,
+  emptyDescription,
 }: {
   path: string;
   specs: Specs;
@@ -34,6 +44,15 @@ export function FinanceTable({
   onFilterChange?: () => void;
   initialStatus?: string;
   scope?: string;
+  mobileRender?: (row: FinanceRow) => ReactNode;
+  mobileHref?: (row: FinanceRow) => string | undefined;
+  mobileStatusChips?: { label: string; value: string }[];
+  hideMobileControls?: boolean;
+  emptyMobileDescription?: string;
+  mobileLoadingRows?: number;
+  mobileGroup?: boolean;
+  emptyTitle?: string;
+  emptyDescription?: string;
 }) {
   const t = useCopy();
   const list = useListState(scope ?? path.split("/").at(-1)!);
@@ -102,17 +121,40 @@ export function FinanceTable({
   );
   return (
     <section className="min-w-0 space-y-4">
-      <div className="flex items-end gap-3">
+      <div className={`flex items-end gap-3 ${hideMobileControls ? "hidden lg:flex" : ""}`}>
         <ListSearch value={list.query} label={searchLabel} onSearch={(query) => apply({ query })} />
         <div className="hidden items-end gap-3 lg:flex">{filterControls}</div>
-        <Button variant="outline" className="lg:hidden" onClick={() => setFilters(true)}>
-          <SlidersHorizontal />
-          {t("Lọc")}
-          {filterCount > 0 && (
-            <span className="bg-secondary text-primary rounded-full px-2">{filterCount}</span>
-          )}
-        </Button>
+        {!mobileStatusChips && (
+          <Button variant="outline" className="lg:hidden" onClick={() => setFilters(true)}>
+            <SlidersHorizontal />
+            {t("Lọc")}
+            {filterCount > 0 && (
+              <span className="bg-secondary text-primary rounded-full px-2">{filterCount}</span>
+            )}
+          </Button>
+        )}
       </div>
+      {mobileStatusChips && (
+        <div
+          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden"
+          aria-label={t("Trạng thái")}
+        >
+          {mobileStatusChips.map(({ label, value }) => {
+            const selected = (list.hasStatus ? list.status : initialStatus || "") === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => apply({ status: value })}
+                className={`min-h-10 shrink-0 rounded-full border px-3 text-xs font-semibold ${selected ? "border-primary bg-secondary text-primary" : "bg-card text-muted-foreground"}`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      )}
       <SurfaceDialog compact open={filters} onOpenChange={setFilters} title={t("Bộ lọc")}>
         <div className="space-y-4">
           {filterControls}
@@ -130,7 +172,11 @@ export function FinanceTable({
         </div>
       </SurfaceDialog>
       {query.isLoading ? (
-        <Loading />
+        path.startsWith("me/") ? (
+          <UserListSkeleton mobileRows={mobileLoadingRows} />
+        ) : (
+          <Loading />
+        )
       ) : query.isError ? (
         <Failure
           error={query.error}
@@ -138,18 +184,39 @@ export function FinanceTable({
           retry={() => void query.refetch()}
         />
       ) : !query.data?.data.length ? (
-        <EmptyState
-          title={list.query || list.status ? t("Không tìm thấy kết quả") : t("Chưa có dữ liệu")}
-          description={
-            list.query || list.status
-              ? t("Thử thay đổi từ khóa hoặc bộ lọc.")
-              : t("Dữ liệu của bạn sẽ xuất hiện sau khi dữ liệu của bạn được đồng bộ")
-          }
-        />
+        <>
+          {emptyMobileDescription && (
+            <div className="bg-card text-muted-foreground rounded-2xl border p-5 text-center text-sm lg:hidden">
+              {emptyMobileDescription}
+            </div>
+          )}
+          <div className={emptyMobileDescription ? "hidden lg:block" : ""}>
+            <EmptyState
+              title={
+                list.query || list.status
+                  ? t("Không tìm thấy kết quả")
+                  : (emptyTitle ?? t("Chưa có dữ liệu"))
+              }
+              description={
+                list.query || list.status
+                  ? t("Thử thay đổi từ khóa hoặc bộ lọc.")
+                  : (emptyDescription ??
+                    t("Dữ liệu của bạn sẽ xuất hiện sau khi dữ liệu của bạn được đồng bộ"))
+              }
+            />
+          </div>
+        </>
       ) : (
-        <DataTable columns={cols} rows={query.data.data} rowKey={(r) => r.id} />
+        <DataTable
+          columns={cols}
+          rows={query.data.data}
+          rowKey={(r) => r.id}
+          mobileRender={mobileRender}
+          mobileHref={mobileHref}
+          mobileGroup={mobileGroup}
+        />
       )}
-      {query.data && (
+      {query.data && query.data.meta.total > 0 && (
         <div className="text-muted-foreground flex flex-wrap items-center justify-between gap-3 text-sm">
           <span>
             {query.data.meta.total} {t("bản ghi")} · {t("Trang")} {list.page}/

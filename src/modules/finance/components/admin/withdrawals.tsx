@@ -16,6 +16,7 @@ export function PaymentDetails({ id }: { id: string }) {
   const t = useCopy();
 
   const [details, setDetails] = useState<{
+      bankCode: string;
       bankName: string;
       accountHolder: string;
       accountNumber: string;
@@ -44,11 +45,16 @@ export function PaymentDetails({ id }: { id: string }) {
           }
         }}
       >
-        {t("Xem tài khoản chuyển tiền")}
+        Xem thông tin nơi nhận
       </Button>
       {details && (
         <Card>
           <p>{details.bankName}</p>
+          <p className="text-muted-foreground text-xs">
+            {details.bankCode === "MOMO"
+              ? "Chuyển đến số điện thoại ví MoMo"
+              : "Chuyển đến số tài khoản ngân hàng"}
+          </p>
           <p className="font-semibold">{details.accountHolder}</p>
           <p className="font-mono break-all">{details.accountNumber}</p>
         </Card>
@@ -72,7 +78,7 @@ export function WithdrawalsAdminPage() {
         specs={[
           ["id", t("Yêu cầu")],
           ["amount", t("Số tiền"), "money"],
-          ["bank.bankName", t("Ngân hàng")],
+          ["bank.bankName", "Ngân hàng / Ví"],
           ["bank.accountHolder", t("Chủ tài khoản")],
           ["bank.lastFour", t("4 số cuối")],
           ["status", t("Trạng thái"), "status"],
@@ -115,7 +121,7 @@ export function WithdrawalsAdminPage() {
                   fields={[
                     ...reasonFields,
                     ...(status === "COMPLETED"
-                      ? [{ name: "transferReference", label: t("Mã giao dịch ngân hàng") }]
+                      ? [{ name: "transferReference", label: "Mã giao dịch chuyển tiền" }]
                       : []),
                   ]}
                   schema={
@@ -138,14 +144,14 @@ export function BankApprovalPage() {
   const t = useCopy();
 
   return (
-    <Page title={t("Duyệt tài khoản ngân hàng")}>
+    <Page title="Duyệt nơi nhận tiền">
       <FinanceTable
         path="admin/bank-accounts"
         searchLabel="Tên chủ tài khoản"
         states={["PENDING", "APPROVED", "REJECTED"]}
         specs={[
           ["userId", t("Người dùng")],
-          ["bankName", t("Ngân hàng")],
+          ["bankName", "Ngân hàng / Ví"],
           ["accountHolder", t("Chủ tài khoản")],
           ["lastFour", t("4 số cuối")],
           ["version", t("Phiên bản")],

@@ -1,7 +1,6 @@
 "use client";
-import Image from "next/image";
-import LanguageSwitcher from "@/components/locale/language-switcher";
 import { ConfirmProvider } from "@/components/patterns/confirm-provider";
+import { BrandAvatar } from "@/components/patterns/brand-avatar";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
@@ -28,19 +27,17 @@ export function UserShell({ children }: { children: React.ReactNode }) {
   const { user, logout } = useAuth();
   return (
     <ConfirmProvider>
-      <div className="bg-background min-h-dvh">
-        <header className="bg-card sticky top-0 z-30 border-b">
+      <div className="user-shell min-h-dvh">
+        <header className="user-topbar sticky top-0 z-30">
           <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 lg:px-8">
-            <Link href="/app" className="flex shrink-0 items-center gap-2.5 font-bold">
-              <Image
-                src="/logo.png"
-                alt="Piggy Back"
-                width={36}
-                height={36}
-                className="size-9 object-contain"
-              />
-              <span className="text-primary text-lg">
-                Piggy <span className="text-foreground hidden sm:inline">Back</span>
+            <Link
+              href="/app"
+              className="flex shrink-0 items-center font-bold tracking-tight"
+              aria-label="Piggy Back - Trang chủ"
+            >
+              <BrandAvatar className="mr-2 size-9" />
+              <span className="text-foreground text-xl">
+                Piggy <span className="text-primary">Back</span>
               </span>
             </Link>
             <nav aria-label={t("Điều hướng chính")} className="hidden items-center gap-1 lg:flex">
@@ -65,16 +62,25 @@ export function UserShell({ children }: { children: React.ReactNode }) {
               <Link
                 href="/app/links/new"
                 aria-label={t("Tạo link")}
-                className="bg-secondary text-primary grid size-11 place-items-center rounded-xl"
+                className="bg-secondary text-primary hidden size-11 place-items-center rounded-full sm:grid"
               >
                 <Link2 className="size-5" />
               </Link>
-              <span className="text-muted-foreground hidden max-w-36 truncate text-xs xl:block">
-                {user?.email}
-              </span>
-              <div className="hidden lg:block">
-                <LanguageSwitcher />
-              </div>
+              <Link
+                href="/app/account"
+                aria-label={t("Tài khoản")}
+                className="bg-secondary text-foreground grid size-10 place-items-center rounded-full lg:hidden"
+              >
+                <BrandAvatar className="size-9" />
+              </Link>
+              <Link
+                href="/app/account"
+                aria-label={t("Tài khoản")}
+                className="text-muted-foreground hidden min-h-11 items-center gap-2 rounded-xl px-1 text-xs lg:flex"
+              >
+                <BrandAvatar className="size-9 shrink-0" />
+                <span className="hidden max-w-36 truncate xl:block">{user?.email}</span>
+              </Link>
               <button
                 className="hover:bg-muted hidden size-11 place-items-center rounded-xl lg:grid"
                 aria-label={t("Đăng xuất")}

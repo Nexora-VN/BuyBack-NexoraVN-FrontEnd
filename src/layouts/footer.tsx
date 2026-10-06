@@ -12,7 +12,13 @@ export default function Footer() {
     <footer className="border-border bg-card border-t py-10">
       <PageContainer className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex items-start gap-3">
-          <Image src="/logo.png" alt="Piggy Back" width={36} height={36} className="size-9 object-contain" />
+          <Image
+            src="/logo.png"
+            alt="Piggy Back"
+            width={36}
+            height={36}
+            className="size-9 object-contain"
+          />
           <div>
             <p className="font-bold tracking-tight">
               Piggy<span className="text-primary">Back</span>

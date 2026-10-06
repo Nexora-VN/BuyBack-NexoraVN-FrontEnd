@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import { useCopy } from "@/i18n/use-copy";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import { useRouter } from "@/i18n/navigation";
 import { isApiError } from "@/lib/api/errors";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, LoaderCircle, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff, LoaderCircle, LockKeyhole, Mail } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -136,18 +136,12 @@ export function LoginForm() {
 
 export function LoginBenefits() {
   const t = useCopy();
+  const endUser = useTranslations("EndUser");
   return (
-    <section className="bg-background hidden flex-col justify-center border-r p-12 lg:flex xl:p-20">
-      <div className="text-primary flex items-center gap-3 text-xl font-bold">
-        <Image
-          src="/logo.png"
-          alt="Piggy Back"
-          width={40}
-          height={40}
-          className="size-10 object-contain"
-        />
+    <section className="hidden flex-col justify-center border-r border-[#f5e7eb] bg-[#fff5f8] p-12 lg:flex xl:p-20">
+      <div className="flex items-center gap-3 text-2xl font-extrabold tracking-tight">
         <span>
-          Piggy<span className="text-foreground">Back</span>
+          Piggy <span className="text-primary">Back</span>
         </span>
       </div>
       <div className="mt-14 max-w-md">
@@ -157,9 +151,7 @@ export function LoginBenefits() {
           <br />
           {t("Nhận lại giá trị xứng đáng.")}
         </h2>
-        <p className="text-muted-foreground mt-6 text-base leading-7">
-          {t("Tạo liên kết, mua sắm, theo dõi liên kết, đối xoát và dòng tiền của bạn")}
-        </p>
+        <p className="text-muted-foreground mt-6 text-base leading-7">{endUser("loginBenefits")}</p>
       </div>
     </section>
   );

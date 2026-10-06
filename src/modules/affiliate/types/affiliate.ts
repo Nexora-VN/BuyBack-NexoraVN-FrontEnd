@@ -23,14 +23,34 @@ export interface AffiliateLink {
 export type AffiliateList = PaginatedResponse<AffiliateLink>;
 export interface GeneratedProduct {
   id: string;
+  itemId?: string;
+  shopId?: string;
   productName: string;
   shopName: string;
+  originLink?: string;
   imageUrl: string;
+  productLink?: string;
   price: string | null;
+  sales?: number | null;
+  rating?: string | null;
   commission: string | null;
+  sellerComFinal?: string | null;
+  shoppeComFinal?: string | null;
+  sellerRate?: number | null;
+  shopeeRate?: number | null;
+  sellerRatePercent?: number | null;
+  shopeeRatePercent?: number | null;
+  totalRatePercent?: number | null;
+  isExtra?: boolean | null;
+  isCapped?: boolean | null;
+  isLimitCap?: boolean | null;
+  cap?: string | null;
+  capRow?: string | null;
+  capAfterRate?: string | null;
 }
 export interface GenerateAffiliateResponse {
   link: string | null;
   code: string | number | null;
   product?: GeneratedProduct | null;
+  estimatedUserCashbackVnd?: string | null;
 }

@@ -3,6 +3,11 @@ name: Frontend Production
 on:
   push:
     branches: [main]
+  workflow_call:
+    inputs:
+      revision:
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -18,8 +23,11 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       NEXT_PUBLIC_SITE_URL: http://14.225.224.82:3002
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -44,6 +52,8 @@ jobs:
       image: ${{ steps.publish.outputs.image }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
       - name: Log in to GHCR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,11 +63,12 @@ jobs:
         id: publish
         env:
           REPOSITORY: ${{ github.repository }}
-          REVISION: ${{ github.sha }}
+          REVISION: ${{ inputs.revision || github.sha }}
+          GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
         run: |
           set -euo pipefail
           image="ghcr.io/${REPOSITORY,,}"
-          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://14.225.224.82:3002 --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk --build-arg CLERK_SECRET_KEY=sk_test_lzmtprJMpfVF4eBDA2hUlICiNgAnEylsOsXvNLZbtJ -t "$image:$REVISION" .
+          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://14.225.224.82:3002 --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID" -t "$image:$REVISION" .
           docker push "$image:$REVISION"
           digest=$(docker image inspect "$image:$REVISION" --format '{{index .RepoDigests 0}}')
           [[ "$digest" == "$image@sha256:"* ]]
@@ -71,12 +82,14 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
       - name: Deploy frontend on production VPS
         env:
           DEPLOY_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           KNOWN_HOSTS: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
           IMAGE: ${{ needs.publish.outputs.image }}
-          REVISION: ${{ github.sha }}
+          REVISION: ${{ inputs.revision || github.sha }}
           RUN_NUMBER: ${{ github.run_number }}
         run: |
           set -euo pipefail

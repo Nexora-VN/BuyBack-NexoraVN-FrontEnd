@@ -1,5 +1,6 @@
 "use client";
 import { useCopy } from "@/i18n/use-copy";
+import { Link } from "@/i18n/navigation";
 import { EmptyState } from "./page";
 export interface Column<T> {
   key: string;
@@ -13,11 +14,15 @@ export function DataTable<T>({
   rows,
   rowKey,
   mobileRender,
+  mobileHref,
+  mobileGroup = false,
 }: {
   columns: Column<T>[];
   rows: T[];
   rowKey: (row: T) => string;
   mobileRender?: (row: T) => React.ReactNode;
+  mobileHref?: (row: T) => string | undefined;
+  mobileGroup?: boolean;
 }) {
   const t = useCopy();
   if (!rows.length)
@@ -68,11 +73,29 @@ export function DataTable<T>({
           </table>
         </div>
       </div>
-      <div className="space-y-3 lg:hidden">
+      <div
+        className={
+          mobileGroup
+            ? "bg-card divide-y overflow-hidden rounded-2xl border lg:hidden"
+            : "space-y-3 lg:hidden"
+        }
+      >
         {rows.map((row) => (
-          <article key={rowKey(row)} className="bg-card min-w-0 rounded-2xl border p-4">
+          <article
+            key={rowKey(row)}
+            className={mobileGroup ? "min-w-0 p-4" : "bg-card min-w-0 rounded-2xl border p-4"}
+          >
             {mobileRender ? (
-              mobileRender(row)
+              mobileHref?.(row) ? (
+                <Link
+                  href={mobileHref(row)!}
+                  className="hover:bg-muted/35 -m-4 block rounded-[inherit] p-4 transition-colors focus-visible:outline-offset-[-2px]"
+                >
+                  {mobileRender(row)}
+                </Link>
+              ) : (
+                mobileRender(row)
+              )
             ) : (
               <>
                 <div className="flex items-start gap-3">

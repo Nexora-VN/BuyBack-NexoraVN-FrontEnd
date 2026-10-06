@@ -1,27 +1,25 @@
 "use client";
-import { useCopy } from "@/i18n/use-copy";
+import { useTranslations } from "next-intl";
 
-import { Card } from "@/components/ui/card";
-import { ShoppingCart } from "lucide-react";
+import { CircleHelp, ChevronDown } from "lucide-react";
 
 export function GenerateLinkNotes() {
-  const t = useCopy();
+  const t = useTranslations("EndUser");
   return (
-    <Card>
-      <div className="flex items-center gap-3">
-        <span className="bg-secondary text-primary grid size-10 shrink-0 place-items-center rounded-xl">
-          <ShoppingCart />
+    <details className="user-help-card group p-4 sm:p-5">
+      <summary className="focus-visible:outline-primary flex min-h-11 cursor-pointer list-none items-center gap-3 font-semibold focus-visible:outline-2">
+        <span className="text-primary grid size-10 shrink-0 place-items-center rounded-xl">
+          <CircleHelp aria-hidden="true" className="size-6" />
         </span>
-        <h2 className="font-semibold">{t("Vài lưu ý Piggy gửi tới bạn")}</h2>
-      </div>
+        {t("helpTitle")}
+        <ChevronDown
+          aria-hidden="true"
+          className="text-muted-foreground ml-auto size-5 transition-transform group-open:rotate-180"
+        />
+      </summary>
       <ol className="text-muted-foreground mt-5 space-y-4 text-sm leading-6">
-        {[
-          t("Nếu sản phẩm có trong giỏ hàng, bạn nhớ xóa ra khỏi giỏ nhe"),
-          t("Nhấn “Mua ngay” trên trang này."),
-          t("Thêm lại sản phẩm và tiến hành đặt hàng."),
-          t("3 Điều trên giúp bạn hoàn tiền chính xác hơn đó!"),
-        ].map((item, index) => (
-          <li key={t(item)} className="flex gap-3">
+        {[t("helpStepOne"), t("helpStepTwo"), t("helpStepThree")].map((item, index) => (
+          <li key={index} className="flex gap-3">
             <span className="bg-secondary text-primary grid size-6 shrink-0 place-items-center rounded-full text-xs font-bold">
               {index + 1}
             </span>
@@ -30,10 +28,8 @@ export function GenerateLinkNotes() {
         ))}
       </ol>
       <p className="bg-muted text-muted-foreground mt-6 rounded-xl p-3 text-xs leading-5">
-        {t(
-          "Đây là các bước giúp bạn thuận lợi hơn trong việc được hoàn tiền nè. Tuy nhiên vẫn sẽ dựa vào trạng thái đơn hàng Shopee, TikTok nếu có dấu hiệu gian lận đó nhen.",
-        )}
+        {t("helpNote")}
       </p>
-    </Card>
+    </details>
   );
 }
