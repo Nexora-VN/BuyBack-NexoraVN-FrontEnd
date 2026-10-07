@@ -8,6 +8,7 @@ services:
       args:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://api.example.com}
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+        SEO_INDEXABLE: ${SEO_INDEXABLE:-false}
     ports:
       - "3000:3000"
     environment:

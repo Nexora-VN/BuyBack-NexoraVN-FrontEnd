@@ -97,7 +97,7 @@ function AppPreview({ locale, mobile = false }: { locale: Locale; mobile?: boole
     <div className={`${styles.app} ${mobile ? styles.mobileApp : styles.desktopApp}`}>
       <div className={styles.appHeader}>
         <div className={styles.appBrand}>
-          <Image src="/logo.png" alt="" width={28} height={28} sizes="28px" />
+          <Image src="/piggy-back-logo.webp" alt="" width={28} height={28} />
           <b>
             Piggy<span>Back</span>
           </b>

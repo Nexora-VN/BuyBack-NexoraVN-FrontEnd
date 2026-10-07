@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "audit:seo": "node scripts/audit-public-seo.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,mjs}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,mjs}\""
   },

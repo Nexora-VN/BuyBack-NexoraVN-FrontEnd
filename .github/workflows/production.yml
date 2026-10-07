@@ -22,7 +22,8 @@ jobs:
     timeout-minutes: 25
     env:
       NEXT_TELEMETRY_DISABLED: '1'
-      NEXT_PUBLIC_SITE_URL: http://14.225.224.82:3002
+      NEXT_PUBLIC_SITE_URL: https://piggyback.vn
+      SEO_INDEXABLE: ${{ vars.SEO_INDEXABLE || 'false' }}
       NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +41,21 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - name: Audit public SEO contracts
+        shell: bash
+        run: |
+          npm run start -- --port 3100 > /tmp/piggy-seo-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://localhost:3100/robots.txt > /dev/null; then break; fi
+            sleep 1
+          done
+          if [ "$SEO_INDEXABLE" = "true" ]; then
+            npm run audit:seo -- http://localhost:3100 --indexable
+          else
+            npm run audit:seo -- http://localhost:3100
+          fi
 
   publish:
     needs: verify
@@ -65,10 +81,11 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           REVISION: ${{ inputs.revision || github.sha }}
           GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
+          SEO_INDEXABLE: ${{ vars.SEO_INDEXABLE || 'false' }}
         run: |
           set -euo pipefail
           image="ghcr.io/${REPOSITORY,,}"
-          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=http://14.225.224.82:3002 --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID" -t "$image:$REVISION" .
+          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=https://piggyback.vn --build-arg SEO_INDEXABLE="$SEO_INDEXABLE" --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID" -t "$image:$REVISION" .
           docker push "$image:$REVISION"
           digest=$(docker image inspect "$image:$REVISION" --format '{{index .RepoDigests 0}}')
           [[ "$digest" == "$image@sha256:"* ]]

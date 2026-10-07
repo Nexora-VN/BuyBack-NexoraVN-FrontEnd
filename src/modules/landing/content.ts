@@ -1,19 +1,20 @@
 import type { Locale } from "@/i18n/config";
 
 const vi = {
-  title: "Piggy Back — Mua sắm Shopee, nhận hoàn tiền",
+  title: "Mua sắm hoàn tiền Shopee qua liên kết | Piggy Back",
   description:
-    "Khám phá Piggy Back: tạo liên kết mua sắm Shopee, xem hoa hồng dự kiến và tìm hiểu cách nhận hoàn tiền từ đơn hàng đủ điều kiện.",
+    "Tìm hiểu cách mua sắm hoàn tiền Shopee cùng Piggy Back: tạo link sản phẩm, xem tiền hoàn dự kiến, theo dõi đơn hàng và điều kiện rút tiền sau đối soát.",
   skip: "Đến nội dung chính",
   nav: ["Cách hoạt động", "Vì sao Piggy?", "Hỏi đáp"],
   login: "Đăng nhập",
   start: "Bắt đầu cùng Piggy",
   eyebrow: "MUA SẮM THÔNG MINH HƠN MỖI NGÀY",
-  headline: ["Mua sắm vui hơn.", "Tiền về ví nhỏ."],
+  headline: ["Mua sắm Shopee.", "Nhận thêm tiền hoàn."],
   intro:
     "Món đồ bạn thích, thêm một niềm vui. Tạo link mua sắm Shopee cùng Piggy Back và nhận lại một phần hoa hồng từ đơn hàng đủ điều kiện.",
   howLink: "Khám phá cách hoạt động",
   heroNote: "Mua trên Shopee. Bắt đầu từ Piggy.",
+  prelaunchNote: "Piggy Back đang hoàn thiện và chưa ra mắt chính thức.",
   mascotAlt: "Piggy ôm giỏ mua sắm và đồng xu",
   little: ["Một bước nhỏ.", "Thêm một khoản vui."],
   preview: "MINH HỌA TRẢI NGHIỆM",
@@ -25,7 +26,7 @@ const vi = {
   platformNote: "Vẫn sàn quen. Thêm cách tiết kiệm.",
   platformSub: "Piggy Back là nền tảng độc lập với Shopee.",
   stepsLabel: "01 / THẬT DỄ ĐỂ BẮT ĐẦU",
-  stepsTitle: "Thêm một bước.\nThêm một niềm vui.",
+  stepsTitle: "Mua sắm hoàn tiền Shopee\nqua 3 bước.",
   stepsIntro: "Từ link món đồ yêu thích đến khoản hoàn trong ví — cùng Piggy đi từng bước nhé.",
   steps: [
     {
@@ -45,7 +46,7 @@ const vi = {
     },
   ],
   benefitsLabel: "02 / CÓ PIGGY ĐỒNG HÀNH",
-  benefitsTitle: "Tiết kiệm một chút.\nHiểu rõ từng chút.",
+  benefitsTitle: "Hiểu rõ tiền hoàn.\nChủ động khi mua sắm.",
   benefitsIntro: "Một trải nghiệm dễ hiểu, từ lúc bạn mở link đến khi đơn hàng được xác nhận.",
   benefits: [
     {
@@ -69,7 +70,7 @@ const vi = {
   transparencyNote:
     "Tiền hoàn không đồng nghĩa với toàn bộ giá trị đơn hàng. Mức nhận thực tế phụ thuộc vào chính sách và kết quả đối soát.",
   faqLabel: "03 / PIGGY GIẢI ĐÁP",
-  faqTitle: "Bạn hỏi,\nPiggy trả lời.",
+  faqTitle: "Hỏi đáp về\nmua sắm hoàn tiền.",
   faqIntro: "Những điều nên biết trước khi bắt đầu mua sắm hoàn tiền.",
   faqs: [
     {
@@ -103,6 +104,16 @@ const vi = {
         "Đơn hàng có thể không đủ điều kiện nếu không mua qua liên kết Piggy, liên kết ghi nhận bị thay thế, đơn bị hủy hoặc hoàn trả, hoặc không đáp ứng điều kiện của sàn. Hãy đọc hướng dẫn tại bước tạo link trước khi đặt hàng.",
     },
     {
+      question: "Tiền hoàn mua sắm có giống tiền hoàn khi trả hàng không?",
+      answer:
+        "Không. Tiền hoàn mua sắm trên Piggy Back là phần hoa hồng được chia lại từ đơn đủ điều kiện. Tiền hoàn do hủy đơn hoặc trả hàng được xử lý theo quy trình của Shopee; đơn hủy hoặc hoàn trả có thể không đủ điều kiện nhận cashback.",
+    },
+    {
+      question: "Tôi cần gì để gửi yêu cầu rút tiền?",
+      answer:
+        "Trong luồng hiện tại, bạn cần tài khoản nhận tiền đã được duyệt và số dư khả dụng đủ cho yêu cầu. Mở mục Rút tiền, chọn tài khoản nhận, nhập số tiền và kiểm tra lại trước khi gửi. Hạn mức áp dụng được kiểm tra tại bước tạo yêu cầu; tiền hoàn dự kiến chưa phải số dư khả dụng.",
+    },
+    {
       question: "Piggy có phải ứng dụng chính thức của Shopee không?",
       answer:
         "Không. Piggy Back là nền tảng hoàn tiền độc lập, không phải sản phẩm chính thức của Shopee. Việc đặt hàng, thanh toán và xử lý đơn mua sắm diễn ra trên Shopee.",
@@ -118,19 +129,20 @@ const vi = {
 };
 
 const en: typeof vi = {
-  title: "Piggy Back — Shopee shopping with cashback",
+  title: "Shopee Cashback: Shopping Links & Tracking | Piggy Back",
   description:
-    "Meet Piggy Back: create Shopee shopping links, preview estimated commissions and learn how cashback works on eligible orders.",
+    "Learn how Shopee cashback works with Piggy Back: create shopping links, preview estimated cashback, track orders and understand withdrawal eligibility.",
   skip: "Skip to main content",
   nav: ["How it works", "Why Piggy?", "FAQs"],
   login: "Sign in",
   start: "Get started with Piggy",
   eyebrow: "A LITTLE SMARTER, EVERY SHOPPING DAY",
-  headline: ["Happy shopping.", "Happy little wallet."],
+  headline: ["Shopee shopping.", "With cashback."],
   intro:
     "The things you love, with a little extra joy. Create a Shopee shopping link with Piggy Back and receive a share of the commission on eligible orders.",
   howLink: "See how it works",
   heroNote: "Shop on Shopee. Start with Piggy.",
+  prelaunchNote: "Piggy Back is in development and has not officially launched.",
   mascotAlt: "Piggy holding a shopping basket and a coin",
   little: ["One little step.", "A little extra joy."],
   preview: "EXPERIENCE PREVIEW",
@@ -142,7 +154,7 @@ const en: typeof vi = {
   platformNote: "Your usual shop. A little more back.",
   platformSub: "Piggy Back is independent of Shopee.",
   stepsLabel: "01 / EASY FROM THE START",
-  stepsTitle: "One extra step.\nA little extra joy.",
+  stepsTitle: "How Shopee cashback works\nin three steps.",
   stepsIntro:
     "From your favourite product link to eligible cashback — take it one step at a time with Piggy.",
   steps: [
@@ -163,7 +175,7 @@ const en: typeof vi = {
     },
   ],
   benefitsLabel: "02 / YOUR LITTLE SHOPPING COMPANION",
-  benefitsTitle: "Save a little.\nUnderstand every bit.",
+  benefitsTitle: "Understand your cashback.\nShop with clarity.",
   benefitsIntro:
     "A clear experience, from the moment you open a link to the moment your order is confirmed.",
   benefits: [
@@ -220,6 +232,16 @@ const en: typeof vi = {
       question: "Why might an order not be tracked?",
       answer:
         "An order may be ineligible if it was not placed through a Piggy link, tracking was replaced, the order was cancelled or returned, or marketplace conditions were not met. Read the instructions at the link creation step before placing an order.",
+    },
+    {
+      question: "Is shopping cashback the same as a refund for a returned order?",
+      answer:
+        "No. Piggy Back cashback is a share of commission from an eligible order. Refunds for cancellations or returns follow Shopee's process; cancelled or returned orders may not qualify for cashback.",
+    },
+    {
+      question: "What do I need to request a withdrawal?",
+      answer:
+        "The current workflow requires an approved payout account and enough available balance. Open Withdrawals, select the account, enter the amount and review the details before submitting. Applicable limits are checked when creating the request; estimated cashback is not yet available balance.",
     },
     {
       question: "Is Piggy an official Shopee app?",

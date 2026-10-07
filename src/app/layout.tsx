@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Be_Vietnam_Pro } from "next/font/google";
+import { siteUrl } from "@/lib/seo/site";
 
 import "./globals.css";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
