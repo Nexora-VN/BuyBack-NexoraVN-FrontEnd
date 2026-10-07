@@ -121,47 +121,54 @@ export function BankAccountForm({
     <div className="space-y-4">
       {review && selected ? (
         <div className="space-y-4">
-          <div className="rounded-2xl border bg-muted/30 p-4 space-y-3">
-            <div className="flex items-center justify-between pb-3 border-b border-border/60">
-              <div className="flex items-center gap-3">
+          <div className="bg-muted/30 space-y-3 rounded-2xl border p-4">
+            <div className="border-border/60 flex flex-wrap items-center justify-between gap-2 border-b pb-3">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
                 <BankIcon bank={selected} />
-                <div>
-                  <p className="font-semibold text-sm leading-tight text-foreground">{selected.name}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
+                <div className="min-w-0">
+                  <p className="text-foreground text-sm leading-tight font-semibold break-words">
+                    {selected.name}
+                  </p>
+                  <p className="text-muted-foreground mt-0.5 text-xs break-words">
                     {selected.kind === "wallet" ? "Ví điện tử MoMo" : selected.fullName}
                   </p>
                 </div>
               </div>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">
+              <span className="bg-primary/10 text-primary shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold">
                 {isMomo ? "Ví điện tử" : "Ngân hàng"}
               </span>
             </div>
-            <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm pt-1">
+            <dl className="grid grid-cols-1 gap-3 pt-1 text-sm sm:grid-cols-2">
               <div>
-                <dt className="text-xs font-medium text-muted-foreground">
+                <dt className="text-muted-foreground text-xs font-medium">
                   {isMomo ? "Số điện thoại ví MoMo" : "Số tài khoản"}
                 </dt>
-                <dd className="font-mono font-bold text-base mt-0.5 text-foreground">{accountNumber}</dd>
+                <dd className="text-foreground mt-0.5 font-mono text-base font-bold break-all">
+                  {accountNumber}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground">
+                <dt className="text-muted-foreground text-xs font-medium">
                   {isMomo ? "Tên chủ ví" : "Tên chủ tài khoản"}
                 </dt>
-                <dd className="font-bold text-sm mt-0.5 text-foreground">{accountHolder.trim().toUpperCase()}</dd>
+                <dd className="text-foreground mt-0.5 text-sm font-bold break-words">
+                  {accountHolder.trim().toUpperCase()}
+                </dd>
               </div>
             </dl>
           </div>
-          <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3 text-xs text-amber-900 dark:text-amber-200">
-            <p className="font-semibold text-xs">Kiểm tra thông tin nhận tiền</p>
-            <p className="mt-0.5 text-muted-foreground">
-              Vui lòng kiểm tra kỹ thông tin. Tên chủ tài khoản do bạn tự khai và sẽ được duyệt trước khi rút tiền.
+          <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200">
+            <p className="text-xs font-semibold">Kiểm tra thông tin nhận tiền</p>
+            <p className="text-muted-foreground mt-0.5">
+              Vui lòng kiểm tra kỹ thông tin. Tên chủ tài khoản do bạn tự khai và sẽ được duyệt
+              trước khi rút tiền.
             </p>
           </div>
           <div className="flex gap-2.5 pt-1">
             <Button
               type="button"
               variant="outline"
-              className="flex-1 h-11 rounded-xl"
+              className="h-11 flex-1 rounded-xl"
               disabled={saving}
               onClick={() => setReview(false)}
             >
@@ -169,7 +176,7 @@ export function BankAccountForm({
             </Button>
             <Button
               type="button"
-              className="flex-1 h-11 rounded-xl font-semibold"
+              className="h-11 flex-1 rounded-xl font-semibold"
               disabled={saving}
               onClick={() => void save()}
             >
@@ -182,7 +189,7 @@ export function BankAccountForm({
           <div className="space-y-1.5">
             <label className="block text-sm font-medium">Ngân hàng hoặc ví điện tử</label>
             {loading ? (
-              <div className="flex h-11 items-center rounded-xl border border-dashed px-3 text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex h-11 items-center rounded-xl border border-dashed px-3 text-sm">
                 Đang tải danh sách…
               </div>
             ) : (
@@ -216,7 +223,7 @@ export function BankAccountForm({
             <Input
               autoComplete="name"
               maxLength={120}
-              className="uppercase font-medium"
+              className="font-medium uppercase"
               value={accountHolder}
               placeholder="NGUYEN VAN A"
               onChange={(event) => setAccountHolder(event.target.value.toUpperCase())}
@@ -234,7 +241,7 @@ export function BankAccountForm({
           <div className="pt-2">
             <Button
               type="submit"
-              className="w-full h-11 rounded-xl text-sm font-semibold"
+              className="h-11 w-full rounded-xl text-sm font-semibold"
               disabled={loading || saving || !banks.length}
             >
               Kiểm tra thông tin

@@ -230,6 +230,41 @@ body:has(.app-bottom-nav) .install-home-button {
 body:has([role="dialog"][data-state="open"]) .app-bottom-nav {
   visibility: hidden;
 }
+body:has([data-tour-dialog][data-state="open"]) .app-bottom-nav {
+  visibility: visible;
+}
+.tour-shade {
+  position: absolute;
+  background: rgb(28 20 28 / 68%);
+}
+.tour-focus-ring {
+  position: absolute;
+  border: 2px solid #fa76ab;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 3px rgb(255 255 255 / 88%),
+    0 0 24px rgb(250 118 171 / 55%);
+  pointer-events: none;
+}
+.mobile-status-chips {
+  scrollbar-width: none;
+}
+.mobile-status-chips::-webkit-scrollbar {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tour-card {
+    animation: tour-appear 180ms ease-out both;
+  }
+  @keyframes tour-appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
 body:has(input:focus, textarea:focus) .app-bottom-nav {
   visibility: hidden;
 }
@@ -339,6 +374,9 @@ body:has(.app-page[data-task-form="true"]) .app-bottom-nav {
 .user-home-grid {
   display: grid;
   gap: 14px;
+}
+.user-home-grid > [data-tour="wallet-overview"] > .user-wallet-card {
+  height: 100%;
 }
 .user-wallet-card,
 .user-link-card {

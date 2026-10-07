@@ -315,7 +315,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
             <span className="inline-flex items-center rounded-md border border-orange-200/60 bg-orange-50 px-2 py-0.5 text-xs font-bold tracking-wider text-orange-600 uppercase">
               {platform}
             </span>
-            <span className="font-mono text-base font-semibold">#{orderSn}</span>
+            <span className="min-w-0 font-mono text-base font-semibold break-all">#{orderSn}</span>
             <button
               type="button"
               onClick={copyOrderSn}
@@ -412,9 +412,11 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
       <Card className="space-y-4">
         <h3 className="font-semibold">{t("Chi tiết dòng tiền & Tích lũy")}</h3>
         <div className="space-y-2.5 text-sm">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-muted-foreground">{t("Tổng giá trị mua hàng:")}</span>
-            <span className="font-semibold tabular-nums">{formatVnd(computedTotal)}</span>
+            <span className="text-right font-semibold break-all tabular-nums">
+              {formatVnd(computedTotal)}
+            </span>
           </div>
           {!admin && (
             <div className="flex items-center justify-between gap-3 border-t pt-2.5">
@@ -422,17 +424,17 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
               <StatusBadge domain="commission" status={commissionState} />
             </div>
           )}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-muted-foreground">{t("Tỷ lệ tích lũy Piggy Back:")}</span>
             <span className="text-primary font-semibold tabular-nums">{ratePercent}</span>
           </div>
-          <div className="flex items-center justify-between border-t pt-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t pt-2.5">
             <span className="font-semibold">
               {cashbackState === "AVAILABLE"
                 ? endUser("cashbackConfirmed")
                 : endUser("cashbackExpected")}
             </span>
-            <span className="text-success text-lg font-bold tabular-nums">
+            <span className="text-success text-right text-lg font-bold break-all tabular-nums">
               {cashbackAmount === "—" ? "—" : `+${formatVnd(cashbackAmount)}`}
             </span>
           </div>
@@ -440,7 +442,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
 
         {/* Withdrawal prompt */}
         {cashbackState === "AVAILABLE" && (
-          <div className="bg-success-soft border-success/30 flex items-center justify-between rounded-xl border p-3">
+          <div className="bg-success-soft border-success/30 flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3">
             <div className="flex items-center gap-2">
               <Wallet className="text-success size-5" />
               <span className="text-success text-xs font-semibold">
@@ -467,7 +469,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
 
       {/* 4. Products List in Order */}
       <Card className="space-y-4">
-        <div className="flex items-center justify-between border-b pb-3">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-3">
           <div className="flex items-center gap-2">
             <ShoppingBag className="text-primary size-5" />
             <h2 className="font-semibold">

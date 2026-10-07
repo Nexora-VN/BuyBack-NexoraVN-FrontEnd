@@ -1,18 +1,20 @@
 "use client";
+import Image from "next/image";
 import { useCopy } from "@/i18n/use-copy";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { isApiError } from "@/lib/api/errors";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, LoaderCircle, LockKeyhole, Mail } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import styles from "./login-illustration.module.css";
 
 const schema = z.object({
   email: z.string().email("Email không hợp lệ"),
@@ -23,6 +25,8 @@ type FormData = z.infer<typeof schema>;
 
 export function LoginForm() {
   const t = useCopy();
+  const registration = useTranslations("Registration");
+  const passwordReset = useTranslations("PasswordReset");
 
   const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -32,6 +36,13 @@ export function LoginForm() {
     resolver: zodResolver(schema),
     defaultValues: { email: "", password: "", remember: true },
   });
+  useEffect(() => {
+    const email = sessionStorage.getItem("auth.loginEmail");
+    if (email) {
+      form.setValue("email", email);
+      sessionStorage.removeItem("auth.loginEmail");
+    }
+  }, [form]);
   const submit = form.handleSubmit(async (values) => {
     setSubmitError("");
     try {
@@ -111,6 +122,11 @@ export function LoginForm() {
           </p>
         )}
       </div>
+      <div className="text-right">
+        <Link href="/forgot-password" className="text-primary text-sm font-medium hover:underline">
+          {passwordReset("forgotLink")}
+        </Link>
+      </div>
       <label className="text-muted-foreground flex items-center gap-2 text-sm">
         <input type="checkbox" className="accent-primary size-4" {...form.register("remember")} />
         {t("Duy trì đăng nhập trên thiết bị này")}
@@ -130,6 +146,12 @@ export function LoginForm() {
           t("Đăng nhập")
         )}
       </Button>
+      <p className="text-muted-foreground text-center text-sm">
+        {registration("newHere")}{" "}
+        <Link href="/sign-up" className="text-primary font-semibold hover:underline">
+          {registration("createAccount")}
+        </Link>
+      </p>
     </form>
   );
 }
@@ -138,13 +160,13 @@ export function LoginBenefits() {
   const t = useCopy();
   const endUser = useTranslations("EndUser");
   return (
-    <section className="hidden flex-col justify-center border-r border-[#f5e7eb] bg-[#fff5f8] p-12 lg:flex xl:p-20">
+    <section className="hidden flex-col justify-center overflow-hidden border-r border-[#f5e7eb] bg-[#fff5f8] p-12 lg:flex xl:p-20">
       <div className="flex items-center gap-3 text-2xl font-extrabold tracking-tight">
         <span>
           Piggy <span className="text-primary">Back</span>
         </span>
       </div>
-      <div className="mt-14 max-w-md">
+      <div className="mt-10 max-w-md">
         <p className="text-primary text-sm font-semibold">{t("Mua sắm và hoàn tiền")}</p>
         <h2 className="mt-4 text-3xl leading-snug font-bold">
           {t("Mua sắm như thường lệ.")}
@@ -153,6 +175,32 @@ export function LoginBenefits() {
         </h2>
         <p className="text-muted-foreground mt-6 text-base leading-7">{endUser("loginBenefits")}</p>
       </div>
+      <LoginIllustration />
     </section>
+  );
+}
+
+export function LoginIllustration({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={`${styles.scene} ${compact ? styles.compact : ""}`} aria-hidden="true">
+      {compact && (
+        <span className={styles.mobileBrand}>
+          Piggy<span>Back</span>
+        </span>
+      )}
+      <span className={styles.halo} />
+      <span className={styles.trail} />
+      <span className={`${styles.sparkle} ${styles.sparkleOne}`}>✳</span>
+      <span className={`${styles.sparkle} ${styles.sparkleTwo}`}>✦</span>
+      <span className={styles.coin}>✦</span>
+      <Image
+        className={styles.piggy}
+        src="/logo_full.png"
+        alt=""
+        width={330}
+        height={330}
+        sizes={compact ? "125px" : "(max-width: 1280px) 260px, 330px"}
+      />
+    </div>
   );
 }

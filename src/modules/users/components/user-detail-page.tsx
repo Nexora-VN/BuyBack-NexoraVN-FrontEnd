@@ -34,10 +34,10 @@ export function UserDetailPage({ id }: { id: string }) {
           <span className="bg-secondary text-primary mx-auto grid size-24 place-items-center rounded-full text-3xl font-bold">
             {initials(user.displayName ?? user.email)}
           </span>
-          <h2 className="mt-4 text-xl font-bold">
+          <h2 className="mt-4 text-xl font-bold break-words">
             {user.displayName || user.fullName || t("Chưa đặt tên")}
           </h2>
-          <p className="text-muted-foreground mt-1 text-sm">{user.id}</p>
+          <p className="text-muted-foreground mt-1 text-sm break-all">{user.id}</p>
           <div className="mt-4">
             <StatusBadge status={user.status} />
           </div>
@@ -47,7 +47,7 @@ export function UserDetailPage({ id }: { id: string }) {
           <dl className="mt-5 grid gap-5 sm:grid-cols-2">
             {[
               [Mail, "Email", user.email],
-              [Phone, t("Số điện thoại"), user.phoneNumber],
+              [Phone, t("Số điện thoại"), user.phoneNumber ?? "—"],
               [UserRound, t("Họ và tên"), user.fullName || t("Chưa cập nhật")],
               [Shield, t("Vai trò"), user.role],
             ].map(([Icon, label, value]) => {

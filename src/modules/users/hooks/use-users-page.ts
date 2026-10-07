@@ -47,7 +47,7 @@ export function useUsersPage() {
       user
         ? {
             email: user.email,
-            phoneNumber: user.phoneNumber,
+            phoneNumber: user.phoneNumber ?? "",
             password: "",
             displayName: user.displayName ?? "",
             fullName: user.fullName ?? "",

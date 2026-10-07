@@ -31,6 +31,121 @@
   "Language": {
     "label": "Ngôn ngữ"
   },
+  "Registration": {
+    "title": "Tạo tài khoản",
+    "subtitle": "Mua sắm cùng Piggy, nhận lại một chút niềm vui.",
+    "name": "Họ và tên",
+    "namePlaceholder": "Nguyễn Văn A",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "showPassword": "Hiện mật khẩu",
+    "hidePassword": "Ẩn mật khẩu",
+    "passwordHint": "Tối thiểu 8 ký tự",
+    "sendCode": "Gửi mã xác thực",
+    "sending": "Đang gửi mã…",
+    "haveAccount": "Đã có tài khoản?",
+    "newHere": "Chưa có tài khoản?",
+    "createAccount": "Tạo tài khoản",
+    "signIn": "Đăng nhập",
+    "nameError": "Vui lòng nhập họ tên ít nhất 2 ký tự",
+    "emailError": "Email không hợp lệ",
+    "passwordError": "Mật khẩu cần ít nhất 8 ký tự",
+    "otpTitle": "Kiểm tra email của bạn",
+    "otpDescription": "Nhập mã 6 chữ số đã gửi tới",
+    "otpLabel": "Mã xác thực gồm 6 chữ số",
+    "changeEmail": "Đổi email",
+    "verify": "Xác thực và tạo tài khoản",
+    "verifying": "Đang xác thực…",
+    "noCode": "Chưa nhận được mã?",
+    "resend": "Gửi lại mã",
+    "resendAfter": "Gửi lại sau {seconds} giây",
+    "resending": "Đang gửi lại…",
+    "invalidCode": "Mã không đúng. Vui lòng thử lại.",
+    "expiredCode": "Mã đã hết hạn. Vui lòng đăng ký lại.",
+    "tooManyAttempts": "Bạn đã nhập sai quá nhiều lần. Vui lòng gửi mã mới.",
+    "rateLimited": "Vui lòng đợi trước khi yêu cầu mã mới.",
+    "emailExists": "Email này đã có tài khoản. Hãy đăng nhập.",
+    "mailUnavailable": "Hiện chưa thể gửi email xác thực. Vui lòng thử lại sau.",
+    "genericError": "Không thể hoàn tất đăng ký. Vui lòng thử lại.",
+    "success": "Tài khoản đã tạo thành công. Hãy đăng nhập."
+  },
+  "PasswordReset": {
+    "forgotLink": "Quên mật khẩu?",
+    "title": "Quên mật khẩu?",
+    "description": "Nhập email tài khoản để nhận mã đặt lại mật khẩu.",
+    "email": "Email",
+    "emailError": "Email không hợp lệ",
+    "sendCode": "Gửi mã đặt lại",
+    "sending": "Đang gửi mã…",
+    "backToLogin": "Quay lại đăng nhập",
+    "resetTitle": "Tạo mật khẩu mới",
+    "resetDescription": "Nhập mã 6 chữ số đã gửi đến email của bạn.",
+    "sentHint": "Nếu email này có tài khoản, bạn sẽ nhận được mã đặt lại mật khẩu.",
+    "changeEmail": "Đổi email",
+    "otpLabel": "Mã xác thực gồm 6 chữ số",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu mới",
+    "passwordError": "Mật khẩu cần từ 8 đến 128 ký tự",
+    "confirmRequired": "Vui lòng nhập lại mật khẩu",
+    "passwordMismatch": "Hai mật khẩu không khớp",
+    "showPassword": "Hiện mật khẩu",
+    "hidePassword": "Ẩn mật khẩu",
+    "codeRequired": "Vui lòng nhập đủ 6 chữ số",
+    "updatePassword": "Cập nhật mật khẩu",
+    "updating": "Đang cập nhật…",
+    "noCode": "Chưa nhận được mã?",
+    "resend": "Gửi lại mã",
+    "resendAfter": "Gửi lại sau {seconds} giây",
+    "resent": "Nếu email có tài khoản, mã mới sẽ được gửi.",
+    "invalidCode": "Mã không đúng. Vui lòng thử lại.",
+    "invalidOrExpiredCode": "Mã không đúng hoặc đã hết hạn. Vui lòng gửi lại mã nếu cần.",
+    "expiredCode": "Mã đã hết hạn. Vui lòng gửi lại mã.",
+    "tooManyAttempts": "Bạn đã nhập sai quá nhiều lần. Vui lòng gửi lại mã.",
+    "rateLimited": "Bạn thao tác quá nhanh. Vui lòng thử lại sau.",
+    "mailUnavailable": "Hiện chưa thể gửi email. Vui lòng thử lại sau.",
+    "genericError": "Không thể cập nhật mật khẩu. Vui lòng thử lại.",
+    "success": "Mật khẩu đã được cập nhật. Hãy đăng nhập lại."
+  },
+  "Onboarding": {
+    "replay": "Xem lại hướng dẫn",
+    "progress": "Bước {current}/{total}",
+    "skip": "Bỏ qua",
+    "back": "Quay lại",
+    "next": "Tiếp tục",
+    "done": "Hoàn tất",
+    "welcome": {
+      "title": "Chào mừng đến Piggy Back!",
+      "description": "Piggy sẽ chỉ ngay trên màn hình từng nơi bạn cần dùng: xem số dư, tạo link Shopee, theo dõi đơn và rút tiền. Bấm Tiếp tục để bắt đầu."
+    },
+    "balance": {
+      "title": "Số dư của bạn",
+      "description": "Đây là tiền hoàn đã khả dụng và khoản đang chờ xác nhận. Chỉ số dư khả dụng mới có thể rút."
+    },
+    "linkInput": {
+      "title": "Dán link sản phẩm Shopee",
+      "description": "Sao chép link sản phẩm trong Shopee rồi dán vào ô này. Bạn cũng có thể bấm Dán để lấy link từ clipboard."
+    },
+    "linkSubmit": {
+      "title": "Tạo link hoàn tiền",
+      "description": "Sau khi dán link, bấm nút này để Piggy tạo link mua sắm và hiển thị tiền hoàn dự kiến. Mua hàng qua link Piggy vừa tạo để được ghi nhận."
+    },
+    "orders": {
+      "title": "Theo dõi đơn hàng",
+      "description": "Đơn mới sẽ xuất hiện ở khu vực này. Bấm vào một đơn để xem chi tiết; Xem tất cả mở danh sách và trạng thái hoàn tiền."
+    },
+    "wallet": {
+      "title": "Ví và rút tiền",
+      "description": "Vào Ví để xem lịch sử tiền hoàn và số dư. Khi đủ điều kiện, bạn có thể tạo yêu cầu rút tiền tại đây."
+    },
+    "account": {
+      "title": "Thiết lập tài khoản",
+      "description": "Tại Tài khoản, bạn có thể cập nhật thông tin cá nhân và thêm ngân hàng hoặc MoMo để nhận tiền rút."
+    },
+    "replayTip": {
+      "title": "Xem lại bất cứ lúc nào",
+      "description": "Nút dấu hỏi trên thanh đầu trang mở lại hướng dẫn này khi bạn cần. Giờ bạn đã sẵn sàng bắt đầu!"
+    }
+  },
   "UI": {
     "copy_e510cc950a4e": "4 số cuối",
     "copy_626a8be10a55": "API key chỉ cấu hình qua biến môi trường ADDLIVETAG_API_KEY của backend. Đổi key cần khởi động lại backend; không nhập hoặc lưu key trên web/database. Form này chỉ cập nhật thông tin tài khoản.",

@@ -1,0 +1,1049 @@
+.preview {
+  width: min(1200px, calc(100% - 96px));
+  margin: 0 auto;
+  padding-top: 84px;
+  color: var(--landing-ink);
+}
+.heading {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.heading > p:first-child {
+  color: var(--landing-berry);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+}
+.heading h2 {
+  margin: 17px auto 16px !important;
+  max-width: 740px;
+  font-size: clamp(27px, 3vw, 38px);
+  letter-spacing: -1.3px;
+}
+.heading > p:last-child {
+  color: var(--landing-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.figure {
+  margin: 0;
+}
+.stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 1.86;
+  margin-top: 38px;
+}
+.backdrop {
+  position: absolute;
+  inset: 9% 1% 7%;
+  z-index: -1;
+  border-radius: 48% 48% 24% 24%;
+  background: radial-gradient(
+    ellipse at 45% 60%,
+    var(--landing-rose) 0%,
+    #f9e9e880 48%,
+    #fffaf600 72%
+  );
+}
+.laptop {
+  position: absolute;
+  width: 77%;
+  right: 2%;
+  top: 6%;
+  container-type: inline-size;
+  filter: drop-shadow(0 20px 20px #59243c14);
+}
+.laptopLid {
+  position: relative;
+  padding: 1.6cqw 1.15cqw 2.3cqw;
+  border-radius: 2.1cqw 2.1cqw 0.6cqw 0.6cqw;
+  background: #242326;
+  border: max(1px, 0.2cqw) solid #555357;
+  box-shadow: inset 0 0 0 1px #161517;
+}
+.camera {
+  position: absolute;
+  top: 0.55cqw;
+  left: 50%;
+  width: 0.55cqw;
+  height: 0.55cqw;
+  border-radius: 50%;
+  background: #111116;
+  box-shadow: inset 0 0 0 1px #3c3c43;
+}
+.laptopScreen {
+  overflow: hidden;
+  border-radius: 0.5cqw;
+  background: #fff8f8;
+  aspect-ratio: 1.74;
+}
+.laptopBase {
+  position: relative;
+  height: 1.5cqw;
+  width: 111%;
+  margin-left: -5.5%;
+  border-radius: 0.25cqw 0.25cqw 1cqw 1cqw;
+  background: linear-gradient(90deg, #959499, #e3e1e5 5%, #c9c7cd 48%, #e8e6e9 95%, #8a898e);
+  border-top: 1px solid #f4f2f5;
+  box-shadow: 0 1px 0 #77767a;
+}
+.laptopBase > span {
+  position: absolute;
+  top: 0;
+  width: 15%;
+  left: 42.5%;
+  height: 0.8cqw;
+  border-radius: 0 0 0.7cqw 0.7cqw;
+  background: linear-gradient(#aaa8af, #d4d2d7);
+}
+.laptopFoot {
+  width: 107%;
+  height: 0.8cqw;
+  margin-left: -3.5%;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(#b0aeb5, #86848a);
+}
+.browserBar {
+  height: 3.5cqw;
+  background: #f1edf0;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5cqw;
+  gap: 2cqw;
+  border-bottom: 1px solid #e5dde3;
+}
+.windowDots {
+  display: flex;
+  gap: 0.55cqw;
+}
+.windowDots i {
+  width: 0.7cqw;
+  height: 0.7cqw;
+  border-radius: 50%;
+  background: #e2a199;
+}
+.windowDots i:nth-child(2) {
+  background: #e4c477;
+}
+.windowDots i:nth-child(3) {
+  background: #90b5a0;
+}
+.browserArrows {
+  display: flex;
+  gap: 0.8cqw;
+  color: #968c93;
+}
+.browserArrows svg {
+  width: 1.1cqw;
+  height: 1.1cqw;
+}
+.addressBar {
+  width: 46%;
+  height: 2.1cqw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5cqw;
+  background: #faf8fa;
+  border-radius: 0.5cqw;
+  margin-left: 9%;
+  font-size: 0.9cqw;
+  color: #7d6f77;
+}
+.addressBar svg {
+  width: 0.8cqw;
+  height: 0.8cqw;
+}
+.browserAdd {
+  font:
+    1.9cqw/1 system-ui,
+    sans-serif;
+  color: #887e85;
+  margin-left: auto;
+}
+.phone {
+  position: absolute;
+  left: 2.5%;
+  top: 11%;
+  width: 23%;
+  container-type: inline-size;
+  z-index: 3;
+  filter: drop-shadow(10px 22px 25px #50223529);
+  transform: rotate(-5deg);
+}
+.phoneFrame {
+  position: relative;
+  background: #262329;
+  padding: 2.5cqw;
+  border: 1px solid #8b818a;
+  border-radius: 15cqw;
+  box-shadow:
+    inset 0 0 0 1px #5d535d,
+    0 0 0 1px #b9afb5;
+}
+.phoneFrame::before,
+.phoneFrame::after {
+  content: "";
+  position: absolute;
+  background: #675c65;
+  width: 1cqw;
+  border-radius: 1cqw;
+}
+.phoneFrame::before {
+  left: -1.1cqw;
+  top: 22%;
+  height: 12%;
+}
+.phoneFrame::after {
+  right: -1.1cqw;
+  top: 29%;
+  height: 14%;
+}
+.phoneScreen {
+  position: relative;
+  aspect-ratio: 0.475;
+  border-radius: 12.5cqw;
+  overflow: hidden;
+  background: #fff8f8;
+  display: flex;
+  flex-direction: column;
+}
+.statusBar {
+  height: 12cqw;
+  flex-shrink: 0;
+  padding: 3cqw 6cqw 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  font-size: 3.2cqw;
+  font-weight: 600;
+  background: white;
+}
+.island {
+  position: absolute;
+  top: 3cqw;
+  width: 28cqw;
+  height: 7cqw;
+  border-radius: 6cqw;
+  background: #252228;
+  left: calc(50% - 14cqw);
+}
+.statusIcons {
+  display: flex;
+  gap: 1cqw;
+}
+.statusIcons svg {
+  width: 3.1cqw;
+  height: 3.1cqw;
+}
+.statusIcons svg:last-child {
+  width: 4.7cqw;
+}
+.homeIndicator {
+  flex-shrink: 0;
+  align-self: center;
+  width: 32cqw;
+  height: 1.2cqw;
+  background: #352831;
+  border-radius: 3cqw;
+  margin: 1.5cqw auto 2.6cqw;
+}
+.app {
+  background: #fff8f8;
+  color: #30212a;
+  height: 100%;
+  line-height: 1.5;
+}
+.app svg {
+  stroke-width: 1.7;
+}
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #efdee5;
+}
+.appBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  color: #a8245e;
+}
+.appBrand b {
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+.appBrand b span {
+  color: #30212a;
+}
+.appNav {
+  display: flex;
+  gap: 0.7cqw;
+}
+.appNav > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+  padding: 0.7cqw 1cqw;
+  font-size: 0.95cqw;
+  color: #75646e;
+  border-radius: 0.7cqw;
+}
+.appNav svg {
+  width: 1.15cqw;
+  height: 1.15cqw;
+}
+.appNav .selected,
+.bottomNav .selected {
+  color: #a8245e;
+  background: #ffe8f1;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  background: #ffe8f1;
+  color: #a8245e;
+  border-radius: 50%;
+}
+.greeting {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.greeting > div > span {
+  color: #75646e;
+}
+.greeting strong {
+  display: block;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.greeting p {
+  color: #75646e;
+}
+.sample {
+  padding: 0.3em 0.7em;
+  background: #fff2d5;
+  color: #835e28;
+  border: 1px solid #eedcbd;
+  border-radius: 2em;
+  white-space: nowrap;
+}
+.linkPanel {
+  background: white;
+  border: 1px solid #efdee5;
+}
+.linkHeading {
+  display: flex;
+  align-items: center;
+}
+.linkHeading > span {
+  display: grid;
+  place-items: center;
+  color: #a8245e;
+  background: #ffe8f1;
+}
+.linkHeading strong {
+  font-weight: 600;
+}
+.linkForm {
+  display: flex;
+}
+.linkInput {
+  flex: 1;
+  min-width: 0;
+  color: #8e7783;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e4c9d5;
+  background: white;
+}
+.linkInput > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.linkInput svg {
+  color: #a8245e;
+  flex-shrink: 0;
+}
+.mockButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #a8245e;
+  color: white;
+  font-weight: 500;
+}
+.linkPanel > p {
+  color: #806773;
+}
+.balances {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.balances > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: white;
+  border: 1px solid #efdee5;
+}
+.balances > div > span:first-child {
+  color: #75646e;
+}
+.balances > div > strong {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.balances > div > strong > span {
+  font-size: 0.7em;
+  margin-left: 0.15em;
+}
+.balances > .available {
+  background: #ffe8f1;
+  border-color: #efd0df;
+}
+.available > strong {
+  color: #a8245e;
+}
+.withdraw {
+  color: #a8245e;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: 500;
+}
+.balanceNote {
+  color: #95818c;
+}
+.orderHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.orderHeading > strong {
+  font-weight: 600;
+}
+.orderHeading > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #a8245e;
+}
+.orders {
+  background: white;
+  border: 1px solid #efdee5;
+  overflow: hidden;
+}
+.order {
+  display: flex;
+  align-items: center;
+}
+.order + .order {
+  border-top: 1px solid #f0e3e9;
+}
+.productIcon {
+  display: grid;
+  place-items: center;
+  background: #f5e8df;
+  color: #a07b58;
+  flex-shrink: 0;
+}
+.order:nth-child(2) .productIcon {
+  background: #ebe8f5;
+  color: #8b80a5;
+}
+.order > div > strong,
+.orderMeta {
+  display: block;
+}
+.order > div > strong {
+  font-weight: 500;
+}
+.platform {
+  color: #9c693f;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.orderMeta {
+  color: #95818c;
+}
+.orderStatus {
+  margin-left: auto;
+  text-align: right;
+}
+.orderStatus > strong {
+  color: #277454;
+}
+.orderStatus > span {
+  color: #277454;
+  background: #edf6f0;
+  border-radius: 2em;
+  padding: 0.2em 0.5em;
+}
+.desktopApp {
+  font-size: 1.1cqw;
+}
+.desktopApp .appHeader {
+  height: 5.1cqw;
+  padding-inline: 3.2cqw;
+}
+.desktopApp .appBrand {
+  font-size: 1.65cqw;
+}
+.desktopApp .appBrand img {
+  width: 2.8cqw;
+  height: 2.8cqw;
+}
+.desktopApp .avatar {
+  width: 2.6cqw;
+  height: 2.6cqw;
+}
+.desktopApp .avatar svg {
+  width: 1.5cqw;
+  height: 1.5cqw;
+}
+.desktopApp .appBody {
+  padding: 2.3cqw 5cqw;
+}
+.desktopApp .greeting strong {
+  font-size: 2.1cqw;
+  margin-top: 0.3cqw;
+}
+.desktopApp .greeting p {
+  font-size: 1cqw;
+  margin-top: 0.4cqw;
+}
+.desktopApp .greeting > div > span,
+.desktopApp .sample {
+  font-size: 0.9cqw;
+}
+.desktopApp .linkPanel {
+  margin-top: 1.8cqw;
+  padding: 1.6cqw;
+  border-radius: 1.2cqw;
+}
+.desktopApp .linkHeading {
+  gap: 0.8cqw;
+}
+.desktopApp .linkHeading > span {
+  width: 2.3cqw;
+  height: 2.3cqw;
+  border-radius: 0.7cqw;
+}
+.desktopApp .linkHeading svg {
+  width: 1.2cqw;
+  height: 1.2cqw;
+}
+.desktopApp .linkForm {
+  margin-top: 1.1cqw;
+  gap: 0.9cqw;
+}
+.desktopApp .linkInput {
+  padding: 0.9cqw 1.1cqw;
+  border-radius: 0.7cqw;
+  font-size: 1cqw;
+}
+.desktopApp .linkInput svg {
+  width: 1.3cqw;
+  height: 1.3cqw;
+}
+.desktopApp .mockButton {
+  border-radius: 0.7cqw;
+  padding: 0.7cqw 1.7cqw;
+  gap: 1cqw;
+}
+.desktopApp .mockButton svg {
+  width: 1.3cqw;
+  height: 1.3cqw;
+}
+.desktopApp .linkPanel > p {
+  font-size: 0.85cqw;
+  margin-top: 0.8cqw;
+}
+.desktopApp .balances {
+  gap: 1.2cqw;
+  margin-top: 1.5cqw;
+}
+.desktopApp .balances > div {
+  padding: 1.5cqw;
+  border-radius: 1.1cqw;
+}
+.desktopApp .balances > div > span:first-child {
+  font-size: 1cqw;
+}
+.desktopApp .balances strong {
+  font-size: 2.4cqw;
+  margin-block: 0.6cqw;
+}
+.desktopApp .withdraw,
+.desktopApp .balanceNote {
+  font-size: 0.9cqw;
+}
+.desktopApp .withdraw svg {
+  width: 1cqw;
+  height: 1cqw;
+}
+.desktopApp .orderHeading {
+  margin: 1.7cqw 0 0.8cqw;
+}
+.desktopApp .orderHeading > span {
+  font-size: 0.9cqw;
+}
+.desktopApp .orderHeading svg {
+  width: 1cqw;
+  height: 1cqw;
+}
+.desktopApp .orders {
+  border-radius: 1cqw;
+}
+.desktopApp .order {
+  gap: 1cqw;
+  padding: 0.9cqw 1.4cqw;
+}
+.desktopApp .productIcon {
+  width: 3.5cqw;
+  height: 3.5cqw;
+  border-radius: 0.7cqw;
+}
+.desktopApp .productIcon svg {
+  width: 2cqw;
+  height: 2cqw;
+}
+.desktopApp .platform,
+.desktopApp .orderMeta {
+  font-size: 0.7cqw;
+}
+.desktopApp .orderStatus > span {
+  font-size: 0.75cqw;
+}
+.mobileApp {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  font-size: 3cqw;
+}
+.mobileApp .appHeader {
+  height: 12cqw;
+  flex-shrink: 0;
+  padding-inline: 5cqw;
+}
+.mobileApp .appBrand {
+  gap: 1.1cqw;
+  font-size: 4.3cqw;
+}
+.mobileApp .appBrand img {
+  width: 7.5cqw;
+  height: 7.5cqw;
+}
+.mobileApp .avatar {
+  width: 6.5cqw;
+  height: 6.5cqw;
+}
+.mobileApp .avatar svg {
+  width: 3.6cqw;
+  height: 3.6cqw;
+}
+.mobileApp .appBody {
+  padding: 4.5cqw;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.mobileApp .greeting {
+  flex-wrap: wrap;
+  gap: 2cqw;
+}
+.mobileApp .greeting > div > span {
+  font-size: 2.8cqw;
+}
+.mobileApp .greeting strong {
+  font-size: 5cqw;
+  margin-top: 0.6cqw;
+}
+.mobileApp .greeting p {
+  display: none;
+  font-size: 2.7cqw;
+  margin-top: 1cqw;
+}
+.mobileApp .sample {
+  font-size: 2.2cqw;
+}
+.mobileApp .linkPanel {
+  margin-top: 3.5cqw;
+  padding: 3.5cqw;
+  border-radius: 4cqw;
+}
+.mobileApp .linkHeading {
+  gap: 1.8cqw;
+  font-size: 3cqw;
+}
+.mobileApp .linkHeading > span {
+  width: 5.5cqw;
+  height: 5.5cqw;
+  border-radius: 1.5cqw;
+}
+.mobileApp .linkHeading svg {
+  width: 3cqw;
+  height: 3cqw;
+}
+.mobileApp .linkForm {
+  flex-direction: column;
+  gap: 2cqw;
+  margin-top: 3cqw;
+}
+.mobileApp .linkInput {
+  border-radius: 2cqw;
+  padding: 3cqw 2.4cqw;
+  font-size: 2.5cqw;
+}
+.mobileApp .linkInput svg {
+  width: 3cqw;
+  height: 3cqw;
+}
+.mobileApp .mockButton {
+  border-radius: 2cqw;
+  padding: 2.6cqw;
+  gap: 3cqw;
+  font-size: 2.8cqw;
+}
+.mobileApp .mockButton svg {
+  width: 3.2cqw;
+  height: 3.2cqw;
+}
+.mobileApp .linkPanel > p {
+  font-size: 2.3cqw;
+  line-height: 1.6;
+  margin-top: 2cqw;
+}
+.mobileApp .balances {
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5cqw;
+  margin-top: 3cqw;
+}
+.mobileApp .balances > div {
+  border-radius: 3cqw;
+  padding: 3cqw;
+}
+.mobileApp .balances > div > span:first-child {
+  font-size: 2.4cqw;
+}
+.mobileApp .balances strong {
+  font-size: 5.5cqw;
+  margin-block: 1.7cqw;
+}
+.mobileApp .withdraw,
+.mobileApp .balanceNote {
+  font-size: 2.3cqw;
+}
+.mobileApp .withdraw svg {
+  width: 2.6cqw;
+  height: 2.6cqw;
+}
+.mobileApp .orderHeading {
+  font-size: 3cqw;
+  margin: 4cqw 0 2cqw;
+}
+.mobileApp .orderHeading > span {
+  font-size: 2.2cqw;
+}
+.mobileApp .orderHeading svg {
+  width: 2.6cqw;
+  height: 2.6cqw;
+}
+.mobileApp .orders {
+  border-radius: 3cqw;
+}
+.mobileApp .order {
+  gap: 2.4cqw;
+  padding: 2.5cqw;
+}
+.mobileApp .productIcon {
+  width: 10cqw;
+  height: 11cqw;
+  border-radius: 2cqw;
+}
+.mobileApp .productIcon svg {
+  width: 6cqw;
+  height: 6cqw;
+}
+.mobileApp .order > div > strong {
+  font-size: 2.5cqw;
+}
+.mobileApp .platform,
+.mobileApp .orderMeta {
+  font-size: 1.8cqw;
+}
+.mobileApp .orderStatus > span {
+  font-size: 1.8cqw;
+}
+.bottomNav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex-shrink: 0;
+  padding: 2cqw 3cqw 0;
+  border-top: 1px solid #efdee5;
+  background: white;
+  gap: 1cqw;
+}
+.bottomNav > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1cqw;
+  padding: 2cqw 0;
+  border-radius: 2cqw;
+  color: #88717f;
+  font-size: 2.1cqw;
+}
+.bottomNav svg {
+  width: 4.2cqw;
+  height: 4.2cqw;
+}
+.deviceNote {
+  position: absolute;
+  bottom: 0;
+  right: 9%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border: 1px solid var(--landing-line);
+  background: white;
+  box-shadow: 0 10px 25px #59243c0a;
+  border-radius: 16px;
+  transform: rotate(3deg);
+}
+.deviceNote > span {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--landing-rose);
+  display: grid;
+  place-items: center;
+  color: var(--landing-berry);
+}
+.deviceNote svg {
+  width: 17px;
+  height: 17px;
+}
+.deviceNote > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.deviceNote strong {
+  font-size: 11px;
+  font-weight: 600;
+}
+.deviceNote > div > span {
+  font-size: 10px;
+  color: var(--landing-muted);
+}
+.caption {
+  margin-top: 30px;
+  text-align: center;
+}
+.featureLabels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 13px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--landing-deep);
+}
+.featureLabels > span + span::before {
+  content: "·";
+  color: #bca5b0;
+  margin-right: 13px;
+}
+.caption p {
+  color: var(--landing-muted);
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 10px auto 0 !important;
+  max-width: 600px;
+}
+@media (max-width: 1100px) {
+  .preview {
+    width: calc(100% - 64px);
+  }
+  .stage {
+    aspect-ratio: 1.7;
+  }
+  .deviceNote {
+    padding: 10px 14px;
+    bottom: 0;
+  }
+}
+@media (max-width: 767px) {
+  .preview {
+    width: calc(100% - 40px);
+    padding-top: 56px;
+  }
+  .heading {
+    max-width: 490px;
+  }
+  .heading h2 {
+    font-size: 29px;
+    max-width: 400px;
+    letter-spacing: -1px;
+  }
+  .heading > p:first-child {
+    font-size: 9px;
+  }
+  .heading > p:last-child {
+    font-size: 14px;
+  }
+  .stage {
+    aspect-ratio: 1.07;
+    margin-top: 26px;
+  }
+  .laptop {
+    width: 89%;
+    top: 3%;
+    right: 1.5%;
+  }
+  .phone {
+    width: 34%;
+    left: 2%;
+    top: 22%;
+  }
+  .deviceNote {
+    right: 0;
+    bottom: 2%;
+    padding: 10px 12px;
+    gap: 8px;
+    border-radius: 12px;
+    max-width: 57%;
+  }
+  .deviceNote > span {
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+  }
+  .deviceNote svg {
+    width: 14px;
+    height: 14px;
+  }
+  .deviceNote strong {
+    font-size: 9px;
+  }
+  .deviceNote > div > span {
+    font-size: 8px;
+  }
+  .caption {
+    margin-top: 20px;
+  }
+  .caption p {
+    font-size: 10px;
+  }
+}
+@media (max-width: 374px) {
+  .preview {
+    width: calc(100% - 32px);
+  }
+  .heading h2 {
+    font-size: 26px;
+  }
+  .deviceNote {
+    gap: 5px;
+    padding: 8px;
+  }
+}
+
+.productResult {
+  background: white;
+  border: 1px solid #efdee5;
+  border-radius: 4cqw;
+  overflow: hidden;
+  margin-top: 3cqw;
+}
+.productVisual {
+  height: 22cqw;
+  background: #f4e5da;
+  color: #ad8967;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.productVisual > svg {
+  width: 18cqw;
+  height: 18cqw;
+  stroke-width: 1;
+}
+.productVisual > span {
+  position: absolute;
+  top: 2cqw;
+  left: 2.5cqw;
+  font-size: 2cqw;
+  letter-spacing: 0.2cqw;
+  color: #85613e;
+}
+.productDetails {
+  padding: 3cqw;
+}
+.productDetails > strong {
+  display: block;
+  font-size: 3.4cqw;
+  font-weight: 600;
+}
+.productPrice {
+  display: block;
+  font-size: 3cqw;
+  margin-top: 0.7cqw;
+  color: #75646e;
+}
+.estimate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.3cqw;
+  margin-top: 2cqw;
+  border-radius: 2cqw;
+  background: #ffe8f1;
+  color: #a8245e;
+}
+.estimate > span {
+  font-size: 2.4cqw;
+}
+.estimate > strong {
+  font-size: 4.5cqw;
+  font-weight: 600;
+}
+.productDetails > p {
+  font-size: 2cqw;
+  color: #88717f;
+  margin: 1.3cqw 0 2cqw !important;
+}
+.productDetails .mockButton {
+  padding: 2.2cqw;
+}
+.desktopApp .balances {
+  margin-top: 2.3cqw;
+}
+.desktopApp .balances > div {
+  padding: 2cqw;
+}
+.desktopApp .balances strong {
+  font-size: 3.2cqw;
+  margin-block: 1.1cqw;
+}
+.desktopApp .orderHeading {
+  margin-top: 2.6cqw;
+  font-size: 1.3cqw;
+}
+.desktopApp .order {
+  padding-block: 1.5cqw;
+}

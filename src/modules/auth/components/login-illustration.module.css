@@ -1,0 +1,169 @@
+.scene {
+  position: relative;
+  width: min(100%, 420px);
+  height: 260px;
+  margin: 18px auto 0;
+  isolation: isolate;
+}
+.halo {
+  position: absolute;
+  inset: 28px 55px 8px;
+  border-radius: 48% 52% 45% 55%;
+  background: #f9e4eb;
+  transform: rotate(-9deg);
+  z-index: -2;
+}
+.trail {
+  position: absolute;
+  inset: 8px 32px 8px;
+  border: 2px dashed #dc9cb6;
+  border-radius: 50%;
+  transform: rotate(-18deg);
+  z-index: -1;
+}
+.piggy {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  width: min(75%, 275px);
+  height: auto;
+  transform: translateX(-50%) rotate(-5deg);
+  filter: drop-shadow(0 20px 24px #59243c1a);
+}
+.coin {
+  position: absolute;
+  top: 5px;
+  right: 45px;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border: 5px solid #f8d278;
+  border-radius: 50%;
+  background: #ffefb5;
+  color: #b16b24;
+  box-shadow:
+    0 7px 0 #eabf63,
+    0 15px 24px #a8245e1c;
+  font-size: 27px;
+  transform: rotate(15deg);
+}
+.sparkle {
+  position: absolute;
+  color: #a8245e;
+  line-height: 1;
+}
+.sparkleOne {
+  top: 42px;
+  left: 30px;
+  font-size: 33px;
+}
+.sparkleTwo {
+  bottom: 36px;
+  right: 18px;
+  font-size: 24px;
+}
+.compact {
+  width: 100%;
+  height: 112px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #f0dce4;
+  border-radius: 22px;
+  background: #fff0f5;
+}
+.compact .mobileBrand {
+  position: absolute;
+  top: 35px;
+  left: 22px;
+  z-index: 2;
+  color: #25181e;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+.mobileBrand span {
+  color: #a8245e;
+}
+.compact .halo {
+  inset: -45px -30px -80px auto;
+  width: 220px;
+  transform: rotate(25deg);
+}
+.compact .trail {
+  inset: -60px -8px -85px auto;
+  width: 200px;
+}
+.compact .piggy {
+  left: auto;
+  right: 13px;
+  bottom: -44px;
+  width: 145px;
+  transform: rotate(-6deg);
+}
+.compact .coin {
+  top: 10px;
+  right: 135px;
+  width: 30px;
+  height: 30px;
+  border-width: 3px;
+  box-shadow: 0 3px 0 #eabf63;
+  font-size: 13px;
+}
+.compact .sparkleOne {
+  top: 16px;
+  left: 48%;
+  font-size: 19px;
+}
+.compact .sparkleTwo {
+  display: none;
+}
+@media (max-width: 374px) {
+  .compact .mobileBrand {
+    left: 17px;
+    font-size: 19px;
+  }
+  .compact .piggy {
+    right: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scene:not(.compact) .piggy {
+    animation: piggyFloat 5.5s ease-in-out infinite;
+  }
+  .scene:not(.compact) .coin {
+    animation: coinFloat 4.8s ease-in-out infinite;
+  }
+  .scene:not(.compact) .sparkle {
+    animation: glimmer 5s ease-in-out infinite;
+  }
+}
+@keyframes piggyFloat {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-7px) rotate(-4deg);
+  }
+}
+@keyframes coinFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(15deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(8deg);
+  }
+}
+@keyframes glimmer {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

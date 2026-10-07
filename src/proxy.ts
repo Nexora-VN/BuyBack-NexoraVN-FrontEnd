@@ -7,6 +7,9 @@ import { routing } from "@/i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 export default function proxy(request: NextRequest) {
+  if (["/robots.txt", "/sitemap.xml", "/opengraph-image"].includes(request.nextUrl.pathname)) {
+    return NextResponse.next();
+  }
   if (request.nextUrl.pathname === "/bank-directory.json") return NextResponse.next();
   if (request.nextUrl.pathname.startsWith("/api") || request.nextUrl.pathname.startsWith("/trpc")) {
     return NextResponse.next();
