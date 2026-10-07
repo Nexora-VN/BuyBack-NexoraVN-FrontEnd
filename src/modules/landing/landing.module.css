@@ -368,6 +368,25 @@
   font-size: 9px;
   margin-top: 10px;
 }
+.cashbackBadge {
+  position: absolute;
+  right: -10px;
+  bottom: 16%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px;
+  border: 1px solid var(--landing-line);
+  border-radius: 999px;
+  background: #fffdfb;
+  box-shadow: 0 12px 35px #59243c17;
+  color: var(--landing-berry);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: rotate(5deg);
+}
 .flower {
   position: absolute;
   bottom: 6%;
@@ -450,6 +469,12 @@
   flex-direction: column;
   border-top: 1px solid var(--landing-line);
   padding-top: 22px;
+  transition:
+    border-color 200ms,
+    box-shadow 200ms;
+}
+.step:hover {
+  border-color: var(--landing-berry);
 }
 .stepTop {
   display: flex;
@@ -504,6 +529,10 @@
   padding: 42px;
   border-radius: 20px;
   position: relative;
+  transition: box-shadow 220ms;
+}
+.transparency:hover {
+  box-shadow: 0 16px 40px #59243c12;
 }
 .transparency .smallLabel {
   color: var(--landing-berry);
@@ -889,6 +918,12 @@
     left: -8px;
     padding: 14px 16px;
   }
+  .cashbackBadge {
+    right: -4%;
+    bottom: 23%;
+    padding: 9px 11px;
+    font-size: 9px;
+  }
   .previewTitle {
     gap: 8px;
   }
@@ -1067,6 +1102,9 @@
   .previewCard {
     width: 245px;
   }
+  .cashbackBadge {
+    bottom: 31%;
+  }
   .flower {
     display: none;
   }
@@ -1078,6 +1116,124 @@
   }
   .cta h2 {
     font-size: 26px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .heroCopy .eyebrow {
+    animation: heroEnter 520ms ease-out both;
+  }
+  .heroCopy h1 {
+    animation: heroEnter 620ms 90ms ease-out both;
+  }
+  .heroDescription {
+    animation: heroEnter 620ms 180ms ease-out both;
+  }
+  .heroActions,
+  .heroNote {
+    animation: heroEnter 620ms 270ms ease-out both;
+  }
+  .heroVisual {
+    animation: heroEnter 700ms 140ms ease-out both;
+  }
+  .mascot {
+    animation: mascotFloat 5.5s ease-in-out infinite;
+  }
+  .previewCard {
+    animation: previewFloat 4.8s ease-in-out infinite;
+  }
+  .littleNote {
+    animation: noteFloat 5.2s ease-in-out infinite;
+  }
+  .cashbackBadge {
+    animation: badgeFloat 5.8s ease-in-out infinite;
+  }
+  .sparkle {
+    animation: sparklePulse 5s ease-in-out infinite;
+  }
+  .primaryButton:hover,
+  .creamButton:hover {
+    transform: translateY(-2px);
+  }
+  .previewCard:hover,
+  .cashbackBadge:hover {
+    animation-play-state: paused;
+    box-shadow: 0 20px 45px #59243c25;
+  }
+  .landing[data-motion-ready="true"] [data-reveal]:not([data-reveal="visible"]) {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .landing[data-motion-ready="true"] [data-reveal] {
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms ease-out;
+  }
+  .landing[data-motion-ready="true"] [data-reveal="visible"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .landing[data-motion-ready="true"] .step:nth-child(2) {
+    transition-delay: 80ms;
+  }
+  .landing[data-motion-ready="true"] .step:nth-child(3) {
+    transition-delay: 160ms;
+  }
+}
+@keyframes heroEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes mascotFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(-5deg);
+  }
+}
+@keyframes previewFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(-3deg);
+  }
+}
+@keyframes noteFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(7deg);
+  }
+}
+@keyframes badgeFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(4deg);
+  }
+}
+@keyframes sparklePulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useCopy } from "@/i18n/use-copy";
 import { useTranslations } from "next-intl";
 
@@ -13,6 +14,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import styles from "./login-illustration.module.css";
 
 const schema = z.object({
   email: z.string().email("Email không hợp lệ"),
@@ -138,13 +140,13 @@ export function LoginBenefits() {
   const t = useCopy();
   const endUser = useTranslations("EndUser");
   return (
-    <section className="hidden flex-col justify-center border-r border-[#f5e7eb] bg-[#fff5f8] p-12 lg:flex xl:p-20">
+    <section className="hidden flex-col justify-center overflow-hidden border-r border-[#f5e7eb] bg-[#fff5f8] p-12 lg:flex xl:p-20">
       <div className="flex items-center gap-3 text-2xl font-extrabold tracking-tight">
         <span>
           Piggy <span className="text-primary">Back</span>
         </span>
       </div>
-      <div className="mt-14 max-w-md">
+      <div className="mt-10 max-w-md">
         <p className="text-primary text-sm font-semibold">{t("Mua sắm và hoàn tiền")}</p>
         <h2 className="mt-4 text-3xl leading-snug font-bold">
           {t("Mua sắm như thường lệ.")}
@@ -153,6 +155,32 @@ export function LoginBenefits() {
         </h2>
         <p className="text-muted-foreground mt-6 text-base leading-7">{endUser("loginBenefits")}</p>
       </div>
+      <LoginIllustration />
     </section>
+  );
+}
+
+export function LoginIllustration({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={`${styles.scene} ${compact ? styles.compact : ""}`} aria-hidden="true">
+      {compact && (
+        <span className={styles.mobileBrand}>
+          Piggy<span>Back</span>
+        </span>
+      )}
+      <span className={styles.halo} />
+      <span className={styles.trail} />
+      <span className={`${styles.sparkle} ${styles.sparkleOne}`}>✳</span>
+      <span className={`${styles.sparkle} ${styles.sparkleTwo}`}>✦</span>
+      <span className={styles.coin}>✦</span>
+      <Image
+        className={styles.piggy}
+        src="/logo_full.png"
+        alt=""
+        width={330}
+        height={330}
+        sizes={compact ? "125px" : "(max-width: 1280px) 260px, 330px"}
+      />
+    </div>
   );
 }

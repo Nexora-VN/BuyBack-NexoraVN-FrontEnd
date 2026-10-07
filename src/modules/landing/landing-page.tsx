@@ -18,6 +18,7 @@ import {
 import type { Locale } from "@/i18n/config";
 import { landingContent } from "./content";
 import { DevicePreview } from "./device-preview";
+import { RevealOnScroll } from "./reveal-on-scroll";
 import styles from "./landing.module.css";
 
 const sections = ["how-it-works", "why-piggy", "faq"];
@@ -42,7 +43,8 @@ export function LandingPage({ locale }: { locale: Locale }) {
   const benefitIcons = [ScanEye, Smartphone, ShieldCheck];
 
   return (
-    <div className={styles.landing}>
+    <div className={styles.landing} data-landing-motion>
+      <RevealOnScroll />
       <a className={styles.skip} href="#main-content">
         {t.skip}
       </a>
@@ -146,13 +148,17 @@ export function LandingPage({ locale }: { locale: Locale }) {
                 {t.previewResult}
               </p>
             </div>
+            <div className={styles.cashbackBadge} aria-hidden="true">
+              <CircleCheck size={17} />
+              <span>{t.rewardBadge}</span>
+            </div>
             <span className={styles.flower} aria-hidden="true">
               ✳
             </span>
           </div>
         </section>
 
-        <div className={`${styles.container} ${styles.marketplace}`}>
+        <div className={`${styles.container} ${styles.marketplace}`} data-reveal>
           <div>
             <p className={styles.smallLabel}>{t.platformLabel}</p>
             <div className={styles.shopee}>
@@ -173,6 +179,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
           id="how-it-works"
           className={`${styles.container} ${styles.section}`}
           aria-labelledby="steps-title"
+          data-reveal
         >
           <div className={styles.sectionHeading}>
             <div>
@@ -185,7 +192,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             {t.steps.map((step, i) => {
               const Icon = stepIcons[i];
               return (
-                <li key={step.title} className={styles.step}>
+                <li key={step.title} className={styles.step} data-reveal>
                   <div className={styles.stepTop}>
                     <span className={styles.stepNumber}>0{i + 1}</span>
                     <Icon aria-hidden="true" size={25} strokeWidth={1.5} />
@@ -202,7 +209,12 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </ol>
         </section>
 
-        <section id="why-piggy" className={styles.benefitSection} aria-labelledby="benefits-title">
+        <section
+          id="why-piggy"
+          className={styles.benefitSection}
+          aria-labelledby="benefits-title"
+          data-reveal
+        >
           <div className={`${styles.container} ${styles.benefitGrid}`}>
             <div className={styles.transparency}>
               <p className={styles.smallLabel}>{t.transparencyLabel}</p>
@@ -246,6 +258,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
           id="faq"
           className={`${styles.container} ${styles.section} ${styles.faq}`}
           aria-labelledby="faq-title"
+          data-reveal
         >
           <div className={styles.faqHeading}>
             <p className={styles.eyebrow}>{t.faqLabel}</p>
@@ -268,7 +281,11 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className={`${styles.container} ${styles.cta}`} aria-labelledby="cta-title">
+        <section
+          className={`${styles.container} ${styles.cta}`}
+          aria-labelledby="cta-title"
+          data-reveal
+        >
           <div className={styles.ctaCopy}>
             <p className={styles.eyebrow}>{t.ctaLabel}</p>
             <h2 id="cta-title">{t.ctaTitle}</h2>
