@@ -79,7 +79,7 @@ export function AccountPage() {
           <h2 className="text-muted-foreground lg:text-foreground text-xs font-bold tracking-wide uppercase lg:text-lg lg:normal-case">
             Nơi nhận tiền
           </h2>
-          <p className="text-muted-foreground mt-1 hidden max-w-2xl text-sm leading-6 lg:block">
+          <p className="text-muted-foreground mt-1 max-w-2xl text-xs leading-5 lg:text-sm lg:leading-6">
             {t(
               "Thông tin nhận tiền được bảo vệ. Tài khoản mới hoặc chỉnh sửa cần được duyệt trước khi rút tiền.",
             )}

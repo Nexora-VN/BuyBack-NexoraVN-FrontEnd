@@ -4,7 +4,7 @@ export type UserStatus = "ACTIVE" | "DISABLED" | "DELETED";
 export interface User {
   id: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: string | null;
   displayName: string | null;
   fullName: string | null;
   role: UserRole;

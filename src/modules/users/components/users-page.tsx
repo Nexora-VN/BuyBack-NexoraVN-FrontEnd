@@ -54,14 +54,14 @@ export function UsersPage() {
                 label: t("Người dùng"),
                 render: (row) => (
                   <div className="flex min-w-0 items-center gap-3">
-                    <span className="bg-secondary text-primary grid size-9 place-items-center rounded-full font-semibold">
+                    <span className="bg-secondary text-primary grid size-9 shrink-0 place-items-center rounded-full font-semibold">
                       {initials(row.displayName ?? row.email)}
                     </span>
-                    <div>
-                      <p className="font-medium">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium break-words">
                         {row.displayName || row.fullName || t("Chưa đặt tên")}
                       </p>
-                      <p className="text-muted-foreground text-xs">{row.email}</p>
+                      <p className="text-muted-foreground text-xs break-all">{row.email}</p>
                     </div>
                   </div>
                 ),
@@ -69,7 +69,7 @@ export function UsersPage() {
               {
                 key: "phone",
                 label: t("Điện thoại"),
-                render: (row) => row.phoneNumber,
+                render: (row) => row.phoneNumber ?? "—",
               },
               { key: "role", label: t("Vai trò"), render: (row) => row.role },
               {

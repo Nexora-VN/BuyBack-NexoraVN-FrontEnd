@@ -19,7 +19,7 @@ function LoginContent() {
   }, [user, router]);
 
   return (
-    <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10">
+    <div className="mx-auto flex w-full max-w-md min-w-0 flex-1 flex-col justify-center py-10">
       <header className="mb-7 text-center lg:text-left">
         <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl">
           {t("Chào mừng trở lại")}
@@ -29,7 +29,7 @@ function LoginContent() {
         </p>
       </header>
 
-      <div className="bg-card soft-shadow rounded-2xl border p-5 sm:p-7">
+      <div className="bg-card soft-shadow min-w-0 rounded-2xl border p-5 sm:p-7">
         <GoogleSignIn />
 
         {/* Divider */}
@@ -38,7 +38,7 @@ function LoginContent() {
             <span className="border-border w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-card text-muted-foreground px-3 font-medium">
+            <span className="bg-card text-muted-foreground max-w-full px-3 text-center font-medium">
               {t("hoặc tiếp tục với tài khoản hệ thống")}
             </span>
           </div>
@@ -59,10 +59,10 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <main className="bg-background grid min-h-dvh lg:grid-cols-2">
+    <main className="bg-background grid min-h-dvh min-w-0 lg:grid-cols-2">
       <LoginBenefits />
-      <section className="flex flex-col px-5 py-6 sm:px-8 lg:px-12">
-        <div className="mx-auto w-full max-w-md lg:hidden">
+      <section className="flex min-w-0 flex-col px-5 py-6 sm:px-8 lg:px-12">
+        <div className="mx-auto w-full max-w-md min-w-0 lg:hidden">
           <LoginIllustration compact />
         </div>
         <Suspense

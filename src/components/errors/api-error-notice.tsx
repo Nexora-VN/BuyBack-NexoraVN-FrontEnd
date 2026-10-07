@@ -15,6 +15,7 @@ export function ApiErrorNotice({ error }: { error: unknown }) {
           type="button"
           variant="ghost"
           size="sm"
+          className="h-auto max-w-full min-w-0 justify-start text-left break-all whitespace-normal"
           onClick={() => {
             void navigator.clipboard.writeText(id).then(
               () => toast.success(t("Đã sao chép")),

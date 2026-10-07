@@ -73,6 +73,7 @@ export function GenerateLinkForm({
             <Input
               ref={inputRef}
               id="shopee-url"
+              data-tour="link-input"
               aria-invalid={!!formError}
               aria-describedby="shopee-url-error"
               value={url}
@@ -105,6 +106,7 @@ export function GenerateLinkForm({
             </div>
           </div>
           <Button
+            data-tour="link-submit"
             className="w-full rounded-xl"
             type="submit"
             size="lg"

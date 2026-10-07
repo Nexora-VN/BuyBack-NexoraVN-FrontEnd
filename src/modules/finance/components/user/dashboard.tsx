@@ -70,11 +70,13 @@ export function UserDashboardPage() {
       className="user-home"
     >
       <div className="user-home-grid">
-        <CashbackOverview />
+        <div data-tour="wallet-overview" className="min-w-0">
+          <CashbackOverview />
+        </div>
         <GenerateLinkPanel showNotes={false} />
       </div>
       <section className="space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between" data-tour="recent-orders">
           <h2 className="text-lg font-bold">{t("Đơn hàng gần đây")}</h2>
           <Link
             className="text-primary inline-flex min-h-11 items-center gap-1 text-sm font-semibold"

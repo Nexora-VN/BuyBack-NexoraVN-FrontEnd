@@ -1,6 +1,5 @@
-import { redirect } from "@/i18n/navigation";
-import { getLocale } from "next-intl/server";
+import { SignUpPageContent } from "@/modules/auth/components/sign-up-page";
 
-export default async function SignUpPage() {
-  redirect({ href: "/login", locale: await getLocale() });
+export default function SignUpPage() {
+  return <SignUpPageContent />;
 }

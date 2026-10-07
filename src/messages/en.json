@@ -31,6 +31,121 @@
   "Language": {
     "label": "Language"
   },
+  "Registration": {
+    "title": "Create an account",
+    "subtitle": "Shop with Piggy and enjoy a little something back.",
+    "name": "Full name",
+    "namePlaceholder": "Alex Nguyen",
+    "email": "Email",
+    "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "passwordHint": "At least 8 characters",
+    "sendCode": "Send verification code",
+    "sending": "Sending code…",
+    "haveAccount": "Already have an account?",
+    "newHere": "New to Piggy Back?",
+    "createAccount": "Create an account",
+    "signIn": "Sign in",
+    "nameError": "Enter a name with at least 2 characters",
+    "emailError": "Enter a valid email address",
+    "passwordError": "Use at least 8 characters",
+    "otpTitle": "Check your email",
+    "otpDescription": "Enter the 6-digit code sent to",
+    "otpLabel": "Six-digit verification code",
+    "changeEmail": "Change email",
+    "verify": "Verify and create account",
+    "verifying": "Verifying…",
+    "noCode": "Didn't receive a code?",
+    "resend": "Resend code",
+    "resendAfter": "Resend in {seconds} seconds",
+    "resending": "Resending…",
+    "invalidCode": "That code is incorrect. Try again.",
+    "expiredCode": "The code expired. Please register again.",
+    "tooManyAttempts": "Too many incorrect attempts. Request a new code.",
+    "rateLimited": "Please wait before requesting another code.",
+    "emailExists": "An account already uses this email. Please sign in.",
+    "mailUnavailable": "We can't send verification email right now. Try again later.",
+    "genericError": "Couldn't complete registration. Try again.",
+    "success": "Your account is ready. Please sign in."
+  },
+  "PasswordReset": {
+    "forgotLink": "Forgot password?",
+    "title": "Forgot your password?",
+    "description": "Enter your account email to receive a password reset code.",
+    "email": "Email",
+    "emailError": "Enter a valid email address",
+    "sendCode": "Send reset code",
+    "sending": "Sending code…",
+    "backToLogin": "Back to sign in",
+    "resetTitle": "Create a new password",
+    "resetDescription": "Enter the six-digit code sent to your email.",
+    "sentHint": "If this email has an account, a password reset code will arrive shortly.",
+    "changeEmail": "Change email",
+    "otpLabel": "Six-digit verification code",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "passwordError": "Use between 8 and 128 characters",
+    "confirmRequired": "Confirm your new password",
+    "passwordMismatch": "The passwords do not match",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "codeRequired": "Enter all six digits",
+    "updatePassword": "Update password",
+    "updating": "Updating…",
+    "noCode": "Didn't receive a code?",
+    "resend": "Resend code",
+    "resendAfter": "Resend in {seconds} seconds",
+    "resent": "If an account exists, a new code will be sent.",
+    "invalidCode": "That code is incorrect. Try again.",
+    "invalidOrExpiredCode": "The code is incorrect or expired. Request a new one if needed.",
+    "expiredCode": "The code expired. Request a new one.",
+    "tooManyAttempts": "Too many incorrect attempts. Request a new code.",
+    "rateLimited": "Too many requests. Try again later.",
+    "mailUnavailable": "Email is temporarily unavailable. Try again later.",
+    "genericError": "Couldn't update your password. Try again.",
+    "success": "Password updated. Please sign in again."
+  },
+  "Onboarding": {
+    "replay": "Replay guide",
+    "progress": "Step {current}/{total}",
+    "skip": "Skip",
+    "back": "Back",
+    "next": "Continue",
+    "done": "Finish",
+    "welcome": {
+      "title": "Welcome to Piggy Back!",
+      "description": "Piggy will point out where to check your balance, create a Shopee link, track orders, and withdraw cashback. Select Continue to start."
+    },
+    "balance": {
+      "title": "Your balance",
+      "description": "See your available cashback and the amount awaiting confirmation here. Only available funds can be withdrawn."
+    },
+    "linkInput": {
+      "title": "Paste a Shopee product link",
+      "description": "Copy a product link in Shopee and paste it here. You can also use Paste to read it from your clipboard."
+    },
+    "linkSubmit": {
+      "title": "Create your cashback link",
+      "description": "After pasting a link, press this button to create your shopping link and see estimated cashback. Shop through the new Piggy link to get credit."
+    },
+    "orders": {
+      "title": "Track your orders",
+      "description": "New orders appear here. Select an order for details, or View all to see every order and its cashback status."
+    },
+    "wallet": {
+      "title": "Wallet and withdrawals",
+      "description": "Open Wallet for your cashback history and balance. When eligible, you can request a withdrawal there."
+    },
+    "account": {
+      "title": "Set up your account",
+      "description": "In Account, update your personal details and add a bank or MoMo account to receive withdrawals."
+    },
+    "replayTip": {
+      "title": "Come back any time",
+      "description": "The question mark in the top bar reopens this guide whenever you need it. You're ready to get started!"
+    }
+  },
   "UI": {
     "copy_e510cc950a4e": "Last 4 digits",
     "copy_626a8be10a55": "The API key is configured through the backend environment variable ADDLIVETAG_API_KEY. Restart the backend after changing it. This form only updates account details.",

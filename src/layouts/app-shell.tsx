@@ -5,6 +5,7 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
+import { UserOnboarding } from "@/modules/onboarding/components/user-onboarding";
 import { ClipboardList, Home, Link2, LogOut, UserRound, WalletCards } from "lucide-react";
 const nav = [
   { href: "/app", label: "Trang chủ", icon: Home },
@@ -45,6 +46,13 @@ export function UserShell({ children }: { children: React.ReactNode }) {
                 <Link
                   key={href}
                   href={href}
+                  data-tour={
+                    href === "/app/wallet"
+                      ? "nav-wallet"
+                      : href === "/app/account"
+                        ? "nav-account"
+                        : undefined
+                  }
                   aria-current={userNavActive(path, href) ? "page" : undefined}
                   className={cn(
                     "flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-medium",
@@ -59,6 +67,7 @@ export function UserShell({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
             <div className="flex items-center gap-2">
+              {user?.role === "USER" && <UserOnboarding userId={user.id} />}
               <Link
                 href="/app/links/new"
                 aria-label={t("Tạo link")}
@@ -99,6 +108,13 @@ export function UserShell({ children }: { children: React.ReactNode }) {
             <Link
               key={href}
               href={href}
+              data-tour={
+                href === "/app/wallet"
+                  ? "nav-wallet"
+                  : href === "/app/account"
+                    ? "nav-account"
+                    : undefined
+              }
               aria-current={userNavActive(path, href) ? "page" : undefined}
               className={cn(
                 "flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-xs font-medium",

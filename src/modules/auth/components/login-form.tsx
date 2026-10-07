@@ -5,12 +5,12 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { isApiError } from "@/lib/api/errors";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, LoaderCircle, LockKeyhole, Mail } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -25,6 +25,8 @@ type FormData = z.infer<typeof schema>;
 
 export function LoginForm() {
   const t = useCopy();
+  const registration = useTranslations("Registration");
+  const passwordReset = useTranslations("PasswordReset");
 
   const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +36,13 @@ export function LoginForm() {
     resolver: zodResolver(schema),
     defaultValues: { email: "", password: "", remember: true },
   });
+  useEffect(() => {
+    const email = sessionStorage.getItem("auth.loginEmail");
+    if (email) {
+      form.setValue("email", email);
+      sessionStorage.removeItem("auth.loginEmail");
+    }
+  }, [form]);
   const submit = form.handleSubmit(async (values) => {
     setSubmitError("");
     try {
@@ -113,6 +122,11 @@ export function LoginForm() {
           </p>
         )}
       </div>
+      <div className="text-right">
+        <Link href="/forgot-password" className="text-primary text-sm font-medium hover:underline">
+          {passwordReset("forgotLink")}
+        </Link>
+      </div>
       <label className="text-muted-foreground flex items-center gap-2 text-sm">
         <input type="checkbox" className="accent-primary size-4" {...form.register("remember")} />
         {t("Duy trì đăng nhập trên thiết bị này")}
@@ -132,6 +146,12 @@ export function LoginForm() {
           t("Đăng nhập")
         )}
       </Button>
+      <p className="text-muted-foreground text-center text-sm">
+        {registration("newHere")}{" "}
+        <Link href="/sign-up" className="text-primary font-semibold hover:underline">
+          {registration("createAccount")}
+        </Link>
+      </p>
     </form>
   );
 }

@@ -46,9 +46,11 @@ export function ProductDetailPage({ id }: { id: string }) {
             className="aspect-square w-full"
           />
           <div>
-            <p className="text-primary text-sm font-medium">{product.shopName}</p>
-            <h2 className="mt-2 text-xl leading-8 font-bold sm:text-2xl">{product.productName}</h2>
-            <p className="text-primary tabular mt-4 text-3xl font-bold">
+            <p className="text-primary text-sm font-medium break-words">{product.shopName}</p>
+            <h2 className="mt-2 text-xl leading-8 font-bold break-words sm:text-2xl">
+              {product.productName}
+            </h2>
+            <p className="text-primary tabular mt-4 text-3xl font-bold break-words">
               {formatVnd(product.price)}
             </p>
             <p className="text-muted-foreground mt-3 text-sm">

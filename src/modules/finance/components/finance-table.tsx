@@ -136,7 +136,7 @@ export function FinanceTable({
       </div>
       {mobileStatusChips && (
         <div
-          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden"
+          className="mobile-status-chips -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden"
           aria-label={t("Trạng thái")}
         >
           {mobileStatusChips.map(({ label, value }) => {
