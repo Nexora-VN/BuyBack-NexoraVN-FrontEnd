@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { isLocale, locales } from "@/i18n/config";
-import AppProvider from "@/providers/app-provider";
 
 type LocaleLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -39,11 +38,5 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   }
 
   setRequestLocale(locale);
-  const messages = await getMessages();
-
-  return (
-    <AppProvider locale={locale} messages={messages}>
-      {children}
-    </AppProvider>
-  );
+  return children;
 }

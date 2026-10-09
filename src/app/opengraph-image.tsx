@@ -8,6 +8,7 @@ export const contentType = "image/png";
 
 export default async function OpenGraphImage() {
   const mascot = await readFile(join(process.cwd(), "public", "logo_full.png"));
+  const wordmark = await readFile(join(process.cwd(), "public", "brand-wordmark.png"));
   return new ImageResponse(
     <div
       style={{
@@ -24,20 +25,14 @@ export default async function OpenGraphImage() {
         <span style={{ fontSize: 20, letterSpacing: 6, color: "#a8245e" }}>
           SHOPPING & CASHBACK
         </span>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontSize: 112,
-            fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: -6,
-            marginTop: 30,
-          }}
-        >
-          <span style={{ color: "#a8245e" }}>Piggy</span>
-          <span>Back.</span>
-        </div>
+        {/* Satori requires a native image element inside ImageResponse. */}
+        <img
+          src={`data:image/png;base64,${wordmark.toString("base64")}`}
+          alt="Piggy Back"
+          width={550}
+          height={138}
+          style={{ marginTop: 45 }}
+        />
         <span style={{ fontSize: 27, marginTop: 32 }}>Shopee</span>
       </div>
       <div
@@ -52,7 +47,6 @@ export default async function OpenGraphImage() {
         }}
       >
         {/* Satori requires a native image element inside ImageResponse. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`data:image/png;base64,${mascot.toString("base64")}`}
           alt=""

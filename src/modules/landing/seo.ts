@@ -1,9 +1,75 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 import { landingContent } from "./content";
+import { guideContent } from "./guide-content";
+import { siteIndexable, siteUrl } from "@/lib/seo/site";
 
-export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").origin;
+export { siteUrl } from "@/lib/seo/site";
 export const languageUrls = { vi: `${siteUrl}/`, en: `${siteUrl}/en`, "x-default": `${siteUrl}/` };
+export const guideUrls = {
+  vi: `${siteUrl}/huong-dan`,
+  en: `${siteUrl}/en/huong-dan`,
+  "x-default": `${siteUrl}/huong-dan`,
+};
+
+export function guideMetadata(locale: Locale): Metadata {
+  const base = landingMetadata(locale);
+  const t = guideContent[locale];
+  return {
+    ...base,
+    title: { absolute: t.title },
+    description: t.description,
+    alternates: { canonical: guideUrls[locale], languages: guideUrls },
+    openGraph: {
+      ...base.openGraph,
+      type: "article",
+      title: t.title,
+      description: t.description,
+      url: guideUrls[locale],
+    },
+    twitter: { ...base.twitter, title: t.title, description: t.description },
+  };
+}
+
+export function guideStructuredData(locale: Locale) {
+  const t = guideContent[locale];
+  const url = guideUrls[locale];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...landingStructuredData(locale)["@graph"].filter((node) =>
+        ["Organization", "WebSite"].includes(node["@type"]),
+      ),
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: t.title,
+        description: t.description,
+        inLanguage: locale,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+      },
+      {
+        "@type": "Article",
+        "@id": `${url}#article`,
+        headline: t.heading,
+        description: t.description,
+        inLanguage: locale,
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+        publisher: { "@id": `${siteUrl}/#organization` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: t.home, item: languageUrls[locale] },
+          { "@type": "ListItem", position: 2, name: t.label, item: url },
+        ],
+      },
+    ],
+  };
+}
 
 export function landingMetadata(locale: Locale): Metadata {
   const t = landingContent[locale];
@@ -12,7 +78,7 @@ export function landingMetadata(locale: Locale): Metadata {
     title: { absolute: t.title },
     description: t.description,
     alternates: { canonical: url, languages: languageUrls },
-    robots: { index: true, follow: true },
+    robots: { index: siteIndexable, follow: true },
     openGraph: {
       type: "website",
       siteName: "Piggy Back",
@@ -50,7 +116,12 @@ export function landingStructuredData(locale: Locale) {
         "@id": `${siteUrl}/#organization`,
         name: "Piggy Back",
         url: `${siteUrl}/`,
-        logo: `${siteUrl}/logo.png`,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/brand-icon-512.png`,
+          width: 512,
+          height: 512,
+        },
       },
       {
         "@type": "WebSite",

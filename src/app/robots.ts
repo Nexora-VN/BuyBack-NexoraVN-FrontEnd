@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/modules/landing/seo";
+import { siteUrl } from "@/lib/seo/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,13 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         "/api/",
-        "/__clerk/",
-        "/app",
-        "/admin",
-        "/en/app",
-        "/en/admin",
-        "/vi/app",
-        "/vi/admin",
+        ...["", "/en", "/vi"].flatMap((prefix) =>
+          ["app", "admin"].flatMap((area) => [`${prefix}/${area}$`, `${prefix}/${area}/`]),
+        ),
       ],
     },
     sitemap: `${siteUrl}/sitemap.xml`,

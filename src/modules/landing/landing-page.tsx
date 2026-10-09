@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { siteIndexable } from "@/lib/seo/site";
 import {
   ArrowDown,
   ArrowDownLeft,
@@ -26,11 +27,7 @@ const sections = ["how-it-works", "why-piggy", "faq"];
 function Brand() {
   return (
     <span className={styles.brand}>
-      <Image src="/logo.png" alt="" width={42} height={42} />
-      <span>
-        Piggy<span>Back</span>
-        <span className={styles.brandDot}>.</span>
-      </span>
+      <Image src="/brand-horizontal.svg" alt="" width={150} height={63} loading="eager" />
     </span>
   );
 }
@@ -105,7 +102,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             </div>
             <p className={styles.heroNote}>
               <ShieldCheck aria-hidden="true" size={17} />
-              {t.heroNote}
+              {siteIndexable ? t.heroNote : t.prelaunchNote}
             </p>
           </div>
           <div className={styles.heroVisual}>
@@ -120,7 +117,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             </div>
             <Image
               className={styles.mascot}
-              src="/logo_full.png"
+              src="/piggy-back-shopping-cashback.webp"
               alt={t.mascotAlt}
               width={560}
               height={560}
@@ -207,6 +204,12 @@ export function LandingPage({ locale }: { locale: Locale }) {
               );
             })}
           </ol>
+          <p style={{ marginTop: 24 }}>
+            <a className={styles.textButton} href={locale === "vi" ? "/huong-dan" : "/en/huong-dan"}>
+              {locale === "vi" ? "Hướng dẫn tạo link hoàn tiền Shopee" : "Read the Shopee cashback link guide"}
+              <ArrowRight size={17} aria-hidden="true" />
+            </a>
+          </p>
         </section>
 
         <section
@@ -216,20 +219,6 @@ export function LandingPage({ locale }: { locale: Locale }) {
           data-reveal
         >
           <div className={`${styles.container} ${styles.benefitGrid}`}>
-            <div className={styles.transparency}>
-              <p className={styles.smallLabel}>{t.transparencyLabel}</p>
-              <h3>{t.transparencyTitle}</h3>
-              <p className={styles.transparencyText}>{t.transparencyText}</p>
-              <ol className={styles.flow}>
-                {t.flow.map((item, i) => (
-                  <li key={item}>
-                    <span>{i === 2 ? <Check aria-hidden="true" size={16} /> : i + 1}</span>
-                    {item}
-                  </li>
-                ))}
-              </ol>
-              <p className={styles.transparencyNote}>{t.transparencyNote}</p>
-            </div>
             <div className={styles.benefitCopy}>
               <p className={styles.eyebrow}>{t.benefitsLabel}</p>
               <h2 id="benefits-title">{t.benefitsTitle}</h2>
@@ -250,6 +239,20 @@ export function LandingPage({ locale }: { locale: Locale }) {
                   );
                 })}
               </div>
+            </div>
+            <div className={styles.transparency}>
+              <p className={styles.smallLabel}>{t.transparencyLabel}</p>
+              <h3>{t.transparencyTitle}</h3>
+              <p className={styles.transparencyText}>{t.transparencyText}</p>
+              <ol className={styles.flow}>
+                {t.flow.map((item, i) => (
+                  <li key={item}>
+                    <span>{i === 2 ? <Check aria-hidden="true" size={16} /> : i + 1}</span>
+                    {item}
+                  </li>
+                ))}
+              </ol>
+              <p className={styles.transparencyNote}>{t.transparencyNote}</p>
             </div>
           </div>
         </section>
@@ -298,7 +301,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
           <div className={styles.ctaArt} aria-hidden="true">
             <div />
             <Image
-              src="/logo_full.png"
+              src="/piggy-back-shopping-cashback.webp"
               alt=""
               width={380}
               height={380}
@@ -325,6 +328,9 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <a href={login}>
               {t.login}
               <ArrowRight size={14} aria-hidden="true" />
+            </a>
+            <a href={locale === "vi" ? "/huong-dan" : "/en/huong-dan"}>
+              {locale === "vi" ? "Hướng dẫn mua sắm" : "Shopping guide"}
             </a>
           </nav>
         </div>

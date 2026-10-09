@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { BrandLogo } from "@/components/patterns/brand-logo";
 import { useCopy } from "@/i18n/use-copy";
 import { useTranslations } from "next-intl";
 
@@ -161,11 +162,7 @@ export function LoginBenefits() {
   const endUser = useTranslations("EndUser");
   return (
     <section className="hidden flex-col justify-center overflow-hidden border-r border-[#f5e7eb] bg-[#fff5f8] p-12 lg:flex xl:p-20">
-      <div className="flex items-center gap-3 text-2xl font-extrabold tracking-tight">
-        <span>
-          Piggy <span className="text-primary">Back</span>
-        </span>
-      </div>
+      <BrandLogo className="w-[150px]" />
       <div className="mt-10 max-w-md">
         <p className="text-primary text-sm font-semibold">{t("Mua sắm và hoàn tiền")}</p>
         <h2 className="mt-4 text-3xl leading-snug font-bold">
@@ -184,9 +181,14 @@ export function LoginIllustration({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`${styles.scene} ${compact ? styles.compact : ""}`} aria-hidden="true">
       {compact && (
-        <span className={styles.mobileBrand}>
-          Piggy<span>Back</span>
-        </span>
+        <Image
+          className={styles.mobileBrand}
+          src="/brand-horizontal.svg"
+          alt=""
+          width={112}
+          height={47}
+          loading="eager"
+        />
       )}
       <span className={styles.halo} />
       <span className={styles.trail} />

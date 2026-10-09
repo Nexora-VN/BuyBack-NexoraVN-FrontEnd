@@ -74,16 +74,11 @@
 }
 .compact .mobileBrand {
   position: absolute;
-  top: 35px;
+  top: 31px;
   left: 22px;
   z-index: 2;
-  color: #25181e;
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.8px;
-}
-.mobileBrand span {
-  color: #a8245e;
+  width: 112px;
+  height: auto;
 }
 .compact .halo {
   inset: -45px -30px -80px auto;
@@ -121,7 +116,7 @@
 @media (max-width: 374px) {
   .compact .mobileBrand {
     left: 17px;
-    font-size: 19px;
+    width: 104px;
   }
   .compact .piggy {
     right: 0;

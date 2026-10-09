@@ -16,6 +16,11 @@ export default function proxy(request: NextRequest) {
   }
 
   const normalizedPath = request.nextUrl.pathname.replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
+  if (request.nextUrl.pathname === "/vi" || request.nextUrl.pathname.startsWith("/vi/")) {
+    const canonicalUrl = request.nextUrl.clone();
+    canonicalUrl.pathname = normalizedPath;
+    return NextResponse.redirect(canonicalUrl, 308);
+  }
   if (request.nextUrl.pathname === "/en/app" || request.nextUrl.pathname.startsWith("/en/app/")) {
     const vietnameseUrl = request.nextUrl.clone();
     vietnameseUrl.pathname = normalizedPath;

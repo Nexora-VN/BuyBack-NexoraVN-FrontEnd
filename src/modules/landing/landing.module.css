@@ -70,19 +70,12 @@
 }
 .brand {
   display: inline-flex;
-  gap: 9px;
   align-items: center;
-  color: var(--landing-berry);
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  white-space: nowrap;
 }
-.brand > span > span {
-  color: var(--landing-ink);
-}
-.brand > span > .brandDot {
-  color: var(--landing-berry);
+.brand img {
+  display: block;
+  width: 150px;
+  height: auto;
 }
 .brandLink {
   display: flex;
@@ -525,6 +518,7 @@
   align-items: center;
 }
 .transparency {
+  order: -1;
   background: var(--landing-rose);
   padding: 42px;
   border-radius: 20px;
@@ -846,13 +840,8 @@
     gap: 0;
     padding-top: 8px;
   }
-  .brand {
-    font-size: 21px;
-    gap: 5px;
-  }
   .brand img {
-    width: 35px;
-    height: 35px;
+    width: 136px;
   }
   .headerActions {
     gap: 6px;
@@ -996,7 +985,7 @@
     gap: 32px;
   }
   .benefitCopy {
-    order: -1;
+    order: -2;
   }
   .benefitCopy > .sectionIntro {
     max-width: 100%;
@@ -1087,8 +1076,8 @@
   .container {
     width: calc(100% - 32px);
   }
-  .brand {
-    font-size: 19px;
+  .brand img {
+    width: 120px;
   }
   .headerLogin {
     padding-inline: 10px;
