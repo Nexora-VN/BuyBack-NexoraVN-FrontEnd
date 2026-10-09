@@ -118,7 +118,7 @@ export function landingStructuredData(locale: Locale) {
         url: `${siteUrl}/`,
         logo: {
           "@type": "ImageObject",
-          url: `${siteUrl}/piggy-back-logo.webp`,
+          url: `${siteUrl}/brand-icon-512.png`,
           width: 512,
           height: 512,
         },

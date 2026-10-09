@@ -1,6 +1,7 @@
 "use client";
 import { ConfirmProvider } from "@/components/patterns/confirm-provider";
 import { BrandAvatar } from "@/components/patterns/brand-avatar";
+import { BrandLogo } from "@/components/patterns/brand-logo";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
@@ -36,10 +37,7 @@ export function UserShell({ children }: { children: React.ReactNode }) {
               className="flex shrink-0 items-center font-bold tracking-tight"
               aria-label="Piggy Back - Trang chủ"
             >
-              <BrandAvatar className="mr-2 size-9" />
-              <span className="text-foreground text-xl">
-                Piggy <span className="text-primary">Back</span>
-              </span>
+              <BrandLogo className="w-[140px] sm:w-[150px]" />
             </Link>
             <nav aria-label={t("Điều hướng chính")} className="hidden items-center gap-1 lg:flex">
               {nav.map(({ href, label, icon: Icon }) => (

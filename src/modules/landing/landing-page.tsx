@@ -27,11 +27,7 @@ const sections = ["how-it-works", "why-piggy", "faq"];
 function Brand() {
   return (
     <span className={styles.brand}>
-      <Image src="/piggy-back-logo.webp" alt="" width={42} height={42} />
-      <span>
-        Piggy<span>Back</span>
-        <span className={styles.brandDot}>.</span>
-      </span>
+      <Image src="/brand-horizontal.svg" alt="" width={150} height={63} loading="eager" />
     </span>
   );
 }

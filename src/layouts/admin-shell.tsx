@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import { BrandLogo } from "@/components/patterns/brand-logo";
 import LanguageSwitcher from "@/components/locale/language-switcher";
 import { ConfirmProvider } from "@/components/patterns/confirm-provider";
 import { SurfaceDialog } from "@/components/patterns/surface-dialog";
@@ -128,17 +128,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <aside className="bg-card fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r lg:flex">
           <Link
             href="/admin"
-            className="text-primary flex h-20 shrink-0 items-center gap-3 px-6 font-bold"
+            className="text-primary flex h-20 shrink-0 flex-col items-start justify-center px-6 font-bold"
           >
-            <Image
-              src="/logo.png"
-              alt="Piggy Back"
-              width={36}
-              height={36}
-              className="size-9 object-contain"
-            />
+            <BrandLogo className="w-[132px]" />
             <span>
-              Piggy Back{" "}
               <small className="text-muted-foreground block text-xs font-medium">
                 {t("Admin · Piggy Back")}
               </small>
@@ -161,14 +154,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </aside>
         <header className="bg-card sticky top-0 z-30 flex h-16 items-center justify-between border-b px-4 lg:hidden">
           <Link href="/admin" className="text-primary flex items-center gap-2 font-bold">
-            <Image
-              src="/logo.png"
-              alt="Piggy Back"
-              width={28}
-              height={28}
-              className="size-7 object-contain"
-            />
-            {t("Piggy Back Admin")}
+            <BrandLogo className="w-[115px]" />
+            <span className="text-sm">Admin</span>
           </Link>
           <button
             onClick={() => setOpen(true)}
