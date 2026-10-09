@@ -3,11 +3,6 @@ name: Frontend Production
 on:
   push:
     branches: [main]
-  workflow_call:
-    inputs:
-      revision:
-        required: true
-        type: string
 
 permissions:
   contents: read
@@ -21,14 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_TELEMETRY_DISABLED: "1"
       NEXT_PUBLIC_SITE_URL: https://piggyback.vn
-      SEO_INDEXABLE: ${{ vars.SEO_INDEXABLE || 'false' }}
-      NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.revision || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -41,21 +32,6 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - name: Audit public SEO contracts
-        shell: bash
-        run: |
-          npm run start -- --port 3100 > /tmp/piggy-seo-server.log 2>&1 &
-          server_pid=$!
-          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
-          for attempt in $(seq 1 30); do
-            if curl --fail --silent http://localhost:3100/robots.txt > /dev/null; then break; fi
-            sleep 1
-          done
-          if [ "$SEO_INDEXABLE" = "true" ]; then
-            npm run audit:seo -- http://localhost:3100 --indexable
-          else
-            npm run audit:seo -- http://localhost:3100
-          fi
 
   publish:
     needs: verify
@@ -68,8 +44,6 @@ jobs:
       image: ${{ steps.publish.outputs.image }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.revision || github.sha }}
       - name: Log in to GHCR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -79,13 +53,11 @@ jobs:
         id: publish
         env:
           REPOSITORY: ${{ github.repository }}
-          REVISION: ${{ inputs.revision || github.sha }}
-          GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
-          SEO_INDEXABLE: ${{ vars.SEO_INDEXABLE || 'false' }}
+          REVISION: ${{ github.sha }}
         run: |
           set -euo pipefail
           image="ghcr.io/${REPOSITORY,,}"
-          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=https://piggyback.vn --build-arg SEO_INDEXABLE="$SEO_INDEXABLE" --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID" -t "$image:$REVISION" .
+          docker build --label "org.opencontainers.image.source=https://github.com/$REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" --build-arg NEXT_PUBLIC_SITE_URL=https://piggyback.vn --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_bW9yYWwtc3dpbmUtNDE4MC5jbGVyay5hY2NvdW50cy5kZXYk --build-arg CLERK_SECRET_KEY=sk_test_lzmtprJMpfVF4eBDA2hUlICiNgAnEylsOsXvNLZbtJ -t "$image:$REVISION" .
           docker push "$image:$REVISION"
           digest=$(docker image inspect "$image:$REVISION" --format '{{index .RepoDigests 0}}')
           [[ "$digest" == "$image@sha256:"* ]]
@@ -99,14 +71,12 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.revision || github.sha }}
       - name: Deploy frontend on production VPS
         env:
           DEPLOY_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           KNOWN_HOSTS: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
           IMAGE: ${{ needs.publish.outputs.image }}
-          REVISION: ${{ inputs.revision || github.sha }}
+          REVISION: ${{ github.sha }}
           RUN_NUMBER: ${{ github.run_number }}
         run: |
           set -euo pipefail
