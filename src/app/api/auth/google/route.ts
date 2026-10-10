@@ -1,10 +1,10 @@
 import { applyTokenCookies, backendUrl, readJsonSafe } from "@/lib/server/backend";
 import { backendFetch, withApiRoute } from "@/lib/server/observability";
+import { isCrossOriginMutation } from "@/lib/server/same-origin";
 import { NextResponse } from "next/server";
 
 async function handle(request: Request) {
-  const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) {
+  if (isCrossOriginMutation(request)) {
     return NextResponse.json({ message: "Invalid origin" }, { status: 403 });
   }
   const input = (await request.json()) as { idToken?: unknown };
