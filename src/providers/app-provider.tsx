@@ -6,6 +6,7 @@ import { useEffect, type ComponentProps } from "react";
 
 import { AppErrorBoundary, RuntimeErrors } from "@/components/errors/runtime-errors";
 import { InstallHomeButton } from "@/components/install-home-button";
+import { UpdateNotice } from "@/components/update-notice";
 import { timeZone, type Locale } from "@/i18n/config";
 import { AuthProvider } from "@/modules/auth/components/auth-provider";
 import QueryProvider from "@/providers/query-provider";
@@ -28,6 +29,7 @@ export default function AppProvider({ children, locale, messages }: AppProviderP
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
+      <UpdateNotice />
       {isPublicLanding ? (
         children
       ) : (

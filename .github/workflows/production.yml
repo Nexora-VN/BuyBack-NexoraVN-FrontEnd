@@ -64,6 +64,7 @@ jobs:
             --label "org.opencontainers.image.revision=$REVISION" \
             --build-arg NEXT_PUBLIC_SITE_URL="$NEXT_PUBLIC_SITE_URL" \
             --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID="$NEXT_PUBLIC_GOOGLE_CLIENT_ID" \
+            --build-arg NEXT_PUBLIC_BUILD_ID="$REVISION" \
             -t "$image:$REVISION" .
           docker push "$image:$REVISION"
           digest=$(docker image inspect "$image:$REVISION" --format '{{index .RepoDigests 0}}')
