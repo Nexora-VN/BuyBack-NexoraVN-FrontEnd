@@ -71,7 +71,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
               {locale === "vi" ? "EN" : "VI"}
             </a>
             <a href={login} className={styles.headerLogin}>
-              {t.login}
+              {t.headerCta}
               <ArrowUpRightIcon />
             </a>
           </div>
