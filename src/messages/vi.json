@@ -31,6 +31,11 @@
   "Language": {
     "label": "Ngôn ngữ"
   },
+  "UpdateNotice": {
+    "available": "Có bản mới của Piggy Back",
+    "reload": "Tải lại ngay",
+    "later": "Để sau"
+  },
   "Registration": {
     "title": "Tạo tài khoản",
     "subtitle": "Mua sắm cùng Piggy, nhận lại một chút niềm vui.",

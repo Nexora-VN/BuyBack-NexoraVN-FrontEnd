@@ -31,6 +31,11 @@
   "Language": {
     "label": "Language"
   },
+  "UpdateNotice": {
+    "available": "A new Piggy Back version is available",
+    "reload": "Reload now",
+    "later": "Later"
+  },
   "Registration": {
     "title": "Create an account",
     "subtitle": "Shop with Piggy and enjoy a little something back.",
