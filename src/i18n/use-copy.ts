@@ -6,6 +6,7 @@ const errors: Record<string, string> = {
   WITHDRAWALS_DISABLED: "Rút tiền đang tạm dừng",
   SETTLEMENT_DISABLED: "Quyết toán đang tạm dừng",
   BANK_NOT_APPROVED: "Tài khoản ngân hàng chưa được duyệt",
+  APPROVED_BANK_REQUIRED: "Tài khoản ngân hàng chưa được duyệt",
   COMMISSIONS_NOT_ELIGIBLE: "Hoa hồng chưa đủ điều kiện quyết toán",
   PROVIDER_COMMISSION_NOT_PAID: "Đối tác chưa xác nhận trả hoa hồng",
   VERIFY_ACCOUNT_AND_VND_FIRST: "Cần xác thực tài khoản và đơn vị VND",

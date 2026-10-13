@@ -1,6 +1,8 @@
 import type { UserRole } from "@/modules/auth/types/auth";
 import type { PaginatedResponse } from "@/types/api";
 export type UserStatus = "ACTIVE" | "DISABLED" | "DELETED";
+export const userRoleLabel = (role: UserRole) =>
+  ({ USER: "Người dùng", ADMIN: "Quản trị viên", SUPER_ADMIN: "Quản trị cấp cao" })[role] ?? role;
 export interface User {
   id: string;
   email: string;
@@ -14,11 +16,12 @@ export interface User {
 }
 export interface UserInput {
   email: string;
-  phoneNumber: string;
+  phoneNumber: string | null;
   password?: string;
   displayName?: string;
   fullName?: string;
   role: UserRole;
   status: UserStatus;
 }
+export type UserUpdateInput = Partial<UserInput>;
 export type UserList = PaginatedResponse<User>;

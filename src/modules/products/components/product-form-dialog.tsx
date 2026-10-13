@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 
 import type { ProductsPageState } from "../hooks/use-products-page";
 export function ProductFormDialog({ state }: { state: ProductsPageState }) {
-  const { t, page, saveError, open, setOpen, editing, form, setForm, products, mutations, save } =
-    state;
+  const { t, saveError, open, setOpen, editing, form, setForm, mutations, save } = state;
   return (
     <SurfaceDialog
       busy={mutations.create.isPending || mutations.update.isPending}

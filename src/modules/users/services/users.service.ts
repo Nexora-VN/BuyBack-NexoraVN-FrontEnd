@@ -1,5 +1,5 @@
 import { apiClient } from "@/lib/api/client";
-import type { User, UserInput, UserList } from "@/modules/users/types/user";
+import type { User, UserInput, UserList, UserUpdateInput } from "@/modules/users/types/user";
 export const usersService = {
   list: (params: {
     page: number;
@@ -11,7 +11,7 @@ export const usersService = {
   detail: (id: string) => apiClient.get<User>(`/api/backend/users/${id}`),
   create: (input: UserInput & { password: string }) =>
     apiClient.post<User>("/api/backend/users", input),
-  update: (id: string, input: Partial<UserInput>) =>
+  update: (id: string, input: UserUpdateInput) =>
     apiClient.patch<User>(`/api/backend/users/${id}`, input),
   remove: (id: string) => apiClient.delete<void>(`/api/backend/users/${id}`),
 };

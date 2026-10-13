@@ -205,8 +205,13 @@ export function LandingPage({ locale }: { locale: Locale }) {
             })}
           </ol>
           <p style={{ marginTop: 24 }}>
-            <a className={styles.textButton} href={locale === "vi" ? "/huong-dan" : "/en/huong-dan"}>
-              {locale === "vi" ? "Hướng dẫn tạo link hoàn tiền Shopee" : "Read the Shopee cashback link guide"}
+            <a
+              className={styles.textButton}
+              href={locale === "vi" ? "/huong-dan" : "/en/huong-dan"}
+            >
+              {locale === "vi"
+                ? "Hướng dẫn tạo link hoàn tiền Shopee"
+                : "Read the Shopee cashback link guide"}
               <ArrowRight size={17} aria-hidden="true" />
             </a>
           </p>

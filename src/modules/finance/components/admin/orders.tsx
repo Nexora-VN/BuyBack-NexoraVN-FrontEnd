@@ -49,9 +49,9 @@ export function CommissionAdminPage() {
         searchLabel="Mã checkout"
         states={["ESTIMATED", "VALIDATED", "PAID", "REJECTED", "REVERSED", "MANUAL_REVIEW"]}
         specs={[
-          ["id", t("Mã commission")],
-          ["userId", t("Người dùng")],
-          ["checkout.checkoutId", "Checkout"],
+          ["productSummary.name", "Sản phẩm"],
+          ["user", t("Người dùng")],
+          ["checkout.checkoutId", "Mã đơn"],
           ["checkout.provider", t("Nguồn")],
           ["estimatedVnd", t("Hoa hồng VND"), "money"],
           ["settledVnd", t("Thực nhận"), "money"],
@@ -81,12 +81,12 @@ export function LedgerAdminPage() {
         path="admin/wallet/transactions"
         searchLabel="Mã tham chiếu"
         specs={[
-          ["walletId", t("Ví")],
+          ["user", t("Người dùng")],
           ["type", t("Loại")],
           ["availableDelta", t("Khả dụng +/-"), "money"],
           ["reservedDelta", t("Đang giữ +/-"), "money"],
           ["availableAfter", t("Khả dụng sau"), "money"],
-          ["reference", t("Tham chiếu")],
+          ["reference", t("Nguồn giao dịch")],
           ["createdAt", t("Thời gian"), "date"],
         ]}
       />

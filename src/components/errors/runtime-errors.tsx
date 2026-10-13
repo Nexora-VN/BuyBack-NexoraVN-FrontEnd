@@ -1,6 +1,6 @@
 "use client";
 import { reportBrowserError } from "@/lib/observability/browser-errors";
-import { Component, useEffect, type ErrorInfo, type ReactNode } from "react";
+import { Component, useEffect, type ReactNode } from "react";
 export function RuntimeErrors() {
   useEffect(() => {
     const error = (event: ErrorEvent) => reportBrowserError(event.error, "error");

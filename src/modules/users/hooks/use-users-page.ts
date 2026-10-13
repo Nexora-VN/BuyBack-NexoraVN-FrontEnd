@@ -5,13 +5,21 @@ import { useConfirm } from "@/components/patterns/confirm-provider";
 import { useListState } from "@/lib/use-list-state";
 
 import { useUserMutations, useUsers } from "@/modules/users/hooks/use-users";
-import type { User, UserInput } from "@/modules/users/types/user";
+import type { User } from "@/modules/users/types/user";
+import {
+  createUserPayload,
+  explainUserSaveError,
+  updateUserPayload,
+  validateUserForm,
+  type UserFormErrors,
+  type UserFormValues,
+} from "../user-form";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
-const empty: UserInput & { password: string } = {
+const empty: UserFormValues = {
   email: "",
-  phoneNumber: "+84",
+  phoneNumber: "",
   password: "",
   displayName: "",
   fullName: "",
@@ -30,6 +38,7 @@ export function useUsersPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<User | null>(null);
   const [form, setForm] = useState(empty);
+  const [fieldErrors, setFieldErrors] = useState<UserFormErrors>({});
 
   const users = useUsers({
     page,
@@ -57,23 +66,35 @@ export function useUsersPage() {
         : empty,
     );
     setSaveError(null);
+    setFieldErrors({});
     setOpen(true);
   };
   const save = async () => {
+    if (saveLock.current) return;
+    const errors = validateUserForm(form, Boolean(editing));
+    setFieldErrors(errors);
+    if (Object.keys(errors).length) return;
+    saveLock.current = true;
     try {
       if (editing) {
-        const { password, ...rest } = form;
+        const input = updateUserPayload(form, editing);
+        if (!Object.keys(input).length) {
+          setOpen(false);
+          return;
+        }
         await mutations.update.mutateAsync({
           id: editing.id,
-          input: { ...rest, ...(password ? { password } : {}) },
+          input,
         });
       } else {
-        await mutations.create.mutateAsync(form);
+        await mutations.create.mutateAsync(createUserPayload(form));
       }
       toast.success(editing ? t("Đã cập nhật người dùng") : t("Đã tạo người dùng"));
       setOpen(false);
     } catch (error) {
-      setSaveError(error);
+      const explained = explainUserSaveError(error);
+      setSaveError(explained.error);
+      setFieldErrors(explained.fieldErrors);
     } finally {
       saveLock.current = false;
     }
@@ -103,6 +124,7 @@ export function useUsersPage() {
     editing,
     form,
     setForm,
+    fieldErrors,
   };
 }
 export type UsersPageState = ReturnType<typeof useUsersPage>;

@@ -56,3 +56,26 @@ it("validates inline, reviews details and prevents duplicate submissions", async
   await waitFor(() => expect(screen.getByRole("button", { name: "Tiếp tục" })).toBeEnabled());
   expect(toast.success).toHaveBeenCalledWith("Đã thêm tài khoản ngân hàng");
 });
+
+it("formats admin money fields while submitting their raw integer values", async () => {
+  vi.mocked(financeService.mutate).mockResolvedValue({});
+  renderUI(
+    <MutationForm
+      title="Lưu mức rút tối thiểu"
+      path="admin/policy"
+      confirmation={false}
+      fields={[{ name: "minWithdrawal", label: "Số tiền rút tối thiểu (VND)", type: "money" }]}
+    />,
+  );
+  const field = screen.getByRole("textbox", { name: /Số tiền rút tối thiểu/ });
+  fireEvent.change(field, { target: { value: "10000" } });
+  expect(field).toHaveValue("10.000");
+  fireEvent.click(screen.getByRole("button", { name: "Lưu mức rút tối thiểu" }));
+  await waitFor(() =>
+    expect(financeService.mutate).toHaveBeenCalledWith(
+      "admin/policy",
+      { minWithdrawal: "10000" },
+      "post",
+    ),
+  );
+});

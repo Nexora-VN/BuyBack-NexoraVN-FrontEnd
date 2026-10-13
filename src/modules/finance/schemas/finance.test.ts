@@ -5,11 +5,13 @@ describe("Financial forms", () => {
   it("preserves VND beyond JavaScript safe integer precision", () => {
     expect(formatVnd("9007199254740993")).toBe("9.007.199.254.740.993 ₫");
   });
-  it("rejects fractional or below-minimum withdrawals", () => {
+  it("uses the configured withdrawal minimum", () => {
     const bankId = "a5d9575f-4c29-4f34-b6e0-a5bb80fc12a8";
-    expect(withdrawalSchema.safeParse({ bankId, amount: "49999" }).success).toBe(false);
-    expect(withdrawalSchema.safeParse({ bankId, amount: "50000.5" }).success).toBe(false);
-    expect(withdrawalSchema.safeParse({ bankId, amount: "50000" }).success).toBe(true);
+    const schema = withdrawalSchema("10000");
+    expect(schema.safeParse({ bankId, amount: "9999" }).success).toBe(false);
+    expect(schema.safeParse({ bankId, amount: "20000" }).success).toBe(true);
+    expect(schema.safeParse({ bankId, amount: "20000.5" }).success).toBe(false);
+    expect(withdrawalSchema("50000").safeParse({ bankId, amount: "20000" }).success).toBe(false);
   });
   it("requires matching settlement totals", () => {
     expect(

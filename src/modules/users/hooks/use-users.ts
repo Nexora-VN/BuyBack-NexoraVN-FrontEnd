@@ -1,6 +1,6 @@
 "use client";
 import { usersService } from "@/modules/users/services/users.service";
-import type { UserInput } from "@/modules/users/types/user";
+import type { UserInput, UserUpdateInput } from "@/modules/users/types/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 export function useUsers(params: {
   page: number;
@@ -27,7 +27,7 @@ export function useUserMutations() {
       onSuccess: done,
     }),
     update: useMutation({
-      mutationFn: ({ id, input }: { id: string; input: Partial<UserInput> }) =>
+      mutationFn: ({ id, input }: { id: string; input: UserUpdateInput }) =>
         usersService.update(id, input),
       onSuccess: done,
     }),

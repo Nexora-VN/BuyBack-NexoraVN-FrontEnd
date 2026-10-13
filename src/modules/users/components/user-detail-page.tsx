@@ -6,6 +6,7 @@ import { Page } from "@/components/ui/page";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDateTime, initials } from "@/lib/format";
 import { useUser } from "@/modules/users/hooks/use-users";
+import { userRoleLabel } from "@/modules/users/types/user";
 import { Mail, Phone, Shield, UserRound } from "lucide-react";
 
 export function UserDetailPage({ id }: { id: string }) {
@@ -25,10 +26,7 @@ export function UserDetailPage({ id }: { id: string }) {
     );
   const user = query.data;
   return (
-    <Page
-      title={t("Chi tiết người dùng")}
-      description="Thông tin từ Users API; các nghiệp vụ KYC và 2FA chưa được hiển thị."
-    >
+    <Page title={t("Chi tiết người dùng")} description="Thông tin tài khoản và quyền truy cập.">
       <div className="grid gap-5 lg:grid-cols-[320px_1fr]">
         <Card className="text-center">
           <span className="bg-secondary text-primary mx-auto grid size-24 place-items-center rounded-full text-3xl font-bold">
@@ -37,7 +35,10 @@ export function UserDetailPage({ id }: { id: string }) {
           <h2 className="mt-4 text-xl font-bold break-words">
             {user.displayName || user.fullName || t("Chưa đặt tên")}
           </h2>
-          <p className="text-muted-foreground mt-1 text-sm break-all">{user.id}</p>
+          <details className="text-muted-foreground mt-2 text-xs">
+            <summary className="cursor-pointer">Mã tài khoản</summary>
+            <p className="break-all">{user.id}</p>
+          </details>
           <div className="mt-4">
             <StatusBadge status={user.status} />
           </div>
@@ -49,7 +50,7 @@ export function UserDetailPage({ id }: { id: string }) {
               [Mail, "Email", user.email],
               [Phone, t("Số điện thoại"), user.phoneNumber ?? "—"],
               [UserRound, t("Họ và tên"), user.fullName || t("Chưa cập nhật")],
-              [Shield, t("Vai trò"), user.role],
+              [Shield, t("Vai trò"), userRoleLabel(user.role)],
             ].map(([Icon, label, value]) => {
               const C = Icon as typeof Mail;
               return (

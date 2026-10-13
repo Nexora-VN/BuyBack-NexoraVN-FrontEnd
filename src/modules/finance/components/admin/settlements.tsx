@@ -4,6 +4,7 @@ import { useCopy } from "@/i18n/use-copy";
 import { SurfaceDialog } from "@/components/patterns/surface-dialog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
 import { Page } from "@/components/ui/page";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Link } from "@/i18n/navigation";
@@ -130,9 +131,9 @@ export function SettlementSelection() {
           }}
           fields={[
             { name: "reference", label: t("Mã chứng từ / kỳ thanh toán") },
-            { name: "grossVnd", label: t("Tổng trước khấu trừ (VND)") },
-            { name: "deductionVnd", label: t("Khấu trừ (VND)") },
-            { name: "netVnd", label: t("Thực nhận (VND)") },
+            { name: "grossVnd", label: t("Tổng trước khấu trừ (VND)"), type: "money" },
+            { name: "deductionVnd", label: t("Khấu trừ (VND)"), type: "money" },
+            { name: "netVnd", label: t("Thực nhận (VND)"), type: "money" },
           ]}
           transform={(values) => ({ ...values, commissionIds: Object.keys(selected) })}
           onSuccess={() => {
@@ -208,8 +209,37 @@ export function SettlementDetailPage({ id }: { id: string }) {
               <h2 className="font-semibold">{t("Phân bổ commission")}</h2>
               <div className="mt-4 space-y-3">
                 {((query.data.items ?? []) as FinanceRow[]).map((item) => (
-                  <div key={item.id} className="flex flex-wrap justify-between gap-2 border-b py-3">
-                    <span className="break-all">{text(item, "commissionId")}</span>
+                  <div
+                    key={item.id}
+                    className="flex flex-wrap items-center justify-between gap-3 border-b py-3"
+                  >
+                    <div className="flex min-w-0 items-center gap-3">
+                      <ProductThumbnail
+                        src={
+                          text(item, "source.imageUrl") === "—"
+                            ? null
+                            : text(item, "source.imageUrl")
+                        }
+                        name={text(item, "source.productName")}
+                      />
+                      <div className="min-w-0 text-sm">
+                        <p className="font-medium break-words">
+                          {text(item, "source.productName") === "—"
+                            ? `Đơn ${text(item, "source.orderSn")}`
+                            : text(item, "source.productName")}
+                        </p>
+                        <p className="text-muted-foreground">
+                          Đơn {text(item, "source.orderSn")} ·{" "}
+                          {text(item, "source.user.displayName") !== "—"
+                            ? text(item, "source.user.displayName")
+                            : text(item, "source.user.email")}
+                        </p>
+                        <details className="text-muted-foreground text-xs">
+                          <summary className="cursor-pointer">Mã kỹ thuật</summary>
+                          {text(item, "commissionId")}
+                        </details>
+                      </div>
+                    </div>
                     <strong>{formatVnd(text(item, "netVnd"))}</strong>
                   </div>
                 ))}
