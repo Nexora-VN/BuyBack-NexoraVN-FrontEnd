@@ -37,7 +37,7 @@ export interface Dashboard {
 export type Field = {
   name: string;
   label: string;
-  type?: "text" | "password" | "date" | "textarea" | "number" | "select";
+  type?: "text" | "password" | "date" | "textarea" | "number" | "select" | "money";
   required?: boolean;
   help?: string;
   options?: { value: string; label: string }[];

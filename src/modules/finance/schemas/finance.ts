@@ -1,15 +1,20 @@
 import { z } from "zod";
+import { formatVnd } from "@/lib/format";
 const amount = z.string().regex(/^\d{1,18}$/, "Nhập số nguyên VND");
-export const withdrawalSchema = z.object({
-  bankId: z.uuid("Chọn tài khoản ngân hàng"),
-  amount: amount.refine((v) => {
-    try {
-      return /^\d+$/.test(v) && BigInt(v) >= 50000n;
-    } catch {
-      return false;
-    }
-  }, "Tối thiểu 50.000 VND"),
-});
+export const withdrawalSchema = (minWithdrawal: string) =>
+  z.object({
+    bankId: z.uuid("Chọn tài khoản ngân hàng"),
+    amount: amount.refine(
+      (v) => {
+        try {
+          return BigInt(v) >= BigInt(minWithdrawal);
+        } catch {
+          return false;
+        }
+      },
+      { message: `Tối thiểu ${formatVnd(minWithdrawal)}` },
+    ),
+  });
 export const bankSchema = z
   .object({
     bankCode: z.string().trim().min(2, "Nhập ít nhất 2 ký tự"),
@@ -85,7 +90,7 @@ export const structuredReviewSchema = z
       if (!value.affiliateLinkId)
         context.addIssue({
           code: "custom",
-          path: ["affiliateLinkId"],
+          path: ["_form"],
           message: "Chọn liên kết affiliate để duyệt",
         });
       if (!value.acceptedAmountVnd)

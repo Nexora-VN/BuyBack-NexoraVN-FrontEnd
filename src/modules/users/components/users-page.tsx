@@ -12,12 +12,13 @@ import { Plus, Trash2, UserRoundPen } from "lucide-react";
 
 import dynamic from "next/dynamic";
 import { useUsersPage } from "../hooks/use-users-page";
+import { userRoleLabel } from "../types/user";
 const UserFormDialog = dynamic(() =>
   import("./user-form-dialog").then((module) => module.UserFormDialog),
 );
 export function UsersPage() {
   const state = useUsersPage();
-  const { t, list, page, users, showForm, remove, open, form } = state;
+  const { t, list, page, users, showForm, remove } = state;
   return (
     <Page
       title={t("Quản lý người dùng")}
@@ -71,7 +72,7 @@ export function UsersPage() {
                 label: t("Điện thoại"),
                 render: (row) => row.phoneNumber ?? "—",
               },
-              { key: "role", label: t("Vai trò"), render: (row) => row.role },
+              { key: "role", label: t("Vai trò"), render: (row) => userRoleLabel(row.role) },
               {
                 key: "status",
                 label: t("Trạng thái"),

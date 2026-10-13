@@ -18,7 +18,7 @@ const ProductFormDialog = dynamic(() =>
 );
 export function ProductsPage() {
   const state = useProductsPage();
-  const { t, list, page, open, form, products, show, remove } = state;
+  const { t, list, page, products, show, remove } = state;
   return (
     <Page
       title={t("Quản lý sản phẩm")}

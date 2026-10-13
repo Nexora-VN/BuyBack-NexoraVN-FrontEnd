@@ -3,7 +3,9 @@ import { ApiErrorNotice } from "@/components/errors/api-error-notice";
 import { useDialogBusy } from "@/components/patterns/surface-dialog";
 import { Button } from "@/components/ui/button";
 import { Input, Select, Textarea } from "@/components/ui/input";
+import { MoneyInput } from "@/components/patterns/money-input";
 import { useCopy } from "@/i18n/use-copy";
+import { formatVnd } from "@/lib/format";
 import { useContext, useId, useRef, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -118,14 +120,18 @@ export function MutationForm({
                 <dd className="mt-1 font-medium break-words">
                   {field.type === "password"
                     ? "••••••••"
-                    : field.type === "select"
-                      ? t(
-                          field.options?.find((option) => option.value === values[field.name])
-                            ?.label ??
-                            values[field.name] ??
-                            "—",
-                        )
-                      : values[field.name] || "—"}
+                    : field.type === "money"
+                      ? values[field.name]
+                        ? formatVnd(values[field.name])
+                        : "—"
+                      : field.type === "select"
+                        ? t(
+                            field.options?.find((option) => option.value === values[field.name])
+                              ?.label ??
+                              values[field.name] ??
+                              "—",
+                          )
+                        : values[field.name] || "—"}
                 </dd>
               </div>
             ))}
@@ -162,6 +168,17 @@ export function MutationForm({
                       </option>
                     ))}
                   </Select>
+                ) : field.type === "money" ? (
+                  <MoneyInput
+                    required={field.required !== false}
+                    allowNegative={field.name === "amount" && path === "admin/wallet-adjustments"}
+                    aria-invalid={!!errors[field.name]}
+                    aria-describedby={
+                      errors[field.name] ? `${formId}-${field.name}-error` : undefined
+                    }
+                    value={values[field.name] ?? ""}
+                    onValueChange={(value) => setValues((v) => ({ ...v, [field.name]: value }))}
+                  />
                 ) : (
                   <Input
                     type={field.type ?? "text"}

@@ -6,11 +6,12 @@ import { SurfaceDialog } from "@/components/patterns/surface-dialog";
 import { Button } from "@/components/ui/button";
 import { Input, Select } from "@/components/ui/input";
 import type { UserInput } from "@/modules/users/types/user";
+import { userRoleLabel } from "@/modules/users/types/user";
 import { LoaderCircle } from "lucide-react";
 
 import type { UsersPageState } from "../hooks/use-users-page";
 export function UserFormDialog({ state }: { state: UsersPageState }) {
-  const { t, page, users, mutations, save, saveError, open, setOpen, editing, form, setForm } =
+  const { t, mutations, save, saveError, open, setOpen, editing, form, setForm, fieldErrors } =
     state;
   return (
     <SurfaceDialog
@@ -36,11 +37,18 @@ export function UserFormDialog({ state }: { state: UsersPageState }) {
             <label key={key} className={key === "password" ? "sm:col-span-2" : ""}>
               <span className="mb-1.5 block text-sm font-medium">{t(label)}</span>
               <Input
-                required={!editing || key !== "password"}
+                required={
+                  key === "email" || (!editing && (key === "phoneNumber" || key === "password"))
+                }
                 type={type}
                 value={String(form[key as keyof typeof form] ?? "")}
                 onChange={(e) => setForm({ ...form, [key]: e.target.value })}
               />
+              {fieldErrors[key as keyof typeof fieldErrors] && (
+                <span className="text-danger mt-1 block text-xs" role="alert">
+                  {fieldErrors[key as keyof typeof fieldErrors]}
+                </span>
+              )}
             </label>
           ))}
           <label>
@@ -54,9 +62,11 @@ export function UserFormDialog({ state }: { state: UsersPageState }) {
                 })
               }
             >
-              <option>USER</option>
-              <option>ADMIN</option>
-              <option>SUPER_ADMIN</option>
+              {(["USER", "ADMIN", "SUPER_ADMIN"] as const).map((role) => (
+                <option key={role} value={role}>
+                  {userRoleLabel(role)}
+                </option>
+              ))}
             </Select>
           </label>
           <label>
@@ -70,9 +80,9 @@ export function UserFormDialog({ state }: { state: UsersPageState }) {
                 })
               }
             >
-              <option>ACTIVE</option>
-              <option>DISABLED</option>
-              <option>DELETED</option>
+              <option value="ACTIVE">Hoạt động</option>
+              <option value="DISABLED">Đã khóa</option>
+              <option value="DELETED">Đã xóa</option>
             </Select>
           </label>
         </div>

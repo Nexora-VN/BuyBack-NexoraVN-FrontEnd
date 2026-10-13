@@ -31,7 +31,7 @@ export function BankIcon({ bank }: { bank: ReceivingInstitution }) {
     );
   }
   return (
-    <span className="bg-muted/60 border-border/50 flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border p-1 text-[10px] font-bold text-foreground">
+    <span className="bg-muted/60 border-border/50 text-foreground flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border p-1 text-[10px] font-bold">
       {bank.logo ? (
         <Image
           src={bank.logo}
@@ -90,25 +90,29 @@ export function BankPicker({
         aria-expanded={open}
         aria-label="Chọn ngân hàng hoặc MoMo"
         onClick={() => setOpen(!open)}
-        className="focus:border-ring focus:ring-ring/15 flex min-h-13 w-full items-center gap-3 rounded-xl border border-input bg-white px-3.5 text-left transition-colors focus:ring-2 focus:outline-none"
+        className="focus:border-ring focus:ring-ring/15 border-input flex min-h-13 w-full items-center gap-3 rounded-xl border bg-white px-3.5 text-left transition-colors focus:ring-2 focus:outline-none"
       >
         {selected ? (
           <>
             <BankIcon bank={selected} />
             <div className="min-w-0 flex-1">
-              <span className="block truncate text-sm font-semibold text-foreground">{selected.name}</span>
+              <span className="text-foreground block truncate text-sm font-semibold">
+                {selected.name}
+              </span>
               <span className="text-muted-foreground block truncate text-xs">
                 {selected.kind === "wallet" ? "Ví điện tử MoMo" : selected.fullName}
               </span>
             </div>
           </>
         ) : (
-          <span className="text-muted-foreground flex-1 text-sm font-normal">Chọn ngân hàng hoặc MoMo</span>
+          <span className="text-muted-foreground flex-1 text-sm font-normal">
+            Chọn ngân hàng hoặc MoMo
+          </span>
         )}
         <ChevronDown className="text-muted-foreground ml-auto size-4 shrink-0 transition-transform duration-200" />
       </button>
       {open && (
-        <div className="bg-card border-border/80 absolute z-50 mt-2 w-full rounded-2xl border p-2 shadow-xl animate-in fade-in-0 zoom-in-95">
+        <div className="bg-card border-border/80 animate-in fade-in-0 zoom-in-95 absolute z-50 mt-2 w-full rounded-2xl border p-2 shadow-xl">
           <div className="relative mb-2">
             <Search className="text-muted-foreground absolute top-3 left-3 size-4" />
             <input
@@ -144,7 +148,7 @@ export function BankPicker({
           <div
             role="listbox"
             aria-label="Ngân hàng và ví điện tử"
-            className="max-h-64 overflow-y-auto space-y-0.5"
+            className="max-h-64 space-y-0.5 overflow-y-auto"
           >
             {filtered.map((bank, index) => (
               <button
@@ -160,7 +164,9 @@ export function BankPicker({
               >
                 <BankIcon bank={bank} />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold text-foreground">{bank.name}</span>
+                  <span className="text-foreground block truncate text-sm font-semibold">
+                    {bank.name}
+                  </span>
                   <span className="text-muted-foreground block truncate text-xs">
                     {bank.kind === "wallet" ? "Ví điện tử MoMo" : bank.fullName}
                   </span>
@@ -168,7 +174,9 @@ export function BankPicker({
               </button>
             ))}
             {!filtered.length && (
-              <p className="text-muted-foreground p-3 text-center text-sm">Không tìm thấy ngân hàng</p>
+              <p className="text-muted-foreground p-3 text-center text-sm">
+                Không tìm thấy ngân hàng
+              </p>
             )}
           </div>
         </div>

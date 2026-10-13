@@ -76,7 +76,7 @@ export function WithdrawalsAdminPage() {
         searchLabel="Mã chuyển khoản"
         states={["PENDING", "PROCESSING", "COMPLETED", "REJECTED", "FAILED"]}
         specs={[
-          ["id", t("Yêu cầu")],
+          ["user", t("Người dùng")],
           ["amount", t("Số tiền"), "money"],
           ["bank.bankName", "Ngân hàng / Ví"],
           ["bank.accountHolder", t("Chủ tài khoản")],
@@ -105,7 +105,8 @@ export function WithdrawalsAdminPage() {
                 {status === "COMPLETED" && <PaymentDetails id={row.id} />}
                 <div className="mb-4 space-y-2">
                   <p className="break-all">
-                    {text(row, "bank.accountHolder")} · {row.id}
+                    {text(row, "bank.accountHolder")} · {text(row, "bank.bankName")} · ••••{" "}
+                    {text(row, "bank.lastFour")}
                   </p>
                   <strong>{formatVnd(text(row, "amount"))}</strong>
                   <div className="flex gap-2">
@@ -150,7 +151,7 @@ export function BankApprovalPage() {
         searchLabel="Tên chủ tài khoản"
         states={["PENDING", "APPROVED", "REJECTED"]}
         specs={[
-          ["userId", t("Người dùng")],
+          ["user", t("Người dùng")],
           ["bankName", "Ngân hàng / Ví"],
           ["accountHolder", t("Chủ tài khoản")],
           ["lastFour", t("4 số cuối")],

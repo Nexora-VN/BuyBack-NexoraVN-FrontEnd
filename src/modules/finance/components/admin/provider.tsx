@@ -188,6 +188,7 @@ export const policyFields = [
   {
     name: "minWithdrawal",
     label: "Số tiền rút tối thiểu (VND)",
+    type: "money" as const,
     placeholder: "50000",
     help: "Ngưỡng số dư khả dụng tối thiểu để người dùng được phép tạo lệnh rút tiền về ngân hàng.",
   },

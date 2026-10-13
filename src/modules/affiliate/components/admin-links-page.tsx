@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { Select } from "@/components/ui/input";
 import { Page } from "@/components/ui/page";
+import { ProductThumbnail } from "@/components/patterns/product-thumbnail";
+import { Link } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { formatDateTime } from "@/lib/format";
 import { useListState } from "@/lib/use-list-state";
@@ -42,7 +44,7 @@ export function AdminLinksPage() {
     <Page title={t("Quản lý Affiliate Links")} description="Danh sách liên kết mua sắm đã tạo.">
       <ResourceToolbar
         scope="links"
-        label="Tìm Link ID, User ID, Product ID hoặc URL"
+        label="Tìm tên/email người dùng, sản phẩm hoặc URL"
         states={["WORKING", "FAILED"]}
       />
       {links.isLoading ? (
@@ -77,12 +79,45 @@ export function AdminLinksPage() {
             {
               key: "user",
               label: t("Người dùng"),
-              render: (row) => <span className="text-xs break-all">{row.userId}</span>,
+              render: (row) => (
+                <span className="text-sm">
+                  <strong className="block">
+                    {row.user?.displayName || row.user?.email || "Chưa xác định"}
+                  </strong>
+                  {row.user?.email && (
+                    <span className="text-muted-foreground block text-xs">{row.user.email}</span>
+                  )}
+                  <Link
+                    className="text-primary text-xs underline"
+                    href={`/admin/users/${row.userId}`}
+                  >
+                    Xem người dùng
+                  </Link>
+                </span>
+              ),
             },
             {
               key: "product",
               label: t("Sản phẩm"),
-              render: (row) => <span className="text-xs break-all">{row.productId}</span>,
+              render: (row) => (
+                <span className="flex min-w-0 items-center gap-2">
+                  <ProductThumbnail
+                    src={row.product?.imageUrl}
+                    name={row.product?.productName || "Sản phẩm"}
+                  />
+                  <span className="min-w-0 text-sm">
+                    <span className="block break-words">
+                      {row.product?.productName || "Chưa có tên sản phẩm"}
+                    </span>
+                    <Link
+                      className="text-primary text-xs underline"
+                      href={`/admin/products/${row.productId}`}
+                    >
+                      Xem sản phẩm
+                    </Link>
+                  </span>
+                </span>
+              ),
             },
             {
               key: "status",
