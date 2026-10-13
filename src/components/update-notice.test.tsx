@@ -52,7 +52,7 @@ it("offers a manual reload and can defer it until returning to the page", async 
   expect(screen.queryByRole("status")).not.toBeInTheDocument();
 
   fireEvent.focus(window);
-  fireEvent.click(await screen.findByRole("button", { name: "Tải lại" }));
+  fireEvent.click(await screen.findByRole("button", { name: messages.UpdateNotice.reload }));
   expect(reload).toHaveBeenCalledOnce();
 });
 

@@ -17,6 +17,7 @@ it("lets a Vietnamese visitor read the service and FAQs before signing in", asyn
   expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Mua sắm");
   expect(screen.getAllByRole("link", { name: /Bắt đầu/ })[0]).toHaveAttribute("href", "/login");
+  expect(screen.getByRole("link", { name: /Mua sắm ngay/ })).toHaveAttribute("href", "/login");
   expect(container.querySelectorAll("details").length).toBeGreaterThanOrEqual(5);
   const data = JSON.parse(
     container.querySelector('script[type="application/ld+json"]')!.textContent!,
@@ -35,5 +36,6 @@ it("keeps English visitors in English when they start or switch language", async
     "href",
     "/en/login",
   );
+  expect(screen.getByRole("link", { name: /Shop now/ })).toHaveAttribute("href", "/en/login");
   expect(screen.getByRole("link", { name: "Tiếng Việt" })).toHaveAttribute("href", "/");
 });
