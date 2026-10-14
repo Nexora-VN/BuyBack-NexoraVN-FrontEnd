@@ -3,7 +3,47 @@ import Image from "next/image";
 import { siteIndexable } from "@/lib/seo/site";
 import { findResource, type ResourcePage } from "./pages";
 import { PublicLinks } from "./public-links";
+import { AnalyticsPreference } from "@/components/analytics-preference";
+import type { ResourceImage } from "./pages";
 import styles from "@/modules/landing/guide.module.css";
+
+function ContentImage({ image, compact = false }: { image: ResourceImage; compact?: boolean }) {
+  const brandIllustration = image.src === "/piggy-back-shopping-cashback.webp";
+  return (
+    <figure
+      className={
+        compact
+          ? styles.brandFigure
+          : brandIllustration
+            ? styles.illustrationFigure
+            : styles.contentFigure
+      }
+    >
+      <a
+        href={image.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Mở ảnh gốc: ${image.alt}`}
+      >
+        <Image
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes={
+            compact
+              ? "(max-width: 640px) 120px, 160px"
+              : brandIllustration
+                ? "320px"
+                : "(max-width: 800px) 100vw, 720px"
+          }
+          className={styles.contentImage}
+        />
+      </a>
+      <figcaption>{image.caption}</figcaption>
+    </figure>
+  );
+}
 
 export function ResourceView({ page }: { page: ResourcePage }) {
   return (
@@ -39,6 +79,12 @@ export function ResourceView({ page }: { page: ResourcePage }) {
         <article>
           <h1>{page.heading}</h1>
           <p className={styles.intro}>{page.intro}</p>
+          {page.image && (
+            <ContentImage
+              image={page.image}
+              compact={page.path === "/dieu-khoan" || page.path === "/bao-mat"}
+            />
+          )}
           {!siteIndexable && (
             <p className={styles.notice}>
               Piggy Back đang hoàn thiện, chưa ra mắt chính thức. Thông tin và hướng dẫn được chuẩn
@@ -67,6 +113,12 @@ export function ResourceView({ page }: { page: ResourcePage }) {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
+              )}
+              {section.image && <ContentImage image={section.image} />}
+              {page.path === "/bao-mat" && section.id === "phan-3" && (
+                <AnalyticsPreference
+                  measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ""}
+                />
               )}
             </section>
           ))}
