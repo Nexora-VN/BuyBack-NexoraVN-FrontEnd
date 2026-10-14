@@ -1,0 +1,50 @@
+[
+  {
+    "path": "/",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/huong-dan",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/kien-thuc",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/gioi-thieu",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/lien-he",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/chinh-sach-hoan-tien",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/huong-dan/rut-tien",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/kien-thuc/tien-hoan-la-gi",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/kien-thuc/khong-ghi-nhan-hoan-tien-shopee",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/kien-thuc/tien-hoan-du-kien-va-xac-nhan",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/dieu-khoan",
+    "locales": ["vi"]
+  },
+  {
+    "path": "/bao-mat",
+    "locales": ["vi"]
+  }
+]

@@ -589,7 +589,7 @@ export function UserOrderDetailPage({ id, admin = false }: { id: string; admin?:
           </h3>
           <div className="grid gap-2 text-xs sm:grid-cols-2">
             <p>
-              {t("Provider:")} <strong>{text(query.data, "provider")}</strong>
+              {t("Nguồn đối soát:")} <strong>{text(query.data, "provider")}</strong>
             </p>
             <p>
               {t("Hoa hồng đối soát (VND):")}{" "}

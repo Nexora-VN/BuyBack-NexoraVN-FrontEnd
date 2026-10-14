@@ -31,7 +31,7 @@ const groups = [
       ["/admin", "Tổng quan", Gauge],
       ["/admin/users", "Người dùng", Users],
       ["/admin/products", "Sản phẩm", PackageSearch],
-      ["/admin/links", "Liên kết affiliate", Link2],
+      ["/admin/links", "Liên kết tiếp thị", Link2],
       ["/admin/orders", "Đơn hàng", Boxes],
     ],
   },

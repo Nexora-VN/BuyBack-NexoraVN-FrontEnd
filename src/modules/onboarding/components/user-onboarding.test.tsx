@@ -64,8 +64,8 @@ it("spotlights each real control and remembers completion per user", async () =>
   ).toBeInTheDocument();
   const titles = [
     "Số dư của bạn",
-    "Dán link sản phẩm Shopee",
-    "Tạo link hoàn tiền",
+    "Dán liên kết sản phẩm Shopee",
+    "Tạo liên kết hoàn tiền",
     "Theo dõi đơn hàng",
     "Ví và rút tiền",
     "Thiết lập tài khoản",

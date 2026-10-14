@@ -16,15 +16,15 @@ export default function proxy(request: NextRequest) {
   }
 
   const normalizedPath = request.nextUrl.pathname.replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
-  if (request.nextUrl.pathname === "/vi" || request.nextUrl.pathname.startsWith("/vi/")) {
+  if (
+    request.nextUrl.pathname === "/vi" ||
+    request.nextUrl.pathname.startsWith("/vi/") ||
+    request.nextUrl.pathname === "/en" ||
+    request.nextUrl.pathname.startsWith("/en/")
+  ) {
     const canonicalUrl = request.nextUrl.clone();
     canonicalUrl.pathname = normalizedPath;
     return NextResponse.redirect(canonicalUrl, 308);
-  }
-  if (request.nextUrl.pathname === "/en/app" || request.nextUrl.pathname.startsWith("/en/app/")) {
-    const vietnameseUrl = request.nextUrl.clone();
-    vietnameseUrl.pathname = normalizedPath;
-    return NextResponse.redirect(vietnameseUrl);
   }
   const protectedRoute =
     normalizedPath === "/app" ||
@@ -33,8 +33,7 @@ export default function proxy(request: NextRequest) {
     normalizedPath.startsWith("/admin/");
   const hasSession = request.cookies.has("bb_access") || request.cookies.has("bb_refresh");
   if (protectedRoute && !hasSession) {
-    const localePrefix = request.nextUrl.pathname.startsWith("/en") ? "/en" : "";
-    return NextResponse.redirect(new URL(`${localePrefix}/login`, request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
   return intlMiddleware(request);
 }

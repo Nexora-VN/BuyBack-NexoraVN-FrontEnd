@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
-import { languageUrls, guideUrls } from "@/modules/landing/seo";
-import { siteIndexable } from "@/lib/seo/site";
+import { siteIndexable, siteUrl } from "@/lib/seo/site";
+import { localizedPath, pageLanguages, publicPages } from "@/lib/seo/public-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!siteIndexable) return [];
-  return [languageUrls, guideUrls].flatMap((urls) =>
-    ["vi", "en"].map((locale) => ({
-      url: urls[locale as "vi" | "en"],
-      alternates: { languages: urls },
+  return publicPages.flatMap((page) =>
+    page.locales.map((locale) => ({
+      url: siteUrl + localizedPath(page.path, locale),
+      alternates: { languages: pageLanguages(page) },
     })),
   );
 }

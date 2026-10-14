@@ -1,4 +1,5 @@
 "use client";
+import { trackConversion } from "@/lib/analytics";
 
 import { Button } from "@/components/ui/button";
 import { Check, CircleHelp, Copy, ExternalLink, ImageOff } from "lucide-react";
@@ -84,7 +85,7 @@ export function GenerateLinkResult({ state }: { state: GenerateLinkState }) {
                 </p>
                 {Boolean(product?.isExtra || sellerRatePercent > 0) && (
                   <span className="bg-primary/10 text-primary rounded-md px-1.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase">
-                    Extra
+                    Bổ sung
                   </span>
                 )}
               </div>
@@ -118,7 +119,7 @@ export function GenerateLinkResult({ state }: { state: GenerateLinkState }) {
                   •
                 </span>
                 <span>
-                  {t("Shopee Extra hoàn")}:{" "}
+                  {t("Hoa hồng bổ sung")}:{" "}
                   <strong className="text-foreground font-semibold">
                     {formatRate(sellerRatePercent)}
                   </strong>
@@ -132,7 +133,12 @@ export function GenerateLinkResult({ state }: { state: GenerateLinkState }) {
           </div>
           <div className="flex flex-col gap-3 xl:flex-row">
             <Button asChild size="lg">
-              <a href={result.link} target="_blank" rel="noopener noreferrer">
+              <a
+                href={result.link}
+                target="_blank"
+                rel="sponsored noopener noreferrer"
+                onClick={() => trackConversion("outbound_shopee_click", "link_form")}
+              >
                 <ExternalLink />
                 {t("Mua ngay")}
               </a>

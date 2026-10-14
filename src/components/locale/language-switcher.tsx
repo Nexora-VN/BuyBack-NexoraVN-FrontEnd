@@ -12,6 +12,8 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const t = useTranslations("Language");
 
+  if (languages.length < 2) return null;
+
   return (
     <div
       aria-label={t("label")}

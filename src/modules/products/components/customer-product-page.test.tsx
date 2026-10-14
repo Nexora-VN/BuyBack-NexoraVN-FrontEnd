@@ -63,7 +63,7 @@ it("loads details and creates a tracked purchase link only on request", async ()
     "href",
     "/app/orders/order-id",
   );
-  fireEvent.click(screen.getByRole("button", { name: "Tạo link mua hoàn tiền" }));
+  fireEvent.click(screen.getByRole("button", { name: "Tạo liên kết mua sắm hoàn tiền" }));
   expect(await screen.findByRole("link", { name: "Mua trên Shopee" })).toHaveAttribute(
     "href",
     "https://s.shopee.vn/tracked",
@@ -98,9 +98,9 @@ it("keeps the generate action available after a missing link or a request failur
     .mockResolvedValueOnce({ link: null, code: null, product: null })
     .mockRejectedValueOnce(new Error("Vui lòng thử lại sau"));
   renderUI(<CustomerProductPage itemId={product.itemId} backHref="/app/orders" />);
-  fireEvent.click(await screen.findByRole("button", { name: "Tạo link mua hoàn tiền" }));
-  expect(await screen.findByRole("alert")).toHaveTextContent("Chưa tạo được link hoàn tiền");
+  fireEvent.click(await screen.findByRole("button", { name: "Tạo liên kết mua sắm hoàn tiền" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("Chưa tạo được liên kết hoàn tiền");
   expect(screen.queryByRole("link", { name: "Mua trên Shopee" })).not.toBeInTheDocument();
-  fireEvent.click(screen.getByRole("button", { name: "Tạo link mua hoàn tiền" }));
+  fireEvent.click(screen.getByRole("button", { name: "Tạo liên kết mua sắm hoàn tiền" }));
   await waitFor(() => expect(screen.getByRole("alert")).toHaveTextContent("Vui lòng thử lại sau"));
 });

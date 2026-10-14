@@ -21,6 +21,7 @@ import { landingContent } from "./content";
 import { DevicePreview } from "./device-preview";
 import { RevealOnScroll } from "./reveal-on-scroll";
 import styles from "./landing.module.css";
+import { PublicLinks } from "@/modules/resources/public-links";
 
 const sections = ["how-it-works", "why-piggy", "faq"];
 
@@ -61,15 +62,6 @@ export function LandingPage({ locale }: { locale: Locale }) {
             ))}
           </nav>
           <div className={styles.headerActions}>
-            <a
-              className={styles.language}
-              href={locale === "vi" ? "/en" : "/"}
-              hrefLang={locale === "vi" ? "en" : "vi"}
-              lang={locale === "vi" ? "en" : "vi"}
-              aria-label={locale === "vi" ? "English" : "Tiếng Việt"}
-            >
-              {locale === "vi" ? "EN" : "VI"}
-            </a>
             <a href={login} className={styles.headerLogin}>
               {t.headerCta}
               <ArrowUpRightIcon />
@@ -210,7 +202,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
               href={locale === "vi" ? "/huong-dan" : "/en/huong-dan"}
             >
               {locale === "vi"
-                ? "Hướng dẫn tạo link hoàn tiền Shopee"
+                ? "Hướng dẫn tạo liên kết hoàn tiền Shopee"
                 : "Read the Shopee cashback link guide"}
               <ArrowRight size={17} aria-hidden="true" />
             </a>
@@ -345,6 +337,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             © {new Date().getFullYear()} {t.footerCopyright}
           </span>
         </div>
+        <PublicLinks locale={locale} />
       </footer>
     </div>
   );

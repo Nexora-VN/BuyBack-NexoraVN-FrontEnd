@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/config";
 import { guideContent } from "./guide-content";
 import { siteIndexable } from "@/lib/seo/site";
 import styles from "./guide.module.css";
+import { PublicLinks } from "@/modules/resources/public-links";
 
 export function GuidePage({ locale }: { locale: Locale }) {
   const t = guideContent[locale];
@@ -14,12 +15,6 @@ export function GuidePage({ locale }: { locale: Locale }) {
         <a href={home} className={styles.brand}>
           <Image src="/piggy-back-logo.webp" alt="" width={38} height={38} />
           Piggy Back
-        </a>
-        <a
-          href={locale === "vi" ? "/en/huong-dan" : "/huong-dan"}
-          hrefLang={locale === "vi" ? "en" : "vi"}
-        >
-          {locale === "vi" ? "English" : "Tiếng Việt"}
         </a>
       </header>
       <main className={styles.main}>
@@ -75,6 +70,7 @@ export function GuidePage({ locale }: { locale: Locale }) {
       </main>
       <footer className={styles.footer}>
         <a href={home}>{t.back}</a>
+        <PublicLinks locale={locale} />
       </footer>
     </div>
   );

@@ -20,26 +20,26 @@ export const GUIDE_SLIDES: GuideSlide[] = [
   {
     step: "1",
     label: "Bước 1 - 2",
-    title: "Xóa giỏ hàng & Sao chép link Shopee",
+    title: "Xóa giỏ hàng & Sao chép liên kết Shopee",
     image: "/guide/1.png",
     alt: "Hướng dẫn xóa giỏ hàng Shopee và sao chép đường dẫn sản phẩm",
     description:
       "Vào giỏ hàng Shopee xóa sản phẩm cần mua. Sau đó vào lại trang sản phẩm Shopee, nhấn biểu tượng Chia sẻ (mũi tên cong góc trên bên phải) và chọn “Sao chép đường dẫn”.",
     tips: [
-      "Bắt buộc xóa sản phẩm khỏi giỏ Shopee trước khi lấy link để hệ thống ghi nhận hoa hồng.",
+      "Bắt buộc xóa sản phẩm khỏi giỏ Shopee trước khi lấy liên kết để hệ thống ghi nhận hoa hồng.",
       "Sao chép đường dẫn trực tiếp từ trang chi tiết sản phẩm.",
     ],
   },
   {
     step: "2",
     label: "Bước 3 - 4",
-    title: "Dán link vào Piggy & Bấm “Mua ngay”",
+    title: "Dán liên kết vào Piggy Back & Bấm “Mua ngay”",
     image: "/guide/2.png",
-    alt: "Hướng dẫn dán link vào Piggy Back và tạo link cashback",
+    alt: "Hướng dẫn dán liên kết vào Piggy Back và tạo liên kết mua sắm hoàn tiền",
     description:
-      "Mở Piggy Back, dán liên kết vừa sao chép vào ô dán link rồi bấm “Tạo link hoàn tiền”. Xem tiền hoàn ước tính rồi bấm “Mua ngay” để bắt đầu mua sắm.",
+      "Mở Piggy Back, dán liên kết vừa sao chép vào ô dán liên kết rồi bấm “Tạo liên kết hoàn tiền”. Xem tiền hoàn ước tính rồi bấm “Mua ngay” để bắt đầu mua sắm.",
     tips: [
-      "Piggy tự động tính toán tỷ lệ Shopee hoàn và Shopee Extra hoàn.",
+      "Piggy Back hiển thị khoản hoàn dự kiến từ sàn và người bán khi có dữ liệu.",
       "Bấm “Mua ngay” để được chuyển sang Shopee với mã theo dõi hoàn tiền hợp lệ.",
     ],
   },
@@ -48,12 +48,12 @@ export const GUIDE_SLIDES: GuideSlide[] = [
     label: "Bước 5 - 6",
     title: "Chuyển sang Shopee & Đặt hàng",
     image: "/guide/3.png",
-    alt: "Hướng dẫn chuyển sang Shopee, áp dụng voucher và thanh toán",
+    alt: "Hướng dẫn chuyển sang Shopee, áp dụng mã giảm giá và thanh toán",
     description:
-      "Piggy tự động chuyển bạn sang Shopee. Bấm “Mua ngay” hoặc thêm lại sản phẩm vào giỏ, áp dụng tất cả các voucher giảm giá và bấm “Đặt hàng”.",
+      "Piggy Back chuyển bạn sang Shopee. Bấm “Mua ngay” hoặc thêm lại sản phẩm vào giỏ, áp dụng mã giảm giá phù hợp và bấm “Đặt hàng”.",
     tips: [
-      "Bạn vẫn áp dụng voucher của Shop, voucher Shopee và Shopee Xu bình thường.",
-      "Đặt hàng ngay trong phiên mở link để đảm bảo đơn hàng được đối soát thành công.",
+      "Bạn vẫn áp dụng mã giảm giá của cửa hàng, mã giảm giá Shopee và Shopee Xu bình thường.",
+      "Đặt hàng trong phiên mở liên kết và làm theo hướng dẫn ghi nhận. Kết quả còn phụ thuộc điều kiện của Shopee và đối soát.",
     ],
   },
   {
@@ -63,9 +63,9 @@ export const GUIDE_SLIDES: GuideSlide[] = [
     image: "/guide/4.png",
     alt: "Tổng hợp 4 bước nhận hoàn tiền qua Piggy Back",
     description:
-      "Tóm tắt 4 bước cốt lõi để mua sắm nhận hoàn tiền tối đa trên Piggy Back. Thực hiện mua sắm như bình thường và add voucher thoải mái!",
+      "Tóm tắt 4 bước mua sắm hoàn tiền trên Piggy Back. Kiểm tra điều kiện ưu đãi và ghi nhận trước khi đặt hàng.",
     tips: [
-      "Luôn xóa sản phẩm khỏi giỏ trước khi tạo link trên Piggy.",
+      "Luôn xóa sản phẩm khỏi giỏ trước khi tạo liên kết trên Piggy Back.",
       "Tiền hoàn sẽ vào Ví sau khi đơn giao thành công và hoàn tất đối soát.",
     ],
   },
@@ -127,7 +127,7 @@ export function GuideSliderDialog({ open, onOpenChange, onStartAction }: GuideSl
     <SurfaceDialog
       open={open}
       onOpenChange={handleOpenChange}
-      title={t("Hướng dẫn lấy link & mua sắm hoàn tiền")}
+      title={t("Hướng dẫn lấy liên kết và mua sắm hoàn tiền")}
     >
       <div
         className="flex flex-col gap-4 focus:outline-none"
@@ -245,7 +245,7 @@ export function GuideSliderDialog({ open, onOpenChange, onStartAction }: GuideSl
           ) : (
             <Button type="button" size="sm" onClick={handleFinish} className="min-w-28 gap-1">
               <Lightbulb className="size-4" />
-              <span>{t("Đã hiểu, tạo link")}</span>
+              <span>{t("Đã hiểu, tạo liên kết")}</span>
             </Button>
           )}
         </div>

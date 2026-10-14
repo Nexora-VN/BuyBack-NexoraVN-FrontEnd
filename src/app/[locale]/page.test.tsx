@@ -29,13 +29,8 @@ it("lets a Vietnamese visitor read the service and FAQs before signing in", asyn
   }
 });
 
-it("keeps English visitors in English when they start or switch language", async () => {
-  render(await HomePage({ params: Promise.resolve({ locale: "en" }) }));
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("shopping");
-  expect(screen.getAllByRole("link", { name: /Get started/ })[0]).toHaveAttribute(
-    "href",
-    "/en/login",
-  );
-  expect(screen.getByRole("link", { name: /Shop now/ })).toHaveAttribute("href", "/en/login");
-  expect(screen.getByRole("link", { name: "Tiếng Việt" })).toHaveAttribute("href", "/");
+it("shows Vietnamese visitors no English-language switch", async () => {
+  render(await HomePage({ params: Promise.resolve({ locale: "vi" }) }));
+  expect(screen.queryByRole("link", { name: "English" })).not.toBeInTheDocument();
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Mua sắm");
 });
