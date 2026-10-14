@@ -107,6 +107,38 @@
   border-bottom: 1px solid #eadde0;
   padding-bottom: 16px;
 }
+.contentFigure {
+  max-width: 720px;
+  margin: 24px auto 32px;
+  text-align: center;
+}
+.brandFigure {
+  max-width: 160px;
+  margin: 16px auto 32px;
+  text-align: center;
+}
+.illustrationFigure {
+  max-width: 320px;
+  margin: 24px auto 32px;
+  text-align: center;
+}
+.summaryFigure {
+  max-width: 440px;
+  margin: 32px auto;
+  text-align: center;
+}
+.contentImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.page figcaption {
+  margin-top: 10px;
+  color: #684551;
+  font-size: 14px;
+  line-height: 1.5;
+}
 .page .note {
   color: #684551;
   font-size: 15px;

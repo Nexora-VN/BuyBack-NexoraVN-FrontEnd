@@ -35,6 +35,24 @@ const vi = {
       note: "Không có thời gian ghi nhận hoặc chi trả chung được công bố trong hướng dẫn này. Trạng thái thực tế và chính sách áp dụng quyết định khả năng nhận hoàn.",
     },
   ],
+  illustrations: [
+    {
+      alt: "Hướng dẫn xóa sản phẩm khỏi giỏ Shopee và sao chép liên kết sản phẩm",
+      caption: "Xóa sản phẩm khỏi giỏ nếu cần, sau đó sao chép liên kết từ trang sản phẩm Shopee.",
+    },
+    {
+      alt: "Hướng dẫn dán liên kết vào Piggy Back và xem khoản hoàn dự kiến",
+      caption: "Dán liên kết vào Piggy Back và kiểm tra kết quả trước khi chọn Mua ngay.",
+    },
+    {
+      alt: "Hướng dẫn mở Shopee qua liên kết Piggy Back và đặt hàng",
+      caption: "Tiếp tục mua hàng trên Shopee sau khi mở liên kết do Piggy Back tạo.",
+    },
+    {
+      alt: "Ảnh tổng kết các bước mua sắm hoàn tiền qua Piggy Back",
+      caption: "Tóm tắt quy trình tạo liên kết, đặt hàng và theo dõi tiền hoàn.",
+    },
+  ],
   estimateHeading: "Đọc đúng số tiền hoàn dự kiến",
   estimate:
     "Giá sản phẩm, tỷ lệ hoa hồng và khoản người mua nhận được là những thông tin khác nhau. Trong ứng dụng, phần giải thích giá phân biệt hoa hồng từ sàn và khoản bổ sung từ người bán khi có dữ liệu. Không lấy tổng tỷ lệ hoa hồng hiển thị làm cam kết về số tiền cuối cùng trong ví.",
@@ -89,6 +107,28 @@ const en: typeof vi = {
       title: "4. Check the order and cashback status",
       text: "After shopping, check Orders and Wallet in Piggy Back. An order must be tracked, confirmed as eligible and reconciled. Estimated or pending cashback is not yet available to withdraw.",
       note: "This guide does not publish a universal tracking or payout timeframe. Actual status and applicable policies determine cashback eligibility.",
+    },
+  ],
+  illustrations: [
+    {
+      alt: "Vietnamese screenshot showing how to clear the Shopee cart and copy a product link",
+      caption:
+        "Clear the cart if needed, then copy the link from the Shopee product page. Screenshot labels are in Vietnamese.",
+    },
+    {
+      alt: "Vietnamese screenshot showing link creation and estimated cashback in Piggy Back",
+      caption:
+        "Paste the link into Piggy Back and review the result before selecting Buy now. Screenshot labels are in Vietnamese.",
+    },
+    {
+      alt: "Vietnamese screenshot showing how to continue to Shopee and place an order",
+      caption:
+        "Continue shopping on Shopee after opening the Piggy Back link. Screenshot labels are in Vietnamese.",
+    },
+    {
+      alt: "Vietnamese overview of the Piggy Back cashback shopping steps",
+      caption:
+        "Summary of the link, order and cashback process. Screenshot labels are in Vietnamese.",
     },
   ],
   estimateHeading: "Understand the estimated cashback amount",

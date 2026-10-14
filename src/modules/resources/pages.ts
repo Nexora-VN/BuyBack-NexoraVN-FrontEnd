@@ -3,8 +3,31 @@ import content from "./content.json";
 import { landingMetadata, landingStructuredData } from "@/modules/landing/seo";
 import { siteUrl } from "@/lib/seo/site";
 
-export type ResourcePage = (typeof content)[number];
-export const resourcePages = content;
+export type ResourceImage = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+export type ResourcePage = {
+  path: string;
+  kind: "collection" | "about" | "contact" | "policy" | "article";
+  title: string;
+  heading: string;
+  description: string;
+  intro: string;
+  image?: ResourceImage;
+  sections: Array<{
+    id: string;
+    title: string;
+    paragraphs: string[];
+    items: string[];
+    image?: ResourceImage;
+  }>;
+  related: string[];
+};
+export const resourcePages: ResourcePage[] = content as ResourcePage[];
 export const knowledgePage: ResourcePage = {
   path: "/kien-thuc",
   kind: "collection",
@@ -14,11 +37,20 @@ export const knowledgePage: ResourcePage = {
     "Hướng dẫn mua sắm hoàn tiền Shopee: tạo liên kết, kiểm tra đơn chưa ghi nhận, hiểu tiền hoàn dự kiến và rút số dư khả dụng cùng Piggy Back.",
   intro:
     "Bắt đầu từ cách tạo liên kết, sau đó tìm hiểu điều kiện ghi nhận và các bước từ tiền hoàn dự kiến đến số dư có thể rút.",
+  image: {
+    src: "/piggy-back-shopping-cashback.webp",
+    alt: "Biểu tượng Piggy Back với giỏ mua sắm và tiền hoàn",
+    caption: "Các hướng dẫn và giải đáp về mua sắm hoàn tiền trên Piggy Back.",
+    width: 1120,
+    height: 1120,
+  },
   sections: [],
-  related: content.filter((page) => page.kind === "article").map((page) => page.path),
+  related: resourcePages.filter((page) => page.kind === "article").map((page) => page.path),
 };
 export function findResource(path: string) {
-  return path === knowledgePage.path ? knowledgePage : content.find((page) => page.path === path);
+  return path === knowledgePage.path
+    ? knowledgePage
+    : resourcePages.find((page) => page.path === path);
 }
 export function resourceMetadata(page: ResourcePage): Metadata {
   const base = landingMetadata("vi");

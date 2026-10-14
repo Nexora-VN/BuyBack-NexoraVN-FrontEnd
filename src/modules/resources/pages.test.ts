@@ -1,4 +1,6 @@
 import { afterEach, expect, it, vi } from "vitest";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { publicPages } from "@/lib/seo/public-pages";
 import { findResource, knowledgePage, resourcePages, resourceMetadata } from "./pages";
 
@@ -23,4 +25,17 @@ it("keeps every new page noindex until launch, including legal and knowledge pag
   const { resourceMetadata, resourcePages, knowledgePage } = await import("./pages");
   for (const page of [...resourcePages, knowledgePage])
     expect(resourceMetadata(page).robots).toMatchObject({ index: false });
+});
+
+it("references existing local images with accessible descriptions", () => {
+  for (const page of [...resourcePages, knowledgePage]) {
+    for (const image of [page.image, ...page.sections.map((section) => section.image)]) {
+      if (!image) continue;
+      expect(existsSync(join(process.cwd(), "public", image.src.slice(1)))).toBe(true);
+      expect(image.alt.trim()).not.toBe("");
+      expect(image.caption.trim()).not.toBe("");
+      expect(image.width).toBeGreaterThan(0);
+      expect(image.height).toBeGreaterThan(0);
+    }
+  }
 });

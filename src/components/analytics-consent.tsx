@@ -1,26 +1,16 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   analyticsPath,
-  consentEvent,
   initializeAnalytics,
-  readAnalyticsChoice,
   saveAnalyticsChoice,
   suspendAnalytics,
   trackPage,
 } from "@/lib/analytics";
-
-function subscribe(callback: () => void) {
-  window.addEventListener(consentEvent, callback);
-  window.addEventListener("storage", callback);
-  return () => {
-    window.removeEventListener(consentEvent, callback);
-    window.removeEventListener("storage", callback);
-  };
-}
+import { useAnalyticsChoice } from "@/lib/use-analytics-choice";
 export function AnalyticsConsent({
   measurementId,
   locale,
@@ -29,33 +19,21 @@ export function AnalyticsConsent({
   locale: string;
 }) {
   const pathname = usePathname();
-  const choice = useSyncExternalStore(subscribe, readAnalyticsChoice, () => null);
-  const [editing, setEditing] = useState(false);
+  const choice = useAnalyticsChoice();
   const enabled = /^G-[A-Z0-9]+$/.test(measurementId);
   const vi = locale === "vi";
   useEffect(() => {
     if (enabled && choice === "granted" && analyticsPath(pathname)) {
       initializeAnalytics(measurementId);
       trackPage(pathname);
-    } else {
+    } else if (choice !== undefined) {
       suspendAnalytics(choice === "denied");
     }
   }, [enabled, choice, measurementId, pathname]);
-  if (!enabled || !analyticsPath(pathname)) return null;
+  if (!enabled || !analyticsPath(pathname) || choice !== null) return null;
   const choose = (value: "granted" | "denied") => {
     saveAnalyticsChoice(value);
-    setEditing(false);
   };
-  if (choice && !editing)
-    return (
-      <button
-        type="button"
-        className="fixed right-3 bottom-3 z-40 rounded-full border bg-white px-3 py-2 text-xs shadow-sm"
-        onClick={() => setEditing(true)}
-      >
-        {vi ? "Cài đặt đo lường" : "Analytics settings"}
-      </button>
-    );
   return (
     <section
       aria-label={vi ? "Lựa chọn đo lường" : "Analytics choice"}

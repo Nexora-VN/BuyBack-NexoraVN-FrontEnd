@@ -38,13 +38,51 @@ export function GuidePage({ locale }: { locale: Locale }) {
           </nav>
           <section aria-labelledby="create-link">
             <h2 id="create-link">{t.stepsHeading}</h2>
-            {t.steps.map((step) => (
+            {t.steps.map((step, index) => (
               <section key={step.title} className={styles.step}>
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
                 <p className={styles.note}>{step.note}</p>
+                {index < 3 && (
+                  <figure className={styles.contentFigure}>
+                    <a
+                      href={`/guide/${index + 1}.png`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${locale === "vi" ? "Mở ảnh gốc" : "Open full-size image"}: ${t.illustrations[index].alt}`}
+                    >
+                      <Image
+                        src={`/guide/${index + 1}.png`}
+                        alt={t.illustrations[index].alt}
+                        width={1080}
+                        height={1000}
+                        sizes="(max-width: 800px) 100vw, 720px"
+                        className={styles.contentImage}
+                      />
+                    </a>
+                    <figcaption>{t.illustrations[index].caption}</figcaption>
+                  </figure>
+                )}
               </section>
             ))}
+            <figure className={styles.summaryFigure}>
+              <a
+                href="/guide/4.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${locale === "vi" ? "Mở ảnh gốc" : "Open full-size image"}: ${t.illustrations[3].alt}`}
+              >
+                <Image
+                  src="/guide/4.png"
+                  alt={t.illustrations[3].alt}
+                  width={1080}
+                  height={1920}
+                  sizes="(max-width: 640px) 100vw, 440px"
+                  className={styles.contentImage}
+                />
+              </a>
+              <figcaption>{t.illustrations[3].caption}</figcaption>
+            </figure>
           </section>
           <section aria-labelledby="estimated-cashback">
             <h2 id="estimated-cashback">{t.estimateHeading}</h2>
