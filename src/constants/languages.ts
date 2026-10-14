@@ -10,7 +10,6 @@ export const languages: ReadonlyArray<{
   shortLabel: string;
 }> = [
   { locale: "vi", label: "Tiếng Việt", shortLabel: "VI" },
-  { locale: "en", label: "English", shortLabel: "EN" },
 ];
 
 export function isLocale(value: string): value is Locale {

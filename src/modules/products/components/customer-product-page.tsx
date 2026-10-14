@@ -1,4 +1,5 @@
 "use client";
+import { trackConversion } from "@/lib/analytics";
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -96,10 +97,11 @@ export function CustomerProductPage({ itemId, backHref }: { itemId: string; back
     setPurchaseError("");
     try {
       const result = await affiliateService.generate(product.productUrl);
-      if (!result.link) throw new Error(t("Chưa tạo được link hoàn tiền. Vui lòng thử lại."));
+      if (!result.link) throw new Error(t("Chưa tạo được liên kết hoàn tiền. Vui lòng thử lại."));
       setPurchase({ link: result.link, cashback: result.estimatedUserCashbackVnd ?? null });
+      trackConversion("generate_cashback_link", "product_page");
     } catch (error) {
-      setPurchaseError(error instanceof Error ? error.message : t("Không thể tạo link hoàn tiền"));
+      setPurchaseError(error instanceof Error ? error.message : t("Không thể tạo liên kết hoàn tiền"));
     } finally {
       setGenerating(false);
     }
@@ -107,9 +109,9 @@ export function CustomerProductPage({ itemId, backHref }: { itemId: string; back
   const copyPurchaseLink = async () => {
     try {
       await navigator.clipboard.writeText(purchase!.link);
-      toast.success(t("Đã sao chép link"));
+      toast.success(t("Đã sao chép liên kết"));
     } catch {
-      toast.error(t("Không thể sao chép. Hãy mở link mua hàng và sao chép trên trình duyệt."));
+      toast.error(t("Không thể sao chép. Hãy mở liên kết mua hàng và sao chép trong trình duyệt."));
     }
   };
   const cashback = purchase ? purchase.cashback : product.estimatedUserCashbackVnd;
@@ -195,11 +197,16 @@ export function CustomerProductPage({ itemId, backHref }: { itemId: string; back
                 <>
                   <p className="text-success flex items-center gap-2 text-sm font-semibold">
                     <Check className="size-4" />
-                    {t("Link hoàn tiền đã sẵn sàng")}
+                    {t("Liên kết hoàn tiền đã sẵn sàng")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Button asChild size="lg" className="flex-1">
-                      <a href={purchase.link} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={purchase.link}
+                        target="_blank"
+                        rel="sponsored noopener noreferrer"
+                        onClick={() => trackConversion("outbound_shopee_click", "product_page")}
+                      >
                         <ExternalLink />
                         {t("Mua trên Shopee")}
                       </a>
@@ -208,7 +215,7 @@ export function CustomerProductPage({ itemId, backHref }: { itemId: string; back
                       variant="outline"
                       size="icon"
                       onClick={() => void copyPurchaseLink()}
-                      aria-label={t("Sao chép link hoàn tiền")}
+                      aria-label={t("Sao chép liên kết hoàn tiền")}
                     >
                       <Copy />
                     </Button>
@@ -222,7 +229,7 @@ export function CustomerProductPage({ itemId, backHref }: { itemId: string; back
                   onClick={() => void createPurchaseLink()}
                 >
                   {generating ? <LoaderCircle className="animate-spin" /> : <Link2 />}
-                  {generating ? t("Đang tạo link…") : t("Tạo link mua hoàn tiền")}
+                  {generating ? t("Đang tạo liên kết…") : t("Tạo liên kết mua sắm hoàn tiền")}
                 </Button>
               )}
               {purchaseError && (

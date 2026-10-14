@@ -1,0 +1,430 @@
+[
+  {
+    "path": "/gioi-thieu",
+    "kind": "about",
+    "title": "Về Piggy Back | Mua sắm Shopee nhận tiền hoàn",
+    "description": "Tìm hiểu Piggy Back, nền tảng mua sắm hoàn tiền Shopee do theanh vận hành: tạo liên kết mua sắm, theo dõi tiền hoàn và rút số dư đủ điều kiện.",
+    "heading": "Piggy Back giúp bạn hiểu rõ tiền hoàn khi mua sắm",
+    "intro": "Piggy Back là nền tảng độc lập hỗ trợ người mua Shopee tạo liên kết mua sắm và nhận lại một phần hoa hồng từ đơn hàng đủ điều kiện.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Ai vận hành Piggy Back?",
+        "paragraphs": [
+          "Piggy Back do theanh vận hành. Kênh liên hệ và hỗ trợ chính thức: theanh.nguyen2039@gmail.com. Piggy Back không phải sản phẩm chính thức của Shopee."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "Từ liên kết mua sắm đến tiền hoàn",
+        "paragraphs": [
+          "Bạn mang liên kết sản phẩm Shopee đến Piggy Back, tạo liên kết và mở liên kết đó để mua hàng. Khoản tiền hiển thị trước khi mua là ước tính; đơn hàng còn cần được ghi nhận và đối soát trước khi tiền đủ điều kiện được cộng vào ví.",
+          "Piggy Back chia một phần hoa hồng cho người mua theo chính sách áp dụng. Tỷ lệ chia có thể thay đổi theo cấu hình; hãy xem thông tin tiền hoàn của giao dịch thay vì suy ra tiền nhận được từ tổng tỷ lệ hoa hồng của sàn."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Thông tin rõ ràng trước khi bắt đầu",
+        "paragraphs": [
+          "Bạn có thể đọc hướng dẫn mua sắm, điều kiện hoàn tiền và quy trình rút tiền mà không cần đăng nhập. Đặt hàng, thanh toán và xử lý giao nhận diễn ra trên Shopee; việc ghi nhận tiền hoàn và yêu cầu rút tiền được theo dõi trong Piggy Back."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/huong-dan",
+      "/chinh-sach-hoan-tien",
+      "/lien-he"
+    ]
+  },
+  {
+    "path": "/lien-he",
+    "kind": "contact",
+    "title": "Liên hệ và hỗ trợ Piggy Back",
+    "description": "Liên hệ theanh để được hỗ trợ tạo liên kết, kiểm tra tiền hoàn của đơn hàng và yêu cầu rút tiền Piggy Back. Xem thông tin nên chuẩn bị trước khi gửi.",
+    "heading": "Liên hệ hỗ trợ Piggy Back",
+    "intro": "Nếu cần kiểm tra một giao dịch hoặc thao tác trong ứng dụng, hãy gửi thư điện tử đến theanh.nguyen2039@gmail.com. Người phụ trách vận hành: theanh.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Thông tin giúp kiểm tra nhanh hơn",
+        "paragraphs": [
+          "Mô tả vấn đề, thời điểm gặp lỗi và bước bạn đã thao tác. Với giao dịch cụ thể, cung cấp mã đơn hoặc mã yêu cầu trong thư điện tử hỗ trợ để đối chiếu."
+        ],
+        "items": [
+          "Đơn chưa ghi nhận: ngày đặt hàng, liên kết sản phẩm và trạng thái đơn trên Shopee.",
+          "Tiền hoàn khác dự kiến: mã đơn, trạng thái tiền hoàn và ảnh màn hình liên quan.",
+          "Rút tiền: mã yêu cầu, thời điểm gửi và trạng thái đang hiển thị trong Piggy Back."
+        ]
+      },
+      {
+        "id": "phan-2",
+        "title": "Bảo vệ thông tin tài khoản",
+        "paragraphs": [
+          "Không gửi mật khẩu, mã xác thực dùng một lần hoặc dữ liệu phiên đăng nhập. Khi chụp màn hình, che thông tin không cần thiết như số dư khác, địa chỉ và số tài khoản đầy đủ. Thư điện tử hỗ trợ không phải nơi nhận mật khẩu hoặc mã xác thực."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Phân biệt hỗ trợ đơn hàng và hỗ trợ tiền hoàn",
+        "paragraphs": [
+          "Vấn đề giao hàng, hàng lỗi, hủy hoặc trả hàng được xử lý theo quy trình của Shopee. Piggy Back hỗ trợ phần tạo liên kết, ghi nhận tiền hoàn, ví và yêu cầu rút tiền trên nền tảng."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/kien-thuc/khong-ghi-nhan-hoan-tien-shopee",
+      "/huong-dan/rut-tien",
+      "/chinh-sach-hoan-tien"
+    ]
+  },
+  {
+    "path": "/chinh-sach-hoan-tien",
+    "kind": "policy",
+    "title": "Chính sách hoàn tiền và rút tiền | Piggy Back",
+    "description": "Xem điều kiện ghi nhận tiền hoàn trên Piggy Back, lịch đối soát, hạn mức rút 10.000đ, miễn phí rút và thời gian xử lý yêu cầu hợp lệ 12–48 giờ.",
+    "heading": "Chính sách hoàn tiền và rút tiền",
+    "intro": "Tiền hoàn mua sắm là phần hoa hồng Piggy Back chia lại từ giao dịch đủ điều kiện. Khoản dự kiến trước khi mua chưa phải số dư có thể rút.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Điều kiện ghi nhận tiền hoàn",
+        "paragraphs": [
+          "Người mua cần tạo và mở liên kết Piggy Back trước khi mua, thực hiện theo hướng dẫn hiển thị trong ứng dụng. Việc ghi nhận phụ thuộc dữ liệu bên thứ ba và điều kiện của chương trình. Đơn bị hủy, trả hàng hoặc không được xác nhận đủ điều kiện có thể không được nhận tiền hoàn."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "Tỷ lệ chia hoa hồng",
+        "paragraphs": [
+          "Tỷ lệ chia cho người dùng được quản lý trong cấu hình chính sách của Piggy Back và có thể thay đổi. Xem tiền hoàn và thông tin của giao dịch trong ứng dụng; tổng hoa hồng từ sàn hoặc nhà bán không đồng nghĩa với số tiền được cộng ví.",
+          "Ví dụ minh họa: nếu phần hoa hồng làm cơ sở chia là 10.000đ và tỷ lệ áp dụng cho người dùng là 80%, phần người dùng là 8.000đ. Đây là ví dụ tính toán, không phải cam kết mọi giao dịch luôn áp dụng 80%."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Lịch đối soát và cộng ví",
+        "paragraphs": [
+          "Lịch đối soát của bên thứ ba hiện là thứ Ba và thứ Năm. Sau đợt đối soát, Piggy Back kiểm tra lại các khoản hợp lệ trước khi cộng vào ví của người dùng.",
+          "Lịch trên không bảo đảm mọi đơn vừa đặt sẽ được cộng tiền vào thứ Ba hoặc thứ Năm kế tiếp. Đơn cần có dữ liệu và đáp ứng điều kiện đối soát. Chỉ số dư khả dụng mới có thể dùng để yêu cầu rút tiền."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-4",
+        "title": "Hạn mức, phí và thời gian rút tiền",
+        "paragraphs": [
+          "Số tiền rút tối thiểu: 10.000đ mỗi yêu cầu. Piggy Back không thu thêm phí rút tiền; phần chia hoa hồng đã được xác định trước đó.",
+          "Yêu cầu cần có số dư khả dụng đủ cho số tiền rút và tài khoản nhận tiền hợp lệ, được duyệt theo quy trình trong ứng dụng. Piggy Back xử lý yêu cầu hợp lệ trong 12–48 giờ, tính cả cuối tuần. Mốc này bắt đầu khi yêu cầu đủ điều kiện, không tính từ lúc đặt hàng hoặc lúc tiền hoàn còn dự kiến."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-5",
+        "title": "Kiểm tra và hỗ trợ",
+        "paragraphs": [
+          "Theo dõi trạng thái đơn, ví và yêu cầu rút trong tài khoản. Nếu cần đối chiếu, gửi mã giao dịch và mô tả đến theanh.nguyen2039@gmail.com. Chính sách công khai cần được cập nhật cùng các thay đổi được áp dụng trong hệ thống."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/huong-dan",
+      "/huong-dan/rut-tien",
+      "/kien-thuc/tien-hoan-du-kien-va-xac-nhan"
+    ]
+  },
+  {
+    "path": "/huong-dan/rut-tien",
+    "kind": "article",
+    "title": "Cách rút tiền Piggy Back | Từ 10.000đ, không phí rút",
+    "description": "Hướng dẫn kiểm tra số dư khả dụng, tài khoản nhận và gửi yêu cầu rút Piggy Back. Rút từ 10.000đ; yêu cầu hợp lệ xử lý trong 12–48 giờ.",
+    "heading": "Cách rút tiền từ ví Piggy Back",
+    "intro": "Bạn có thể yêu cầu rút từ 10.000đ khi có đủ số dư khả dụng và tài khoản nhận tiền hợp lệ. Piggy Back không thu thêm phí rút tiền.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "1. Kiểm tra số dư khả dụng",
+        "paragraphs": [
+          "Mở Ví trong tài khoản Piggy Back. Phân biệt tiền dự kiến hoặc đang chờ đối soát với số dư khả dụng. Đơn hàng hiển thị trên hệ thống chưa tự động có nghĩa là tiền đã rút được."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "2. Kiểm tra tài khoản nhận tiền",
+        "paragraphs": [
+          "Thêm và kiểm tra thông tin tài khoản nhận tiền trong ứng dụng. Chọn tài khoản đã được duyệt, đối chiếu tên chủ tài khoản và số tài khoản trước khi gửi yêu cầu. Không gửi mật khẩu hay mã xác thực dùng một lần qua thư điện tử hỗ trợ."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "3. Nhập số tiền và gửi yêu cầu",
+        "paragraphs": [
+          "Chọn số tiền từ 10.000đ và không vượt số dư khả dụng. Kiểm tra lại tài khoản nhận, số tiền và thông báo xác nhận trong ứng dụng. Nếu ứng dụng báo hạn mức khác chính sách công khai, liên hệ hỗ trợ để đối chiếu trước khi tiếp tục."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-4",
+        "title": "4. Theo dõi trạng thái",
+        "paragraphs": [
+          "Yêu cầu hợp lệ được xử lý trong 12–48 giờ, bao gồm cuối tuần. Theo dõi trạng thái trong mục rút tiền; nếu cần hỗ trợ, gửi mã yêu cầu và thời điểm tạo đến theanh.nguyen2039@gmail.com. Không tạo nhiều yêu cầu trùng để xử lý cùng một vấn đề."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-5",
+        "title": "Vì sao chưa rút được?",
+        "paragraphs": [
+          "Kiểm tra lần lượt các điều kiện sau."
+        ],
+        "items": [
+          "Khoản tiền còn dự kiến hoặc chưa hoàn tất đối soát.",
+          "Số dư khả dụng nhỏ hơn số tiền muốn rút hoặc chưa đạt mức tối thiểu.",
+          "Tài khoản nhận tiền chưa được duyệt hoặc cần bổ sung thông tin.",
+          "Ứng dụng hiển thị thông báo tạm dừng hoặc lỗi xử lý: đọc thông báo và liên hệ hỗ trợ khi cần."
+        ]
+      }
+    ],
+    "related": [
+      "/chinh-sach-hoan-tien",
+      "/kien-thuc/tien-hoan-du-kien-va-xac-nhan",
+      "/lien-he"
+    ]
+  },
+  {
+    "path": "/kien-thuc/tien-hoan-la-gi",
+    "kind": "article",
+    "title": "Tiền hoàn mua sắm là gì? Khác tiền trả lại khi hủy đơn ra sao? | Piggy Back",
+    "description": "Tìm hiểu tiền hoàn mua sắm qua Piggy Back, phân biệt với tiền được trả lại khi hủy hoặc trả hàng và Shopee Xu.",
+    "heading": "Tiền hoàn mua sắm khác tiền trả lại khi hủy đơn thế nào?",
+    "intro": "Tiền hoàn mua sắm qua Piggy Back là phần chia lại từ hoa hồng của đơn đủ điều kiện. Tiền được trả lại khi hủy hoặc trả hàng là khoản Shopee hoàn theo quy trình của sàn. Hai khoản có nguồn gốc và điều kiện khác nhau.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Tiền hoàn mua sắm đến từ đâu?",
+        "paragraphs": [
+          "Khi giao dịch qua liên kết mua sắm được ghi nhận và đủ điều kiện, nền tảng có thể nhận hoa hồng. Piggy Back chia một phần khoản hoa hồng đó cho người mua theo chính sách áp dụng. Người mua cần mở liên kết được tạo và tuân thủ hướng dẫn, không chỉ sao chép liên kết rồi đặt hàng theo cách khác."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "Ví dụ dễ phân biệt",
+        "paragraphs": [
+          "Bạn mua một món hàng và giữ lại sau khi nhận: nếu giao dịch đủ điều kiện, Piggy Back có thể chia lại một phần hoa hồng. Nếu bạn trả hàng và Shopee trả lại tiền mua, đó là khoản hoàn do trả hàng. Đơn trả hàng có thể không còn đủ điều kiện nhận tiền hoàn mua sắm.",
+          "Shopee Xu là hình thức ưu đãi riêng của Shopee. Không gộp Shopee Xu, tiền được trả lại khi hủy hoặc trả hàng và số dư tiền hoàn trên Piggy Back thành cùng một khoản."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Trước khi mua, kiểm tra gì?",
+        "paragraphs": [
+          "Xem hướng dẫn tạo liên kết và điều kiện áp dụng trong ứng dụng. Giá sản phẩm, tỷ lệ hoa hồng và tiền hoàn dự kiến là các thông tin khác nhau; chỉ số tiền được xác nhận sau đối soát mới có thể trở thành số dư khả dụng."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/huong-dan",
+      "/chinh-sach-hoan-tien",
+      "/kien-thuc/tien-hoan-du-kien-va-xac-nhan"
+    ]
+  },
+  {
+    "path": "/kien-thuc/khong-ghi-nhan-hoan-tien-shopee",
+    "kind": "article",
+    "title": "Không ghi nhận hoàn tiền Shopee: kiểm tra gì? | Piggy Back",
+    "description": "Các bước kiểm tra khi đơn Shopee chưa xuất hiện trên Piggy Back: liên kết mua sắm, cách đặt hàng, trạng thái đơn, đối soát và thông tin cần gửi hỗ trợ.",
+    "heading": "Đơn Shopee chưa ghi nhận tiền hoàn: kiểm tra từng bước",
+    "intro": "Đơn chưa xuất hiện trong Piggy Back chưa đủ để kết luận mất tiền hoàn. Hãy kiểm tra đường mua hàng, trạng thái đơn và dữ liệu đối soát trước khi gửi yêu cầu hỗ trợ.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "1. Bạn đã mở đúng liên kết trước khi đặt hàng chưa?",
+        "paragraphs": [
+          "Kiểm tra bạn đã tạo liên kết bằng Piggy Back, mở liên kết đó để đến Shopee rồi mua sản phẩm theo hướng dẫn hay chưa. Tự tìm lại sản phẩm hoặc mở một liên kết khác không thay thế bước mở liên kết đã tạo. Nếu sản phẩm có sẵn trong giỏ, làm theo hướng dẫn xử lý giỏ hàng trong ứng dụng."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "2. Đơn hàng đang ở trạng thái nào?",
+        "paragraphs": [
+          "Đối chiếu trạng thái trên Shopee và trong Piggy Back. Đơn bị hủy hoặc trả hàng có thể không đủ điều kiện nhận tiền hoàn. Nếu đơn vẫn đang được xử lý, phân biệt chưa có dữ liệu với kết quả bị từ chối."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "3. Đừng nhầm lịch đối soát với thời gian ghi nhận mọi đơn",
+        "paragraphs": [
+          "Bên thứ ba hiện đối soát vào thứ Ba và thứ Năm; Piggy Back kiểm tra lại dữ liệu hợp lệ trước khi cộng ví. Không có nghĩa đơn vừa đặt sẽ xuất hiện hoặc được cộng ví ngay trong đợt kế tiếp."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-4",
+        "title": "4. Chuẩn bị thông tin để hỗ trợ kiểm tra",
+        "paragraphs": [
+          "Gửi đến theanh.nguyen2039@gmail.com khi cần đối chiếu; mô tả rõ phần nào khác với thao tác hoặc trạng thái bạn mong đợi."
+        ],
+        "items": [
+          "Mã đơn và thời điểm đặt hàng.",
+          "Liên kết sản phẩm, cách bạn tạo/mở liên kết và thiết bị đã dùng.",
+          "Ảnh trạng thái đơn hoặc thông báo lỗi, đã che dữ liệu không liên quan.",
+          "Không gửi mật khẩu, xác thực dùng một lần hoặc dữ liệu phiên đăng nhập."
+        ]
+      }
+    ],
+    "related": [
+      "/huong-dan",
+      "/chinh-sach-hoan-tien",
+      "/lien-he"
+    ]
+  },
+  {
+    "path": "/kien-thuc/tien-hoan-du-kien-va-xac-nhan",
+    "kind": "article",
+    "title": "Tiền hoàn dự kiến, xác nhận và khả dụng khác gì? | Piggy Back",
+    "description": "Phân biệt ước tính tiền hoàn trước khi mua, tiền chờ đối soát và số dư khả dụng trong Piggy Back để biết khi nào có thể yêu cầu rút.",
+    "heading": "Phân biệt tiền hoàn dự kiến và số dư có thể rút",
+    "intro": "Tiền hoàn dự kiến giúp bạn tham khảo trước khi mua. Số dư khả dụng là tiền đã đáp ứng điều kiện để sử dụng cho yêu cầu rút. Hai con số này có thể khác nhau.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Trước khi mua: số tiền ước tính",
+        "paragraphs": [
+          "Piggy Back có thể hiển thị giá sản phẩm, thông tin hoa hồng và tiền hoàn dự kiến khi nguồn dữ liệu khả dụng. Giá sau ưu đãi, điều kiện chương trình và kết quả giao dịch có thể làm số tiền xác nhận khác dự kiến. Không có dữ liệu ước tính cũng không phải bằng chứng chắc chắn rằng đơn sẽ có hoặc không có tiền hoàn."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "Sau khi mua: ghi nhận và đối soát",
+        "paragraphs": [
+          "Một đơn có thể đã được hiển thị nhưng vẫn chờ xác nhận. Bên thứ ba đối soát vào thứ Ba và thứ Năm theo lịch hiện hành; Piggy Back kiểm tra lại các khoản hợp lệ trước khi cộng ví. Đơn hủy hoặc trả hàng có thể không đủ điều kiện."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Khi rút: chỉ dùng số dư khả dụng",
+        "paragraphs": [
+          "Ví dụ minh họa: nếu có 20.000đ khả dụng và 30.000đ đang chờ, không coi tổng 50.000đ là số tiền rút được. Yêu cầu rút phải dựa trên phần khả dụng, đạt tối thiểu 10.000đ và đáp ứng điều kiện tài khoản nhận.",
+          "Thời gian 12–48 giờ tính cả cuối tuần áp dụng cho yêu cầu rút hợp lệ, không phải thời gian chờ đơn hàng được đối soát."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/chinh-sach-hoan-tien",
+      "/huong-dan/rut-tien",
+      "/lien-he"
+    ]
+  },
+  {
+    "path": "/dieu-khoan",
+    "kind": "policy",
+    "title": "Điều khoản sử dụng Piggy Back",
+    "description": "Thông tin sử dụng Piggy Back: vai trò nền tảng tiền hoàn độc lập, trách nhiệm tài khoản, điều kiện giao dịch và kênh hỗ trợ.",
+    "heading": "Điều khoản sử dụng Piggy Back",
+    "intro": "Piggy Back do theanh vận hành, cung cấp công cụ tạo liên kết mua sắm Shopee và theo dõi tiền hoàn. thư điện tử liên hệ: theanh.nguyen2039@gmail.com.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Phạm vi dịch vụ",
+        "paragraphs": [
+          "Piggy Back là nền tảng độc lập với Shopee. Việc mua hàng, thanh toán, giao nhận và trả hàng diễn ra theo quy trình của Shopee. Piggy Back hỗ trợ liên kết mua sắm, ghi nhận tiền hoàn, ví và yêu cầu rút tiền trên nền tảng."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "Tài khoản và thông tin giao dịch",
+        "paragraphs": [
+          "Cung cấp thông tin chính xác, giữ bí mật mật khẩu/mã xác thực và sử dụng tài khoản nhận tiền hợp lệ. Không sử dụng dịch vụ để tạo giao dịch giả, thao túng ghi nhận hoặc truy cập dữ liệu tài khoản khác."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Điều kiện tiền hoàn và rút tiền",
+        "paragraphs": [
+          "Tiền hoàn phụ thuộc điều kiện chương trình và kết quả đối soát. Số tiền ước tính không phải cam kết thanh toán. Mức chia được quản lý theo chính sách áp dụng; xem Chính sách hoàn tiền để biết lịch đối soát, mức tối thiểu và thời gian xử lý rút."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-4",
+        "title": "Thông tin hỗ trợ và thay đổi",
+        "paragraphs": [
+          "Khi có vấn đề, gửi mã giao dịch và mô tả đến thư điện tử hỗ trợ. Các thay đổi về điều kiện cần được cập nhật trên trang chính sách và trong ứng dụng; kiểm tra thông tin đang hiển thị trước khi thực hiện giao dịch."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/chinh-sach-hoan-tien",
+      "/bao-mat",
+      "/lien-he"
+    ]
+  },
+  {
+    "path": "/bao-mat",
+    "kind": "policy",
+    "title": "Thông tin quyền riêng tư và dữ liệu | Piggy Back",
+    "description": "Tìm hiểu dữ liệu tài khoản, giao dịch và lựa chọn đo lường khi sử dụng Piggy Back; liên hệ người vận hành để hỏi về dữ liệu của bạn.",
+    "heading": "Quyền riêng tư và dữ liệu của bạn",
+    "intro": "Trang này giải thích các nhóm dữ liệu gắn với chức năng Piggy Back và cách liên hệ về quyền riêng tư. Người vận hành: theanh; địa chỉ thư điện tử: theanh.nguyen2039@gmail.com.",
+    "sections": [
+      {
+        "id": "phan-1",
+        "title": "Dữ liệu dùng để cung cấp dịch vụ",
+        "paragraphs": [
+          "Thông tin đăng ký/đăng nhập giúp xác thực tài khoản. Liên kết sản phẩm, thông tin đơn và tiền hoàn được dùng để ghi nhận giao dịch, đối soát và hiển thị ví. Thông tin tài khoản nhận tiền và yêu cầu rút được dùng để kiểm tra và xử lý chi trả.",
+          "Khi bạn gửi thư điện tử hỗ trợ, nội dung và bằng chứng bạn cung cấp được dùng để xử lý yêu cầu. Chỉ gửi thông tin liên quan; không gửi mật khẩu, xác thực dùng một lần hoặc dữ liệu phiên đăng nhập."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-2",
+        "title": "Đăng nhập và các bên cung cấp dịch vụ",
+        "paragraphs": [
+          "Dữ liệu phiên đăng nhập giúp duy trì tài khoản đã xác thực. Nếu dùng đăng nhập Google, thông tin xác thực được xử lý qua Google và hệ thống Piggy Back. Việc ghi nhận tiền hoàn cần dữ liệu từ đơn vị cung cấp liên kết mua sắm và đối soát; việc mua hàng trên Shopee chịu chính sách quyền riêng tư của Shopee."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-3",
+        "title": "Lựa chọn đo lường truy cập",
+        "paragraphs": [
+          "Khi tính năng đo lường lượt truy cập của Google được bật, bạn có thể đồng ý hoặc từ chối. Công cụ đo lường chỉ được tải sau khi bạn đồng ý; bạn có thể đổi lựa chọn tại mục Cài đặt đo lường.",
+          "Piggy Back đo lượt truy cập, đăng ký thành công, tạo liên kết và mở liên kết mua sắm. Phần đo lường không gửi địa chỉ thư điện tử, mật khẩu, mã xác thực dùng một lần, số tài khoản, mã đơn hoặc địa chỉ sản phẩm. Từ chối đo lường không cản trở việc sử dụng dịch vụ."
+        ],
+        "items": []
+      },
+      {
+        "id": "phan-4",
+        "title": "Yêu cầu về dữ liệu",
+        "paragraphs": [
+          "Gửi yêu cầu xem xét, chỉnh sửa hoặc xử lý dữ liệu của bạn đến theanh.nguyen2039@gmail.com. Người vận hành sẽ kiểm tra danh tính và phạm vi yêu cầu; không gửi mật khẩu để chứng minh tài khoản. Dữ liệu liên quan đến giao dịch/đối soát có thể cần được xem xét cùng trạng thái xử lý của giao dịch."
+        ],
+        "items": []
+      }
+    ],
+    "related": [
+      "/dieu-khoan",
+      "/lien-he"
+    ]
+  }
+]

@@ -74,7 +74,7 @@ export function PriceExplainerDialog({
               </span>
               {Boolean(product.isExtra || sellerRatePercent > 0) && (
                 <span className="bg-primary/10 text-primary rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase">
-                  Shopee Extra
+                  Hoa hồng bổ sung
                 </span>
               )}
             </div>
@@ -101,7 +101,7 @@ export function PriceExplainerDialog({
               </div>
               <div className="bg-background rounded-lg border p-2.5 shadow-xs">
                 <span className="text-muted-foreground block text-[11px]">
-                  {t("Shopee Extra hoàn")}
+                  {t("Hoa hồng bổ sung")}
                 </span>
                 <span className="text-foreground mt-0.5 block font-semibold">
                   {formatRate(sellerRatePercent)}
@@ -136,13 +136,13 @@ export function PriceExplainerDialog({
               </h3>
               <p className="text-muted-foreground mt-0.5">
                 {t(
-                  "Là giá bán hiển thị trên Shopee tại thời điểm tạo link. Lưu ý: Tiền hoàn thực tế sẽ được tính trên ",
+                  "Là giá bán hiển thị trên Shopee tại thời điểm tạo liên kết. Tiền hoàn thực tế có thể phụ thuộc vào ",
                 )}
                 <strong className="text-foreground font-medium">
                   {t("số tiền bạn thực thanh toán")}
                 </strong>
                 {t(
-                  " (sau khi đã áp voucher của Shop, voucher Shopee và trừ Shopee Xu, không tính phí vận chuyển).",
+                  " sau khi áp dụng ưu đãi. Điều kiện tính tiền hoàn do chương trình và kết quả đối soát quyết định.",
                 )}
               </p>
             </div>
@@ -157,24 +157,24 @@ export function PriceExplainerDialog({
               <h3 className="text-foreground text-sm font-semibold">{t("2. Shopee hoàn (%)")}</h3>
               <p className="text-muted-foreground mt-0.5">
                 {t(
-                  "Là tỷ lệ hoàn tiền cơ bản do sàn Shopee chi trả cố định theo từng ngành hàng. Mọi đơn hàng hợp lệ mua qua link tiếp thị của Piggy đều nhận được mức hoàn này.",
+                  "Đây là tỷ lệ hoa hồng từ sàn khi có dữ liệu. Khoản tiền thực nhận còn tùy thuộc điều kiện đơn hàng, kết quả đối soát và chính sách chia đang áp dụng.",
                 )}
               </p>
             </div>
           </div>
 
-          {/* 3. Shopee Extra hoàn */}
+          {/* 3. Hoa hồng bổ sung */}
           <div className="flex gap-3">
             <span className="text-primary bg-primary/10 grid size-7 shrink-0 place-items-center rounded-lg">
               <Sparkles className="size-4" />
             </span>
             <div>
               <h3 className="text-foreground text-sm font-semibold">
-                {t("3. Shopee Extra hoàn (%)")}
+                {t("3. Hoa hồng bổ sung (%)")}
               </h3>
               <p className="text-muted-foreground mt-0.5">
                 {t(
-                  "Là tỷ lệ hoàn tiền thưởng thêm do Người bán (Shop) tài trợ khi tham gia gói Shopee Extra. Sản phẩm có nhãn Extra sẽ có mức hoàn cao vượt trội. Nếu Shop không tham gia thì tỷ lệ này là 0%.",
+                  "Đây là phần hoa hồng bổ sung từ người bán khi có dữ liệu. Tỷ lệ có thể bằng 0 và khoản thực nhận còn phụ thuộc điều kiện của giao dịch.",
                 )}
               </p>
             </div>
@@ -187,11 +187,11 @@ export function PriceExplainerDialog({
             </span>
             <div>
               <h3 className="text-foreground text-sm font-semibold">
-                {t("4. Tiền hoàn ước tính (Cashback nhận về)")}
+                {t("4. Tiền hoàn ước tính bạn có thể nhận")}
               </h3>
               <p className="text-muted-foreground mt-0.5">
                 {t(
-                  "Là số tiền thực tế dự kiến sẽ được cộng vào Ví Piggy của bạn. Piggy nhận hoa hồng từ Shopee và chia sẻ lại phần lớn cho bạn sau khi trừ một phần nhỏ chi phí vận hành.",
+                  "Đây là số tiền tham khảo trước đối soát. Piggy Back chia hoa hồng theo tỷ lệ đang áp dụng; chỉ khoản đủ điều kiện và đã xác nhận mới được cộng vào ví.",
                 )}
               </p>
             </div>
@@ -208,7 +208,7 @@ export function PriceExplainerDialog({
               </h3>
               <p className="text-muted-foreground mt-0.5">
                 {t(
-                  "Sau khi đặt hàng, đơn sẽ ở trạng thái “Chờ đối soát”. Khi đơn giao thành công và hoàn tất kỳ đối soát định kỳ của sàn (thường từ 15–30 ngày để đảm bảo không trả hàng), tiền sẽ vào Ví và bạn có thể rút về tài khoản ngân hàng.",
+                  "Bên thứ ba đối soát vào thứ Ba và thứ Năm. Piggy Back kiểm tra lại khoản hợp lệ trước khi cộng ví. Chỉ số dư khả dụng từ 10.000đ mới có thể yêu cầu rút; yêu cầu hợp lệ được xử lý trong 12–48 giờ, kể cả cuối tuần.",
                 )}
               </p>
             </div>
@@ -218,14 +218,14 @@ export function PriceExplainerDialog({
           <div className="bg-success-soft/60 border-success/30 rounded-xl border p-3">
             <div className="text-success flex items-center gap-2 text-xs font-semibold">
               <CheckCircle2 className="size-4 shrink-0" />
-              <span>{t("Mẹo để nhận đủ 100% tiền hoàn")}</span>
+              <span>{t("Lưu ý để giao dịch được xem xét ghi nhận")}</span>
             </div>
             <ul className="text-muted-foreground mt-2 list-disc space-y-1 pl-4 text-xs">
-              <li>{t("Xóa sản phẩm khỏi giỏ hàng Shopee trước khi bấm link.")}</li>
+              <li>{t("Làm theo hướng dẫn về giỏ hàng trước khi mở liên kết mua sắm.")}</li>
               <li>
-                {t("Nhấn “Mua ngay” từ Piggy, thêm lại sản phẩm vào giỏ và thanh toán ngay.")}
+                {t("Mở liên kết do Piggy Back tạo và làm theo hướng dẫn đặt hàng.")}
               </li>
-              <li>{t("Không nhấn vào link khuyến mãi khác trước khi thanh toán.")}</li>
+              <li>{t("Kiểm tra điều kiện ưu đãi trước khi mở một liên kết khác.")}</li>
             </ul>
           </div>
         </div>

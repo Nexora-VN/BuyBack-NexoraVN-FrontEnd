@@ -1,4 +1,5 @@
 "use client";
+import { trackConversion } from "@/lib/analytics";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, LockKeyhole, Mail, UserRound } from "lucide-react";
@@ -115,6 +116,7 @@ export function SignUpPageContent() {
     setError("");
     try {
       await authService.registerVerify(email, code);
+      trackConversion("sign_up", "email");
       sessionStorage.removeItem("registration.pendingEmail");
       sessionStorage.removeItem("registration.resendAt");
       sessionStorage.setItem("auth.loginEmail", email);

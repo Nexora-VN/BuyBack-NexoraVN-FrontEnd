@@ -24,9 +24,9 @@ import styles from "./device-preview.module.css";
 const copy = {
   vi: {
     eyebrow: "KHÁM PHÁ PIGGY BACK",
-    title: "Từ món đồ bạn thích\nđến khoản hoàn trong ví.",
+    title: "Từ món đồ bạn thích\nđến khoản tiền hoàn trong ví.",
     description:
-      "Tạo link mua sắm, theo dõi từng đơn hàng và quản lý tiền hoàn — có Piggy đồng hành ở mỗi bước.",
+      "Tạo liên kết mua sắm, theo dõi từng đơn hàng và quản lý tiền hoàn — có Piggy Back đồng hành ở mỗi bước.",
     caption: "Giao diện minh họa, sử dụng dữ liệu mẫu.",
     phoneAlt: "Minh họa tạo liên kết mua sắm và xem tiền hoàn dự kiến cùng Piggy Back",
     laptopAlt: "Minh họa theo dõi đơn hàng và quản lý tiền hoàn cùng Piggy Back",
@@ -36,23 +36,23 @@ const copy = {
     heading: "Tiền hoàn của bạn",
     subtitle: "Theo dõi từng đơn, rõ ràng từng khoản.",
     shoppingHeading: "Món này hoàn bao nhiêu?",
-    shoppingSubtitle: "Dán link, xem trước rồi mua sắm nhé.",
+    shoppingSubtitle: "Dán liên kết, xem trước rồi mua sắm nhé.",
     estimate: "Tiền hoàn dự kiến",
     estimatedNote: "Mức hoàn minh họa cho sản phẩm mẫu",
-    linkTitle: "Dán link sản phẩm Shopee",
-    paste: "Dán link món bạn thích vào đây",
+    linkTitle: "Dán liên kết sản phẩm Shopee",
+    paste: "Dán liên kết món bạn thích vào đây",
     create: "Mua sắm ngay",
-    linkNote: "Tạo link trước khi mua để ghi nhận hoàn tiền.",
+    linkNote: "Tạo liên kết trước khi mua để ghi nhận hoàn tiền.",
     available: "Bạn có thể rút",
     pending: "Chờ xác nhận",
     reserved: "Đang giữ cho yêu cầu rút",
     withdraw: "Rút tiền",
     orders: "Đơn hàng gần đây",
     all: "Xem tất cả",
-    products: ["Túi tote canvas", "Tai nghe không dây"],
+    products: ["Túi vải", "Tai nghe không dây"],
     confirmed: "Đã xác nhận",
     greeting: "Theo dõi từng bước hoàn tiền",
-    features: ["Tạo link mua sắm", "Theo dõi đơn hàng", "Quản lý tiền hoàn"],
+    features: ["Tạo liên kết mua sắm", "Theo dõi đơn hàng", "Quản lý tiền hoàn"],
   },
   en: {
     eyebrow: "EXPLORE PIGGY BACK",
@@ -183,7 +183,7 @@ function AppPreview({ locale, mobile = false }: { locale: Locale; mobile?: boole
                 <strong>
                   32.500<span>đ</span>
                 </strong>
-                <span className={styles.balanceNote}>Cashback</span>
+                <span className={styles.balanceNote}>Tiền hoàn</span>
               </div>
               {!mobile && (
                 <div>

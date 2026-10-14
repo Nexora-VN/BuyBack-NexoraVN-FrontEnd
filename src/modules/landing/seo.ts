@@ -5,10 +5,9 @@ import { guideContent } from "./guide-content";
 import { siteIndexable, siteUrl } from "@/lib/seo/site";
 
 export { siteUrl } from "@/lib/seo/site";
-export const languageUrls = { vi: `${siteUrl}/`, en: `${siteUrl}/en`, "x-default": `${siteUrl}/` };
+export const languageUrls = { vi: `${siteUrl}/`, "x-default": `${siteUrl}/` };
 export const guideUrls = {
   vi: `${siteUrl}/huong-dan`,
-  en: `${siteUrl}/en/huong-dan`,
   "x-default": `${siteUrl}/huong-dan`,
 };
 
@@ -19,13 +18,13 @@ export function guideMetadata(locale: Locale): Metadata {
     ...base,
     title: { absolute: t.title },
     description: t.description,
-    alternates: { canonical: guideUrls[locale], languages: guideUrls },
+    alternates: { canonical: guideUrls.vi, languages: guideUrls },
     openGraph: {
       ...base.openGraph,
       type: "article",
       title: t.title,
       description: t.description,
-      url: guideUrls[locale],
+      url: guideUrls.vi,
     },
     twitter: { ...base.twitter, title: t.title, description: t.description },
   };
@@ -33,7 +32,7 @@ export function guideMetadata(locale: Locale): Metadata {
 
 export function guideStructuredData(locale: Locale) {
   const t = guideContent[locale];
-  const url = guideUrls[locale];
+  const url = guideUrls.vi;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -63,7 +62,7 @@ export function guideStructuredData(locale: Locale) {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: t.home, item: languageUrls[locale] },
+          { "@type": "ListItem", position: 1, name: t.home, item: languageUrls.vi },
           { "@type": "ListItem", position: 2, name: t.label, item: url },
         ],
       },
@@ -73,7 +72,7 @@ export function guideStructuredData(locale: Locale) {
 
 export function landingMetadata(locale: Locale): Metadata {
   const t = landingContent[locale];
-  const url = languageUrls[locale];
+  const url = languageUrls.vi;
   return {
     title: { absolute: t.title },
     description: t.description,
@@ -86,13 +85,13 @@ export function landingMetadata(locale: Locale): Metadata {
       description: t.description,
       url,
       locale: locale === "vi" ? "vi_VN" : "en_US",
-      alternateLocale: locale === "vi" ? "en_US" : "vi_VN",
+      alternateLocale: [],
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: "Piggy Back — Shopee cashback",
+          alt: "Piggy Back — mua sắm hoàn tiền Shopee",
         },
       ],
     },
@@ -107,7 +106,7 @@ export function landingMetadata(locale: Locale): Metadata {
 
 export function landingStructuredData(locale: Locale) {
   const t = landingContent[locale];
-  const url = languageUrls[locale];
+  const url = languageUrls.vi;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -116,6 +115,13 @@ export function landingStructuredData(locale: Locale) {
         "@id": `${siteUrl}/#organization`,
         name: "Piggy Back",
         url: `${siteUrl}/`,
+        email: "theanh.nguyen2039@gmail.com",
+        contactPoint: {
+          "@type": "ContactPoint",
+        contactType: "hỗ trợ khách hàng",
+          email: "theanh.nguyen2039@gmail.com",
+          availableLanguage: "vi",
+        },
         logo: {
           "@type": "ImageObject",
           url: `${siteUrl}/brand-icon-512.png`,
@@ -128,7 +134,7 @@ export function landingStructuredData(locale: Locale) {
         "@id": `${siteUrl}/#website`,
         name: "Piggy Back",
         url: `${siteUrl}/`,
-        inLanguage: ["vi", "en"],
+        inLanguage: "vi",
         publisher: { "@id": `${siteUrl}/#organization` },
       },
       {

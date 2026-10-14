@@ -20,33 +20,33 @@ import { useSuperAdmin } from "./shared";
 export const shopeeCookieFields = [
   {
     name: "cookie",
-    label: "Cookie Shopee Affiliate",
+    label: "Dữ liệu phiên tiếp thị Shopee",
     type: "password" as const,
-    help: "Chỉ được gửi đến backend để mã hóa. Sau khi lưu không hiển thị lại.",
+    help: "Chỉ được gửi đến máy chủ để mã hóa. Sau khi lưu không hiển thị lại.",
   },
 ];
 
 export const credentialFields = [
-  { name: "accountId", label: "Mã tài khoản AddLiveTag (Account ID)", help: "Ví dụ: 420" },
+  { name: "accountId", label: "Mã tài khoản đối tác", help: "Ví dụ: 420" },
   {
     name: "expectedAffiliate",
-    label: "Tên Affiliate kỳ vọng",
-    help: "Tên affiliate xuất hiện trong báo cáo API AddLiveTag",
+    label: "Tên tài khoản tiếp thị cần đối chiếu",
+    help: "Tên tài khoản tiếp thị xuất hiện trong báo cáo đối tác",
   },
 ];
 
 export const verificationFields = [
   {
     name: "version",
-    label: "Phiên bản Credential (Version)",
+    label: "Phiên bản thông tin kết nối",
     type: "number" as const,
-    help: "Nhập số phiên bản credential hiện tại",
+    help: "Nhập số phiên bản thông tin kết nối hiện tại",
   },
   {
     name: "evidence",
     label: "Bằng chứng đối chiếu thực tế",
     type: "textarea" as const,
-    help: "Ghi rõ nguồn chứng từ đối chiếu thực tế (tối thiểu 10 ký tự) để mở khóa settlement",
+    help: "Ghi rõ nguồn chứng từ đối chiếu thực tế (tối thiểu 10 ký tự) để mở khóa kỳ thanh toán",
   },
 ];
 
@@ -74,10 +74,10 @@ export function ProviderHealth() {
       <StatCard
         label="Nguồn đối soát"
         value={text(query.data, "provider") || "ADDLIVETAG"}
-        helper={`Account: ${text(cred, "accountId")} · Affiliate: ${text(cred, "expectedAffiliate")}`}
+        helper={`Tài khoản: ${text(cred, "accountId")} · Tiếp thị: ${text(cred, "expectedAffiliate")}`}
       />
       <StatCard
-        label="Xác thực VND & Account"
+        label="Xác thực đơn vị tiền và tài khoản"
         value={
           isVerified ? (
             <span className="text-success font-semibold">{t("Đã xác thực")}</span>
@@ -182,14 +182,14 @@ export const policyFields = [
   {
     name: "userRatePercent",
     label: "Tỷ lệ hoàn tiền khách hàng (%)",
-    placeholder: "85",
-    help: "Tỷ lệ hoàn tiền khách hàng nhận được từ hoa hồng sàn (ví dụ: 85 là 85%, có thể tăng lên 90% hoặc 95% khi chạy chiến dịch / sự kiện).",
+    placeholder: "80",
+    help: "Tỷ lệ hoàn tiền khách hàng nhận được từ hoa hồng sàn (ví dụ: 80 là 80%, có thể tăng lên 90% hoặc 95% khi chạy chiến dịch / sự kiện).",
   },
   {
     name: "minWithdrawal",
     label: "Số tiền rút tối thiểu (VND)",
     type: "money" as const,
-    placeholder: "50000",
+    placeholder: "10000",
     help: "Ngưỡng số dư khả dụng tối thiểu để người dùng được phép tạo lệnh rút tiền về ngân hàng.",
   },
 ];
@@ -215,7 +215,7 @@ export function SystemConfigPage() {
       {policy.data && (
         <div className="grid gap-4 sm:grid-cols-2">
           <StatCard
-            label="Cashback khách hàng"
+            label="Tiền hoàn cho khách hàng"
             value={Number(text(policy.data, "userBps")) / 100 + "%"}
             helper="Trên tiền hoa hồng thực nhận từ sàn"
           />

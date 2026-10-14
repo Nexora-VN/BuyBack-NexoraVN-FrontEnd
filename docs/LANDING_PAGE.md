@@ -1,89 +1,23 @@
-# Piggy Back public landing page
+# Trang giới thiệu Piggy Back
 
-## Scope
+Trang chủ `/` và hướng dẫn `/huong-dan` chỉ hiển thị tiếng Việt. Các đường dẫn cũ bắt đầu bằng `/en` chuyển hướng vĩnh viễn về trang tiếng Việt tương ứng. Các trang tài khoản và quản trị vẫn yêu cầu đăng nhập.
 
-The public homepage is available in Vietnamese at `/` and English at `/en`.
-The public shopping guide is available at `/huong-dan` and `/en/huong-dan`, linked
-from the homepage and back to its FAQs. Its source-backed instructions, metadata,
-Article and BreadcrumbList schema have a separate informational search intent.
-It introduces the existing Shopee affiliate link workflow and directs visitors
-to `/login` or `/en/login`. Existing application and admin routes remain protected.
+## Nội dung và giao diện
 
-The design extends Piggy Back's existing berry palette, Be Vietnam Pro font and
-mascot assets. Matumi was used as a reference for the kind of information a
-cashback landing page should explain, not as a source of product claims or brand assets.
+- `src/modules/landing/content.ts`: nội dung trang chủ, câu hỏi thường gặp và phần dùng cho dữ liệu có cấu trúc.
+- `src/modules/landing/guide-content.ts`: hướng dẫn mua sắm và phân biệt tiền hoàn dự kiến với số dư có thể rút.
+- `src/modules/resources/content.json`: giới thiệu, liên hệ, chính sách, điều khoản, quyền riêng tư và bài kiến thức.
+- `src/modules/landing/device-preview.tsx`: hình minh họa bằng dữ liệu mẫu, không phải giao dịch của người dùng.
+- `src/modules/landing/seo.ts`: tiêu đề, mô tả, địa chỉ chuẩn và dữ liệu có cấu trúc.
 
-## Editing
+Nội dung chính có trong phản hồi từ máy chủ để người đọc và công cụ tìm kiếm truy cập được. Mỗi trang công khai có tiêu đề, mô tả và địa chỉ chuẩn riêng. Các trang tiếng Việt trong danh sách công khai được đưa vào `/sitemap.xml` sau khi bật lập chỉ mục. Đường dẫn cũ `/kien-thuc/cashback-la-gi` chuyển hướng sang `/kien-thuc/tien-hoan-la-gi`.
 
-- `src/modules/landing/content.ts`: all Vietnamese and English landing copy,
-  including the FAQ content used by the page and JSON-LD.
-- `src/modules/landing/landing-page.tsx`: server-rendered sections and native
-  keyboard-accessible FAQ disclosure controls.
-- `src/modules/landing/landing.module.css`: scoped responsive landing styles.
-- `src/modules/landing/device-preview.tsx` and `device-preview.module.css`:
-  static feature previews placed before the three-step section. The phone frame
-  illustrates link creation and estimated cashback; the laptop frame illustrates
-  order tracking and wallet management. Device frames are visual presentation,
-  not the marketing message. All displayed financial amounts are labeled sample data.
-- `src/modules/landing/seo.ts`: localized metadata and structured data.
-- `src/app/opengraph-image.tsx`: generated social image using existing brand art.
+## Trước khi phát hành
 
-Public landing routes omit the application provider and its full translation payload.
-Account and admin routes live in the `(application)` route group and retain their
-provider behavior and existing URLs. No new package is required.
+1. Đọc lại chính sách, thông tin liên hệ và quy trình giao dịch; bảo đảm nội dung phản ánh đúng dịch vụ đang chạy.
+2. Triển khai backend trước và kiểm tra cấu hình tỷ lệ chia hoa hồng, mức rút tối thiểu.
+3. Khi sẵn sàng công bố, đặt `SEO_INDEXABLE=true` cho bản xây dựng frontend mới rồi triển khai. Trước đó, sitemap trống và các trang công khai giữ chỉ thị không lập chỉ mục.
+4. Kiểm tra trang chủ, hướng dẫn, trang kiến thức, chính sách, chuyển hướng `/en`, chuyển hướng địa chỉ bài cũ và sitemap trên tên miền thật.
+5. Gửi sitemap trong Google Search Console, sau đó theo dõi báo cáo lập chỉ mục và lượt truy cập.
 
-## SEO / GEO
-
-- Content, headings and FAQs are present in the server response.
-- Each locale has its own title, description, canonical and reciprocal hreflang
-  links; Vietnamese is the x-default.
-- Open Graph and Twitter metadata include a 1200 × 630 brand image.
-- Organization, WebSite, WebPage and FAQPage JSON-LD describe visible content.
-  FAQ schema does not imply eligibility for a Google FAQ rich result.
-- `/sitemap.xml` lists the two homepages and two guide variants when indexing is enabled.
-- `/robots.txt` allows public crawling and excludes API and private app paths.
-- Root metadata defaults to noindex. The landing page opts into indexing only when
-  `SEO_INDEXABLE=true` is set at build time and runtime. Prelaunch is the default;
-  in that mode the sitemap is empty and public pages remain crawlable so bots can
-  read their noindex directives.
-  Authentication continues to enforce private access; robots directives are not access control.
-
-## Before publishing
-
-1. The approved canonical origin is `https://piggyback.vn`, centralized in
-   `src/lib/seo/site.ts` and independent of preview hosts. Set `NEXT_PUBLIC_SITE_URL`
-   to the same origin for production application integrations. Only enable the
-   repository variable `SEO_INDEXABLE=true` after the prelaunch checklist in
-   `docs/SEO_AUDIT_2026-10-07.md` is complete, then rebuild and deploy. Docker carries
-   this flag at build and runtime; changing only a running container's environment
-   does not regenerate its static sitemap.
-2. Review the public product copy against actual launch capabilities. The landing
-   intentionally makes no numerical cashback, payout-time, user-count or app-store
-   claims. The current finance modules are described as mock/future modules in the
-   repository README; confirm their readiness before advertising a live service.
-3. Add verified support/contact details and reviewed legal policies when available.
-   No fictional company identity, support channel or legal-policy link is included.
-4. After deployment, submit the sitemap to Search Console and validate live pages
-   with URL Inspection and PageSpeed Insights. Local checks cannot establish search
-   indexing, field Core Web Vitals or inclusion in AI answers.
-
-GEO here means crawlable, clearly structured, factual content that can be understood
-and cited. It does not guarantee ranking or inclusion in an AI response.
-
-References: https://developers.google.com/search/docs/appearance/ai-features
-and https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data.
-
-## Verification
-
-Run `npm test`, `npm run lint`, `npm run typecheck`, and `npm run build`.
-Start the production build and run `npm run audit:seo -- http://localhost:3100`
-for prelaunch, or append `--indexable` for a build made with `SEO_INDEXABLE=true`.
-Reports are saved under `artifacts/seo/`. This checks HTTP and source HTML; it
-does not replace browser performance measurements or external schema validation.
-The homepage regression tests verify public access, locale-preserving CTAs and
-agreement between FAQ JSON-LD and visible text. Provider tests verify that public
-landing visits do not request a backend session while login still does.
-
-Check `/`, `/en`, `/login`, `/en/login`, `/robots.txt`, `/sitemap.xml`, and
-`/opengraph-image` over HTTP. Inspect responsive layout, navigation, FAQ keyboard
-interaction and language switching in a browser.
+Hướng dẫn thao tác chi tiết nằm trong [PRODUCTION_SEO_SETUP.md](PRODUCTION_SEO_SETUP.md). Có thể chạy `npm test`, `npm run lint`, `npm run typecheck`, `npm run build` và `npm run audit:seo:build` để kiểm tra bản xây dựng. Audit kiểm tra phản hồi HTTP và nội dung HTML; vẫn cần xem giao diện trên điện thoại và kiểm tra kết quả thực tế trong Search Console.

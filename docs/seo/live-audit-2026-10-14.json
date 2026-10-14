@@ -1,0 +1,320 @@
+{
+  "checkedAt": "2026-10-14T01:43:44.323Z",
+  "method": "HTTP GET; server HTML only; no JavaScript execution or Search Console",
+  "results": [
+    {
+      "url": "https://piggyback.vn/",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "Mua sắm hoàn tiền Shopee qua liên kết | Piggy Back",
+      "description": "Tìm hiểu cách mua sắm hoàn tiền Shopee cùng Piggy Back: tạo link sản phẩm, xem tiền hoàn dự kiến, theo dõi đơn hàng và điều kiện rút tiền sau đối soát.",
+      "robots": [
+        "noindex, follow"
+      ],
+      "canonical": "https://piggyback.vn/",
+      "h1": [
+        "Mua sắm Shopee.Nhận thêm tiền hoàn."
+      ],
+      "lang": "vi",
+      "hreflang": [
+        {
+          "lang": "vi",
+          "href": "https://piggyback.vn/"
+        },
+        {
+          "lang": "en",
+          "href": "https://piggyback.vn/en"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://piggyback.vn/"
+        }
+      ],
+      "serverSchemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "FAQPage"
+      ],
+      "publicLinks": [
+        "#main-content",
+        "/",
+        "#how-it-works",
+        "#why-piggy",
+        "#faq",
+        "/en",
+        "/login",
+        "/huong-dan"
+      ],
+      "prelaunch": true
+    },
+    {
+      "url": "https://piggyback.vn/en",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "Shopee Cashback: Shopping Links & Tracking | Piggy Back",
+      "description": "Learn how Shopee cashback works with Piggy Back: create shopping links, preview estimated cashback, track orders and understand withdrawal eligibility.",
+      "robots": [
+        "noindex, follow"
+      ],
+      "canonical": "https://piggyback.vn/en",
+      "h1": [
+        "Shopee shopping.With cashback."
+      ],
+      "lang": "en",
+      "hreflang": [
+        {
+          "lang": "vi",
+          "href": "https://piggyback.vn/"
+        },
+        {
+          "lang": "en",
+          "href": "https://piggyback.vn/en"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://piggyback.vn/"
+        }
+      ],
+      "serverSchemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "FAQPage"
+      ],
+      "publicLinks": [
+        "#main-content",
+        "/en",
+        "#how-it-works",
+        "#why-piggy",
+        "#faq",
+        "/",
+        "/en/login",
+        "/en/huong-dan"
+      ],
+      "prelaunch": false
+    },
+    {
+      "url": "https://piggyback.vn/huong-dan",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "Cách tạo link hoàn tiền Shopee | Hướng dẫn Piggy Back",
+      "description": "Hướng dẫn tạo link mua sắm Shopee trên Piggy Back, mở link để đặt hàng, kiểm tra tiền hoàn dự kiến và theo dõi đơn sau khi mua.",
+      "robots": [
+        "noindex, follow"
+      ],
+      "canonical": "https://piggyback.vn/huong-dan",
+      "h1": [
+        "Cách tạo link hoàn tiền Shopee trên Piggy Back"
+      ],
+      "lang": "vi",
+      "hreflang": [
+        {
+          "lang": "vi",
+          "href": "https://piggyback.vn/huong-dan"
+        },
+        {
+          "lang": "en",
+          "href": "https://piggyback.vn/en/huong-dan"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://piggyback.vn/huong-dan"
+        }
+      ],
+      "serverSchemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ],
+      "publicLinks": [
+        "/",
+        "/en/huong-dan",
+        "#create-link",
+        "#estimated-cashback",
+        "#check-order",
+        "/#faq",
+        "/login"
+      ],
+      "prelaunch": true
+    },
+    {
+      "url": "https://piggyback.vn/en/huong-dan",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "How to Create Shopee Cashback Links | Piggy Back Guide",
+      "description": "Learn how to create a Shopee shopping link with Piggy Back, open it to place an order, understand cashback estimates and check order progress.",
+      "robots": [
+        "noindex, follow"
+      ],
+      "canonical": "https://piggyback.vn/en/huong-dan",
+      "h1": [
+        "How to create Shopee cashback links with Piggy Back"
+      ],
+      "lang": "en",
+      "hreflang": [
+        {
+          "lang": "vi",
+          "href": "https://piggyback.vn/huong-dan"
+        },
+        {
+          "lang": "en",
+          "href": "https://piggyback.vn/en/huong-dan"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://piggyback.vn/huong-dan"
+        }
+      ],
+      "serverSchemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ],
+      "publicLinks": [
+        "/en",
+        "/huong-dan",
+        "#create-link",
+        "#estimated-cashback",
+        "#check-order",
+        "/en#faq",
+        "/en/login"
+      ],
+      "prelaunch": false
+    },
+    {
+      "url": "https://piggyback.vn/robots.txt",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "body": "User-Agent: *\nAllow: /\nDisallow: /api/\nDisallow: /app$\nDisallow: /app/\nDisallow: /admin$\nDisallow: /admin/\nDisallow: /en/app$\nDisallow: /en/app/\nDisallow: /en/admin$\nDisallow: /en/admin/\nDisallow: /vi/app$\nDisallow: /vi/app/\nDisallow: /vi/admin$\nDisallow: /vi/admin/\n\nSitemap: https://piggyback.vn/sitemap.xml\n"
+    },
+    {
+      "url": "https://piggyback.vn/sitemap.xml",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n</urlset>\n"
+    },
+    {
+      "url": "http://piggyback.vn/",
+      "status": 301,
+      "location": "https://piggyback.vn/",
+      "xRobotsTag": null,
+      "title": "301 Moved Permanently",
+      "robots": [],
+      "h1": [
+        "301 Moved Permanently"
+      ],
+      "lang": "",
+      "hreflang": [],
+      "serverSchemaTypes": [],
+      "publicLinks": [],
+      "prelaunch": false
+    },
+    {
+      "url": "https://www.piggyback.vn/",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "Mua sắm hoàn tiền Shopee qua liên kết | Piggy Back",
+      "description": "Tìm hiểu cách mua sắm hoàn tiền Shopee cùng Piggy Back: tạo link sản phẩm, xem tiền hoàn dự kiến, theo dõi đơn hàng và điều kiện rút tiền sau đối soát.",
+      "robots": [
+        "noindex, follow"
+      ],
+      "canonical": "https://piggyback.vn/",
+      "h1": [
+        "Mua sắm Shopee.Nhận thêm tiền hoàn."
+      ],
+      "lang": "vi",
+      "hreflang": [
+        {
+          "lang": "vi",
+          "href": "https://piggyback.vn/"
+        },
+        {
+          "lang": "en",
+          "href": "https://piggyback.vn/en"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://piggyback.vn/"
+        }
+      ],
+      "serverSchemaTypes": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "FAQPage"
+      ],
+      "publicLinks": [
+        "#main-content",
+        "/",
+        "#how-it-works",
+        "#why-piggy",
+        "#faq",
+        "/en",
+        "/login",
+        "/huong-dan"
+      ],
+      "prelaunch": true
+    },
+    {
+      "url": "https://piggyback.vn/vi",
+      "status": 308,
+      "location": "/",
+      "xRobotsTag": null,
+      "body": "/"
+    },
+    {
+      "url": "https://piggyback.vn/seo-audit-missing-page",
+      "status": 404,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "Piggy Back",
+      "description": "Nền tảng hoàn tiền affiliate minh bạch từ Piggy Back.",
+      "robots": [
+        "noindex",
+        "noindex, nofollow"
+      ],
+      "h1": [
+        "404"
+      ],
+      "lang": "vi",
+      "hreflang": [],
+      "serverSchemaTypes": [],
+      "publicLinks": [],
+      "prelaunch": false
+    },
+    {
+      "url": "https://piggyback.vn/login",
+      "status": 200,
+      "location": null,
+      "xRobotsTag": null,
+      "title": "Piggy Back",
+      "description": "Nền tảng hoàn tiền affiliate Shopee minh bạch từ Piggy Back.",
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "h1": [
+        "Chào mừng trở lại"
+      ],
+      "lang": "vi",
+      "hreflang": [],
+      "serverSchemaTypes": [],
+      "publicLinks": [
+        "/forgot-password",
+        "/sign-up"
+      ],
+      "prelaunch": false
+    }
+  ]
+}

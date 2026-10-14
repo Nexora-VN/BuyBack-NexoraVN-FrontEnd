@@ -1,3 +1,4 @@
+import { trackConversion } from "@/lib/analytics";
 import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
@@ -5,6 +6,7 @@ import { renderUI } from "@/test/render";
 import { authService } from "../services/auth.service";
 import { SignUpPageContent } from "./sign-up-page";
 
+vi.mock("@/lib/analytics", () => ({ trackConversion: vi.fn() }));
 const replace = vi.fn();
 vi.mock("@/i18n/navigation", () => ({
   Link: ({ children, href }: { children: ReactNode; href: string }) => (
@@ -31,7 +33,7 @@ afterEach(cleanup);
 it("sends only the required fields, accepts a six-digit code, and returns to login", async () => {
   renderUI(<SignUpPageContent />);
   fireEvent.change(screen.getByLabelText("Họ và tên"), { target: { value: "Test Person" } });
-  fireEvent.change(screen.getByLabelText("Email"), {
+  fireEvent.change(screen.getByLabelText("Địa chỉ thư điện tử"), {
     target: { value: "  PERSON@example.com  " },
   });
   fireEvent.change(screen.getByLabelText("Mật khẩu"), {
@@ -45,12 +47,14 @@ it("sends only the required fields, accepts a six-digit code, and returns to log
       password: "safe-password-123",
     }),
   );
+  expect(trackConversion).not.toHaveBeenCalled();
   const code = await screen.findByRole("textbox", { name: "Mã xác thực gồm 6 chữ số" });
   fireEvent.change(code, { target: { value: "123456" } });
   fireEvent.click(screen.getByRole("button", { name: "Xác thực và tạo tài khoản" }));
   await waitFor(() =>
     expect(authService.registerVerify).toHaveBeenCalledWith("person@example.com", "123456"),
   );
+  expect(trackConversion).toHaveBeenCalledExactlyOnceWith("sign_up", "email");
   expect(replace).toHaveBeenCalledWith("/login");
   expect(sessionStorage.getItem("auth.loginEmail")).toBe("person@example.com");
 });

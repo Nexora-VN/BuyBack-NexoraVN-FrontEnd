@@ -1,4 +1,5 @@
 "use client";
+import { trackConversion } from "@/lib/analytics";
 import { useCopy } from "@/i18n/use-copy";
 import { useTranslations } from "next-intl";
 
@@ -63,6 +64,7 @@ export function useGenerateLink() {
       if (!response.link) throw new Error(t("Không tạo được link. Vui lòng thử lại."));
       setImageFailed(false);
       setResult(response);
+      trackConversion("generate_cashback_link", "link_form");
       void queryClient.invalidateQueries({ queryKey: ["products"] });
       void queryClient.invalidateQueries({ queryKey: ["affiliate"] });
       void queryClient.invalidateQueries({

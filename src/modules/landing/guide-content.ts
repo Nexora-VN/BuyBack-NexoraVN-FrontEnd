@@ -1,33 +1,33 @@
 import type { Locale } from "@/i18n/config";
 
 const vi = {
-  title: "Cách tạo link hoàn tiền Shopee | Hướng dẫn Piggy Back",
+  title: "Cách tạo liên kết hoàn tiền Shopee | Hướng dẫn Piggy Back",
   description:
-    "Hướng dẫn tạo link mua sắm Shopee trên Piggy Back, mở link để đặt hàng, kiểm tra tiền hoàn dự kiến và theo dõi đơn sau khi mua.",
+    "Hướng dẫn tạo liên kết mua sắm Shopee trên Piggy Back, mở liên kết để đặt hàng, kiểm tra tiền hoàn dự kiến và theo dõi đơn sau khi mua.",
   home: "Trang chủ",
   label: "Hướng dẫn mua sắm",
-  heading: "Cách tạo link hoàn tiền Shopee trên Piggy Back",
+  heading: "Cách tạo liên kết hoàn tiền Shopee trên Piggy Back",
   intro:
-    "Trước khi đặt hàng, bạn cần tạo và mở liên kết mua sắm trên Piggy Back. Hướng dẫn dưới đây mô tả các bước trong ứng dụng, từ lúc sao chép link đến khi kiểm tra trạng thái đơn.",
+    "Trước khi đặt hàng, bạn cần tạo và mở liên kết mua sắm trên Piggy Back. Hướng dẫn dưới đây mô tả các bước trong ứng dụng, từ lúc sao chép liên kết đến khi kiểm tra trạng thái đơn.",
   notice:
     "Piggy Back đang được phát triển và chưa ra mắt chính thức. Nội dung hướng dẫn có thể được cập nhật trước khi phát hành.",
   contents: "Trong hướng dẫn này",
   stepsHeading: "Chuẩn bị và tạo liên kết mua sắm",
   steps: [
     {
-      title: "1. Chuẩn bị link sản phẩm Shopee",
-      text: "Mở trang sản phẩm bạn muốn mua trên Shopee, chọn Chia sẻ rồi Sao chép đường dẫn. Nếu sản phẩm đã nằm trong giỏ, thực hiện hướng dẫn xóa sản phẩm khỏi giỏ trước khi tạo link và thêm lại sau khi mở liên kết Piggy.",
-      note: "Dùng đường dẫn sản phẩm bạn định mua. Việc tự tìm lại sản phẩm trên sàn không thay thế bước mở liên kết do Piggy tạo.",
+      title: "1. Chuẩn bị liên kết sản phẩm Shopee",
+      text: "Mở trang sản phẩm bạn muốn mua trên Shopee, chọn Chia sẻ rồi Sao chép đường dẫn. Nếu sản phẩm đã nằm trong giỏ, thực hiện hướng dẫn xóa sản phẩm khỏi giỏ trước khi tạo liên kết và thêm lại sau khi mở liên kết Piggy Back.",
+      note: "Dùng đường dẫn sản phẩm bạn định mua. Việc tự tìm lại sản phẩm trên sàn không thay thế bước mở liên kết do Piggy Back tạo.",
     },
     {
-      title: "2. Dán link vào Piggy Back",
-      text: "Đăng nhập, mở mục tạo link và dán đường dẫn sản phẩm Shopee. Chọn Tạo link hoàn tiền. Khi có dữ liệu sản phẩm, ứng dụng hiển thị thông tin giá và khoản hoàn dự kiến để bạn kiểm tra trước khi tiếp tục.",
+      title: "2. Dán liên kết vào Piggy Back",
+      text: "Đăng nhập, mở mục tạo liên kết và dán đường dẫn sản phẩm Shopee. Chọn Tạo liên kết hoàn tiền. Khi có dữ liệu sản phẩm, ứng dụng hiển thị thông tin giá và khoản hoàn dự kiến để bạn kiểm tra trước khi tiếp tục.",
       note: "Nếu chưa có dữ liệu ước tính, không tự suy ra rằng sản phẩm chắc chắn có hoặc không có tiền hoàn. Kiểm tra thông tin trả về trong ứng dụng.",
     },
     {
       title: "3. Mở liên kết và đặt hàng trên Shopee",
-      text: "Chọn Mua ngay trong kết quả tạo link để chuyển sang Shopee. Thêm lại sản phẩm vào giỏ hoặc tiếp tục mua, áp dụng ưu đãi phù hợp và hoàn tất đặt hàng theo hướng dẫn đang hiển thị.",
-      note: "Việc thanh toán, vận chuyển và xử lý đơn mua sắm diễn ra trên Shopee. Đọc điều kiện ưu đãi trước khi dùng voucher; số ước tính trên Piggy chưa phải xác nhận cuối cùng.",
+      text: "Chọn Mua ngay trong kết quả tạo liên kết để chuyển sang Shopee. Thêm lại sản phẩm vào giỏ hoặc tiếp tục mua, áp dụng ưu đãi phù hợp và hoàn tất đặt hàng theo hướng dẫn đang hiển thị.",
+      note: "Việc thanh toán, vận chuyển và xử lý đơn mua sắm diễn ra trên Shopee. Đọc điều kiện ưu đãi trước khi dùng mã giảm giá; số ước tính trên Piggy Back chưa phải xác nhận cuối cùng.",
     },
     {
       title: "4. Theo dõi đơn và tiền hoàn",
@@ -39,18 +39,18 @@ const vi = {
   estimate:
     "Giá sản phẩm, tỷ lệ hoa hồng và khoản người mua nhận được là những thông tin khác nhau. Trong ứng dụng, phần giải thích giá phân biệt hoa hồng từ sàn và khoản bổ sung từ người bán khi có dữ liệu. Không lấy tổng tỷ lệ hoa hồng hiển thị làm cam kết về số tiền cuối cùng trong ví.",
   estimateNote:
-    "Giá sau ưu đãi, điều kiện chương trình, trạng thái đơn và kết quả đối soát có thể làm khoản xác nhận khác con số ban đầu. Đơn bị hủy hoặc hoàn trả có thể không đủ điều kiện nhận cashback.",
+    "Giá sau ưu đãi, điều kiện chương trình, trạng thái đơn và kết quả đối soát có thể làm khoản xác nhận khác con số ban đầu. Đơn bị hủy hoặc hoàn trả có thể không đủ điều kiện nhận tiền hoàn.",
   troubleshootingHeading: "Khi chưa thấy đơn hoặc chưa rút được tiền",
   checks: [
-    "Kiểm tra bạn đã mở đúng link Piggy tạo trước khi đặt hàng và đã làm theo hướng dẫn xử lý giỏ hàng.",
-    "Kiểm tra trạng thái đơn trên Shopee và trong Piggy; không coi một đơn chưa xuất hiện là bằng chứng chắc chắn đã bị từ chối.",
+    "Kiểm tra bạn đã mở đúng liên kết Piggy Back tạo trước khi đặt hàng và đã làm theo hướng dẫn xử lý giỏ hàng.",
+    "Kiểm tra trạng thái đơn trên Shopee và trong Piggy Back; không coi một đơn chưa xuất hiện là bằng chứng chắc chắn đã bị từ chối.",
     "Phân biệt tiền hoàn dự kiến, tiền đang chờ xử lý và số dư khả dụng trước khi tạo yêu cầu rút.",
     "Để gửi yêu cầu rút, cần tài khoản nhận tiền đã được duyệt và số dư khả dụng đáp ứng số tiền yêu cầu cùng hạn mức được kiểm tra trong ứng dụng.",
   ],
   checksNote:
-    "Piggy Back là nền tảng độc lập. Tiền được Shopee hoàn lại do hủy hoặc trả hàng được xử lý theo quy trình của Shopee, khác khoản cashback Piggy chia từ hoa hồng đủ điều kiện.",
+    "Piggy Back là nền tảng độc lập. Tiền được Shopee hoàn lại do hủy hoặc trả hàng được xử lý theo quy trình của Shopee, khác khoản tiền hoàn Piggy Back chia từ hoa hồng đủ điều kiện.",
   nextHeading: "Tìm hiểu trước khi bắt đầu",
-  next: "Xem phần hỏi đáp để hiểu nguồn tiền hoàn và điều kiện ghi nhận. Trước khi mua, đọc hướng dẫn và điều kiện đang hiển thị tại bước tạo link trong ứng dụng.",
+  next: "Xem phần hỏi đáp để hiểu nguồn tiền hoàn và điều kiện ghi nhận. Trước khi mua, đọc hướng dẫn và điều kiện đang hiển thị tại bước tạo liên kết trong ứng dụng.",
   faqLink: "Điều kiện nhận hoàn và câu hỏi thường gặp",
   login: "Đăng nhập Piggy Back",
   back: "Tìm hiểu nền tảng hoàn tiền Piggy Back",
