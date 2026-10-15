@@ -15,8 +15,6 @@ import {
   Clock3,
   History,
   Coins,
-  Landmark,
-  Plus,
   LockKeyhole,
   RotateCcw,
   ShoppingBag,
@@ -406,69 +404,6 @@ export function WalletPage() {
         specs={[
           ["availableAfter", t("Khả dụng sau giao dịch"), "money"],
           ["createdAt", t("Thời gian"), "date"],
-        ]}
-      />
-    </Page>
-  );
-}
-
-export function WithdrawalHistoryPage() {
-  const t = useCopy();
-  const endUser = useTranslations("EndUser");
-
-  return (
-    <Page
-      title={t("Lịch sử rút tiền")}
-      className="user-withdrawal-history"
-      actions={
-        <Button asChild variant="outline">
-          <Link href="/app/withdrawals/new">
-            <Plus className="size-4" aria-hidden="true" />
-            {t("Rút tiền")}
-          </Link>
-        </Button>
-      }
-    >
-      <FinanceTable
-        path="me/withdrawals"
-        searchLabel="Mã chuyển khoản"
-        emptyTitle={endUser("withdrawalsEmptyTitle")}
-        emptyDescription={endUser("withdrawalsEmptyDescription")}
-        states={["PENDING", "PROCESSING", "COMPLETED", "REJECTED", "FAILED"]}
-        hideMobileControls
-        mobileRender={(row) => {
-          const createdAt = text(row, "createdAt");
-          const reason = text(row, "reviewReason");
-          return (
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <strong className="text-base tabular-nums">{formatVnd(text(row, "amount"))}</strong>
-                <StatusBadge domain="withdrawal" status={text(row, "status")} />
-              </div>
-              <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                <Landmark className="size-4 shrink-0" aria-hidden="true" />
-                <span className="min-w-0 break-words">
-                  {text(row, "bank.bankName")} (•••• {text(row, "bank.lastFour")})
-                </span>
-              </div>
-              {createdAt !== "—" && (
-                <p className="text-muted-foreground text-xs">
-                  {t("Thời gian tạo")}: {formatDateTime(createdAt)}
-                </p>
-              )}
-              {reason !== "—" && (
-                <p className="bg-danger-soft text-danger rounded-lg p-2 text-xs">{reason}</p>
-              )}
-            </div>
-          );
-        }}
-        specs={[
-          ["amount", t("Số tiền"), "money"],
-          ["status", t("Trạng thái"), "status"],
-          ["bank.bankName", t("Ngân hàng")],
-          ["bank.lastFour", t("4 số cuối")],
-          ["createdAt", t("Ngày tạo"), "date"],
-          ["id", t("Mã yêu cầu")],
         ]}
       />
     </Page>

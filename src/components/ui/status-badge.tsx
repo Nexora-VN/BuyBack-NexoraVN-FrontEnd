@@ -102,9 +102,7 @@ export function StatusBadge({
   const label = statusLabel(status, domain);
 
   // A commission marked PAID was settled into the wallet; only withdrawals transfer to a bank.
-  const isWithdrawn =
-    ["WITHDRAWN", "withdrawn"].includes(status) ||
-    (domain === "withdrawal" && ["COMPLETED", "completed"].includes(status));
+  const isWithdrawn = ["WITHDRAWN", "withdrawn"].includes(status);
 
   // 2. Red (danger): Failed / Rejected / Cancelled
   const isFailed =
