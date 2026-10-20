@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 import { toast } from "sonner";
 import { useCopy } from "@/i18n/use-copy";
+import { unregisterPushNotificationToken } from "@/lib/firebase/messaging";
 
 type AuthContextValue = {
   user: AuthUser | null;
@@ -38,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
   const logout = async () => {
     try {
+      await unregisterPushNotificationToken().catch(() => {});
       await authService.logout();
     } catch {
       toast.error(t("Không thể đăng xuất. Vui lòng thử lại."));

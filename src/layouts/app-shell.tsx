@@ -7,6 +7,11 @@ import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { UserOnboarding } from "@/modules/onboarding/components/user-onboarding";
+import {
+  NotificationBell,
+  NotificationPermissionPrompt,
+} from "@/modules/notifications/components";
+import { useFcmForegroundListener } from "@/modules/notifications/hooks";
 import { ClipboardList, Home, Link2, LogOut, UserRound, WalletCards } from "lucide-react";
 const nav = [
   { href: "/app", label: "Trang chủ", icon: Home },
@@ -27,8 +32,12 @@ export function UserShell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const router = useRouter();
   const { user, logout } = useAuth();
+
+  useFcmForegroundListener();
+
   return (
     <ConfirmProvider>
+      <NotificationPermissionPrompt />
       <div className="user-shell min-h-dvh">
         <header className="user-topbar sticky top-0 z-30">
           <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 lg:px-8">
@@ -66,6 +75,7 @@ export function UserShell({ children }: { children: React.ReactNode }) {
             </nav>
             <div className="flex items-center gap-2">
               {user?.role === "USER" && <UserOnboarding userId={user.id} />}
+              <NotificationBell area="user" />
               <Link
                 href="/app/links/new"
                 aria-label={t("Tạo link")}
