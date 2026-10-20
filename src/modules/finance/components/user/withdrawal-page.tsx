@@ -10,7 +10,7 @@ import { useCopy } from "@/i18n/use-copy";
 import { formatVnd } from "@/lib/format";
 import { ApiError } from "@/lib/api/errors";
 import { generateUUID } from "@/lib/observability/request-id";
-import { ArrowDownToLine, CheckCircle2, WalletCards } from "lucide-react";
+import { ArrowDownToLine, CheckCircle2, Clock3, Landmark, WalletCards } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { useFinance, useRefreshFinance } from "../../hooks/use-finance";
@@ -32,6 +32,7 @@ export function NewWithdrawalPage() {
     [step, setStep] = useState<"edit" | "review" | "done">("edit");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<unknown>(null);
+  const [receiptId, setReceiptId] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const key = useRef<string | null>(null);
   const lock = useRef(false);
@@ -64,12 +65,13 @@ export function NewWithdrawalPage() {
     setError(null);
     key.current ??= generateUUID();
     try {
-      await financeService.mutate("me/withdrawals", {
+      const created = (await financeService.mutate("me/withdrawals", {
         amount,
         bankId,
         idempotencyKey: key.current,
-      });
+      })) as { id: string };
       await refresh();
+      setReceiptId(created.id);
       key.current = null;
       setStep("done");
     } catch (e) {
@@ -108,16 +110,34 @@ export function NewWithdrawalPage() {
           }}
         />
       ) : (
-        <Card className="w-full max-w-2xl overflow-hidden p-0">
+        <Card className="border-border/70 w-full max-w-2xl overflow-hidden p-0 shadow-sm">
           {step === "done" ? (
-            <div className="space-y-5 p-6 py-10 text-center sm:p-8">
-              <CheckCircle2 className="text-success mx-auto size-12" />
-              <h2 className="text-xl font-semibold">{t("Đã gửi yêu cầu rút tiền")}</h2>
-              <p className="text-muted-foreground text-sm leading-6">
-                {t("Số tiền được giữ để xử lý yêu cầu. Theo dõi tiến độ trong lịch sử rút tiền.")}
-              </p>
-              <Button asChild>
-                <Link href="/app/withdrawals">{t("Xem lịch sử rút tiền")}</Link>
+            <div className="space-y-6 px-5 py-10 text-center sm:px-10 sm:py-12">
+              <span className="bg-success-soft mx-auto grid size-20 place-items-center rounded-full">
+                <CheckCircle2 className="text-success size-11" aria-hidden="true" />
+              </span>
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold tracking-tight">
+                  {t("Đã gửi yêu cầu rút tiền")}
+                </h2>
+                <p className="text-muted-foreground mx-auto max-w-md text-sm leading-6">
+                  {t("Số tiền được giữ để xử lý yêu cầu. Theo dõi tiến độ trong lịch sử rút tiền.")}
+                </p>
+              </div>
+              <div className="bg-primary/5 rounded-2xl px-5 py-5 text-left">
+                <p className="text-muted-foreground text-sm">{endUser("withdrawalAmount")}</p>
+                <p className="mt-1 text-3xl font-bold tracking-tight tabular-nums">
+                  {formatVnd(amount)}
+                </p>
+                <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-800">
+                  <Clock3 className="size-4" aria-hidden="true" />
+                  {endUser("withdrawalFilterPending")}
+                </span>
+              </div>
+              <Button asChild className="w-full sm:w-auto">
+                <Link href={receiptId ? `/app/withdrawals/${receiptId}` : "/app/withdrawals"}>
+                  {endUser("withdrawalProgress")}
+                </Link>
               </Button>
             </div>
           ) : (
@@ -129,15 +149,19 @@ export function NewWithdrawalPage() {
                 if (step === "edit") validate();
               }}
             >
-              <div className="relative overflow-hidden bg-gradient-to-br from-[#fff2f7] via-[#fff8fa] to-white px-5 py-6 sm:px-8 sm:py-8">
+              <div className="relative overflow-hidden bg-gradient-to-br from-[#fff0f6] via-[#fff8fa] to-white px-5 py-6 sm:px-8 sm:py-8">
                 <div className="relative flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-muted-foreground text-sm font-medium">Số dư có thể rút</p>
+                    <p className="text-muted-foreground text-sm font-medium">
+                      {endUser("withdrawalAvailableBalance")}
+                    </p>
                     <p className="text-foreground mt-2 text-3xl font-bold tracking-tight tabular-nums sm:text-4xl">
                       {formatVnd(available)}
                     </p>
                     <p className="text-muted-foreground mt-2 text-xs sm:text-sm">
-                      Tối thiểu mỗi lần rút {formatVnd(policy.data!.minWithdrawal)}
+                      {endUser("withdrawalMinimumHint", {
+                        amount: formatVnd(policy.data!.minWithdrawal),
+                      })}
                     </p>
                   </div>
                   <span className="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-2xl sm:size-12">
@@ -150,15 +174,14 @@ export function NewWithdrawalPage() {
                   role="status"
                   className="border-b bg-amber-50 px-5 py-4 text-sm text-amber-900 sm:px-8"
                 >
-                  Rút tiền đang tạm dừng. Số dư của bạn vẫn được giữ trong ví; vui lòng quay lại
-                  sau.
+                  {endUser("withdrawalPausedHint")}
                 </p>
               )}
               {step === "edit" ? (
                 <div className="space-y-7 px-5 py-6 sm:px-8 sm:py-8">
                   <div className="space-y-3">
                     <label className="block text-sm font-semibold" htmlFor="withdrawal-amount">
-                      Số tiền muốn rút
+                      {endUser("withdrawalAmountLabel")}
                     </label>
                     <div className="relative">
                       <MoneyInput
@@ -185,14 +208,17 @@ export function NewWithdrawalPage() {
                     ) : (
                       <p id="amount-help" className="text-muted-foreground text-sm">
                         {remaining !== null && amount
-                          ? `Còn lại trong ví ${formatVnd(remaining)} sau khi rút`
-                          : `Nhập từ ${formatVnd(policy.data!.minWithdrawal)} đến ${formatVnd(available)}`}
+                          ? endUser("withdrawalRemainingHint", { amount: formatVnd(remaining) })
+                          : endUser("withdrawalRangeHint", {
+                              min: formatVnd(policy.data!.minWithdrawal),
+                              max: formatVnd(available),
+                            })}
                       </p>
                     )}
                     {suggestions.length > 0 && (
                       <div className="space-y-2 pt-1">
                         <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-                          Chọn nhanh số tiền
+                          {endUser("withdrawalQuickAmounts")}
                         </p>
                         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                           {suggestions.map((option) => (
@@ -200,7 +226,11 @@ export function NewWithdrawalPage() {
                               key={option.value}
                               type="button"
                               aria-label={
-                                option.all ? `Rút toàn bộ ${formatVnd(option.value)}` : undefined
+                                option.all
+                                  ? endUser("withdrawalAllAria", {
+                                      amount: formatVnd(option.value),
+                                    })
+                                  : undefined
                               }
                               aria-pressed={amount === option.value}
                               className={`min-h-11 rounded-xl border px-3 py-2 text-left text-sm font-semibold transition-colors ${amount === option.value ? "border-primary bg-primary/10 text-primary" : "border-border hover:border-primary/40 bg-white hover:bg-[#fff8fa]"}`}
@@ -210,7 +240,9 @@ export function NewWithdrawalPage() {
                                 key.current = null;
                               }}
                             >
-                              <span className="block">{option.label}</span>
+                              <span className="block">
+                                {option.all ? endUser("withdrawalAll") : option.label}
+                              </span>
                               {option.all && (
                                 <span className="block text-xs font-normal tabular-nums">
                                   {formatVnd(option.value)}
@@ -223,7 +255,9 @@ export function NewWithdrawalPage() {
                     )}
                   </div>
                   <label className="block space-y-2 border-t pt-6">
-                    <span>Nơi nhận tiền đã duyệt</span>
+                    <span className="font-semibold">
+                      {endUser("withdrawalApprovedDestination")}
+                    </span>
                     <Select
                       value={bankId}
                       aria-invalid={!!errors.bankId}
@@ -239,6 +273,21 @@ export function NewWithdrawalPage() {
                         </option>
                       ))}
                     </Select>
+                    {bank && (
+                      <span className="bg-card flex items-center gap-3 rounded-2xl border p-4 shadow-sm">
+                        <span className="bg-primary/10 text-primary grid size-11 shrink-0 place-items-center rounded-xl">
+                          <Landmark className="size-5" aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <strong className="block truncate text-sm">
+                            {text(bank, "bankName")} · •••• {text(bank, "lastFour")}
+                          </strong>
+                          <span className="text-muted-foreground block truncate text-xs">
+                            {text(bank, "accountHolder")}
+                          </span>
+                        </span>
+                      </span>
+                    )}
                     {errors.bankId && (
                       <span role="alert" className="text-danger text-sm">
                         {t(errors.bankId)}
@@ -247,26 +296,42 @@ export function NewWithdrawalPage() {
                   </label>
                   {!banks.data?.data.length && (
                     <Link href="/app/account" className="text-primary block text-sm underline">
-                      Thêm ngân hàng hoặc MoMo để tiếp tục
+                      {endUser("withdrawalAddDestination")}
                     </Link>
                   )}
                 </div>
               ) : (
                 <div className="space-y-5 px-5 py-6 sm:px-8 sm:py-8">
-                  <h2 className="text-lg font-semibold">{t("Kiểm tra yêu cầu rút")}</h2>
-                  <dl className="space-y-4">
-                    <div>
-                      <dt className="text-muted-foreground text-sm">{t("Số tiền")}</dt>
-                      <dd className="text-2xl font-bold">{formatVnd(amount)}</dd>
+                  <h2 className="text-lg font-bold">{t("Kiểm tra yêu cầu rút")}</h2>
+                  <div className="bg-primary/5 rounded-2xl px-5 py-5">
+                    <p className="text-primary text-sm font-semibold">
+                      {endUser("withdrawalAmount")}
+                    </p>
+                    <p className="mt-1 text-3xl font-bold tracking-tight tabular-nums">
+                      {formatVnd(amount)}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border p-5">
+                    <p className="text-muted-foreground text-sm">
+                      {endUser("withdrawalRecipient")}
+                    </p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="bg-primary/10 text-primary grid size-10 shrink-0 place-items-center rounded-xl">
+                        <Landmark className="size-5" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="font-semibold">
+                          {text(bank, "bankName")} · •••• {text(bank, "lastFour")}
+                        </p>
+                        <p className="text-muted-foreground text-sm">
+                          {text(bank, "accountHolder")}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <dt className="text-muted-foreground text-sm">Nơi nhận tiền</dt>
-                      <dd>
-                        {text(bank, "bankName")} · ****{text(bank, "lastFour")}
-                      </dd>
-                      <dd>{text(bank, "accountHolder")}</dd>
-                    </div>
-                  </dl>
+                  </div>
+                  <p className="bg-muted/60 rounded-xl p-4 text-sm leading-6">
+                    {endUser("withdrawalDescription")}
+                  </p>
                 </div>
               )}
               {error ? (

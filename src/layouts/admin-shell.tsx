@@ -7,6 +7,8 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
+import { NotificationBell } from "@/modules/notifications/components";
+import { useFcmForegroundListener } from "@/modules/notifications/hooks";
 import {
   Activity,
   Boxes,
@@ -17,6 +19,7 @@ import {
   Link2,
   LogOut,
   Menu,
+  Bell,
   PackageSearch,
   Settings,
   SlidersHorizontal,
@@ -57,6 +60,8 @@ const groups = [
   {
     label: "Hệ thống",
     items: [
+      ["/admin/notifications", "Thông báo", Bell],
+      ["/admin/notifications/sends", "Gửi thông báo", Bell],
       ["/admin/provider-sync", "Kết nối đối tác", SlidersHorizontal],
       ["/admin/system", "Chính sách hệ thống", Settings],
     ],
@@ -113,6 +118,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const { user, logout } = useAuth();
   const router = useRouter();
+
+  useFcmForegroundListener();
   const tabs = [
     ["/admin", t("Tổng quan"), Gauge],
     ["/admin/orders", t("Đơn hàng"), Boxes],
@@ -141,6 +148,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <AdminNav />
           </div>
           <div className="space-y-3 border-t p-4">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-muted-foreground text-sm">{t("Thông báo")}</span>
+              <NotificationBell area="admin" />
+            </div>
             <p className="text-muted-foreground truncate text-xs">{user?.email}</p>
             <LanguageSwitcher />
             <button
@@ -157,13 +168,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <BrandLogo className="w-[115px]" />
             <span className="text-sm">Admin</span>
           </Link>
-          <button
-            onClick={() => setOpen(true)}
-            aria-label={t("Mở menu quản trị")}
-            className="hover:bg-muted grid size-11 place-items-center rounded-xl"
-          >
-            <Menu />
-          </button>
+          <div className="flex items-center gap-1">
+            <NotificationBell area="admin" />
+            <button
+              onClick={() => setOpen(true)}
+              aria-label={t("Mở menu quản trị")}
+              className="hover:bg-muted grid size-11 place-items-center rounded-xl"
+            >
+              <Menu />
+            </button>
+          </div>
         </header>
         <main id="main-content">{children}</main>
         <nav className="app-bottom-nav grid grid-cols-5" aria-label={t("Điều hướng quản trị")}>

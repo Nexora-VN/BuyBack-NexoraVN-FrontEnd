@@ -87,3 +87,61 @@ it("shows the API reason if withdrawals stop after the review step", async () =>
   expect(await screen.findByRole("alert")).toHaveTextContent("Rút tiền đang tạm dừng");
   expect(screen.getByRole("textbox", { name: "Số tiền muốn rút" })).toHaveValue("10.000");
 });
+
+it("links the completed request to its own receipt", async () => {
+  vi.mocked(financeService.get).mockImplementation(async (path) => {
+    if (path.includes("withdrawal-policy"))
+      return { minWithdrawal: "10000", withdrawalsEnabled: true };
+    if (path.includes("bank-accounts"))
+      return {
+        data: [
+          {
+            id: "a5d9575f-4c29-4f34-b6e0-a5bb80fc12a8",
+            bankName: "Vietcombank",
+            lastFour: "8901",
+            accountHolder: "NGUYEN VAN AN",
+          },
+        ],
+      };
+    return { available: "50000" };
+  });
+  vi.mocked(financeService.mutate).mockResolvedValue({
+    id: "37139c82-813b-4e8a-82a6-0f7bb99083fe",
+    status: "PENDING",
+    amount: "10000",
+  });
+  renderUI(<NewWithdrawalPage />);
+  fireEvent.click(await screen.findByRole("button", { name: "10k" }));
+  fireEvent.change(screen.getByRole("combobox", { name: /Nơi nhận tiền đã duyệt/ }), {
+    target: { value: "a5d9575f-4c29-4f34-b6e0-a5bb80fc12a8" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+  fireEvent.click(screen.getByRole("button", { name: "Xác nhận rút tiền" }));
+  expect(await screen.findByRole("link", { name: /Xem tiến trình/ })).toHaveAttribute(
+    "href",
+    "/app/withdrawals/37139c82-813b-4e8a-82a6-0f7bb99083fe",
+  );
+});
+
+it("shows the withdrawal form labels in English when the English locale is selected", async () => {
+  vi.mocked(financeService.get).mockImplementation(async (path) => {
+    if (path.includes("withdrawal-policy"))
+      return { minWithdrawal: "10000", withdrawalsEnabled: true };
+    if (path.includes("bank-accounts"))
+      return {
+        data: [
+          {
+            id: "a5d9575f-4c29-4f34-b6e0-a5bb80fc12a8",
+            bankName: "Vietcombank",
+            lastFour: "8901",
+            accountHolder: "NGUYEN VAN AN",
+          },
+        ],
+      };
+    return { available: "50000" };
+  });
+  renderUI(<NewWithdrawalPage />, "en");
+  expect(await screen.findByText("Available to withdraw")).toBeInTheDocument();
+  expect(screen.getByRole("textbox", { name: "Withdrawal amount" })).toBeInTheDocument();
+  expect(screen.getByRole("combobox", { name: "Approved recipient account" })).toBeInTheDocument();
+});

@@ -8,3 +8,8 @@ it("describes a settled commission without claiming a bank withdrawal", () => {
   expect(screen.getByText("Đã quyết toán")).toBeInTheDocument();
   expect(screen.queryByText(/Đã rút tiền|Đã chuyển tiền/)).not.toBeInTheDocument();
 });
+
+it("shows a completed bank withdrawal as success rather than information", () => {
+  renderUI(<StatusBadge domain="withdrawal" status="COMPLETED" />);
+  expect(screen.getByText("Đã chuyển tiền").parentElement).toHaveClass("bg-success-soft");
+});

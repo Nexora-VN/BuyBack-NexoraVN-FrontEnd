@@ -130,8 +130,8 @@ class ApiClient {
   patch<T>(endpoint: string, body?: unknown, options?: ApiClientOptions) {
     return this.request<T>(endpoint, "PATCH", body, options);
   }
-  delete<T>(endpoint: string, options?: ApiClientOptions) {
-    return this.request<T>(endpoint, "DELETE", undefined, options);
+  delete<T>(endpoint: string, body?: unknown, options?: ApiClientOptions) {
+    return this.request<T>(endpoint, "DELETE", body, options);
   }
 }
 
