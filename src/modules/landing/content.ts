@@ -28,7 +28,8 @@ const vi = {
   platformSub: "Piggy Back là nền tảng độc lập với Shopee.",
   stepsLabel: "01 / THẬT DỄ ĐỂ BẮT ĐẦU",
   stepsTitle: "Mua sắm hoàn tiền Shopee\nqua 3 bước.",
-  stepsIntro: "Từ liên kết món đồ yêu thích đến khoản hoàn trong ví — cùng Piggy Back đi từng bước nhé.",
+  stepsIntro:
+    "Từ liên kết món đồ yêu thích đến khoản hoàn trong ví — cùng Piggy Back đi từng bước nhé.",
   steps: [
     {
       title: "Mang liên kết đến Piggy Back",

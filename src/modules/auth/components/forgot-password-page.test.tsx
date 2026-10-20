@@ -30,7 +30,9 @@ afterEach(cleanup);
 
 it("requires matching passwords before confirming the six-digit code", async () => {
   renderUI(<ForgotPasswordPageContent />);
-  fireEvent.change(screen.getByLabelText("Địa chỉ thư điện tử"), { target: { value: "PERSON@example.com" } });
+  fireEvent.change(screen.getByLabelText("Địa chỉ thư điện tử"), {
+    target: { value: "PERSON@example.com" },
+  });
   fireEvent.click(screen.getByRole("button", { name: "Gửi mã đặt lại" }));
   await waitFor(() =>
     expect(authService.passwordResetStart).toHaveBeenCalledWith("person@example.com"),

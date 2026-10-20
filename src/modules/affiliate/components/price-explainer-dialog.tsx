@@ -222,9 +222,7 @@ export function PriceExplainerDialog({
             </div>
             <ul className="text-muted-foreground mt-2 list-disc space-y-1 pl-4 text-xs">
               <li>{t("Làm theo hướng dẫn về giỏ hàng trước khi mở liên kết mua sắm.")}</li>
-              <li>
-                {t("Mở liên kết do Piggy Back tạo và làm theo hướng dẫn đặt hàng.")}
-              </li>
+              <li>{t("Mở liên kết do Piggy Back tạo và làm theo hướng dẫn đặt hàng.")}</li>
               <li>{t("Kiểm tra điều kiện ưu đãi trước khi mở một liên kết khác.")}</li>
             </ul>
           </div>

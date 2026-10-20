@@ -101,7 +101,9 @@ export function CustomerProductPage({ itemId, backHref }: { itemId: string; back
       setPurchase({ link: result.link, cashback: result.estimatedUserCashbackVnd ?? null });
       trackConversion("generate_cashback_link", "product_page");
     } catch (error) {
-      setPurchaseError(error instanceof Error ? error.message : t("Không thể tạo liên kết hoàn tiền"));
+      setPurchaseError(
+        error instanceof Error ? error.message : t("Không thể tạo liên kết hoàn tiền"),
+      );
     } finally {
       setGenerating(false);
     }

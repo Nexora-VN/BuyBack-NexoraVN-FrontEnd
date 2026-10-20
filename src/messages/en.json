@@ -677,7 +677,7 @@
     "cashbackConfirmed": "Credited cashback",
     "estimateUnavailable": "Cashback estimate unavailable",
     "estimateNote": "The final amount may change after Shopee confirms and reconciles the order.",
-    "ordersDescription": "Orders you place through Piggy appear here.",
+    "ordersDescription": "Orders placed through Piggy appear below (updated daily at 12:00 PM).",
     "accountDescription": "Your profile, withdrawal destinations, and settings.",
     "walletDescription": "Your balance and transaction history.",
     "transactionHistory": "Transaction history",

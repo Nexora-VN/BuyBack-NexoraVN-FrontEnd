@@ -7,10 +7,7 @@ import { useCopy } from "@/i18n/use-copy";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/modules/auth/components/auth-provider";
 import { UserOnboarding } from "@/modules/onboarding/components/user-onboarding";
-import {
-  NotificationBell,
-  NotificationPermissionPrompt,
-} from "@/modules/notifications/components";
+import { NotificationBell, NotificationPermissionPrompt } from "@/modules/notifications/components";
 import { useFcmForegroundListener } from "@/modules/notifications/hooks";
 import { ClipboardList, Home, Link2, LogOut, UserRound, WalletCards } from "lucide-react";
 const nav = [
