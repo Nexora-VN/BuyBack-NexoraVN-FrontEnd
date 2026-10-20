@@ -18,7 +18,9 @@ describe("useCopy error translation", () => {
     expect(result.current.error("Invalid email or password")).toBe(
       "Địa chỉ thư điện tử hoặc mật khẩu không đúng",
     );
-    expect(result.current.error("Invalid credentials")).toBe("Địa chỉ thư điện tử hoặc mật khẩu không đúng");
+    expect(result.current.error("Invalid credentials")).toBe(
+      "Địa chỉ thư điện tử hoặc mật khẩu không đúng",
+    );
   });
 
   it("translates Invalid email or password correctly in English", () => {

@@ -81,9 +81,7 @@ export function NotificationPermissionPrompt() {
         setOpen(false);
       } else if (Notification.permission === "denied") {
         toast.error(
-          t(
-            "Bạn đã từ chối quyền thông báo. Vui lòng mở cài đặt trình duyệt để cấp lại.",
-          ),
+          t("Bạn đã từ chối quyền thông báo. Vui lòng mở cài đặt trình duyệt để cấp lại."),
         );
         setOpen(false);
       } else {
@@ -117,14 +115,12 @@ export function NotificationPermissionPrompt() {
               {t("Đừng bỏ lỡ cập nhật hoàn tiền & số dư")}
             </h3>
             <p className="text-muted-foreground text-sm">
-              {t(
-                "Nhận thông báo tức thì ngay trên thiết bị của bạn khi có biến động giao dịch.",
-              )}
+              {t("Nhận thông báo tức thì ngay trên thiết bị của bạn khi có biến động giao dịch.")}
             </p>
           </div>
         </div>
 
-        <div className="bg-muted/50 rounded-xl p-3.5 space-y-2.5 text-xs sm:text-sm text-left">
+        <div className="bg-muted/50 space-y-2.5 rounded-xl p-3.5 text-left text-xs sm:text-sm">
           <div className="flex items-center gap-2.5">
             <ShoppingBag className="size-4 shrink-0 text-emerald-600" />
             <span>{t("Khớp đơn hàng và ghi nhận hoàn tiền tự động")}</span>
@@ -140,12 +136,7 @@ export function NotificationPermissionPrompt() {
         </div>
 
         <div className="mt-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-          <Button
-            type="button"
-            variant="ghost"
-            disabled={loading}
-            onClick={handleDismiss}
-          >
+          <Button type="button" variant="ghost" disabled={loading} onClick={handleDismiss}>
             {t("Để sau")}
           </Button>
           <Button

@@ -44,6 +44,10 @@ export function UserOrdersPage() {
 
   return (
     <Page title={t("Đơn hàng của bạn")} description={endUser("ordersDescription")}>
+      <div className="mb-4 flex items-center gap-2.5 rounded-xl border border-blue-200/60 bg-blue-50/70 px-4 py-3 text-xs text-blue-900 sm:text-sm dark:border-blue-900/40 dark:bg-blue-950/40 dark:text-blue-200">
+        <Clock3 className="size-4 shrink-0 text-blue-600 dark:text-blue-400" />
+        <span>{t("Đơn hàng mới mua sẽ được hệ thống cập nhật vào 12h00 trưa hàng ngày.")}</span>
+      </div>
       <FinanceTable
         path="me/orders"
         searchLabel={endUser("orderSearch")}

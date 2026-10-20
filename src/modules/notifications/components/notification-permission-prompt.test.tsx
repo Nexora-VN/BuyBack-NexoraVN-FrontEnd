@@ -35,7 +35,7 @@ describe("NotificationPermissionPrompt", () => {
 
   it("does not render when push notification is unsupported", async () => {
     vi.mocked(authModule.useAuth).mockReturnValue({
-      user: { id: "user-1", email: "test@example.com", role: "USER", status: "ACTIVE" },
+      user: { id: "user-1", email: "test@example.com", role: "USER" },
       loading: false,
       login: vi.fn(),
       loginWithGoogle: vi.fn(),

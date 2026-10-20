@@ -104,9 +104,7 @@ export async function unregisterPushNotificationToken(): Promise<void> {
   }
 }
 
-export function listenForegroundPush(
-  callback: (payload: MessagePayload) => void,
-): () => void {
+export function listenForegroundPush(callback: (payload: MessagePayload) => void): () => void {
   let unsubscribe: (() => void) | null = null;
   let active = true;
 

@@ -120,10 +120,7 @@ export function useFcmForegroundListener() {
     const unsubscribe = listenForegroundPush((payload) => {
       queryClient.invalidateQueries({ queryKey: notificationKeys.all });
 
-      const title =
-        payload.notification?.title ||
-        payload.data?.title ||
-        "Thông báo mới";
+      const title = payload.notification?.title || payload.data?.title || "Thông báo mới";
       const body = payload.notification?.body || payload.data?.body || "";
       const href = payload.data?.href || "/app/notifications";
 

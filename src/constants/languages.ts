@@ -8,9 +8,7 @@ export const languages: ReadonlyArray<{
   locale: Locale;
   label: string;
   shortLabel: string;
-}> = [
-  { locale: "vi", label: "Tiếng Việt", shortLabel: "VI" },
-];
+}> = [{ locale: "vi", label: "Tiếng Việt", shortLabel: "VI" }];
 
 export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);

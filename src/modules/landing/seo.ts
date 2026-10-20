@@ -118,7 +118,7 @@ export function landingStructuredData(locale: Locale) {
         email: "theanh.nguyen2039@gmail.com",
         contactPoint: {
           "@type": "ContactPoint",
-        contactType: "hỗ trợ khách hàng",
+          contactType: "hỗ trợ khách hàng",
           email: "theanh.nguyen2039@gmail.com",
           availableLanguage: "vi",
         },
